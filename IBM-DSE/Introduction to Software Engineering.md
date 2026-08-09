@@ -1,4 +1,6 @@
 # Introduction to Software Engineering
+> [!NOTE]
+> A comprehensive primer on software engineering, covering the development lifecycle, programming and web fundamentals, architecture, delivery practices, career pathways, collaboration, inclusion, and professional ethics.
 ## The Software Development Lifecycle
 ### Scope and origins
 Software engineering applies a systematic, disciplined, and measurable approach to the development, operation, maintenance, and retirement of software. It combines technical work with requirements analysis, design, quality assurance, security, delivery, documentation, and collaboration. The discipline aims to produce software that satisfies stakeholder needs and remains reliable, secure, usable, maintainable, and efficient within its operating context.

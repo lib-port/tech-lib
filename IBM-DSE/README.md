@@ -15,7 +15,7 @@ This course includes the following hands-on projects:
 - [Introduction to Cloud Computing](Introduction%20to%20Cloud%20Computing.md)
 - [Introduction to Agile Development and Scrum](Introduction%20to%20Agile%20Development%20and%20Scrum.md) ( :package: [Final Project](projects/Introduction%20to%20Agile%20Development%20and%20Scrum%20Final%20Project.md) )
 - [Introduction to Software Engineering](Introduction%20to%20Software%20Engineering.md)
-- Getting Started with Git and GitHub
+- [Getting Started with Git and GitHub](Getting%20Started%20with%20Git%20and%20GitHub.md) ( :package: [Final Project](projects/Getting%20Started%20with%20Git%20and%20GitHub%20Final%20Project.md) )
 - Hands-on Introduction to Linux Commands and Shell Scripting
 - Python for Data Science, AI & Development
 - Developing AI Applications with Python and Flask
