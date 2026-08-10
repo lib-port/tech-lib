@@ -18,11 +18,11 @@ Prerequisites:
 ## Partial Clone
 To clone only this folder and not rest of repo:
 ```Bash
-git clone --depth=1 --filter=blob:none --sparse https://github.com/libport/data-AI-eng.git
-cd data-AI-eng
+git clone --depth=1 --filter=blob:none --sparse https://github.com/libport/sys-data-AI.git
+cd sys-data-AI
 git sparse-checkout set projects/codecademy/mixed-messages
 mkdir -p ../mixed-messages
 rsync -a projects/codecademy/mixed-messages/ ../mixed-messages/
 cd ..
-rm -rf data-AI-eng
+rm -rf sys-data-AI
 ```
