@@ -9,7 +9,10 @@ This programme is designed for mastery of high-performance data and AI pipelines
 - [Cybersecurity](#cybersecurity)
 - [Custom Portfolio Projects](#custom-portfolio-projects)
 ## Linux and Platform Engineering
+<details>
+<summary>Introduction</summary>
 Linux is the open-source foundation powering much of today’s cloud, server, and digital infrastructure. Platform engineering creates self-service tools and systems that help developers build, deploy, and operate software efficiently. Together, Linux provides the reliable foundation while platform engineering turns it into a streamlined, scalable developer experience.
+</details>
 ### Course Notes and Project Files
 - :notebook: [Red Hat Certified System Administrator](red-hat/RHCSA/README.md) ([course](https://www.pluralsight.com/paths/rhcsa-red-hat-certified-system-administrator-ex200)) 
 - Shell Scripting with Bash ([course](https://www.pluralsight.com/courses/bash-shell-scripting))
@@ -36,7 +39,10 @@ Linux is the open-source foundation powering much of today’s cloud, server, an
 - BPF Performance Tools: Linux System and Application Observability, by Brendan Gregg. ([publisher page](https://www.brendangregg.com/bpf-performance-tools-book.html))
 - Policy as Code, by Jimmy Ray. ([publisher page](https://www.oreilly.com/library/view/policy-as-code/9781098139179/))
 ## Data and AI Engineering
+<details>
+<summary>Introduction</summary>
 Data engineering transforms raw information into reliable, accessible data that powers analysis and decision-making. AI engineering turns intelligent models into dependable, scalable systems that solve real-world problems. AI engineering builds on data engineering, relying on well-governed, high-quality data to train, evaluate, and operate AI effectively. Together, data and AI engineering depend on platform engineering for the shared infrastructure, automation, and guardrails needed to deliver at scale.
+</details>
 ### Course Notes and Project Files
 - :package: [Back-End Engineer Professional Certification](codecademy/backend-engineer/README.md) ([course](https://www.codecademy.com/career-journey/back-end-engineer))
 - :notebook: [GitHub Foundations](pluralsight/github-foundations/README.md) ([course](https://www.pluralsight.com/paths/github-foundations))
@@ -58,7 +64,10 @@ Data engineering transforms raw information into reliable, accessible data that 
 - AI Agents: The Definitive Guide, by Nicole Koenigstein. ([publisher page](https://www.oreilly.com/library/view/ai-agents-the/0642572247775/))
 - Observability Engineering, 2nd edition, by Charity Majors, Liz Fong-Jones, and George Miranda. ([publisher page](https://www.oreilly.com/library/view/observability-engineering-2nd/9781098179915/))
 ## Systems Engineering and Architecture
+<details>
+<summary>Introduction</summary>
 Systems engineering brings people, processes, technology, and requirements together to deliver complex systems that perform reliably throughout their life cycle. Systems architecture defines a system’s high-level structure, including its components, interfaces, and guiding design principles. Systems architecture provides the blueprint, while systems engineering turns it into an integrated, verified, and operational whole. Together, systems engineering and architecture give data and AI engineering the structure, interfaces, and discipline needed to transform pipelines and models into dependable, integrated capabilities.
+</details>
 ### Course Notes and Project Files
 - :construction: :notebook: [Associate Systems Engineer to Principal Systems Engineer](codecademy/ASEPSE/README.md) ([course](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey))
 - Microservices Architecture ([course](https://www.pluralsight.com/paths/microservices-architecture-new))
@@ -71,8 +80,10 @@ Systems engineering brings people, processes, technology, and requirements toget
 - Software Architecture in Practice, 4th edition, by Len Bass, Paul Clements, and Rick Kazman. ([publisher page](https://www.informit.com/store/software-architecture-in-practice-9780136885887))
 - Software Architecture: The Hard Parts, by Neal Ford, Mark Richards, Pramod Sadalage, and Zhamak Dehghani. ([publisher page](https://www.oreilly.com/library/view/software-architecture-the/9781492086888/))
 - Building Evolutionary Architectures, 2nd edition, by Neal Ford, Rebecca Parsons, Patrick Kua, and Pramod Sadalage. ([publisher page](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781492097532/))
-## Cybersecurity
+## Cybersecurity<details>
+<summary>Introduction</summary>
 Cybersecurity protects digital systems, data, and operations by managing risk and defending against disruption, theft, and misuse. In platform engineering, cybersecurity embeds secure defaults, automated controls, and continuous monitoring into shared infrastructure and developer workflows. In data and AI engineering, it safeguards sensitive data, models, pipelines, and AI services against unauthorized access, manipulation, and abuse. Across systems engineering and systems architecture, cybersecurity shapes requirements, trust boundaries, controls, and resilience throughout the system life cycle.
+</details>
 ### Course Notes and Project Files
 - :package: :notebook: [IBM Cybersecurity Analyst Professional Certificate](IBM/IBM-CySA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst))
 - Google Cloud Cybersecurity Professional Certificate ([course](https://www.coursera.org/professional-certificates/google-cloud-cybersecurity-certificate))
@@ -105,4 +116,4 @@ Cybersecurity protects digital systems, data, and operations by managing risk an
 > [!WARNING]
 > Solutions to labs and projects are my own and validated as correct with tests, but are not the solutions provided by the courses and may not be optimal solutions. Solutions provided by the courses have not been provided in the notes.
 
-[Return to top](#platform-data-and-ai-engineering--systems-architecture--cybersecurity-programme) :arrow_double_up:
+:arrow_double_up: [Return to top](#platform-data-and-ai-engineering--systems-architecture--cybersecurity-programme)
