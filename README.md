@@ -2,7 +2,8 @@
 Notes and project files covering Linux, platform engineering, data engineering, AI engineering, system architecture, and cybersecurity. Course providers include IBM, TCM Security, Codecademy, Pluralsight, Databricks, AWS, and Johns Hopkins University.
 
 This programme is designed for mastery of high-performance data and AI pipelines on reliable on-premises and cloud architectures of Linux-based systems secured with intelligent continuous security.
-## Index
+
+**Index**
 - [Linux and Platform Engineering](#linux-and-platform-engineering)
 - [Data and AI Engineering](#data-and-ai-engineering)
 - [Systems Engineering and Architecture](#systems-engineering-and-architecture)

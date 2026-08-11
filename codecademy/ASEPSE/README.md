@@ -10,7 +10,7 @@ These notes cover material from Codecademy's 52-hour, self-paced, [Associate Sys
 - [Requirements Engineering: An Introduction](requirements-engineer/Requirements%20Engineering%20An%20Introduction.md)
 - [Requirements Engineering: Elicitation](requirements-engineer/Requirements%20Engineering%20Elicitation.md)
 - [Requirements Engineering Analysis and Specification](requirements-engineer/Requirements%20Engineering%20Analysis%20and%20Specification.md)
-- Requirements Engineering: Validation and Verification
+- [Requirements Engineering Validation and Verification](requirements-engineer/Requirements%20Engineering%20Validation%20and%20Verification.md)
 - Requirements Engineering: Management and Traceability
 ### Track 3: Systems Designer
 - Systems Engineering Process: System Analysis & Modeling
