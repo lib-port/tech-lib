@@ -14,11 +14,11 @@ This 6-month, self-paced program teaches the job-ready skills needed for data en
 - Design, deploy, and manage an end-to-end data engineering platform.
 ## Module Notes and Project Files
 - [Introduction to Data Engineering](Introduction%20to%20Data%20Engineering.md)
-- [Python for Data Science, AI & Development](Python%20for%20Data%20Science,%20AI%20&%20Development.md)
+- [Python for Data Science, AI & Development](../IBM-DSE/Python%20for%20Data%20Science,%20AI%20&%20Development.md)
 - Python Project for Data Engineering
 - Introduction to Relational Databases (RDBMS)
 - Databases and SQL for Data Science with Python
-- Hands-on Introduction to Linux Commands and Shell Scripting
+- [Hands-on Introduction to Linux Commands and Shell Scripting](../IBM-DSE/Hands-on%20Introduction%20to%20Linux%20Commands%20and%20Shell%20Scripting.md) ( :package [Project](../IBM-DSE/projects/Hands-on%20Introduction%20to%20Linux%20Commands%20and%20Shell%20Scripting%20Final%20Project.md) )
 - Relational Database Administration (DBA)
 - ETL and Data Pipelines with Shell, Airflow and Kafka
 - Data Warehouse Fundamentals

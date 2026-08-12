@@ -13,11 +13,11 @@ This course includes the following hands-on projects:
 ## Module Notes and Project Files
 - [Introduction to DevOps](Introduction%20to%20DevOps.md)
 - [Introduction to Cloud Computing](Introduction%20to%20Cloud%20Computing.md)
-- [Introduction to Agile Development and Scrum](Introduction%20to%20Agile%20Development%20and%20Scrum.md) ( :package: [Final Project](projects/Introduction%20to%20Agile%20Development%20and%20Scrum%20Final%20Project.md) )
+- [Introduction to Agile Development and Scrum](Introduction%20to%20Agile%20Development%20and%20Scrum.md) ( :package: [Project](projects/Introduction%20to%20Agile%20Development%20and%20Scrum%20Final%20Project.md) )
 - [Introduction to Software Engineering](Introduction%20to%20Software%20Engineering.md)
-- [Getting Started with Git and GitHub](Getting%20Started%20with%20Git%20and%20GitHub.md) ( :package: [Final Project](projects/Getting%20Started%20with%20Git%20and%20GitHub%20Final%20Project.md) )
-- [Hands-on Introduction to Linux Commands and Shell Scripting](Hands-on%20Introduction%20to%20Linux%20Commands%20and%20Shell%20Scripting.md) ( :package: [Final Project](projects/Hands-on%20Introduction%20to%20Linux%20Commands%20and%20Shell%20Scripting%20Final%20Project.md) )
-- Python for Data Science, AI & Development
+- [Getting Started with Git and GitHub](Getting%20Started%20with%20Git%20and%20GitHub.md) ( :package: [Project](projects/Getting%20Started%20with%20Git%20and%20GitHub%20Final%20Project.md) )
+- [Hands-on Introduction to Linux Commands and Shell Scripting](Hands-on%20Introduction%20to%20Linux%20Commands%20and%20Shell%20Scripting.md) ( :package: [Project](projects/Hands-on%20Introduction%20to%20Linux%20Commands%20and%20Shell%20Scripting%20Final%20Project.md) )
+- [Python for Data Science, AI & Development](Python%20for%20Data%20Science,%20AI%20&%20Development.md)
 - Developing AI Applications with Python and Flask
 - Introduction to Containers w/ Docker, Kubernetes & OpenShift
 - Application Development using Microservices and Serverless
