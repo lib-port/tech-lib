@@ -3,7 +3,7 @@ Notes and project files covering Linux, platform engineering, data engineering, 
 
 This programme is designed for mastery of high-performance data and AI pipelines on reliable on-premises and cloud architectures of Linux-based systems secured with intelligent continuous security.
 
-:notebook: = note(s) | :package: = project(s) | :gear: = lab(s) | :construction: = in progress
+:notebook: = notes | :package: = project(s) | :gear: = lab(s) | :construction: = in progress
 
 **Index**
 - [Linux and Platform Engineering](#linux-and-platform-engineering)
@@ -123,6 +123,9 @@ Cybersecurity protects digital systems, data, and operations by managing risk an
 - Trust in Computer Systems and the Cloud, by Mike Bursell. ([catalogue](https://www.wiley.com/en-us/trust-in-computer-systems-and-the-cloud-p-9781119695158))
 - Intelligent Continuous Security, by Marc Hornbeek. ([catalogue](https://www.oreilly.com/library/view/intelligent-continuous-security/9798341615908/))
 ## Custom Portfolio Projects
+### Platform Engineering
+#### GitOps
+- :package: [GitHub CLI Bulk Issue Creator for Courses Script](./projects/course-issues/README.md)
 ### Data Engineering
 - :package: [Open Banking (CDR) Product & Pricing Lakehouse](../../../open-banking-lakehouse)
 - :package: [Pricing Function Mapper](../../../pricing-function-mapper)
