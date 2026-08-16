@@ -80,7 +80,7 @@ Data engineering transforms raw information into reliable, accessible data that 
 ## Systems Engineering and Architecture
 <details>
 <summary>Introduction</summary>
-Systems engineering brings people, processes, technology, and requirements together to deliver complex systems that perform reliably throughout their life cycle. Systems architecture defines a system’s high-level structure, including its components, interfaces, and guiding design principles. Systems architecture provides the blueprint, while systems engineering turns it into an integrated, verified, and operational whole. Together, systems engineering and architecture provide the overarching structure, interfaces, and design discipline that platform engineering internationalises, enabling data and AI engineering to build scalable, integrated, and reliable capabilities.
+Systems engineering brings people, processes, technology, and requirements together to deliver complex systems that perform reliably throughout their life cycle. Systems architecture defines a system’s high-level structure, including its components, interfaces, and guiding design principles. Systems architecture provides the blueprint, while systems engineering turns it into an integrated, verified, and operational whole. Together, systems engineering and architecture provide the overarching structure, interfaces, and design discipline that platform engineering operationalises, enabling data and AI engineering to build scalable, integrated, and reliable capabilities.
 </details>
 
 ### Course Notes and Project
