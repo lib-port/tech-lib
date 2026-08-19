@@ -15,7 +15,7 @@ These notes cover material from Codecademy's 52-hour, self-paced, [Associate Sys
 ### Track 3: Systems Designer
 - [Systems Engineering Process: System Analysis & Modeling](systems-designer/Systems%20Engineering%20Process%20System%20Analysis%20&%20Modeling.md)
 - [Systems Engineering Process: Human Factors in System Design](systems-designer/Systems%20Engineering%20Process%20Human%20Factors%20in%20System%20Design.md)
-- Systems Engineering Process: Design Principles
+- [Systems Engineering Process: Design Principles](systems-designer/Systems%20Engineering%20Process%20Design%20Principles.md)
 - Systems Engineering Process: Design Tools & Techniques
 - Collaborative System Design
 - System Design Standards & Compliance

@@ -120,7 +120,7 @@ Libraries provide reusable code that an application calls. Frameworks usually su
 
 Continuous integration merges changes frequently and runs automated builds and tests to produce assessed artefacts. Continuous delivery keeps approved changes releasable and can deploy them to non-production environments. Continuous deployment automatically promotes qualifying changes to production. Teams may automate compilation, transpilation, bundling, testing, packaging, signing, and deployment within these pipelines.
 
-Webpack bundles modules, and Babel compiles modern JavaScript syntax for selected environments. WebAssembly is a portable binary instruction format and compilation target, not a build tool. Build utilities transform sources and coordinate tasks, while automation servers or hosted workflows trigger those utilities.
+Webpack bundles modules, and Babel compiles modern JavaScript syntax for selected environments. WebAssembly is a portable binary instruction format and compilation target. Build utilities transform sources and coordinate tasks, while automation servers or hosted workflows trigger those utilities.
 
 Packages combine distributable artefacts with metadata such as names, versions, and dependencies. Package managers locate, install, update, verify, and remove packages, subject to each ecosystem's design. Examples include npm for JavaScript, pip for Python, and RubyGems for Ruby. Maven and Gradle primarily provide Java ecosystem build and dependency-management capabilities. Lockfiles improve repeatability, while signature checks, provenance, vulnerability review, and controlled registries reduce supply-chain risk.
 ### Software stacks
@@ -133,7 +133,7 @@ No stack remains best for every workload. Teams should compare data models, cons
 ### Compilers, interpreters, and execution
 Programming languages let developers express instructions in human-readable forms. Toolchains and runtimes ultimately cause processors to execute binary machine instructions.
 
-"Compiled" and "interpreted" describe implementation strategies, not exclusive language classes. A compiler translates source before or during execution into native code, object files, bytecode, or another intermediate form. An interpreter executes source or an intermediate representation through a runtime. Linkers and packagers may produce an executable, several files, or an application bundle.
+"Compiled" and "interpreted" describe implementation strategies. A compiler translates source before or during execution into native code, object files, bytecode, or another intermediate form. An interpreter executes source or an intermediate representation through a runtime. Linkers and packagers may produce an executable, several files, or an application bundle.
 
 Modern implementations often combine strategies. CPython compiles Python to bytecode and executes it in a virtual machine. Java normally compiles to Java Virtual Machine bytecode, which a runtime can interpret or compile just in time. JavaScript engines use just-in-time compilation in browsers and servers. C and C++ commonly compile ahead of time to native code. C# is a distinct language that normally targets .NET.
 
