@@ -2,9 +2,9 @@
 > [!NOTE]
 > A practical introduction to essential RHEL command-line skills, covering lab setup, remote access, text processing, file management, permissions, ownership, links, archiving, and compression.
 ## RHEL 8 and a safe practice environment
-Red Hat Enterprise Linux 8 is an enterprise Linux distribution built for long support cycles, controlled updates, and stable application compatibility. As of July 2026, RHEL 8 is in Maintenance Support, which Red Hat currently schedules through 31 May 2029. Application Streams can have shorter life cycles than the operating system, so administrators must check the life cycle of each selected stream.
+Red Hat Enterprise Linux 8 is an enterprise Linux distribution built for long support cycles, controlled updates, and stable application compatibility. Application Streams can have shorter life cycles than the operating system, so administrators must check the life cycle of each selected stream.
 
-A RHEL subscription governs access to Red Hat repositories, updates, support services, and related content. It does not follow that RHEL binaries and updates carry no conditions because much of the underlying software uses open-source licences. An eligible Red Hat account and subscription can register a development or production system. Interactive registration avoids exposing a password in shell history or a process list:
+A RHEL subscription governs access to Red Hat repositories, updates, support services, and related content. Much of the underlying software uses open-source licences, but RHEL binaries and updates may carry conditions. An eligible Red Hat account and subscription can register a development or production system. Interactive registration avoids exposing a password in shell history or a process list:
 
 ```shell
 sudo subscription-manager register

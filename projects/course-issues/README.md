@@ -279,3 +279,14 @@ the script's global issue namespace.
 - [GitHub REST API: milestones](https://docs.github.com/en/rest/issues/milestones)
 - [GitHub REST API: labels](https://docs.github.com/en/rest/issues/labels)
 - [PyYAML documentation](https://pyyaml.org/wiki/PyYAMLDocumentation)
+
+## Partial Clone
+```shell
+git clone --depth=1 --filter=blob:none --sparse https://github.com/libport/sys-data-AI.git
+cd sys-data-AI
+git sparse-checkout set projects/course-issues
+mkdir -p ../course-issues
+rsync -a projects/course-issues/ ../course-issues/
+cd ..
+rm -rf sys-data-AI
+```

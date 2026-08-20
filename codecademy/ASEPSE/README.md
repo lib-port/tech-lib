@@ -16,12 +16,12 @@ These notes cover material from Codecademy's 52-hour, self-paced, [Associate Sys
 - [Systems Engineering Process: System Analysis & Modeling](systems-designer/Systems%20Engineering%20Process%20System%20Analysis%20&%20Modeling.md)
 - [Systems Engineering Process: Human Factors in System Design](systems-designer/Systems%20Engineering%20Process%20Human%20Factors%20in%20System%20Design.md)
 - [Systems Engineering Process: Design Principles](systems-designer/Systems%20Engineering%20Process%20Design%20Principles.md)
-- Systems Engineering Process: Design Tools & Techniques
-- Collaborative System Design
-- System Design Standards & Compliance
-- System Development Process
-- System Integration & Verification
-- Systems Engineering for Complex Systems
+- [Systems Engineering Process Design Tools & Techniques](systems-designer/Systems%20Engineering%20Process%20Design%20Tools%20&%20Techniques.md)
+- [Collaborative System Design](systems-designer/Collaborative%20System%20Design.md)
+- [System Design Standards & Compliance](systems-designer/System%20Design%20Standards%20&%20Compliance.md)
+- [System Development Process](systems-designer/System%20Development%20Process.md)
+- [System Integration & Verification](systems-designer/System%20Integration%20&%20Verification.md)
+- [Systems Engineering for Complex Systems](systems-designer/Systems%20Engineering%20for%20Complex%20Systems.md)
 ### Track 4: Systems Architect
 - Decision Analysis and Management: System Safety & Reliability
 - Decision Analysis and Management: System Testing & Reliability

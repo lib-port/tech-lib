@@ -72,3 +72,4 @@ mkdir -p ../photo-caption-contest
 rsync -a projects/codecademy/photo-caption-contest/ ../photo-caption-contest/
 cd ..
 rm -rf sys-data-AI
+```
