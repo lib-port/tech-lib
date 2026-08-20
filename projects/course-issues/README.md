@@ -282,7 +282,7 @@ the script's global issue namespace.
 
 ## Partial Clone
 ```shell
-git clone --depth=1 --filter=blob:none --sparse https://github.com/libport/sys-data-AI.git
+git clone --depth=1 --filter=blob:none --sparse https://gitlab.com/libraryport/sys-data-AI.git
 cd sys-data-AI
 git sparse-checkout set projects/course-issues
 mkdir -p ../course-issues
