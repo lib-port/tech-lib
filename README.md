@@ -1,4 +1,4 @@
-# Platform, Data, and AI Engineering + Systems Architecture + Cybersecurity Library
+# Tech Library
 Notes and project files covering Linux, platform engineering, data engineering, AI engineering, system architecture, and cybersecurity. Course providers include IBM, TCM Security, Codecademy, Pluralsight, Databricks, AWS, and Johns Hopkins University.
 
 :notebook: = notes | :package: = project(s) | :gear: = lab(s) | :construction: = in progress
@@ -16,7 +16,7 @@ Linux is the open-source foundation powering much of today’s cloud, server, an
 - :notebook: [Red Hat Certified Specialist in Linux Diagnostics and Troubleshooting](red-hat/RHCSLDT/README.md) ([course](https://www.pluralsight.com/paths/red-hat-certified-specialist-in-linux-diagnostics-and-troubleshooting-ex342))
 - :notebook: [Red Hat Certified Specialist in Performance Tuning](red-hat/RHCSPT/README.md) ([course](https://www.pluralsight.com/courses/red-hat-certified-specialist-in-performance-tuning-ex442))
 - :notebook: [Red Hat Certified Specialist in Containers](red-hat/RHCSC/README.md) ([course](https://www.pluralsight.com/paths/red-hat-certified-specialist-in-containers-ex188))
-- :notebook: [Docker](pluralsight/docker%201/README.md) ([course](https://www.pluralsight.com/paths/managing-docker-in-production))
+- :notebook: [Docker](pluralsight/docker/README.md) ([course](https://www.pluralsight.com/paths/managing-docker-in-production))
 - :notebook: [Certified Kubernetes Administrator](pluralsight/CKA/README.md) ([course](https://www.pluralsight.com/paths/certified-kubernetes-administrator))
 - Red Hat OpenShift Administration ([course](https://app.pluralsight.com/paths/skill/red-hat-openshift-administration))
 - GitOps ([course](https://www.pluralsight.com/paths/gitops))
@@ -49,7 +49,7 @@ Data engineering transforms raw information into reliable, accessible data that 
 ### Course Notes and Project
 - :package: [Back-End Engineer Professional Certification](codecademy/backend-engineer/README.md) ([course](https://www.codecademy.com/career-journey/back-end-engineer))
 - :notebook: [GitHub Foundations](pluralsight/github-foundations/README.md) ([course](https://www.pluralsight.com/paths/github-foundations))
-- :notebook: [Docker for Software Development](pluralsight/docker/README.md) ([course](https://www.pluralsight.com/paths/docker-for-software-development))
+- :notebook: [Docker for Software Development](pluralsight/docker-for-SD/README.md) ([course](https://www.pluralsight.com/paths/docker-for-software-development))
 - :construction: :notebook: [IBM Data Engineering Professional Certificate](IBM/IBM-DE/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-data-engineer))
 - AWS Certified Data Engineer - Associate ([course](https://www.codecademy.com/learn/ext-paths/dea-c01-aws-certified-data-engineer-associate))
 - IBM AI Engineering Professional Certificate ([course](https://www.coursera.org/professional-certificates/ai-engineer))
@@ -118,14 +118,14 @@ Cybersecurity protects digital systems, data, and operations by managing risk an
 #### GitOps
 - :package: [GitHub CLI Bulk Issue Creator for Courses Script](./projects/course-issues/README.md)
 ### Data Engineering
-- :package: [Open Banking (CDR) Product & Pricing Lakehouse](../../../open-banking-lakehouse)
-- :package: [Pricing Function Mapper](../../../pricing-function-mapper)
-- :package: [Event-Driven Backtesting Platform](../../../backtest)
+- :package: [Open Banking (CDR) Product & Pricing Lakehouse](https://github.com/libport/open-banking-lakehouse)
+- :package: [Pricing Function Mapper](https://github.com/libport/pricing-function-mapper)
+- :package: [Event-Driven Backtesting Platform](https://github.com/libport/backtest)
 ### Cybersecurity
-- :package: [Ansible CIS-based Auditing System for Debian OSes](../../../ansible-linux-audit)
-- :package: [Ansible Detection-as-Code Engine for HTB Labs](../../../agentless-DaC)
+- :package: [Ansible CIS-based Auditing System for Debian OSes](https://github.com/libport/ansible-linux-audit)
+- :package: [Ansible Detection-as-Code Engine for HTB Labs](https://github.com/libport/agentless-DaC)
+## Miscellaneous Notes
+
 
 > [!WARNING]
 > Solutions to labs and projects are my own and were validated as correct with tests, but are not the solutions provided by the courses and may not be optimal solutions. Solutions provided by the courses have not been provided in the notes.
-
-:arrow_double_up: [Return to top](#platform-data-and-ai-engineering--systems-architecture--cybersecurity-programme)

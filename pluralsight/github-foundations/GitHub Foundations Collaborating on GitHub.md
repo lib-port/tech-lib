@@ -1,4 +1,4 @@
-# Collaborating on GitHub
+# GitHub Foundations: Collaborating on GitHub
 > [!NOTE]
 > A comprehensive guide to coordinating software work through effective branching, focused pull requests, disciplined reviews, issue tracking, discussions, notifications, and supporting tools such as forks, Pages, and Gists.
 

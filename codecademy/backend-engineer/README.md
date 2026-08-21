@@ -13,7 +13,7 @@ This 3-month, self-paced program teaches the server-side technologies behind mod
 - Building Interactive Websites with JavaScript
 - JavaScript Syntax, Part III
 - Git and Github, Part I
-- :package: **Project:** [Mixed Messages](../../projects/codecademy/mixed-messages/)
+- :package: **Project:** [Mixed Messages](https://github.com/libport/sys-data-AI/tree/main/projects/codecademy/mixed-messages/)
 ### Back-End Development
 - Async JavaScript and HTTP Requests
 - Basics of Back-End Development
@@ -29,7 +29,7 @@ This 3-month, self-paced program teaches the server-side technologies behind mod
 - JavaScript Testing
 - Software Design Principles
 - API Development with Swagger and OpenAPI
-- :package: **Project:** [Personal Budget I & II](../../projects/codecademy/personal-budget/)
+- :package: **Project:** [Personal Budget I & II](https://github.com/libport/sys-data-AI/tree/main/projects/codecademy/personal-budget/)
 ### Security, Infrastructure, and Scalability
 - Web Security Fundamentals
 - User Authentication and Authorization
@@ -39,7 +39,7 @@ This 3-month, self-paced program teaches the server-side technologies behind mod
 - Caching and CDNs
 - Scalability
 - DevOps Fundamentals
-- :package: **Project:** [Photo Caption Contest](../../projects/codecademy/photo-caption-contest/)
+- :package: **Project:** [Photo Caption Contest](https://github.com/libport/sys-data-AI/tree/main/projects/codecademy/photo-caption-contest/)
 ### Interview Prep
 - Linear Data Structures
 - Complex Data Structures

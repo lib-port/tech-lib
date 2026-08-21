@@ -4,7 +4,7 @@
 ## Git and GitHub Fundamentals
 Git is a free, open-source distributed version control system created by Linus Torvalds in 2005 for Linux development. It records project history as commits, supports independent branches, and allows each clone to contain a local copy of the repository and its history. Contributors can work locally, then exchange changes with other repositories or hosted remotes.
 
-Git uses hashes to identify objects and detect changed content. Contributors can sign commits and tags so others can verify them against a trusted key. A hash alone does not identify a contributor. Git handles source code particularly well, although it can track many file types. Text files usually support more useful comparisons and merges than binary files.
+Git uses hashes to identify objects and detect changed content. Contributors can sign commits and tags so others can verify them against a trusted key. Git handles source code particularly well, although it can track many file types. Text files usually support more useful comparisons and merges than binary files.
 
 | Term | Meaning |
 | --- | --- |

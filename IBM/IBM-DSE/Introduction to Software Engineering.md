@@ -168,7 +168,10 @@ A function packages callable behaviour for reuse, testing, and composition. It m
 Procedural programming organises computation around operations and control flow. Object-oriented programming groups related state and behaviour in objects. Classes or prototypes often define them. Fields or attributes store state, and methods provide behaviour. Encapsulation, composition, and inheritance can model a domain effectively, but excessive hierarchies and boilerplate can reduce flexibility. Many systems combine procedural, object-oriented, and functional techniques. The problem, ecosystem, and maintainability needs should guide the choice.
 ## Software Architecture, Design, and Patterns
 ### Architecture and design decisions
-Software architecture describes a system's fundamental structures, interactions, operating environment, and guiding principles. It records significant decisions that shape implementation and often become costly to reverse. Architecture addresses functional responsibilities and quality attributes such as performance, scalability, availability, security, interoperability, maintainability, and operability.
+Software architecture describes a system's fundamental structures, interactions, operating environment, and guiding principles. It records ==significant decisions that shape implementation and often become costly to reverse==. Architecture addresses functional responsibilities and quality attributes such as performance, scalability, availability, security, interoperability, maintainability, and operability.
+
+> [!NOTE]
+> As technical development costs drop due to AI, the social aspect of enterprise systems may become the bottleneck. The "social" in techno-social system may become more and more heavily weighted in architecture considerations in the future, as capability gaps and entrenched organisational processes become the most expensive implementations to reverse.
 
 Effective architecture balances stakeholder concerns, exposes trade-offs, and guides technology choices and production topology. Requirements should determine the stack. Architecture evolves during iterative development as teams test assumptions and learn from operation.
 

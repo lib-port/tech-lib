@@ -1,4 +1,4 @@
-## GitHub Codespaces
+# GitHub Foundations: GitHub Codespaces
 > [!NOTE]
 > A practical guide to creating, configuring, securing, and cost-managing reproducible cloud development environments that streamline onboarding and support building, testing, and debugging from anywhere.
 

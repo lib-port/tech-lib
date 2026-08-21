@@ -1,15 +1,17 @@
-# *Docker for Software Development* Course Notes
-These notes cover Pluralsight's 15-hour, self-paced [Docker for Software Development](https://www.pluralsight.com/paths/docker-for-software-development) course on the practical skills to containerise, build, test, and deploy applications using Docker. The notes cover foundational concepts, advanced tools like Docker Compose, and language-specific workflow to streamline modern app development
-## Module Notes:
-- [Docker for Software Development: Docker Foundations](Docker%20for%20Software%20Development%20Docker%20Foundations.md)
-- [Docker for Software Development: Docker Compose](Docker%20for%20Software%20Development%20Docker%20Compose.md)
-- [Docker for Software Development: Your First Docker App](Docker%20for%20Software%20Development%20Your%20First%20Docker%20App.md)
-- [Docker for Software Development: Node.js Apps](Docker%20for%20Software%20Development%20Node.js%20Apps.md)
-- [Docker for Software Development: Python Apps](Docker%20for%20Software%20Development%20Python%20Apps.md)
-- [Docker for Software Development: React Apps](Docker%20for%20Software%20Development%20React%20Apps.md)
-- [Docker for Software Development: SQL Server](Docker%20for%20Software%20Development%20SQL%20Server.md)
-- [Docker for Software Development: Deploying Apps](Docker%20for%20Software%20Development%20Deploying%20Apps.md)
-- [Docker for Software Development: Developing Docker Apps](Docker%20for%20Software%20Development%20Developing%20Docker%20Apps.md)
+# *Docker* Course Notes
+*v1.0 stable release*
+
+These notes cover material from Pluralsight's 30-hour, self-paced [Docker](https://www.pluralsight.com/paths/managing-docker-in-production) course. The notes cover the fundamentals of using Docker to manage containerization needs. The notes cover the purpose of containers and how Docker fits into the picture. It then moves on to the different techniques and settings you might need for managing Docker containers.
+## Notes:
+- [Docker Basic Concepts and Configuration](Docker%20Basic%20Concepts%20and%20Configuration.md)
+- [Deploying a Containerized Application with Docker](Deploying%20a%20Containerized%20Application%20with%20Docker.md)
+- [Managing Container Images](Managing%20Container%20Images.md)
+- [Microservices with Docker](Microservices%20with%20Docker.md)
+- [Docker Security Implementation](Docker%20Security%20Implementation.md)
+- [Preparing Docker Apps for Production](Preparing%20Docker%20Apps%20for%20Production.md)
+- [Getting Started with Docker Swarm](Getting%20Started%20with%20Docker%20Swarm.md)
+- [Tactics and Tools for Troubleshooting Docker](Tactics%20and%20Tools%20for%20Troubleshooting%20Docker.md)
+- [Getting Started with Docker and AI](Getting%20Started%20with%20Docker%20and%20AI.md)
 ## Further Reading
 Notes are supplemented with information from third-party sources, including:
-- [Docker: Up & Running](https://www.oreilly.com/library/view/docker-up/9781098131814/), 3rd Edition, by Sean P. Kane and Karl Matthias
+- Docker: Up & Running, 3rd Edition, by Sean P. Kane and Karl Matthias. ([publisher page](https://www.oreilly.com/library/view/docker-up/9781098131814/))

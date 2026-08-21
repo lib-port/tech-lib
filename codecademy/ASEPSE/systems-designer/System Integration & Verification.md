@@ -1,5 +1,4 @@
 # System Integration & Verification
-# System Integration and Verification
 System integration combines lower-level elements into a functioning system and manages their interactions with users, external systems, and operating environments. It applies to hardware, software, data, facilities, procedures, and services. Integration begins during concept and architecture development, continues through assembly and deployment, and extends into operation, modification, and retirement.
 
 Verification and validation answer different questions. Verification produces objective evidence that a system or element satisfies its specified requirements and design constraints. Validation confirms that the verified system fulfils its intended use in its intended environment and meets baselined stakeholder expectations. A system can pass verification yet fail validation if its requirements do not capture the real operational need.

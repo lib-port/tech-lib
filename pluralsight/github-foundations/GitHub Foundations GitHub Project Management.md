@@ -1,4 +1,4 @@
-## Managing software projects with GitHub
+# GitHub Foundations: GitHub Project Management
 > [!NOTE]
 > A practical guide to planning and tracking delivery with configurable Projects and milestones, marking important versions with Git tags, publishing documented releases, and maintaining detailed repository wikis.
 

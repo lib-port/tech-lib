@@ -1,5 +1,4 @@
 # Systems Engineering for Complex Systems
-# Systems Engineering for Complex Systems
 Systems engineering integrates technical and management disciplines to realise, use, support, and retire engineered systems across their life cycles. It connects stakeholder needs, requirements, architecture, implementation, integration, verification, validation, operation, and change.
 
 Complexity does not arise from size alone. Complex systems contain diverse, interdependent elements whose non-linear interactions, feedback, open boundaries, adaptation, and emergent behaviour can obscure cause and effect. A large but stable system may be complicated rather than complex. Statistical methods can handle some disorganised complexity, while organised complexity requires analysis of interactions and feedback. No single metric captures every relevant dimension of complexity, so engineers should characterise structural, dynamic, organisational, and socio-technical sources separately.

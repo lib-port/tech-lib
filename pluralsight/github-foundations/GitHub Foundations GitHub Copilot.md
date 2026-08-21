@@ -1,4 +1,4 @@
-## GitHub Copilot foundations
+# GitHub Foundations: GitHub Copilot
 > [!NOTE]
 > A concise introduction to using Copilot’s code suggestions, chat, and agent capabilities through focused prompts, relevant context, incremental changes, and rigorous human verification.
 

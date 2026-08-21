@@ -309,7 +309,7 @@ Prepare an incident report to inform the management about the identified inciden
 > You are a cybersecurity engineer with 10 years of experience. Produce an incident report of less than 500 words to inform management about the incident identified from the logs. Line management has technical cybersecurity experience, higher management has general GRC experience but not specific cybersecurity experience. Produce the report in a formal incident response template aligned with ISO/IEC 27035. Format the report as a PDF.
 
 ### AI Response
-[Information Security Incident Report](files/Information%20Security%20Incident%20Report.md)
+[Information Security Incident Report](Information%20Security%20Incident%20Report.md)
 ## Exercise 5: Playbook generation for phishing and malware attack
 Having conducted the analysis, it's apparent that your organization has become a target of a phishing attack, leading to systems compromised by malware. With no existing playbook for handling such attacks, you now seek assistance to craft a playbook that effectively manages and mitigates the impact of phishing and malware attacks, utilizing the capabilities of AI.
 ### AI  Prompt

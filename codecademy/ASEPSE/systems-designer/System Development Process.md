@@ -1,4 +1,4 @@
-# System Development Process# System Development Process
+# System Development Process
 Systems engineering coordinates technical work, project governance, and stakeholder decisions across a system's life cycle. An effective process connects business or mission needs to requirements, architecture, implementation, integration, verification, validation, operation, support, and retirement. It also adapts the development approach, controls changes, measures performance, and preserves knowledge for later work.
 
 The Systems Engineering Body of Knowledge, known as SEBoK, provides a shared vocabulary and a generic reference model. Organisations still tailor that model to the system, domain, assurance obligations, acquisition strategy, and operating context.

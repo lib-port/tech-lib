@@ -1,4 +1,4 @@
-# Adopting an InnerSource Culture with GitHub
+# GitHub Foundations: Adopting an InnerSource Culture with GitHub
 > [!NOTE]
 > A strategic guide to applying open-source practices inside an organization through discoverable projects, clear governance, contributor-friendly workflows, responsive maintainers, measurable pilots, and sustainable cross-team collaboration.
 ## InnerSource and its purpose

@@ -1,4 +1,4 @@
-## GitHub Copilot, AI agents and MCP
+# GitHub Copilot Fundamentals: AI Agents
 > [!NOTE]
 > A comprehensive guide to using Copilot’s local and cloud agents, MCP integrations, Spark, and repository customizations to delegate development work safely while preserving human oversight, least-privilege access, and rigorous review.
 
