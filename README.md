@@ -1,7 +1,7 @@
 # Tech Library
 
-[![GitBook site](https://img.shields.io/badge/gitbook-site-orange?style=flat-square&logo=gitbook)](https://lib-port.gitbook.io/tech-lib)
-[![GitHub repo](https://img.shields.io/badge/github-repo-blue?style=flat-square&logo=github)](https://github.com/lib-port/tech-lib)
+[![GitBook site](https://img.shields.io/badge/gitbook-site-orange?style=flat-square)](https://lib-port.gitbook.io/tech-lib)
+[![GitHub repo](https://img.shields.io/badge/github-repo-blue?style=flat-square)](https://github.com/lib-port/tech-lib)
 
 Notes and project files covering Linux, platform engineering, data engineering, AI engineering, system architecture, and cybersecurity. Course providers include IBM, TCM Security, Codecademy, Pluralsight, Databricks, AWS, and Johns Hopkins University.
 
