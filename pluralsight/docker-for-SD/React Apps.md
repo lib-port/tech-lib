@@ -1,4 +1,4 @@
-# Docker for Software Development: React Apps
+# React Apps
 > [!NOTE]
 > A practical guide to creating fast, secure, and portable React containers with live-reloading development environments, optimized multi-stage builds, Nginx-based production serving, client-side routing, and safe configuration.
 ## Purpose and context

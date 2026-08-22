@@ -1,4 +1,4 @@
-# Docker for Software Development: Docker Foundations
+# Docker Foundations
 > [!NOTE]
 > A comprehensive introduction to Docker’s core workflow: building secure, portable images, distributing them through registries, and running disposable containers individually or as multi-service applications with Compose.
 

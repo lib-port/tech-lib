@@ -2,6 +2,10 @@
 Notes and project files covering Linux, platform engineering, data engineering, AI engineering, system architecture, and cybersecurity. Course providers include IBM, TCM Security, Codecademy, Pluralsight, Databricks, AWS, and Johns Hopkins University.
 
 :notebook: = notes | :package: = project(s) | :gear: = lab(s) | :construction: = in progress
+
+Notes published at: [lib-port.gitbook.io/tech-lib](https://lib-port.gitbook.com/tech-lib)
+
+Source repo at: [github.com/lib-port/tech-lib](https://github.com/lib-port/tech-lib)
 ## Linux and Platform Engineering
 <details>
 <summary>Introduction</summary>
@@ -118,12 +122,12 @@ Cybersecurity protects digital systems, data, and operations by managing risk an
 #### GitOps
 - :package: [GitHub CLI Bulk Issue Creator for Courses Script](./projects/course-issues/README.md)
 ### Data Engineering
-- :package: [Open Banking (CDR) Product & Pricing Lakehouse](https://github.com/libport/open-banking-lakehouse)
-- :package: [Pricing Function Mapper](https://github.com/libport/pricing-function-mapper)
-- :package: [Event-Driven Backtesting Platform](https://github.com/libport/backtest)
+- :package: [Open Banking (CDR) Product & Pricing Lakehouse](https://github.com/lib-port/open-banking-lakehouse)
+- :package: [Pricing Function Mapper](https://github.com/lib-port/pricing-function-mapper)
+- :package: [Event-Driven Backtesting Platform](https://github.com/lib-port/backtest)
 ### Cybersecurity
-- :package: [Ansible CIS-based Auditing System for Debian OSes](https://github.com/libport/ansible-linux-audit)
-- :package: [Ansible Detection-as-Code Engine for HTB Labs](https://github.com/libport/agentless-DaC)
+- :package: [Ansible CIS-based Auditing System for Debian OSes](https://github.com/lib-port/ansible-linux-audit)
+- :package: [Ansible Detection-as-Code Engine for HTB Labs](https://github.com/lib-port/agentless-DaC)
 ## Miscellaneous Notes
 
 

@@ -1,4 +1,4 @@
-# Docker for Software Development: Docker Compose
+# Docker Compose
 > [!NOTE]
 > A practical introduction to defining, building, running, networking, scaling, and troubleshooting multi-container applications as a single repeatable stack with Docker Compose.
 ## Purpose

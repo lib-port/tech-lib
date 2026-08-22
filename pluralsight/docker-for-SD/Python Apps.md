@@ -1,4 +1,4 @@
-# Docker for Software Development: Python Apps
+# Python Apps
 > [!NOTE]
 > A hands-on guide to containerizing a Flask REST API with optimized Docker builds, database persistence, automated linting and testing, external configuration, secure secret handling, and production-ready logging.
 

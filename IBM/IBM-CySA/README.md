@@ -26,6 +26,6 @@ Through hands-on labs, real-world case studies and applied projects, this course
 - [Cybersecurity Job Search, Resume, and Interview Prep](Cybersecurity%20Job%20Search,%20Resume,%20and%20Interview%20Prep.md)
 ## Further Reading
 Notes are supplemented with information from third-party sources, including:
-* CompTIA Cybersecurity Analyst (CySA+) Cert Guide, 2nd edition, by Troy McMillan. ([publisher page](https://www.pearsonitcertification.com/store/comptia-cybersecurity-analyst-cysa-plus-cs0-002-cert-9780136747123))
-* Foundations of Information Security, by Jason Andress. ([publisher page](https://www.oreilly.com/library/view/foundations-of-information/9781098122546/))
-* How Cybersecurity Really Works, by Sam Grubb. ([publisher page](https://www.oreilly.com/library/view/how-cybersecurity-really/9781098128999/))
+* CompTIA Cybersecurity Analyst (CySA+) Cert Guide, 2nd edition, by Troy McMillan. ([catalogue](https://www.pearsonitcertification.com/store/comptia-cybersecurity-analyst-cysa-plus-cs0-002-cert-9780136747123))
+* Foundations of Information Security, by Jason Andress. ([catalogue](https://www.oreilly.com/library/view/foundations-of-information/9781098122546/))
+* How Cybersecurity Really Works, by Sam Grubb. ([catalogue](https://www.oreilly.com/library/view/how-cybersecurity-really/9781098128999/))

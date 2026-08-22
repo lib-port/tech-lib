@@ -31,8 +31,8 @@ This 6-month, self-paced program teaches the job-ready skills needed for data en
 - Data Engineering Career Guide and Interview Preparation
 ## Further Reading
 Notes are supplemented with information from third-party sources, including:
-* Fundamentals of Data Engineering, by Joe Reis and Matt Housley. ([publisher page](https://www.oreilly.com/library/view/fundamentals-of-data/9781098108298/))
-* Software Engineering for Data Scientists, by Catherine Nelson. ([publisher page](https://www.oreilly.com/library/view/software-engineering-for/9781098136192/))
-* Data Engineering Design Patterns, by Bartosz Konieczny. ([publisher page](https://www.oreilly.com/library/view/data-engineering-design/9781098165826/))
+* Fundamentals of Data Engineering, by Joe Reis and Matt Housley. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-data/9781098108298/))
+* Software Engineering for Data Scientists, by Catherine Nelson. ([catalogue](https://www.oreilly.com/library/view/software-engineering-for/9781098136192/))
+* Data Engineering Design Patterns, by Bartosz Konieczny. ([catalogue](https://www.oreilly.com/library/view/data-engineering-design/9781098165826/))
 
 

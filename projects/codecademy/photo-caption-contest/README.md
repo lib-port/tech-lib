@@ -65,11 +65,11 @@ npm start
 ## Partial Clone
 To clone only this folder and not rest of repo:
 ```Bash
-git clone --depth=1 --filter=blob:none --sparse https://gitlab.com/libraryport/sys-data-AI.git
-cd sys-data-AI
+git clone --depth=1 --filter=blob:none --sparse https://github.com/lib-port/tech-lib.git
+cd tech-lib
 git sparse-checkout set projects/codecademy/photo-caption-contest
 mkdir -p ../photo-caption-contest
 rsync -a projects/codecademy/photo-caption-contest/ ../photo-caption-contest/
 cd ..
-rm -rf sys-data-AI
+rm -rf tech-lib
 ```

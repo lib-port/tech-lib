@@ -1,4 +1,4 @@
-# Personal Budget
+# Portfolio PRoject: Personal Budget
 
 Personal Budget is the portfolio project for the *Back-End Development*, *Advanced Back-End Development*, and *Interview Prep* modules of Codecademy's Back-End Engineer Professional Certification.
 
@@ -110,11 +110,11 @@ npm start
 ## Partial Clone
 To clone only this folder and not rest of repo:
 ```Bash
-git clone --depth=1 --filter=blob:none --sparse https://gitlab.com/libraryport/sys-data-AI.git
-cd sys-data-AI
+git clone --depth=1 --filter=blob:none --sparse https://github.com/lib-port/tech-lib.git
+cd tech-lib
 git sparse-checkout set projects/codecademy/personal-budget
 mkdir -p ../personal-budget
 rsync -a projects/codecademy/personal-budget/ ../personal-budget/
 cd ..
-rm -rf sys-data-AI
+rm -rf tech-lib
 ```

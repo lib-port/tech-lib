@@ -1,4 +1,4 @@
-# Docker for Software Development: Developing Docker Apps
+# Developing Docker Apps
 > [!NOTE]
 > A hands-on guide to building fast, secure, and maintainable containerized development workflows using live code mounting, multi-stage builds, intelligent caching, safe secret handling, linting, logging, and modern debugging tools.
 ## Development inside containers

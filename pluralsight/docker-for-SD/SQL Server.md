@@ -1,4 +1,4 @@
-# Docker for Software Development: SQL Server
+# SQL Server
 > [!NOTE]
 > A practical guide to running SQL Server reliably in containers with durable storage, secure authentication, controlled schema migrations, health-aware Compose environments, and evidence-based resource management.
 ## Core model

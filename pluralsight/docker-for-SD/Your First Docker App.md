@@ -1,4 +1,4 @@
-# Docker for Software Development: Your First Docker App
+# Your First Docker App
 > [!NOTE]
 > A beginner-friendly walkthrough of Docker’s essential workflow, from building and sharing images to running, networking, persisting, troubleshooting, and coordinating containers with Docker Compose.
 ## Purpose

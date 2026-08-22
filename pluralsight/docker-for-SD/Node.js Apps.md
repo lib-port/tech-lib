@@ -1,4 +1,4 @@
-# Docker for Software Development: Node.js Apps
+# Node.js Apps
 > [!NOTE]
 > A practical guide to building secure, reproducible Node.js containers and configuring their dependencies, storage, networking, logging, debugging, and multi-service environments for reliable development and deployment.
 ## Containers and Node.js development

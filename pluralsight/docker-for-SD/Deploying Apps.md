@@ -1,4 +1,4 @@
-# Docker for Software Development: Deploying Apps
+# Deploying Apps
 > [!NOTE]
 > A practical guide to choosing and scaling container deployment, from Docker Compose and serverless services to managed cloud platforms and Kubernetes, while maintaining secure, repeatable, and production-ready workflows.
 ## Core idea
