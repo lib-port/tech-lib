@@ -1,11 +1,11 @@
 # Tech Library
+
+![Static Badge](https://img.shields.io/badge/gitbook-site-orange?style=for-the-badge&logo=gitbook&link=https%3A%2F%2Flib-port.gitbook.io%2Ftech-lib)
+![Static Badge](https://img.shields.io/badge/github-repo-blue?style=for-the-badge&logo=github&link=https%3A%2F%2Fgithub.com%2Flib-port%2Ftech-lib)
+
 Notes and project files covering Linux, platform engineering, data engineering, AI engineering, system architecture, and cybersecurity. Course providers include IBM, TCM Security, Codecademy, Pluralsight, Databricks, AWS, and Johns Hopkins University.
 
 :notebook: = notes | :package: = project(s) | :gear: = lab(s) | :construction: = in progress
-
-Notes published at: [lib-port.gitbook.io/tech-lib](https://lib-port.gitbook.com/tech-lib)
-
-Source repo at: [github.com/lib-port/tech-lib](https://github.com/lib-port/tech-lib)
 ## Linux and Platform Engineering
 <details>
 <summary>Introduction</summary>
