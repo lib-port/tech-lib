@@ -11,6 +11,8 @@ DevOps developed in response to these constraints. It joins software development
 ### From Agile development to shared delivery
 Extreme Programming helped establish short feedback loops, iterative planning, automated testing, pair programming and responsiveness to changing requirements. In 2001, the Agile Manifesto placed greater value on individuals and interactions, working software, customer collaboration and response to change than on rigid processes, exhaustive documentation, contract negotiation and fixed plans.
 
+> The change may have been more supply driven than demand driven as software development tools matured and the pool of developers increased.  The marginal cost and risk of software change lowered to a threshold where short iterations became possible and rework was no longer cost prohibitive. The need for adaptive software development was always there, but prior to the early 2000s it may not have been economically feasible.
+
 Agile improved development, but many organisations left operations unchanged. Developers could produce increments every few weeks while infrastructure requests, approvals and deployments remained slow. This imbalance created queues and encouraged shadow IT, where staff acquired external services without organisational oversight.
 
 DevOps extends fast feedback and shared responsibility into operations. Development, operations, security, testing and product specialists collaborate from design through production. They work towards common service outcomes instead of optimising separate departments. A team labelled "DevOps" may help enable change, but renaming a team or hiring automation specialists does not transform the organisation.
