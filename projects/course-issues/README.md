@@ -2,15 +2,17 @@
 
 `course-issues-bulk-creator.sh` creates or reuses a GitHub milestone and then
 creates milestone-linked issues from a validated YAML file. The YAML file
-defines the milestone name, optional due date, and issue titles. The script
-supports interactive safeguards for existing milestones and repository-wide
-duplicate detection.
+defines the milestone name, issue label, optional due date, and issue titles.
+The script creates or reuses the label, supports interactive safeguards for
+existing milestones, and performs repository-wide duplicate detection.
 
 ## Features
 
 - Defines milestone settings and issue titles in YAML.
 - Creates different title patterns from `notes-and-project`, `notes-only`, and
   `project-only` lists.
+- Creates a missing repository label or reuses an existing label without
+  changing its metadata, then applies it to every newly created issue.
 - Creates a missing milestone and optionally assigns a due date.
 - Prompts before adding issues to an existing open milestone.
 - Refuses to use a closed milestone.
@@ -21,13 +23,13 @@ duplicate detection.
 
 ## Requirements
 
-- Bash
-- Python 3
+- Bash 4.0 or newer
+- Python 3.7 or newer
 - [PyYAML](https://pyyaml.org/wiki/PyYAMLDocumentation)
 - [GitHub CLI](https://cli.github.com/) (`gh`)
 - A GitHub account or token with access to the target repository and permission
-  to read and create milestones and issues. A fine-grained token should have
-  **Issues: Read and write** permission.
+  to read and create milestones, labels, and issues. A fine-grained token
+  should have **Issues: Read and write** permission.
 
 The target repository must have GitHub Issues enabled.
 
@@ -59,13 +61,14 @@ Run the script from the target repository. The repository is resolved through
 
 ## YAML input
 
-The YAML document must be a mapping. It must contain `name`, may contain
-`due-date`, and may contain any combination of the three optional issue-group
-keys.
+The YAML document must be a mapping. It must contain `name` and `label`, may
+contain `due-date`, and may contain any combination of the three optional
+issue-group keys.
 
 | Key | Required | Value |
 | --- | --- | --- |
 | `name` | Yes | Exact milestone name. |
+| `label` | Yes | Repository label assigned to each newly created issue. |
 | `due-date` | No | Milestone due date in `YYYY-MM-DD` format, or `null` for no date. |
 
 | Key | Issues created for each item | Example item | Generated title(s) |
@@ -78,7 +81,8 @@ Example `issues.yaml`:
 
 ```yaml
 name: "IBM DE PC"
-due-date: "2026-12-31"
+label: "data-engineering"
+due-date: 2026-12-31
 
 notes-and-project:
   - "Introduction to Relational Databases"
@@ -94,19 +98,23 @@ project-only:
 ### YAML validation rules
 
 - The file must contain a single YAML document whose root is a mapping.
-- Only `name`, `due-date`, `notes-and-project`, `notes-only`, and `project-only`
-  are supported as top-level keys.
+- Only `name`, `label`, `due-date`, `notes-and-project`, `notes-only`, and
+  `project-only` are supported as top-level keys.
 - Repeated and unknown keys are rejected.
-- `name` is required and must be a non-empty string without leading, trailing,
+- `name` is required and must be a non-empty string without leading or trailing
   whitespace or ASCII control characters.
-- `due-date` may be omitted or `null`. Any other value must be a quoted string
-  containing a real calendar date in exact `YYYY-MM-DD` format.
+- `label` is required and follows the same string rules as `name`. Label names
+  matching the reserved `course-issues-bulk-creator--run-lock` name,
+  regardless of letter case, are rejected.
+- `due-date` may be omitted or `null`. Otherwise, it must be a real calendar
+  date in exact `YYYY-MM-DD` format; quoted strings and unquoted YAML dates are
+  both accepted.
 - Each issue-group key may be omitted, `null`, or a list. A `null` value is
   treated like an empty list.
 - At least one issue item is required across all three issue-group keys;
   configurations containing only missing keys, `null`, or empty lists are
   rejected.
-- Every list item must be a non-empty string without leading, trailing, or
+- Every list item must be a non-empty string without leading or trailing
   whitespace or ASCII control characters.
 - Each list item must occur only once across all three issue-group lists.
   Repeats within one list or across different lists are rejected.
@@ -115,9 +123,10 @@ project-only:
 - Items are generated in `notes-and-project`, `notes-only`, then `project-only`
   order. Item order within each list is preserved.
 
-Quote YAML string values, especially the due date and values such as numbers,
-`yes`, `no`, `on`, or `off`. PyYAML may otherwise interpret them as non-string
-values, which the script rejects deliberately.
+Quote YAML string values that resemble numbers, `yes`, `no`, `on`, or `off`.
+PyYAML may otherwise interpret them as non-string values, which the script
+rejects deliberately. The `due-date` key is the exception: its ISO date may be
+quoted or unquoted.
 
 At least one of the issue-group keys must contain an item. This prevents the
 script from creating or updating a milestone without creating any issues.
@@ -129,7 +138,8 @@ course-issues-bulk-creator.sh <issues.yaml>
 ```
 
 The command accepts exactly one positional argument: the location of the YAML
-input file. It has no command-line options, including no help option.
+input file containing the milestone, label, and issue definitions. It has no
+command-line options, including no help option.
 
 ```bash
 ./course-issues-bulk-creator.sh "./issues.yaml"
@@ -138,13 +148,26 @@ input file. It has no command-line options, including no help option.
 The script sends a non-null YAML due date to GitHub as the end of that UTC day,
 for example `2026-12-31T23:59:59Z`.
 
+## Label behaviour
+
+Repository label matching is case-insensitive. If the requested label exists,
+the script uses the existing label's canonical name without changing its
+color or description. If it does not exist, the script creates it with an
+empty description and lets `gh` choose a random color.
+
+The label is resolved after milestone safeguards and confirmation prompts but
+before permanent milestone or issue changes. A successful run ensures the
+label exists even if every proposed issue is skipped as a duplicate. Every
+new issue receives exactly that label as part of its creation request;
+previously existing issues are never relabeled.
+
 ## Milestone behaviour
 
 | Milestone state | Behaviour |
 | --- | --- |
 | Does not exist | Creates an open milestone. If `due-date` is non-null, the milestone receives that due date. |
-| Exists and is open | Prompts before adding issues. Declining exits non-zero without changing milestones or issues. |
-| Exists and is closed | Warns and exits non-zero without changing milestones or issues. The script never reopens milestones. |
+| Exists and is open | Prompts before adding issues. Declining exits non-zero without changing milestones, issues, or the permanent issue label. |
+| Exists and is closed | Warns and exits non-zero without changing milestones, issues, or the permanent issue label. The script never reopens milestones. |
 
 If an existing open milestone is accepted, due dates are handled as follows:
 
@@ -175,7 +198,7 @@ issue title:
 Titles successfully created earlier in the same run are also recorded, so a
 later collision cannot create a second issue. These rules make rerunning the
 script safe after a partial failure: already-created titles are skipped on the
-next run.
+next run. Skipped issues are not assigned the configured label.
 
 Duplicate detection is a point-in-time check, so each run first creates the
 reserved temporary repository label
@@ -195,30 +218,32 @@ gh api --method DELETE \
 
 ## Output and exit status
 
-The script prints milestone actions, created or skipped issue titles, and a
-final count. Prompts, warnings, and errors are written to standard error.
+The script prints label and milestone actions, created or skipped issue titles,
+and a final count. Prompts, warnings, and errors are written to standard error.
 
 | Status | Meaning |
 | ---: | --- |
 | `0` | The run completed, including runs that created zero issues or skipped every proposed issue. |
 | `1` | A script-detected validation or runtime failure, a closed milestone, or a declined existing-milestone prompt. |
-| `2` | Invalid command-line usage: zero, multiple, or an empty YAML file argument. |
+| `2` | Invalid command-line usage: zero or multiple arguments, or an empty YAML file path. |
 | Other non-zero value | A failing external command may propagate its own status. |
 
 ## Failure and retry considerations
 
 GitHub changes are not transactional. The script validates its local input
-before the first write, but it cannot roll back a milestone, due-date update,
-or issue that GitHub has already accepted. If issue creation fails part-way
-through a run, the error reports how many issues were created before the
-failure.
+before the first write, but it cannot roll back a newly created permanent
+label, milestone, due-date update, or issue that GitHub has already accepted.
+If issue creation fails part-way through a run, the error reports how many
+issues were created before the failure.
 
 The temporary run-lock label is the first GitHub write. It is normally deleted
 on every exit, including runtime failures after repository resolution. A lock
-cleanup failure changes an otherwise successful exit status to `1`.
+cleanup failure changes an otherwise successful exit status to `1`. The
+configured issue label is permanent and is not removed during cleanup.
 
-Run the command again after resolving the problem. Repository-wide duplicate
-detection will skip issues created by the earlier attempt. Creating many issues
+Run the command again after resolving the problem. The script will reuse a
+permanent label created by the earlier attempt, and repository-wide duplicate
+detection will skip issues that were already created. Creating many issues
 quickly may also encounter GitHub primary or secondary rate limits.
 
 Issue bodies are intentionally empty. The script does not currently provide a
@@ -275,18 +300,22 @@ the script's global issue namespace.
 
 ## Related documentation
 
-- [GitHub CLI: `gh issue create`](https://cli.github.com/manual/gh_issue_create)
+- [GitHub CLI: `gh label create`](https://cli.github.com/manual/gh_label_create)
+- [GitHub REST API: issues](https://docs.github.com/en/rest/issues/issues)
 - [GitHub REST API: milestones](https://docs.github.com/en/rest/issues/milestones)
 - [GitHub REST API: labels](https://docs.github.com/en/rest/issues/labels)
 - [PyYAML documentation](https://pyyaml.org/wiki/PyYAMLDocumentation)
 
-## Partial Clone
+## Partial clone
+
+This extraction recipe requires Git and `rsync`:
+
 ```shell
-git clone --depth=1 --filter=blob:none --sparse https://gitlab.com/libraryport/sys-data-AI.git
-cd sys-data-AI
+git clone --depth=1 --filter=blob:none --sparse https://gitlab.com/lib-port/tech-lib.git
+cd tech-lib
 git sparse-checkout set projects/course-issues
 mkdir -p ../course-issues
 rsync -a projects/course-issues/ ../course-issues/
 cd ..
-rm -rf sys-data-AI
+rm -rf tech-lib
 ```

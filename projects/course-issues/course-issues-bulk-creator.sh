@@ -7,6 +7,7 @@ usage() {
   printf '\n'
   printf 'YAML keys:\n'
   printf '  name               Milestone name (required).\n'
+  printf '  label              Issue label name (required).\n'
   printf '  due-date           Milestone due date in YYYY-MM-DD format (optional).\n'
   printf '  notes-and-project  Creates "<item> Notes" and "<item> Final Project".\n'
   printf '  notes-only         Creates "<item> Notes".\n'
@@ -14,6 +15,7 @@ usage() {
   printf '\n'
   printf 'Issue-group keys may be null, but at least one item is required.\n'
   printf 'Duplicate list items in or across issue-group keys are rejected.\n'
+  printf 'The issue label is created if missing and reused if it exists.\n'
   printf 'Exact-title duplicates are skipped across all issues in the repository.\n'
   printf 'Concurrent runs are rejected using a temporary repository label.\n'
   printf 'Requires GitHub CLI (gh), Python 3, and the PyYAML Python package.\n'
@@ -58,6 +60,7 @@ confirm() {
 YAML_FILE=$1
 [[ -n "$YAML_FILE" ]] || usage_error 'the YAML file location must not be empty.'
 readonly YAML_FILE
+readonly RUN_LOCK_LABEL='course-issues-bulk-creator--run-lock'
 
 if ! command -v python3 >/dev/null 2>&1; then
   printf 'Error: Python 3 is not installed or is not on PATH.\n' >&2
@@ -71,7 +74,7 @@ if [[ ! -f "$YAML_FILE" || ! -r "$YAML_FILE" ]]; then
 fi
 
 parsed_records=''
-if parsed_records=$(python3 - "$YAML_FILE" <<'PYTHON'
+if parsed_records=$(python3 - "$YAML_FILE" "$RUN_LOCK_LABEL" <<'PYTHON'
 from datetime import date
 import re
 import sys
@@ -129,6 +132,7 @@ UniqueKeySafeLoader.add_constructor(
 )
 
 path = sys.argv[1]
+run_lock_label = sys.argv[2]
 
 try:
     with open(path, "r", encoding="utf-8") as stream:
@@ -145,7 +149,7 @@ if not isinstance(document, dict):
     raise SystemExit(1)
 
 issue_keys = ("notes-and-project", "notes-only", "project-only")
-allowed_keys = ("name", "due-date", *issue_keys)
+allowed_keys = ("name", "label", "due-date", *issue_keys)
 
 for key in document:
     if not isinstance(key, str):
@@ -195,9 +199,27 @@ if "name" not in document:
 
 milestone_name = validate_string("YAML key 'name'", document["name"])
 
+if "label" not in document:
+    print("Error: required YAML key 'label' is missing.", file=sys.stderr)
+    raise SystemExit(1)
+
+issue_label = validate_string("YAML key 'label'", document["label"])
+if issue_label.casefold() == run_lock_label.casefold():
+    print(
+        f"Error: YAML key 'label' must not use the reserved run-lock "
+        f"label {run_lock_label!r}.",
+        file=sys.stderr,
+    )
+    raise SystemExit(1)
+
 due_date = None
 if document.get("due-date") is not None:
-    due_date = validate_string("YAML key 'due-date'", document["due-date"])
+    raw_due_date = document["due-date"]
+    if type(raw_due_date) is date:
+        due_date = raw_due_date.isoformat()
+    else:
+        due_date = validate_string("YAML key 'due-date'", raw_due_date)
+
     if not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", due_date):
         print(
             f"Error: YAML key 'due-date' value {due_date!r} is not in "
@@ -278,6 +300,7 @@ for title in generated_titles:
     unique_titles.append(title)
 
 print(f"NAME\t{milestone_name}")
+print(f"LABEL\t{issue_label}")
 if due_date is not None:
     print(f"DUE_DATE\t{due_date}")
 for title in unique_titles:
@@ -291,9 +314,11 @@ else
 fi
 
 MILESTONE=''
+ISSUE_LABEL=''
 DUE_DATE=''
 HAS_DUE_DATE=0
 has_name_record=0
+has_label_record=0
 declare -a TARGET_TITLES=()
 
 while IFS=$'\t' read -r record_type record_value record_extra; do
@@ -310,6 +335,14 @@ while IFS=$'\t' read -r record_type record_value record_extra; do
       }
       MILESTONE=$record_value
       has_name_record=1
+      ;;
+    LABEL)
+      (( has_label_record == 0 )) || {
+        printf 'Error: YAML parser returned more than one label record.\n' >&2
+        exit 1
+      }
+      ISSUE_LABEL=$record_value
+      has_label_record=1
       ;;
     DUE_DATE)
       (( HAS_DUE_DATE == 0 )) || {
@@ -335,12 +368,17 @@ done <<< "$parsed_records"
   exit 1
 }
 
+(( has_label_record == 1 )) || {
+  printf 'Error: YAML parser did not return an issue label.\n' >&2
+  exit 1
+}
+
 DUE_ON=''
 if (( HAS_DUE_DATE )); then
   DUE_ON="${DUE_DATE}T23:59:59Z"
 fi
 
-readonly MILESTONE DUE_DATE HAS_DUE_DATE DUE_ON
+readonly MILESTONE ISSUE_LABEL DUE_DATE HAS_DUE_DATE DUE_ON
 readonly -a TARGET_TITLES
 
 if ! command -v gh >/dev/null 2>&1; then
@@ -356,7 +394,6 @@ if [[ -z "$REPOSITORY" ]]; then
   exit 1
 fi
 
-readonly RUN_LOCK_LABEL='course-issues-bulk-creator--run-lock'
 run_lock_acquired=0
 
 release_run_lock() {
@@ -469,7 +506,7 @@ fi
 
 case "$milestone_state" in
   closed)
-    printf "Warning: milestone '%s' exists but is closed; no milestone or issue changes were made.\n" \
+    printf "Warning: milestone '%s' exists but is closed; no permanent label, milestone, or issue changes were made.\n" \
       "$MILESTONE" >&2
     exit 1
     ;;
@@ -488,7 +525,7 @@ if [[ "$milestone_state" == 'open' ]]; then
   printf "Milestone '%s' already exists.\n" "$MILESTONE"
 
   if ! confirm "Add issues to the existing milestone '$MILESTONE'?"; then
-    printf "Cancelled: no milestone or issue changes were made for '%s'.\n" \
+    printf "Cancelled: no permanent label, milestone, or issue changes were made for '%s'.\n" \
       "$MILESTONE" >&2
     exit 1
   fi
@@ -521,6 +558,67 @@ if [[ "$milestone_state" == 'open' ]] && (( HAS_DUE_DATE )); then
     fi
   fi
 fi
+
+find_repository_label() {
+  local requested_label="$1"
+  local requested_label_folded=${requested_label,,}
+  local label_names label_name
+
+  if ! label_names=$(gh api --paginate \
+    -H 'Accept: application/vnd.github+json' \
+    "repos/${REPOSITORY}/labels?per_page=100" \
+    --jq '.[].name'); then
+    printf 'Error: could not list repository labels.\n' >&2
+    return 2
+  fi
+
+  while IFS= read -r label_name; do
+    [[ -z "$label_name" ]] && continue
+
+    if [[ "${label_name,,}" == "$requested_label_folded" ]]; then
+      printf '%s\n' "$label_name"
+      return 0
+    fi
+  done <<< "$label_names"
+
+  return 1
+}
+
+RESOLVED_LABEL=''
+label_lookup_status=0
+
+if RESOLVED_LABEL=$(find_repository_label "$ISSUE_LABEL"); then
+  printf 'Using existing label: %s\n' "$RESOLVED_LABEL"
+else
+  label_lookup_status=$?
+  (( label_lookup_status == 1 )) || exit 1
+
+  printf 'Creating label: %s\n' "$ISSUE_LABEL"
+  label_create_error=''
+  if label_create_error=$(gh label create \
+    --repo "$REPOSITORY" \
+    -- "$ISSUE_LABEL" 2>&1); then
+    RESOLVED_LABEL=$ISSUE_LABEL
+  else
+    label_lookup_status=0
+    if RESOLVED_LABEL=$(find_repository_label "$ISSUE_LABEL"); then
+      printf "Label '%s' was created concurrently; using existing label '%s'.\n" \
+        "$ISSUE_LABEL" "$RESOLVED_LABEL"
+    else
+      label_lookup_status=$?
+      printf "Error: could not create repository label '%s'.\n" \
+        "$ISSUE_LABEL" >&2
+      if [[ -n "$label_create_error" ]]; then
+        printf '%s\n' "$label_create_error" >&2
+      fi
+      (( label_lookup_status == 1 )) || \
+        printf 'The follow-up label lookup also failed.\n' >&2
+      exit 1
+    fi
+  fi
+fi
+
+readonly RESOLVED_LABEL
 
 if [[ -z "$milestone_state" ]]; then
   printf 'Creating milestone: %s\n' "$MILESTONE"
@@ -576,12 +674,14 @@ create_issue() {
   fi
 
   printf 'Creating issue: %s\n' "$title"
-  if ! gh issue create \
-    --repo "$REPOSITORY" \
-    --title "$title" \
-    --body "" \
-    --milestone "$MILESTONE" \
-    >/dev/null; then
+  if ! gh api --method POST \
+    -H 'Accept: application/vnd.github+json' \
+    "repos/${REPOSITORY}/issues" \
+    --raw-field "title=${title}" \
+    --raw-field 'body=' \
+    --field "milestone=${milestone_number}" \
+    --raw-field "labels[]=${RESOLVED_LABEL}" \
+    --silent; then
     printf "Error: failed to create issue '%s' after creating %d issue(s).\n" \
       "$title" "$created_count" >&2
     printf 'Changes completed before this failure were not rolled back.\n' >&2
@@ -596,8 +696,8 @@ for title in "${TARGET_TITLES[@]}"; do
   create_issue "$title"
 done
 
-printf "Created %d issue(s) linked to milestone '%s'." \
-  "$created_count" "$MILESTONE"
+printf "Created %d issue(s) linked to milestone '%s' with label '%s'." \
+  "$created_count" "$MILESTONE" "$RESOLVED_LABEL"
 
 if (( skipped_count > 0 )); then
   printf ' Skipped %d existing issue(s).' "$skipped_count"

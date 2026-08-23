@@ -1,0 +1,2319 @@
+{
+  "repository": "lib-port/tech-lib",
+  "exportedAt": "2026-08-23T22:52:33Z",
+  "issueCount": 68,
+  "issues": [
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:03Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 1,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Machine Learning with Python Notes",
+      "updatedAt": "2026-08-23T22:22:03Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/1"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:05Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 2,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Machine Learning with Python Final Project",
+      "updatedAt": "2026-08-23T22:22:05Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/2"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:06Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 3,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Deep Learning & Neural Networks with Keras Notes",
+      "updatedAt": "2026-08-23T22:22:06Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/3"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:08Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 4,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Deep Learning & Neural Networks with Keras Final Project",
+      "updatedAt": "2026-08-23T22:22:08Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/4"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:10Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 5,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Deep Learning with Keras and Tensorflow Notes",
+      "updatedAt": "2026-08-23T22:22:10Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/5"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:11Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 6,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Deep Learning with Keras and Tensorflow Final Project",
+      "updatedAt": "2026-08-23T22:22:11Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/6"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:14Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 7,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Neural Networks and PyTorch Notes",
+      "updatedAt": "2026-08-23T22:22:14Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/7"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:15Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 8,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Neural Networks and PyTorch Final Project",
+      "updatedAt": "2026-08-23T22:22:15Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/8"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:17Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 9,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Deep Learning with PyTorch Notes",
+      "updatedAt": "2026-08-23T22:22:17Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/9"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:19Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 10,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Deep Learning with PyTorch Final Project",
+      "updatedAt": "2026-08-23T22:22:19Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/10"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:20Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 11,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI and LLMs: Architecture and Data Preparation Notes",
+      "updatedAt": "2026-08-23T22:22:20Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/11"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:22Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 12,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI and LLMs: Architecture and Data Preparation Final Project",
+      "updatedAt": "2026-08-23T22:22:22Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/12"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:24Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 13,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Gen AI Foundational Models for NLP & Language Understanding Notes",
+      "updatedAt": "2026-08-23T22:22:24Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/13"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:25Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 14,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Gen AI Foundational Models for NLP & Language Understanding Final Project",
+      "updatedAt": "2026-08-23T22:22:26Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/14"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:27Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 15,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI Language Modeling with Transformers Notes",
+      "updatedAt": "2026-08-23T22:22:27Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/15"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:29Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 16,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI Language Modeling with Transformers Final Project",
+      "updatedAt": "2026-08-23T22:22:29Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/16"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:31Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 17,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI Engineering and Fine-Tuning Transformers Notes",
+      "updatedAt": "2026-08-23T22:22:31Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/17"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:33Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 18,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI Engineering and Fine-Tuning Transformers Final Project",
+      "updatedAt": "2026-08-23T22:22:33Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/18"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:35Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 19,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI Advanced Fine-Tuning for LLMs Notes",
+      "updatedAt": "2026-08-23T22:22:35Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/19"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:36Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 20,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI Advanced Fine-Tuning for LLMs Final Project",
+      "updatedAt": "2026-08-23T22:22:36Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/20"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:38Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 21,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Fundamentals of AI Agents Using RAG and LangChain Notes",
+      "updatedAt": "2026-08-23T22:22:38Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/21"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:40Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 22,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Fundamentals of AI Agents Using RAG and LangChain Final Project",
+      "updatedAt": "2026-08-23T22:22:40Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/22"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:42Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 23,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "AI Capstone Project with Deep Learning",
+      "updatedAt": "2026-08-23T22:22:42Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/23"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:22:44Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1Eghw",
+          "name": "AI-eng",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 1,
+        "title": "IBM AIE PC",
+        "description": "",
+        "dueOn": "2027-03-31T00:00:00Z"
+      },
+      "number": 24,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Project: Generative AI Applications with RAG and LangChain",
+      "updatedAt": "2026-08-23T22:22:44Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/24"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:09Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 25,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Python for Data Science, AI & Development Notes",
+      "updatedAt": "2026-08-23T22:24:10Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/25"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:11Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 26,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Python for Data Science, AI & Development Final Project",
+      "updatedAt": "2026-08-23T22:24:11Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/26"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:13Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 27,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Developing AI Applications with Python and Flask Notes",
+      "updatedAt": "2026-08-23T22:24:13Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/27"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:15Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 28,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Developing AI Applications with Python and Flask Final Project",
+      "updatedAt": "2026-08-23T22:24:15Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/28"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:17Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 29,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Containers w/ Docker, Kubernetes & OpenShift Notes",
+      "updatedAt": "2026-08-23T22:24:17Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/29"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:19Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 30,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Containers w/ Docker, Kubernetes & OpenShift Final Project",
+      "updatedAt": "2026-08-23T22:24:19Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/30"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:21Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 31,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Application Development using Microservices and Serverless Notes",
+      "updatedAt": "2026-08-23T22:24:21Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/31"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:22Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 32,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Application Development using Microservices and Serverless Final Project",
+      "updatedAt": "2026-08-23T22:24:22Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/32"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:24Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 33,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Test and Behavior Driven Development Notes",
+      "updatedAt": "2026-08-23T22:24:24Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/33"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:26Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 34,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Test and Behavior Driven Development Final Project",
+      "updatedAt": "2026-08-23T22:24:26Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/34"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:27Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 35,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Continuous Integration and Continuous Delivery (CI/CD) Notes",
+      "updatedAt": "2026-08-23T22:24:28Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/35"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:29Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 36,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Continuous Integration and Continuous Delivery (CI/CD) Final Project",
+      "updatedAt": "2026-08-23T22:24:29Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/36"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:31Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 37,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Application Security for Developers and DevOps Professionals Notes",
+      "updatedAt": "2026-08-23T22:24:31Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/37"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:33Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 38,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Application Security for Developers and DevOps Professionals Final Project",
+      "updatedAt": "2026-08-23T22:24:33Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/38"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:34Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 39,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Monitoring and Observability for Development and DevOps Notes",
+      "updatedAt": "2026-08-23T22:24:34Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/39"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:36Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 40,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Monitoring and Observability for Development and DevOps Final Project",
+      "updatedAt": "2026-08-23T22:24:36Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/40"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:24:38Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 41,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "DevOps Capstone Project",
+      "updatedAt": "2026-08-23T22:24:38Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/41"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:26:57Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 3,
+        "title": "IBM ACSA PC",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 42,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "AWS Cloud Technical Essentials Notes",
+      "updatedAt": "2026-08-23T22:26:57Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/42"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:26:59Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 3,
+        "title": "IBM ACSA PC",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 43,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Architecting Solutions on AWS Notes",
+      "updatedAt": "2026-08-23T22:26:59Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/43"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:27:01Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 3,
+        "title": "IBM ACSA PC",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 44,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Building Data Lakes on AWS Notes",
+      "updatedAt": "2026-08-23T22:27:01Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/44"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:27:03Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 3,
+        "title": "IBM ACSA PC",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 45,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Exam Prep: AWS Certified Solutions Architect - Associate Notes",
+      "updatedAt": "2026-08-23T22:27:03Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/45"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:11Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 46,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Relational Databases (RDBMS) Notes",
+      "updatedAt": "2026-08-23T22:37:11Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/46"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:13Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 47,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Relational Databases (RDBMS) Final Project",
+      "updatedAt": "2026-08-23T22:37:13Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/47"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:14Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 48,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Databases and SQL for Data Science with Python Notes",
+      "updatedAt": "2026-08-23T22:37:14Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/48"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:16Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 49,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Databases and SQL for Data Science with Python Final Project",
+      "updatedAt": "2026-08-23T22:37:16Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/49"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:18Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 50,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Relational Database Administration (DBA) Notes",
+      "updatedAt": "2026-08-23T22:37:18Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/50"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:20Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 51,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Relational Database Administration (DBA) Final Project",
+      "updatedAt": "2026-08-23T22:37:20Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/51"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:22Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 52,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "ETL and Data Pipelines with Shell, Airflow and Kafka Notes",
+      "updatedAt": "2026-08-23T22:37:22Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/52"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:23Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 53,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "ETL and Data Pipelines with Shell, Airflow and Kafka Final Project",
+      "updatedAt": "2026-08-23T22:37:23Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/53"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:25Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 54,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Data Warehouse Fundamentals Notes",
+      "updatedAt": "2026-08-23T22:37:25Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/54"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:27Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 55,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Data Warehouse Fundamentals Final Project",
+      "updatedAt": "2026-08-23T22:37:27Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/55"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:29Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 56,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "BI Dashboards with IBM Cognos Analytics and Google Looker Notes",
+      "updatedAt": "2026-08-23T22:37:29Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/56"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:30Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 57,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "BI Dashboards with IBM Cognos Analytics and Google Looker Final Project",
+      "updatedAt": "2026-08-23T22:37:31Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/57"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:32Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 58,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to NoSQL Databases Notes",
+      "updatedAt": "2026-08-23T22:37:32Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/58"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:34Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 59,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to NoSQL Databases Final Project",
+      "updatedAt": "2026-08-23T22:37:34Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/59"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:36Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 60,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Big Data with Spark and Hadoop Notes",
+      "updatedAt": "2026-08-23T22:37:36Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/60"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:38Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 61,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Big Data with Spark and Hadoop Final Project",
+      "updatedAt": "2026-08-23T22:37:38Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/61"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:40Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 62,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Machine Learning with Apache Spark Notes",
+      "updatedAt": "2026-08-23T22:37:40Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/62"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:42Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 63,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Machine Learning with Apache Spark Final Project",
+      "updatedAt": "2026-08-23T22:37:42Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/63"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:44Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 64,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Data Engineering Career Guide and Interview Preparation Notes",
+      "updatedAt": "2026-08-23T22:37:44Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/64"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:46Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 65,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Data Engineering Career Guide and Interview Preparation Final Project",
+      "updatedAt": "2026-08-23T22:37:46Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/65"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:48Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 66,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI: Elevate your Data Engineering Career Notes",
+      "updatedAt": "2026-08-23T22:37:48Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/66"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:49Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 67,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Python Project for Data Engineering",
+      "updatedAt": "2026-08-23T22:37:49Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/67"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-08-23T22:37:51Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1KcHw",
+          "name": "data-eng",
+          "description": "",
+          "color": "FEF2C0"
+        }
+      ],
+      "milestone": {
+        "number": 4,
+        "title": "IBM DE PC",
+        "description": "",
+        "dueOn": "2027-01-31T00:00:00Z"
+      },
+      "number": 68,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Data Engineering Capstone Project",
+      "updatedAt": "2026-08-23T22:37:51Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/68"
+    }
+  ]
+}
