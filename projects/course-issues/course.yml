@@ -1,23 +1,21 @@
-name: IBM DE PC
-label: "data-eng"
+name: IBM SSA PC
+label: "sys-arch"
 
-due-date: 2027-01-31
+due-date: 2027-04-30
 
 notes-and-project:
-- Introduction to Relational Databases (RDBMS)
-- Databases and SQL for Data Science with Python
-- Relational Database Administration (DBA)
-- ETL and Data Pipelines with Shell, Airflow and Kafka
-- Data Warehouse Fundamentals
-- BI Dashboards with IBM Cognos Analytics and Google Looker
-- Introduction to NoSQL Databases
-- Introduction to Big Data with Spark and Hadoop
-- Machine Learning with Apache Spark
-- Data Engineering Career Guide and Interview Preparation
+- Introduction to Systems Architecture
+- IT Systems Design and Analysis
+- Project, Stakeholder, and Requirements Management Fundamentals
+- Business Process Modeling, Analysis, and Improvement
+- Cloud Native, Microservices, Containers, DevOps and Agile
+- Enterprise Data Architecture and Operations
+- Data Integration, Data Storage, & Data Migration
+- Software Testing, Deployment, and Maintenance Strategies
+- Cybersecurity Architecture
+- "Generative AI: Advancing Systems Analysis & Architecture"
 
 notes-only:
-- "Generative AI: Elevate your Data Engineering Career"
 
 project-only:
-- Python Project for Data Engineering
-- Data Engineering Capstone Project
+- Systems and Solutions Architect Capstone Project
