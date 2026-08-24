@@ -1,4 +1,3 @@
-# Tech Library
 
 [![GitBook site](https://img.shields.io/badge/gitbook-site-orange?style=flat-square)](https://lib-port.gitbook.io/tech-lib)
 [![GitHub repo](https://img.shields.io/badge/github-repo-blue?style=flat-square)](https://github.com/lib-port/tech-lib)
@@ -118,6 +117,8 @@ Cybersecurity protects digital systems, data, and operations by managing risk an
 - Trust in Computer Systems and the Cloud, by Mike Bursell. ([catalogue](https://www.wiley.com/en-us/trust-in-computer-systems-and-the-cloud-p-9781119695158))
 - Intelligent Continuous Security, by Marc Hornbeek. ([catalogue](https://www.oreilly.com/library/view/intelligent-continuous-security/9798341615908/))
 ## Custom Portfolio Projects
+### Front-End Development
+- :package: [Developer Landing Page](https://github.com/lib-port/lib-port.github.io) :link: [Live demo](https://lib-port.github.io)
 ### Platform Engineering
 #### GitOps
 - :package: [GitHub CLI Bulk Issue Creator for Courses Script](./projects/course-issues/README.md)

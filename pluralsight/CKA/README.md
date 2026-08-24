@@ -23,4 +23,4 @@ These notes cover material from Pluralsight's 29-hour, self-paced [Certified Kub
 - [Maintaining, Monitoring, and Troubleshooting Kubernetes](Maintaining,%20Monitoring,%20and%20Troubleshooting%20Kubernetes.md)
 ## Further Reading
 Notes are supplemented with information from third-party sources, including:
-- Kubernetes: Up and Running, 3rd Edition, by Brendan Burns, Joe Beda, Kelsey Hightower, and Lachlan Evenson. ([publisher page](https://www.oreilly.com/library/view/kubernetes-up-and/9781098110192/))
+- Kubernetes: Up and Running, 3rd Edition, by Brendan Burns, Joe Beda, Kelsey Hightower, and Lachlan Evenson. ([catalogue](https://www.oreilly.com/library/view/kubernetes-up-and/9781098110192/))
