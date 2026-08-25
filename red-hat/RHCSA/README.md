@@ -15,5 +15,5 @@ These notes cover material from Pluralsight's 30 hour, self-paced [Red Hat Certi
 - [Getting Started with Podman](Getting%20Started%20with%20Podman.md)
 ## Further Reading
 Notes are supplemented with information from third-party sources, including:
-- Red Hat RHCSA 9 Cert Guide: EX200, by Sander van Vugt. ([publisher page](https://www.pearsonitcertification.com/store/red-hat-rhcsa-9-cert-guide-ex200-9780138096274))
+- Red Hat RHCSA 9 Cert Guide: EX200, by Sander van Vugt. ([catalogue](https://www.pearsonitcertification.com/store/red-hat-rhcsa-9-cert-guide-ex200-9780138096274))
 - `man` pages (inbuilt Linux manual pages)
