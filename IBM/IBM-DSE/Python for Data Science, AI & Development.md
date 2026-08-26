@@ -1,7 +1,5 @@
 # Python for Data Science, AI & Development
 ## Python Basics
-
-## Python Fundamentals and Jupyter Notebooks
 Python is a high-level, general-purpose programming language known for relatively clear syntax and a large ecosystem. It is used in fields including data analysis, machine learning, web development, automation, scientific computing, education, and embedded projects. Its extensive standard library covers common programming tasks, while third-party packages such as NumPy, pandas, SciPy, Matplotlib, scikit-learn, TensorFlow, PyTorch, and NLTK provide specialised capabilities. These packages are not part of the standard library.
 
 Python uses dynamic typing, so a name does not need a declared data type before assignment. The language supports several programming styles, including procedural, object-oriented, and functional techniques.
@@ -217,7 +215,6 @@ Intersection contains elements in both sets. Union contains elements in either s
 ### Choosing a collection
 A tuple suits an ordered grouping whose top-level membership should remain fixed. A list suits ordered data that will be edited. A dictionary suits lookup through meaningful keys. A set suits duplicate removal, fast membership testing, and comparisons between groups. Nested structures can combine these roles when position, keys, uniqueness, and mutability differ across levels.
 ## Python Programming Fundamentals
-## Python Fundamentals: Control Flow, Functions, Classes, and Exceptions
 Python programs combine expressions, statements, objects, and names. Expressions produce values. Statements perform actions such as binding a name, choosing a branch, repeating a block, defining a function or class, and handling an exception. Indentation is part of the syntax, so the indented suite beneath a header belongs to that statement.
 
 Names refer to objects rather than containing independent copies of them. Integers, floating-point numbers, strings, lists, dictionaries, functions, classes, and class instances are all objects. Their types determine which operations and methods they support. This object model links the language's control flow, functions, classes, and exception system.
