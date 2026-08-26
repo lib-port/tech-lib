@@ -539,7 +539,6 @@ Control flow chooses and repeats operations. Functions give those operations nam
 
 Clear Python code tends to prefer direct iteration, small and explicit interfaces, local state, validated class invariants, and specific exception handling. Each construct has a distinct role, but all depend on the same foundations: names bound to objects, types defining behaviour, and indentation defining the suites that execute together.
 ## Working with Data in Python
-## Working with Files, pandas, and NumPy in Python
 Python's built-in file interface, pandas, and NumPy cover three related layers of data work. File objects move text or bytes between a program and storage. pandas represents labelled, tabular data and provides tools for loading, selecting, filtering, combining, and exporting it. NumPy supplies compact, multidimensional arrays and numerical operations that pandas and many scientific libraries build upon.
 
 Libraries are reusable packages of classes, functions, and other objects. After a package has been installed, an `import` statement makes its public features available. Conventional aliases keep common operations concise:
@@ -852,3 +851,167 @@ for value in vector:
 Iteration is sometimes clearer for control-heavy tasks, while vectorised expressions are usually preferable for regular numerical transformations. pandas adds labels, mixed column types, missing-data conventions, and table operations on top of this numerical foundation. Python file objects remain the lower-level choice when exact control over text, bytes, encodings, and stream positions is required.
 ### Choosing the appropriate layer
 The choice follows the data's structure. Raw text, byte streams, unusual record layouts, and precise persistence rules favour file objects. Labelled rows and columns, heterogeneous fields, joins, and missing values favour pandas. Dense homogeneous numbers, multidimensional shapes, broadcasting, and linear algebra favour NumPy. Conversions between layers are common, but each conversion can alter labels, dtypes, missing-value representations, or encodings. Checking those boundaries keeps a compact workflow accurate as well as convenient.
+## APIs and Data Collectiion
+Application programming interfaces, or APIs, define how software can request functionality or data from another component. An API may be local, such as the methods exposed by a pandas `DataFrame`, or remote, such as a web service reached over a network. In both cases, the caller relies on a documented interface: accepted inputs, available operations, returned values, and possible errors. The implementation behind that interface can change without requiring callers to understand its internal design.
+
+APIs support reuse and automation. A program can use an established library for tabular analysis, obtain current data from a service, or connect several systems without rebuilding every capability. These benefits do not remove operational risk. Remote APIs can change, impose quotas, become unavailable, return malformed data, or expose security weaknesses. Reliable integrations therefore validate inputs and outputs, authenticate appropriately, protect secrets, limit resource use, and handle failures explicitly.
+### Local APIs and web APIs
+Pandas illustrates a local API. Constructing a `DataFrame` creates an object whose methods and attributes expose operations over its data. `head()` returns the first rows, `mean()` calculates column means where applicable, and `plot()` delegates visualisation work to a plotting backend. The caller uses these documented operations without needing to know which parts of pandas are implemented in Python, Cython, or compiled extensions.
+
+A web API crosses a process or network boundary. The calling program acts as a client and sends a request to an endpoint. The server processes the request and returns a response. An endpoint is a URI associated with an operation or resource. In REST, a resource is an abstraction that can be identified, such as a customer, a team, a collection of observations, or a current price series. The server sends a representation of that resource, which might use JSON, HTML, XML, an image format, or another media type.
+
+REST is an architectural style rather than a synonym for every HTTP API. Its constraints include client-server separation, stateless interactions, cacheability, a uniform interface, a layered system, and optional downloadable code. Many services described as REST APIs follow some of these constraints without implementing the complete style.
+### HTTP requests and responses
+HTTP is an application-level protocol for transferring representations and metadata. HTTPS applies HTTP over a connection protected by TLS and should normally be used for network APIs.
+
+A URI can contain a scheme, authority, path, query, and fragment. In the example `https://api.example.com/items?category=fruit`, `https` is the scheme, `api.example.com` is the host within the authority, `/items` is the path, and `category=fruit` is the query. A URL is a URI that also provides a way to locate a resource. The term route is common in web frameworks, but path is the standard URI component name.
+
+An HTTP request includes a method, a target, header fields, and sometimes content. A response includes a status code, header fields, and sometimes content. Headers carry metadata such as accepted formats, authentication credentials, caching directives, content type, and content length. JSON is common in APIs, but HTTP does not require it. A GET request normally carries parameters in its target URI. Content in a GET request has no generally defined semantics and can be rejected by implementations.
+
+Common methods have distinct intended meanings:
+
+| Method | Principal purpose |
+| --- | --- |
+| `GET` | Retrieve a current representation of the target resource |
+| `POST` | Ask the target resource to process enclosed content according to its own semantics |
+| `PUT` | Create or replace the state of a known target resource |
+| `PATCH` | Apply a partial modification under the semantics of the selected patch format |
+| `DELETE` | Request removal of the association between a URI and its current functionality |
+
+The first digit of a three-digit status code identifies its class:
+
+| Class | Meaning | Examples |
+| --- | --- | --- |
+| `1xx` | Interim information | `100 Continue` |
+| `2xx` | Successful handling | `200 OK`, `201 Created`, and `204 No Content` |
+| `3xx` | Redirection or another action | `301 Moved Permanently` and `304 Not Modified` |
+| `4xx` | A problem associated with the request | `400 Bad Request`, `401 Unauthorized`, `403 Forbidden`, and `404 Not Found` |
+| `5xx` | The server failed to fulfil an apparently valid request | `500 Internal Server Error` and `503 Service Unavailable` |
+
+The reason phrase can be misleading if read without the specification. `401 Unauthorized` normally means that valid authentication credentials are absent. `403 Forbidden` means that the server understood the request but refuses to fulfil it. A parsed JSON error response is still an error if its status code indicates failure.
+### HTTP with Python Requests
+The Requests library provides a compact Python interface to HTTP. A response object exposes the final URL, status code, headers, encoding, request details, and response content. `response.text` decodes content as text, while `response.content` returns bytes. `response.json()` decodes JSON but does not prove that the request succeeded, so status and media type still require checking.
+
+Query parameters should be passed through `params` so that Requests performs the required encoding. Production code should set a timeout, catch request exceptions at an appropriate boundary, and reject unexpected response formats.
+
+```python
+import requests
+
+url = "https://api.example.com/items"
+params = {"category": "fruit", "limit": 20}
+
+response = requests.get(url, params=params, timeout=10)
+response.raise_for_status()
+
+content_type = response.headers.get("Content-Type", "").lower()
+if not content_type.startswith("application/json"):
+    raise ValueError("Expected a JSON response")
+
+data = response.json()
+```
+
+`raise_for_status()` raises an exception for unsuccessful HTTP status codes. A timeout limits how long Requests waits without receiving data, rather than imposing a fixed limit on the entire download. Larger downloads should be streamed in chunks instead of loaded wholly into memory.
+
+For `POST`, the `data` argument encodes form data when given a dictionary. The `json` argument serialises a Python object as JSON and sets the corresponding content type. These forms are not interchangeable, because the receiving endpoint decides which representation it accepts.
+
+```python
+payload = {"name": "Cherry", "family": "Rosaceae"}
+response = requests.post(url, json=payload, timeout=10)
+response.raise_for_status()
+```
+
+Public demonstration APIs can return generated profiles, fruit records, jokes, sports results, or cryptocurrency time series. They are useful for learning request construction and response parsing, but their availability, schemas, access rules, and update intervals can change. A robust application pins supported API versions where possible and validates required fields rather than assuming that a previous example remains current.
+### Converting API data into tables
+JSON objects commonly decode to Python dictionaries, while JSON arrays decode to lists. Records can often be passed directly to `pd.DataFrame()`. Nested objects require deliberate flattening, for which `pd.json_normalize()` is useful.
+
+```python
+import pandas as pd
+
+records = data["results"]
+frame = pd.json_normalize(records)
+
+selected = frame.loc[
+    frame["name"] == "Cherry",
+    ["name", "family", "genus"],
+]
+```
+
+The code should first verify that `results` exists and has the expected type. Normalisation can produce dotted column names for nested fields. A table also needs semantic checks, including units, time zones, identifier uniqueness, allowed ranges, and the meaning of missing values.
+
+Time-series responses often contain pairs such as a Unix timestamp and a value. `pd.to_datetime()` can convert timestamps when the correct unit and time zone are known. Daily open, high, low, and close values can be derived by grouping observations by date and selecting the first, maximum, minimum, and last value in chronological order. The result is only as reliable as the sampling frequency and ordering of the underlying observations.
+### HTML structure and web scraping
+HTML describes a document through elements such as `html`, `head`, `body`, headings, paragraphs, links, images, and tables. Most elements have a start tag, content, and an end tag. Attributes add information, such as an `id`, a CSS class, or an `href` on a link. The parsed document forms a tree. An element can have children, a parent, descendants, and siblings.
+
+A table normally uses `table` for the container, `tr` for rows, `th` for header cells, and `td` for data cells. Real pages may contain malformed markup, nested tables, generated content, or layouts that only resemble tables visually. CSS and JavaScript can also determine what appears in a browser, so the downloaded HTML may differ from the rendered page.
+
+Beautiful Soup parses HTML or XML through a selected parser and exposes objects for navigating and searching the resulting tree. The package installed from Python's package index is `beautifulsoup4`, although it is imported from `bs4`. A `Tag` represents an element, a `NavigableString` represents text within the tree, and the `BeautifulSoup` object represents the parsed document as a whole. It supports many `Tag` operations but is not an HTML tag itself.
+
+```python
+from bs4 import BeautifulSoup
+import requests
+
+response = requests.get("https://www.example.com", timeout=10)
+response.raise_for_status()
+
+soup = BeautifulSoup(response.text, "html.parser")
+
+page_title = soup.title.get_text(strip=True) if soup.title else None
+links = [tag.get("href") for tag in soup.find_all("a", href=True)]
+images = [tag.get("src") for tag in soup.find_all("img", src=True)]
+```
+
+`find()` returns the first match or `None`. `find_all()` returns all descendants that match filters based on tag name, attributes, strings, regular expressions, or functions. Attributes can be accessed like dictionary entries or through `get()`, which avoids a `KeyError` when an attribute is absent. The keyword `class_` is used to filter the HTML `class` attribute because `class` is reserved in Python.
+
+Tree navigation needs care. Whitespace and punctuation can be represented as string nodes, so `next_sibling` does not always return the next tag. Search methods or explicit checks for `Tag` objects are often safer than assuming a fixed sequence of siblings.
+
+For a well-formed HTML table, pandas can reduce the amount of parsing code:
+
+```python
+tables = pd.read_html("page.html")
+frame = tables[0]
+```
+
+`read_html()` searches actual HTML table elements and returns a list of DataFrames. It does not extract arbitrary page layouts, and the result can retain link text, repeated headers, merged-cell artefacts, and unrelated tables. Selection and cleaning remain necessary. Beautiful Soup offers finer control over non-tabular content. A browser automation tool may be required when authorised data only appears after JavaScript execution, although an official API is usually more stable when one is available.
+
+Scraping should respect applicable law, privacy, copyright, contractual terms, and site capacity. A scraper should identify itself where appropriate, limit request rates, cache responses, avoid collecting unnecessary personal data, and stop when access is refused. `robots.txt` communicates crawler preferences, but it is neither access permission nor a security control. Authentication barriers and technical restrictions should not be bypassed without explicit authorisation.
+### Data engineering and file formats
+Data engineering commonly organises work as extract, transform, and load. Extraction collects data from files, APIs, databases, or web pages. Transformation validates, cleans, reshapes, combines, and standardises it. Loading writes the prepared data to a destination such as a database, analytical store, or file. In practice, these stages can overlap or run in a different order, but the model usefully separates acquisition from quality work and storage.
+
+A file format defines how bytes represent information. A filename extension is a useful hint, not proof of the format. Reliable software also considers file signatures, declared media types, encodings, and parser results. Text formats still consist of bytes and require a character encoding. Binary formats are not inferior or unreadable by definition. They use structures intended for software and can offer compression, richer types, or faster access.
+
+| Format | Structure | Common Python approach | Important qualification |
+| --- | --- | --- | --- |
+| CSV | Plain-text records and delimited fields | `pd.read_csv()` and `DataFrame.to_csv()` | Dialect, quoting, encoding, delimiter, and header assumptions must be known |
+| JSON | Text values built from objects, arrays, strings, numbers, booleans, and null | `json.load()`, `json.loads()`, `json.dump()`, `json.dumps()`, and pandas JSON functions | Nested data does not map automatically to a simple table |
+| XLSX | A packaged Office Open XML workbook containing sheets, cells, styles, and related parts | `pd.read_excel()` and `DataFrame.to_excel()` | A workbook can contain formulas, multiple sheets, merged cells, and formatting not preserved by a DataFrame |
+| XML | A hierarchical markup document containing elements, attributes, and text | `xml.etree.ElementTree` or `pd.read_xml()` | Namespaces and deep or irregular structures require explicit handling |
+| Image files | Encoded pixel data plus format-specific metadata | Pillow's `Image.open()` and save methods | Decoding untrusted files requires size limits and current libraries |
+
+CSV usually stores one record per line, with fields separated by commas, although real-world dialects vary. Quoting permits commas, quotation marks, or line breaks inside fields. A header row is optional. If a headerless file is read with pandas' default inference, the first record can be mistaken for column names. Passing `header=None` preserves it as data, and `names=[...]` can assign labels during import.
+
+JSON is a text-based, language-independent interchange format derived from JavaScript syntax. An object contains name-value pairs, and an array contains an ordered sequence of values. In Python, `json.dump(object, file)` serialises to a writable file-like object, while `json.dumps(object)` returns a string. `json.load(file)` deserialises from a readable file-like object, while `json.loads(text)` parses a string, bytes object, or byte array. Untrusted JSON should be size-limited because deeply nested or very large input can consume substantial resources.
+
+XML represents a tree and can preserve distinctions that a rectangular DataFrame cannot. `xml.etree.ElementTree` can create elements, write trees, parse files, and traverse nodes. `pd.read_xml()` is convenient for shallow, repeated records and accepts an XPath expression, but namespaces or complex documents may require `ElementTree`, `lxml`, or an explicit transformation.
+
+Pillow is the maintained imaging library commonly imported as `from PIL import Image`. Opening an image decodes a binary file according to its format. Displaying, resizing, converting, and saving are separate operations. File type, dimensions, decompression limits, colour mode, and metadata deserve validation before an image enters an analytical pipeline.
+### Inspecting, transforming, and validating data
+A newly loaded DataFrame should be inspected before analysis. `head()` and `tail()` reveal sample rows. `shape` reports row and column counts. `info()` summarises the index, columns, data types, non-null counts, and memory use. `describe()` returns descriptive statistics appropriate to the selected columns. `dtypes` is an attribute that reports each column's data type, while `astype()` converts data when the values support the requested type.
+
+`loc` selects by labels, and `iloc` selects by integer position. A column can be selected with `frame["name"]`, several columns with a list of labels, and rows with conditions. Label and positional indexing should not be mixed implicitly because an integer label is not necessarily the same as an integer position.
+
+Missing-data checks require both technical and domain knowledge. `isna()` and `notna()` identify recognised sentinels such as `NaN`, `NaT`, `None`, and `pd.NA` where applicable. They cannot detect a numeric code that the source uses to mean unknown, nor can they identify an impossible value. A zero recorded for a measurement may be valid, invalid, or a missing-value marker depending on the data dictionary. Declaring a dataset complete solely because `isna()` returns no matches is therefore unsafe.
+
+`DataFrame.transform()` applies a function while producing an object with the same axis shape. It suits element-wise or column-wise transformations such as adding a constant or applying a square root where values permit it. Aggregations such as means serve a different purpose because they reduce data. Transformations should preserve units, document assumptions, and avoid silently overwriting raw values.
+
+Visualisation can reveal distributions, imbalance, outliers, and suspicious values, but a chart does not establish causation or data quality. Labels, units, denominators, and population definitions should accompany percentages. Medical or demographic datasets require particular care because missingness, selection criteria, and historical labels can affect both interpretation and fairness.
+
+A dependable pipeline follows a short sequence:
+1. It records the source, schema, licence, collection time, and expected update frequency.
+2. It retrieves data with authentication, timeouts, bounded retries, and status checks.
+3. It validates media type, structure, required fields, units, ranges, and identifiers.
+4. It retains raw data or a reproducible snapshot before transformation.
+5. It cleans and reshapes data with explicit, testable rules.
+6. It checks row counts, missingness, duplicates, data types, and summary statistics after each major change.
+7. It saves the result in a format suited to later use and records enough provenance to reproduce it.
+
+APIs, HTTP clients, HTML parsers, and file readers are complementary parts of this pipeline. Their convenience is most valuable when paired with protocol-aware error handling, schema validation, responsible collection, and disciplined data-quality checks.

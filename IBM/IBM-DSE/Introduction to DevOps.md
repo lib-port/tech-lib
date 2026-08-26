@@ -9,7 +9,7 @@ Traditional software delivery often separated analysts, architects, developers, 
 
 DevOps developed in response to these constraints. It joins software development and technology operations across the service lifecycle. Teams apply Lean and Agile principles to shorten feedback loops, improve flow and deliver small changes safely and frequently. DevOps therefore combines culture, working methods and enabling technology. Tools support the approach, but tools alone cannot create it.
 ### From Agile development to shared delivery
-Extreme Programming helped establish short feedback loops, iterative planning, automated testing, pair programming and responsiveness to changing requirements. In 2001, the Agile Manifesto placed greater value on individuals and interactions, working software, customer collaboration and response to change than on rigid processes, exhaustive documentation, contract negotiation and fixed plans.
+Extreme Programming helped establish short feedback loops, iterative planning, automated testing, pair programming and responsiveness to changing requirements. ==In 2001, the Agile Manifesto placed greater value== on individuals and interactions, working software, customer collaboration and response to change than on rigid processes, exhaustive documentation, contract negotiation and fixed plans.
 
 > The change may have been more supply driven than demand driven as software development tools matured and the pool of developers increased.  The marginal cost and risk of software change lowered to a threshold where short iterations became possible and rework was no longer cost prohibitive. The need for adaptive software development was always there, but prior to the early 2000s it may not have been economically feasible.
 

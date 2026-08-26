@@ -108,6 +108,7 @@ Cybersecurity protects digital systems, data, and operations by managing risk an
 - LPIC-3 Exam 303: Security ([course](https://www.pluralsight.com/courses/lpic-3-exam-303-security))
 - Red Hat Certified Specialist in Security: Linux ([RH Doc](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html-single/security_hardening/index))
 - Johns Hopkins University Intrusion Detection Specialization ([course](https://www.coursera.org/specializations/intrusion-detection))
+
 ### Book Notes
 - Threat Modeling: Designing for Security, by Adam Shostack. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/threat-modeling-designing-for-security-p-9781118809990))
 - Security Engineering, 3rd edition, by Ross J. Anderson. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/security-engineering-a-guide-to-building-dependable-distributed-systems-3rd-edition-p-9781119642787))
@@ -119,6 +120,7 @@ Cybersecurity protects digital systems, data, and operations by managing risk an
 - Intelligent Continuous Security, by Marc Hornbeek. ([catalogue](https://www.oreilly.com/library/view/intelligent-continuous-security/9798341615908/))
 ## Custom Portfolio Projects
 ### Front-End Development
+
 - :package: [Developer Landing Page](https://github.com/lib-port/lib-port.github.io) :link: [Live demo](https://lib-port.github.io)
 ### Platform Engineering
 #### GitOps
@@ -131,7 +133,6 @@ Cybersecurity protects digital systems, data, and operations by managing risk an
 - :package: [Ansible CIS-based Auditing System for Debian OSes](https://github.com/lib-port/ansible-linux-audit)
 - :package: [Ansible Detection-as-Code Engine for HTB Labs](https://github.com/lib-port/agentless-DaC)
 ## Miscellaneous Notes
-
 
 > [!WARNING]
 > Solutions to labs and projects are my own and were validated as correct with tests, but are not the solutions provided by the courses and may not be optimal solutions. Solutions provided by the courses have not been provided in the notes.
