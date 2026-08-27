@@ -9,7 +9,7 @@ Modify the GDP column of the DataFrame, converting the value available in Millio
 ## Exercise 3
 Modify the GDP column of the DataFrame, converting the value available in Million USD to Billion USD. Use the `round()` method of Numpy library to round the value to 2 decimal 
 places. Modify the header of the DataFrame to `GDP (Billion USD)`.
-### Solution
+## Solution
 > [!NOTE]
 > This times out often if you have high latency with the Internet Archive. Multiple attempts might be required.
 ```python

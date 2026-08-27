@@ -1,4 +1,6 @@
 # Python for Data Science, AI & Development
+> [!NOTE]
+> This comprehensive guide builds practical Python skills for data science, AI, and software development, including core syntax and programming concepts, Jupyter, pandas, NumPy, APIs, web scraping, and reliable data workflows. 
 ## Python Basics
 Python is a high-level, general-purpose programming language known for relatively clear syntax and a large ecosystem. It is used in fields including data analysis, machine learning, web development, automation, scientific computing, education, and embedded projects. Its extensive standard library covers common programming tasks, while third-party packages such as NumPy, pandas, SciPy, Matplotlib, scikit-learn, TensorFlow, PyTorch, and NLTK provide specialised capabilities. These packages are not part of the standard library.
 

@@ -14,7 +14,7 @@ This 6-month, self-paced program teaches the job-ready skills needed for data en
 - Design, deploy, and manage an end-to-end data engineering platform.
 ## Module Notes and Project Files
 - [Introduction to Data Engineering](Introduction%20to%20Data%20Engineering.md)
-- [Python for Data Science, AI & Development](../IBM-DSE/Python%20for%20Data%20Science,%20AI%20&%20Development.md)
+- [Python for Data Science, AI & Development](Python%20for%20Data%20Science,%20AI%20&%20Development.md) ( :package: [Project](projects/Python%20for%20Data%20Science,%20AI%20&%20Development%20Final%20Project.md) )
 - Python Project for Data Engineering
 - Introduction to Relational Databases (RDBMS)
 - Databases and SQL for Data Science with Python

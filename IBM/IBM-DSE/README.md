@@ -18,7 +18,7 @@ This course includes the following hands-on projects:
 - [Getting Started with Git and GitHub](Getting%20Started%20with%20Git%20and%20GitHub.md) ( :package: [Project](projects/Getting%20Started%20with%20Git%20and%20GitHub%20Final%20Project.md) )
 - [Hands-on Introduction to Linux Commands and Shell Scripting](Hands-on%20Introduction%20to%20Linux%20Commands%20and%20Shell%20Scripting.md) ( :package: [Project](projects/Hands-on%20Introduction%20to%20Linux%20Commands%20and%20Shell%20Scripting%20Final%20Project.md) )
 - [Python for Data Science, AI & Development](Python%20for%20Data%20Science,%20AI%20&%20Development.md) ( :package: [Project](projects/Python%20for%20Data%20Science,%20AI%20&%20Development%20Final%20Project.md) )
-- Developing AI Applications with Python and Flask
+- [Developing AI Applications with Python and Flask](Developing%20AI%20Applications%20with%20Python%20and%20Flask.md)
 - Introduction to Containers w/ Docker, Kubernetes & OpenShift
 - Application Development using Microservices and Serverless
 - Introduction to Test and Behavior Driven Development
