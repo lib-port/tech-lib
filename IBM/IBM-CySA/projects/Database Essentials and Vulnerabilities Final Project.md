@@ -1,15 +1,23 @@
 # *Database Essentials and Vulnerabilities* Final Project
+
 You have been hired as a database security consultant for SecureShop, an online retail company. SecureShop is looking to upgrade its database to enhance security and data management practices. The company's database needs to handle sensitive information, including customer personal data, order details, and payment information, while ensuring compliance with data protection regulations.
 > [!NOTE]
 > Command-line tools replaced GUI tools in this project, as command-line tools offer more stable interfaces and often expose more detailed OS or application APIs.
 
 ---
+
 ## Task 1: Database design and implementation
+
 ### Scenario
+
 This task involves exploring the SecureShop database to understand its structure and contents. The database includes tables for customers, orders, products, and payment details. Your goal is to import this database into your MySQL environment and perform basic SQL queries to retrieve and analyze the data. By executing these queries, you'll gain insights into the various aspects of the database and how different data elements are interrelated.
-### Tasks:
+
+### Tasks
+
 #### 1.1: Import the database
-##### 1.1.1: Create a database "SecureShop". Import the schema and data from the attached `.sql` file and show the output.
+
+##### 1.1.1: Create a database "SecureShop". Import the schema and data from the attached `.sql` file and show the output
+
 ```sql
 CREATE DATABASE SecureShop
 CHARACTER SET utf8mb4
@@ -19,7 +27,9 @@ USE SecureShop;
 
 SOURCE ./SecureShop.sql
 ```
+
 Output:
+
 ```text
 Query OK, 1 row affected
 
@@ -27,10 +37,13 @@ Database changed
 
 The SOURCE command reports a series of successful DROP, CREATE, INSERT, ALTER, LOCK, and SET operations
 ```
+
 Verify that the import produced all four tables:
+
 ```sql
 SHOW TABLES;
 ```
+
 Output:
 
 | Tables_in_SecureShop |
@@ -40,6 +53,7 @@ Output:
 | payment_details      |
 | products             |
 Verify the imported row counts:
+
 ```sql
 SELECT 'customers' AS table_name, COUNT(*) AS row_count
 FROM customers
@@ -53,6 +67,7 @@ UNION ALL
 SELECT 'products', COUNT(*)
 FROM products;
 ```
+
 Output:
 
 | table_name | row_count |
@@ -61,8 +76,11 @@ Output:
 | orders | 10 |
 | payment_details | 10 |
 | products | 10 |
-#### 1.2: Perform the following basic SQL exercises:
-##### 1.2.1: Explore the tables in the database and show the output of the payment_details table.
+
+#### 1.2: Perform the following basic SQL exercises
+
+##### 1.2.1: Explore the tables in the database and show the output of the payment_details table
+
 ```sql
 SHOW TABLES;
 
@@ -70,6 +88,7 @@ SELECT *
 FROM payment_details
 ORDER BY payment_id;
 ```
+
 Output:
 
 | payment_id | order_id | payment_date | payment_method | payment_amount |
@@ -84,32 +103,38 @@ Output:
 | 8 | 8 | 2024-08-08 | Credit Card | 349.98 |
 | 9 | 9 | 2024-08-09 | Debit Card | 1099.99 |
 | 10 | 10 | 2024-08-10 | Credit Card | 289.98 |
-##### 1.2.2: Search for all customers in the customers table and show the output.
+
+##### 1.2.2: Search for all customers in the customers table and show the output
+
 ```sql
 SELECT *
 FROM customers
 ORDER BY customer_id;
 ```
+
 Output:
 
 | customer_id | first_name | last_name | email | phone | address | city | state | postal_code | country |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | John | Doe | john.doe@example.com | 123-456-7890 | 123 Elm St | New York | NY | 10001 | USA |
-| 2 | Jane | Smith | jane.smith@example.com | 987-654-3210 | 456 Oak St | Los Angeles | CA | 90001 | USA |
-| 3 | Michael | Brown | michael.brown@example.com | 555-123-4567 | 789 Pine St | Chicago | IL | 60601 | USA |
-| 4 | Emily | Davis | emily.davis@example.com | 444-555-6666 | 101 Maple St | Houston | TX | 77001 | USA |
-| 5 | David | Wilson | david.wilson@example.com | 333-444-5555 | 202 Birch St | Phoenix | AZ | 85001 | USA |
-| 6 | Sarah | Johnson | sarah.johnson@example.com | 111-222-3333 | 303 Cedar St | Philadelphia | PA | 19101 | USA |
-| 7 | James | Williams | james.williams@example.com | 666-777-8888 | 404 Spruce St | San Antonio | TX | 78201 | USA |
-| 8 | Olivia | Martinez | olivia.martinez@example.com | 999-000-1111 | 505 Cherry St | San Diego | CA | 92101 | USA |
-| 9 | William | Garcia | william.garcia@example.com | 222-333-4444 | 606 Aspen St | Dallas | TX | 75201 | USA |
-| 10 | Isabella | Rodriguez | isabella.rodriguez@example.com | 777-888-9999 | 707 Redwood St | San Jose | CA | 95101 | USA |
-##### 1.2.3: List all products in the products table and show the output.
+| 1 | John | Doe | <john.doe@example.com> | 123-456-7890 | 123 Elm St | New York | NY | 10001 | USA |
+| 2 | Jane | Smith | <jane.smith@example.com> | 987-654-3210 | 456 Oak St | Los Angeles | CA | 90001 | USA |
+| 3 | Michael | Brown | <michael.brown@example.com> | 555-123-4567 | 789 Pine St | Chicago | IL | 60601 | USA |
+| 4 | Emily | Davis | <emily.davis@example.com> | 444-555-6666 | 101 Maple St | Houston | TX | 77001 | USA |
+| 5 | David | Wilson | <david.wilson@example.com> | 333-444-5555 | 202 Birch St | Phoenix | AZ | 85001 | USA |
+| 6 | Sarah | Johnson | <sarah.johnson@example.com> | 111-222-3333 | 303 Cedar St | Philadelphia | PA | 19101 | USA |
+| 7 | James | Williams | <james.williams@example.com> | 666-777-8888 | 404 Spruce St | San Antonio | TX | 78201 | USA |
+| 8 | Olivia | Martinez | <olivia.martinez@example.com> | 999-000-1111 | 505 Cherry St | San Diego | CA | 92101 | USA |
+| 9 | William | Garcia | <william.garcia@example.com> | 222-333-4444 | 606 Aspen St | Dallas | TX | 75201 | USA |
+| 10 | Isabella | Rodriguez | <isabella.rodriguez@example.com> | 777-888-9999 | 707 Redwood St | San Jose | CA | 95101 | USA |
+
+##### 1.2.3: List all products in the products table and show the output
+
 ```sql
 SELECT *
 FROM products
 ORDER BY product_id;
 ```
+
 Output:
 
 | product_id | product_name | product_description | price | stock_quantity |
@@ -124,19 +149,23 @@ Output:
 | 8 | Monitor | 27-inch 4K monitor | 399.99 | 25 |
 | 9 | Keyboard | Mechanical keyboard | 89.99 | 80 |
 | 10 | Mouse | Wireless ergonomic mouse | 49.99 | 100 |
-##### 1.2.4: Retrieve payment details for order_id 7 and show the output.
+
+##### 1.2.4: Retrieve payment details for order_id 7 and show the output
+
 ```sql
 SELECT *
 FROM payment_details
 WHERE order_id = 7;
 ```
+
 Output:
 
 | payment_id | order_id | payment_date | payment_method | payment_amount |
 | ---: | ---: | --- | --- | ---: |
 | 7 | 7 | 2024-08-07 | PayPal | 399.99 |
 
-##### 1.2.5: Find orders placed by the customer named David and show the output.
+##### 1.2.5: Find orders placed by the customer named David and show the output
+
 ```sql
 SELECT
     o.order_id,
@@ -150,6 +179,7 @@ JOIN customers AS c
 WHERE c.first_name = 'David'
 ORDER BY o.order_id;
 ```
+
 Output:
 
 | order_id | first_name | last_name | order_date | total_amount |
@@ -157,17 +187,25 @@ Output:
 | 5 | David | Wilson | 2024-08-05 | 169.99 |
 
 ---
+
 ## Task 2: Data protection strategies
+
 ### Scenario
+
 **Scenario:** SecureShop is committed to safeguarding sensitive customer information. As part of their data protection strategy, the company has identified the need to implement encryption for certain fields in their database to prevent unauthorized access. Additionally, they aim to mask personal information to enhance privacy while still allowing some data visibility for operational purposes.
 
 **Encryption implementation:** Although the SecureShop database currently does not have fields specifically designated for encryption, imagine that you need to protect sensitive data such as payment information. You are required to demonstrate how you would encrypt this data if it were present in the database.
 
 **Masking personal information:** SecureShop wants to mask phone numbers in their customer records to ensure that only partial information is visible. This helps protect customer privacy while still allowing staff to identify and contact customers when necessary.
+
 ### Tasks
+
 #### 2.1: Encrypt and decrypt sensitive data
-##### 2.1.1: Use MySQL's built-in functions to encrypt customer personal information (phone number). Show the output of the encrypted data.
+
+##### 2.1.1: Use MySQL's built-in functions to encrypt customer personal information (phone number). Show the output of the encrypted data
+
 This lab procedure preserves the source table and writes ciphertext to a temporary table. The temporary table disappears when the session ends.
+
 ```sql
 SET SESSION block_encryption_mode = 'aes-128-ecb';
 
@@ -188,11 +226,14 @@ SELECT
 FROM customers
 WHERE phone IS NOT NULL;
 ```
+
 Output:
+
 ```text
 Query OK, 10 rows affected
 Records: 10  Duplicates: 0  Warnings: 0
 ```
+
 Display the binary ciphertext in hexadecimal form:
 
 ```sql
@@ -205,6 +246,7 @@ JOIN customers AS c
     ON c.customer_id = e.customer_id
 ORDER BY e.customer_id;
 ```
+
 Output:
 
 | customer_id | first_name | encrypted_phone |
@@ -219,7 +261,9 @@ Output:
 | 8 | Olivia | AD51E4FBE494043E566FC0468967933B |
 | 9 | William | 808B33AB8B12AD853D7BF8CFC1D770C2 |
 | 10 | Isabella | A2EF2D6DD91767C8B96A43B85DC19610 |
-##### 2.1.2: Use MySQL's built-in functions to decrypt the data encrypted in the previous exercise. Show the output of the decrypted data.
+
+##### 2.1.2: Use MySQL's built-in functions to decrypt the data encrypted in the previous exercise. Show the output of the decrypted data
+
 Run the decryption in the same session so the temporary table and `@demo_key` remain available.
 
 ```sql
@@ -235,6 +279,7 @@ JOIN customers AS c
     ON c.customer_id = e.customer_id
 ORDER BY e.customer_id;
 ```
+
 Output:
 
 | customer_id | first_name | decrypted_phone |
@@ -261,14 +306,19 @@ WHERE CONVERT(
     USING utf8mb4
 ) = c.phone;
 ```
+
 Output:
 
 | matching_rows |
 | ------------: |
 |            10 |
+
 #### 2.2: Apply data masking
+
 Mask sensitive information when displaying it. Use SQL functions to partially mask data, showing only the last two digits of a customer's postal code. Take screenshots of the output showing the masked field.
+
 ##### Answer
+
 The expression below preserves `NULL`, masks every character except the final two, and handles values shorter than two characters.
 
 ```sql
@@ -289,6 +339,7 @@ SELECT
 FROM customers
 ORDER BY customer_id;
 ```
+
 Output:
 
 | customer_id | first_name | last_name | masked_postal_code |
@@ -305,34 +356,48 @@ Output:
 | 10 | Isabella | Rodriguez | `***01` |
 
 ---
+
 ## Task 3: Database security and user management
+
 ### Scenario
+
 SecureShop wants to set up a basic user management system. For this task, you will create a single user role with specific permissions. This user will be a "Delivery Executive (DE)" who needs to access and update customer records.
+
 ### Tasks
+
 #### 3.1: GRANT and REVOKE Permissions
-##### 3.1.1: Write and execute SQL commands to create a "Delivery Executive" user and show the output.
+
+##### 3.1.1: Write and execute SQL commands to create a "Delivery Executive" user and show the output
+
 The technical account name is `delivery_executive`. The password below is a lab placeholder and should be replaced before execution.
 
 ```sql
 CREATE USER 'delivery_executive'@'localhost'
 IDENTIFIED BY 'hunter2hunter2hunter2';
 ```
+
 Output:
+
 ```text
 Query OK, 0 rows affected
 ```
+
 Verify the newly created account:
 
 ```sql
 SHOW GRANTS FOR 'delivery_executive'@'localhost';
 ```
+
 Output:
 
 ```text
 GRANT USAGE ON *.* TO `delivery_executive`@`localhost`
 ```
-##### 3.1.2: Grant the SELECT, DELETE, and UPDATE permission to "Delivery Executive" and verify the access provided.
+
+##### 3.1.2: Grant the SELECT, DELETE, and UPDATE permission to "Delivery Executive" and verify the access provided
+
 Limit the privileges to the `customers` table because the job function does not require database-wide access.
+
 ```sql
 GRANT SELECT, UPDATE, DELETE
 ON SecureShop.customers
@@ -340,16 +405,22 @@ TO 'delivery_executive'@'localhost';
 
 SHOW GRANTS FOR 'delivery_executive'@'localhost';
 ```
+
 Output:
+
 ```text
 GRANT USAGE ON *.* TO `delivery_executive`@`localhost`
 GRANT SELECT, UPDATE, DELETE ON `SecureShop`.`customers` TO `delivery_executive`@`localhost`
 ```
+
 Open a separate session as the Delivery Executive account:
+
 ```text
 mysql -u delivery_executive -p SecureShop
 ```
+
 Verify `SELECT`:
+
 ```sql
 SELECT
     customer_id,
@@ -360,6 +431,7 @@ SELECT
 FROM customers
 WHERE customer_id = 1;
 ```
+
 Output:
 
 | customer_id | first_name | last_name | city     | postal_code |
@@ -391,6 +463,7 @@ WHERE customer_id = 1;
 ```
 
 Output:
+
 ```text
 Query OK, 1 row affected
 Rows matched: 1  Changed: 1  Warnings: 0
@@ -406,11 +479,15 @@ WHERE customer_id = -1;
 ```
 
 Output:
+
 ```text
 Query OK, 0 rows affected
 ```
-##### 3.1.3: Revoke the DELETE permission from "Delivery Executive" and verify the access provided.
+
+##### 3.1.3: Revoke the DELETE permission from "Delivery Executive" and verify the access provided
+
 Run the revocation from the administrative session:
+
 ```sql
 REVOKE DELETE
 ON SecureShop.customers
@@ -438,15 +515,25 @@ Output:
 ```text
 ERROR 1142 (42000): DELETE command denied to user 'delivery_executive'@'localhost' for table 'customers'
 ```
+
 ---
+
 ## Task 4: Injection vulnerabilities
+
 ### Scenario
+
 In this task, you'll explore potential SQL injection vulnerabilities within the SecureShop database. SQL injection is a significant security threat where an attacker can manipulate SQL queries by injecting malicious input. Your objective is to identify areas in the database where SQL injection could be possible, particularly in queries that interact with the customers table.
+
 ### Tasks
+
 #### 4.1: Writing a vulnerable SQL query
+
 Identifying a vulnerable query: Write and execute vulnerable SQL query that joins the orders and customers tables and fetches customer details using user input, such as `order_id`, which is directly included in the SQL statement. Show the output.
+
 ##### Answer
+
 The query below concatenates untrusted numeric input into SQL text before parsing.
+
 ```sql
 SET @order_id_input = '1';
 
@@ -471,6 +558,7 @@ DEALLOCATE PREPARE vulnerable_order_lookup;
 ```
 
 The constructed query is:
+
 ```sql
 SELECT
     o.order_id,
@@ -490,17 +578,24 @@ Dataset-derived expected output for normal input:
 
 | order_id | customer_id | first_name | last_name | email                | phone        |
 | -------: | ----------: | ---------- | --------- | -------------------- | ------------ |
-|        1 |           1 | John       | Doe       | john.doe@example.com | 123-456-7890 |
+|        1 |           1 | John       | Doe       | <john.doe@example.com> | 123-456-7890 |
 
 The query is vulnerable because the application inserts the input into executable SQL text. Preparing the already concatenated string does not restore the separation between code and data.
+
 #### 4.2: Exploiting the vulnerable SQL query using SQL Injection
+
 SQL injection: Write and execute an SQL injection attack using vulnerable query created in Task 4.1 to retrieve unauthorized data. Show the output.
+
 ##### Answer
+
 Use the non-destructive, read-only test value supplied by the assignment:
+
 ```text
 1 OR 1=1
 ```
+
 Run the same construction with the altered input:
+
 ```sql
 SET @order_id_input = '1 OR 1=1';
 
@@ -523,7 +618,9 @@ EXECUTE vulnerable_order_lookup;
 
 DEALLOCATE PREPARE vulnerable_order_lookup;
 ```
+
 The manipulated query becomes:
+
 ```sql
 SELECT
     o.order_id,
@@ -538,19 +635,20 @@ JOIN customers AS c
 WHERE o.order_id = 1 OR 1=1
 ORDER BY o.order_id
 ```
+
 Dataset-derived expected filter-expansion output:
 
 | order_id | customer_id | first_name | last_name | email | phone |
 | ---: | ---: | --- | --- | --- | --- |
-| 1 | 1 | John | Doe | john.doe@example.com | 123-456-7890 |
-| 2 | 2 | Jane | Smith | jane.smith@example.com | 987-654-3210 |
-| 3 | 3 | Michael | Brown | michael.brown@example.com | 555-123-4567 |
-| 4 | 4 | Emily | Davis | emily.davis@example.com | 444-555-6666 |
-| 5 | 5 | David | Wilson | david.wilson@example.com | 333-444-5555 |
-| 6 | 6 | Sarah | Johnson | sarah.johnson@example.com | 111-222-3333 |
-| 7 | 7 | James | Williams | james.williams@example.com | 666-777-8888 |
-| 8 | 8 | Olivia | Martinez | olivia.martinez@example.com | 999-000-1111 |
-| 9 | 9 | William | Garcia | william.garcia@example.com | 222-333-4444 |
-| 10 | 10 | Isabella | Rodriguez | isabella.rodriguez@example.com | 777-888-9999 |
+| 1 | 1 | John | Doe | <john.doe@example.com> | 123-456-7890 |
+| 2 | 2 | Jane | Smith | <jane.smith@example.com> | 987-654-3210 |
+| 3 | 3 | Michael | Brown | <michael.brown@example.com> | 555-123-4567 |
+| 4 | 4 | Emily | Davis | <emily.davis@example.com> | 444-555-6666 |
+| 5 | 5 | David | Wilson | <david.wilson@example.com> | 333-444-5555 |
+| 6 | 6 | Sarah | Johnson | <sarah.johnson@example.com> | 111-222-3333 |
+| 7 | 7 | James | Williams | <james.williams@example.com> | 666-777-8888 |
+| 8 | 8 | Olivia | Martinez | <olivia.martinez@example.com> | 999-000-1111 |
+| 9 | 9 | William | Garcia | <william.garcia@example.com> | 222-333-4444 |
+| 10 | 10 | Isabella | Rodriguez | <isabella.rodriguez@example.com> | 777-888-9999 |
 
 The expression `1=1` is true for every joined row. The altered condition therefore expands one intended result to all 10 customer records.

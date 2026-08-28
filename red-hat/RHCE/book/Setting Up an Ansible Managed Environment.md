@@ -1,5 +1,7 @@
 # Setting Up an Ansible Managed Environment
+
 ## Project organisation
+
 RHEL 10 includes `ansible-core` 2.16 for supported RHEL automation content. A project directory keeps related automation together and gives each workload or environment its own defaults. Teams should protect the directory with appropriate permissions and manage its non-secret content in version control.
 
 | Component | Purpose |
@@ -11,7 +13,9 @@ RHEL 10 includes `ansible-core` 2.16 for supported RHEL automation content. A pr
 | Requirements files | Collection and role dependencies |
 
 This layout supports review, testing, reuse, and delegation. An organisation can separate production, test, regional, or application inventories while sharing roles and collections through controlled dependencies.
+
 ## Static inventory
+
 Ansible builds an in-memory inventory from one or more sources. The built-in INI and YAML inventory plug-ins accept hostnames, fully qualified domain names, IP addresses, aliases, groups, ranges, and parent-child group relationships. A host can belong to several functional, regional, and lifecycle groups.
 
 Ansible always creates the `all` and `ungrouped` groups. `all` contains every explicit inventory host, while `ungrouped` contains hosts outside other groups. When Ansible parses no inventory, it warns that only an implicit localhost is available. Group patterns cannot target that implicit host.
@@ -27,11 +31,15 @@ ansible-inventory -i inventory --list
 ```
 
 Repeated `-i` options combine sources. An inventory directory can also contain static files, executable scripts, plug-in configuration files, `group_vars/`, and `host_vars/`, subject to configured ignore rules. Ansible loads sources in the supplied order, and the last definition wins when the same variable appears more than once.
+
 ## Dynamic inventory
+
 Dynamic inventory discovers hosts from cloud platforms, virtualisation systems, directories, and other external services. Inventory plug-ins generally suit dynamic inventory better than scripts because they integrate configuration, caching, variable composition, and grouping with `ansible-core`. Collections distribute provider-specific plug-ins, which often use YAML configuration sources and require additional libraries.
 
 Legacy inventory scripts still work. A script can use any language, not only Python, but it must run as an executable, accept `--list` and `--host <hostname>`, and emit valid JSON. Including host variables under the `_meta` key avoids a separate script call for every host. Teams should use maintained plug-ins instead of unreviewed scripts found through general web searches.
+
 ## Configuration and precedence
+
 Ansible searches for configuration in this order:
 
 ```text

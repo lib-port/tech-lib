@@ -1,9 +1,13 @@
 # Systems Engineering: System Architecture & Design
+
 Systems engineering coordinates the definition, analysis, design, integration, verification, validation, operation, and retirement of a system. The work proceeds iteratively because stakeholder understanding, technical evidence, risks, and constraints develop throughout the life cycle. Architecture and design connect those concerns to an implementable system.
+
 ## System architecture
+
 A system architecture encompasses the fundamental organisation of a system, including its elements, relationships, governing principles, and environmental context. An architecture description communicates selected aspects of that architecture. It does not duplicate every design detail.
 
 Stakeholder concerns determine what an architecture description should show. Architects define viewpoints for recurring concerns, then create views that conform to those viewpoints. One view might show physical deployment and network connections. Another might show functions, data flows, states, timing, or human interaction. A useful set of views usually covers several complementary perspectives:
+
 - Physical views show equipment, facilities, devices, networks, and deployment locations.
 - Logical or functional views show responsibilities, transformations, behaviour, and information flow without committing every function to a physical component.
 - Interface views show exchanges and dependencies across component or system boundaries.
@@ -17,7 +21,9 @@ Architecture descriptions support communication and decision-making. They help t
 Teams often distinguish a current-state architecture from a target-state architecture. The first explains the system that exists, including technical debt and operational constraints. The second explains the intended structure and the principles that will govern its evolution. Transition views connect the two by showing increments, dependencies, temporary interfaces, data migration, and retirement activities. These views prevent a desirable destination from becoming an impractical delivery plan.
 
 Organisations often distribute architectural responsibility across several scopes. Enterprise architects align portfolios and shared capabilities with organisational strategy. Solution architects coordinate a coherent solution across products, services, and platforms. Technical or domain architects guide detailed decisions in areas such as software, networks, data, safety, or security. Titles vary, but every role should connect decisions to stakeholder concerns and system-wide outcomes.
+
 ## Components, modularity, and standardisation
+
 A component represents an element that engineers treat as a unit at a chosen level of abstraction. Components may include hardware, software, data stores, people, facilities, procedures, or combinations of these. The useful level of decomposition depends on the decision. A component should have a clear responsibility, explicit interfaces, and enough internal cohesion to support independent understanding and change.
 
 Inputs, processing, outputs, feedback, and control provide useful functional categories, but they do not form an exhaustive classification of all components. A component may perform several roles. Its significance also depends on the system boundary and the relationships that create system-level behaviour.
@@ -31,10 +37,13 @@ Standardisation strengthens modularity when teams agree on interface protocols, 
 Microservices offer one modular software style, not a definition of modularity. Each service normally owns a bounded capability and communicates through an explicit contract. Service boundaries should reflect cohesive responsibilities and minimise unnecessary coupling.
 
 Container platforms can automate deployment and recovery, but their structure requires accurate description. Kubernetes schedules Pods onto Nodes. A Pod contains one or more co-located containers that share network and storage resources. Deployments and other controllers can maintain a desired number of Pod replicas. This mechanism replaces failed instances only when teams configure suitable controllers, health checks, resources, dependencies, and data protection.
+
 ## Modelling and simulation
+
 A model represents selected aspects of a real or proposed system for a stated purpose. Models may be physical, mathematical, computational, descriptive, or hybrid. A simulation executes or manipulates a model to examine behaviour under specified conditions. Engineers use models and simulations to explore alternatives, forecast conditional outcomes, investigate inaccessible scales, support trade studies, rehearse operations, and gather evidence before building or changing the full system.
 
 Every model simplifies its subject. Credible use therefore depends on fitness for purpose, not maximum detail. The modelling team should define:
+
 - the decision or question that the model will support
 - the system boundary, operational scenarios, and domain of use
 - assumptions, abstractions, governing relationships, and data provenance
@@ -45,16 +54,21 @@ Every model simplifies its subject. Credible use therefore depends on fitness fo
 The team should verify that the implementation correctly represents the intended model and validate that the model represents the relevant real-world behaviour well enough for its proposed use. Calibration, comparison with observations, independent review, and sensitivity analysis can strengthen confidence. Results should retain their assumptions and uncertainty. A simulation supports a decision, but it does not remove uncertainty or guarantee an outcome.
 
 An experimental plan should define the scenarios, parameter ranges, number of runs, random seeds where applicable, and method for comparing alternatives. Repeated runs can reveal variability in stochastic models. Sensitivity analysis can identify assumptions or inputs that dominate results, while uncertainty analysis can show the range of plausible outcomes. Version control should connect each result to the exact model, data, configuration, and execution environment that produced it.
+
 ## System interfaces
+
 An interface is a shared boundary or connection through which system elements interact. Interfaces can carry data, commands, electrical power, heat, fluids, forces, or human actions. Mechanical, electrical, thermal, software, communications, and human interfaces all require compatible definitions.
 
 The system boundary determines whether an interface is internal or external. An internal interface connects elements within the system of interest. An external interface connects that system to a user, another system, or the operating environment. Changing the boundary can change the classification without changing the physical connection.
 
 Teams should define important interfaces early enough to let component teams work in parallel. An interface definition should specify the exchanged item, direction, format, units, timing, sequence, capacity, error behaviour, security, physical characteristics, ownership, and versioning that apply. Interface control records should preserve agreements and track changes. Integration tests should confirm both conformance to each side of the contract and correct end-to-end behaviour.
+
 ## Needs and requirements
+
 Business or mission needs explain the problem, opportunity, purpose, and desired outcomes. Stakeholder requirements translate those needs into capabilities, quality expectations, operational conditions, and constraints from the stakeholder perspective. System requirements then express a technical view of the system capabilities and characteristics needed to satisfy the stakeholder requirements. Requirements state what the system must achieve and which limits apply. They should prescribe a design only when a justified constraint requires a particular solution.
 
 Requirements can describe:
+
 - functions and externally visible behaviour
 - performance, capacity, timing, accuracy, and availability
 - safety, security, reliability, usability, and maintainability
@@ -74,11 +88,15 @@ Elicitation continues throughout development. Stakeholders often refine their un
 Teams transform approved stakeholder requirements into system requirements, classify them, and establish bidirectional traceability. Reviews should test completeness, consistency, feasibility, risk, and alignment across levels. A controlled baseline identifies the agreed requirements for a stage of work. Change control then records the proposed change, rationale, affected artefacts, technical and commercial impact, decision, and resulting baseline. Control should enable justified change while preventing silent divergence.
 
 Verification planning should start while teams define requirements. Each requirement needs a suitable method such as analysis, inspection, demonstration, or test, together with conditions and acceptance criteria. Early planning exposes statements that no practical method can verify. Validation planning should also connect operational scenarios and stakeholder outcomes to evidence, including evidence that teams can collect from prototypes, simulations, field trials, or the realised system.
+
 ## The relationship between requirements and architecture
+
 Requirements and architecture develop through a two-way, iterative relationship. Initial needs and requirements guide architectural exploration. Candidate architectures reveal technical constraints, quality trade-offs, missing scenarios, interface demands, and cost or schedule implications. That evidence can prompt stakeholders to clarify or revise requirements through the agreed change process.
 
 This interaction does not give designers licence to substitute preferred features for approved needs. Every significant architectural element and decision should trace to a requirement, risk treatment, constraint, or documented rationale. Conversely, every allocated requirement should have an architectural home and a credible verification approach. Early architecture sketches can improve requirements analysis, while evolving baselines keep both sets of artefacts aligned.
+
 ## Principles of system design
+
 Effective design balances simplicity with the complexity needed to satisfy requirements. Teams should solve current, evidenced needs, preserve feasible evolution paths, and avoid speculative features. Small, reversible changes often reduce disruption, but major change remains appropriate when the existing structure cannot support required outcomes.
 
 Clear design records should explain decisions, alternatives, assumptions, and consequences. Consistent terminology, interaction patterns, and interface conventions reduce cognitive load. Readable code and models help maintainers, but they do not replace the documentation needed for architecture, operations, safety, security, and decisions.
@@ -92,7 +110,9 @@ Safety, security, privacy, and human factors should influence requirements and a
 Teams should iterate, review competing ideas, test high-risk assumptions early, and keep attention on system-level outcomes. Implementation details deserve focus when they affect feasibility, interfaces, safety, security, cost, or quality. Otherwise, premature detail can obscure the architectural decision.
 
 Alternative designs should receive explicit comparison against the same criteria. A trade study can examine performance, cost, schedule, risk, maintainability, and environmental impact without pretending that one option maximises every quality. Sensitivity analysis can show whether a small change in assumptions reverses the ranking. Teams should record why they accepted a disadvantage, which evidence supports the choice, and which future condition would trigger reconsideration.
+
 ## Metrics and system evaluation
+
 Measurement begins with an information need. A useful metric links a defined concept to a repeatable method, data source, unit, sampling approach, calculation, interpretation, and decision context. Teams should choose measures that reflect stakeholder outcomes and system qualities, while balancing benefit against the cost of collection and analysis.
 
 Aggregation can reveal trends, but averaging does not increase measurement precision. Precision concerns agreement among repeated measurements, resolution concerns the smallest detectable or reported increment, and accuracy concerns closeness to an accepted reference. Teams should select resolution, sampling frequency, and reporting precision that fit the scale of meaningful change. Excess digits can imply unsupported certainty, while coarse measures can hide important variation.
@@ -106,6 +126,7 @@ Systems engineering often distinguishes three related measures. Measures of Effe
 Architecture evaluation should begin before teams commit to expensive implementation and continue when requirements, evidence, or risks change. Stakeholders should agree on scenarios, quality attributes, constraints, measures, and decision criteria. The evaluation should compare credible alternatives, identify sensitivities and trade-offs, expose risks and assumptions, and record the rationale for selection. No review guarantees future success, but early analysis can reduce avoidable rework and make residual risk visible.
 
 The Carnegie Mellon Software Engineering Institute developed several scenario-based methods:
+
 - The Software Architecture Analysis Method assesses an architecture against scenarios and quality concerns, with an early emphasis on modifiability.
 - The Architecture Tradeoff Analysis Method evaluates competing quality attribute goals and exposes architectural risks, sensitivity points, and trade-offs that can affect business goals.
 - Active Reviews for Intermediate Designs uses task-oriented reviews to evaluate incomplete designs and their suitability for intended users.

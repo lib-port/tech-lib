@@ -1,4 +1,5 @@
 # Chapter 3: The Adversarial Mindset
+
 Open-source intelligence (OSINT) analysts improve reporting when they assess a target as an adversary would. Attackers look for visible assets, exposed data, weak authentication, reusable credentials, public staff information, and paths that reduce effort. Analysts should examine an organisation or person from the outside, identify the information an attacker can see, and explain why that information has value.
 
 Common attack methods show how public information becomes useful. A brute-force password attack tries many combinations until one works. Credential stuffing tests stolen username and password pairs at other services, which succeeds when users reuse credentials. Phishing uses deceptive messages or websites to obtain sensitive data. Spear phishing targets a specific person, while whaling targets senior or high-value people. Typosquatting registers or uses look-alike domains that exploit typing errors. URL redirection can send users from a trusted-looking link to a malicious site.

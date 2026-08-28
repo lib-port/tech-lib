@@ -1,4 +1,5 @@
 # Ansible fundamentals
+
 > [!NOTE]
 > Ansible enables secure, repeatable, agentless infrastructure automation through inventories, playbooks, roles, variables, and disciplined testing, deployment, troubleshooting, and secret-management practices.
 
@@ -9,13 +10,16 @@ Configuration management keeps systems aligned with a defined state. Without it,
 Infrastructure as code supports this approach. Administrators describe infrastructure and configuration in machine-readable files, store those files in version control, review changes, and run the same automation across environments. The result is reproducible, auditable, and easier to recover than an undocumented sequence of manual commands.
 
 Ansible commonly automates:
+
 - package installation and removal
 - operating system and application configuration
 - file and account management
 - service deployment and control
 - cloud, network, and security device configuration
 - multi-system application workflows
+
 ## Architecture
+
 An Ansible environment contains a control node, one or more inventory sources, and managed nodes.
 
 The control node runs Ansible commands. Current Ansible versions support Unix-like control nodes with an appropriate Python version, including Linux, macOS, BSD, and Windows through Windows Subsystem for Linux. Native Windows without WSL is not a supported control node.
@@ -27,14 +31,18 @@ Ansible is agentless in the usual sense because managed nodes do not run a persi
 During a task, Ansible selects the relevant plugin and module, prepares arguments, executes the work in the required context, and returns structured results. A playbook is not converted wholesale into Python. Modules, plugins, and connection methods implement different parts of the execution process.
 
 Ansible normally pushes work from the control node. `ansible-pull` supports the inverse pattern by retrieving automation content and running it locally on a managed node. Larger organisations can use AWX or Red Hat Ansible Automation Platform for centralised execution, scheduling, credentials, access control, inventory, and reporting. AWX is the upstream open-source project, while Red Hat Ansible Automation Platform is the supported commercial product family.
+
 ## Installation and configuration
+
 Two related community distributions are available:
+
 - `ansible-core` contains the automation language, runtime, command-line tools, and built-in plugins.
 - `ansible` is the larger community package. It includes `ansible-core` and a curated set of collections.
 
 The community package suits broad exploration, while `ansible-core` suits environments that install only the required collections. Installation methods and supported Python versions vary by release and operating system. A maintained operating system package, `pipx`, or an isolated Python virtual environment avoids conflicts with the system Python installation. Production systems should pin and test Ansible and collection versions instead of installing an uncontrolled latest release.
 
 Important commands include:
+
 - `ansible` for ad hoc tasks
 - `ansible-playbook` for running playbooks
 - `ansible-config` for inspecting and generating configuration
@@ -46,6 +54,7 @@ Important commands include:
 `ansible --version` confirms the installed version and reports the active configuration file. `ansible-config dump --only-changed` shows effective non-default settings and helps identify unexpected configuration.
 
 Ansible searches for `ansible.cfg` in this order and uses the first file it finds:
+
 1. the path in the `ANSIBLE_CONFIG` environment variable
 2. `ansible.cfg` in the current directory
 3. `~/.ansible.cfg` in the current user's home directory
@@ -74,7 +83,9 @@ ansible-project/
 ```
 
 The exact layout can vary. Consistent names, a documented entry point, separate environment inventories, and version-controlled dependencies make the project easier to operate.
+
 ## YAML essentials
+
 Ansible playbooks and many inventory and variable files use YAML. YAML represents mappings, sequences, and scalar values through punctuation and indentation. It is case-sensitive, and indentation defines structure. Spaces should be used instead of tabs.
 
 Common forms include:
@@ -101,7 +112,9 @@ message: "Service {{ service_name }} runs on {{ inventory_hostname }}"
 ```
 
 An expression that begins a YAML value should normally be quoted. Templates and expressions should remain readable. Complex data transformation often belongs in a filter, lookup, module, or preparatory task rather than a dense inline expression.
+
 ## Inventory and host selection
+
 Inventory defines the hosts and groups available to Ansible. `/etc/ansible/hosts` is the default inventory path, but projects can select other sources through configuration or the `-i` option. Ansible can combine multiple sources, including INI files, YAML files, directories, dynamic inventory plugins, and executable inventory scripts.
 
 A simple INI inventory looks like this:
@@ -139,7 +152,9 @@ ansible webservers -m ansible.builtin.ping
 ```
 
 This command tests the Ansible connection and a usable remote execution environment. It is not an ICMP network ping. A `pong` result confirms that the relevant connection and module execution succeeded.
+
 ### Ad hoc operations
+
 The `ansible` command executes one module without creating a playbook. Ad hoc operations suit investigation, a controlled one-off change, or a quick connectivity test:
 
 ```bash
@@ -158,7 +173,9 @@ ansible 'webservers:&production' --list-hosts
 ```
 
 The intersection pattern selects hosts that belong to both groups. Quoting the pattern prevents the shell from interpreting special characters. Operators should start with a narrow target, confirm the parsed host list, and expand scope only after the result matches the intended environment.
+
 ## Variables and facts
+
 Variables make automation reusable across hosts and environments. Names may contain letters, numbers, and underscores, but cannot begin with a number. Clear, specific names reduce collisions and make precedence easier to understand.
 
 Variables can come from inventory, `group_vars`, `host_vars`, a play, a role, included files, registered task output, facts, prompts, or command-line extra variables. The `host_group_vars` plugin loads YAML variable files associated with inventory groups and hosts. Separate files usually scale better than long inline inventory definitions.
@@ -177,6 +194,7 @@ inventory/
 Values defined for a group apply to all hosts in that group. Host-specific values can override broader group policy where precedence rules allow. A child group's inventory variables override those of its parent group.
 
 Variable precedence is detailed and should be checked whenever the same name appears in several places. Two anchor points prevent a common error:
+
 - role defaults in `defaults/main.yml` have very low precedence and are designed for easy override
 - extra variables supplied with `-e` or `--extra-vars` have the highest variable precedence
 
@@ -202,7 +220,9 @@ A task can save its result with `register`:
 Jinja filters can transform variables without changing their source. The `default` filter can supply a fallback, `bool` can normalise a Boolean-like value, and `to_nice_json` can produce readable diagnostic output. Filters should not compensate for an unclear variable model. Inventories written in INI can interpret inline host values differently from group `:vars` values, so YAML inventory or explicit type conversion reduces ambiguity.
 
 Variables should distinguish configuration from secrets. A normal file can define the name of a database, while an encrypted variable supplies its password. A non-secret variable can document the expected encrypted name without exposing the protected value. Undefined-variable failures should be resolved by establishing a clear input contract, not by applying a default that could silently direct work to the wrong host or environment.
+
 ## Playbooks, plays, tasks, and modules
+
 A playbook is a YAML automation blueprint containing one or more plays. Each play maps a host pattern to an ordered set of tasks. Each task normally invokes a module, which performs a defined operation such as managing a package, file, user, service, cloud resource, or network setting.
 
 ```yaml
@@ -237,6 +257,7 @@ ansible-playbook -i inventory/production.yml playbooks/site.yml
 ```
 
 Useful options include:
+
 - `--syntax-check` to parse the playbook without running it
 - `--check` to predict changes where modules support check mode
 - `--diff` to show supported before-and-after differences
@@ -247,7 +268,9 @@ Useful options include:
 - `-v` through `-vvvv` to increase diagnostic output
 
 Check mode is a simulation, not proof of a safe production outcome. Some modules only partly support it or do not support it. Staging tests and controlled rollouts remain necessary.
+
 ### Conditions, loops, blocks, and results
+
 Conditions allow a task to run only when an expression evaluates to true. Facts, registered results, and input variables can drive the decision:
 
 ```yaml
@@ -280,13 +303,17 @@ Each module returns a result dictionary. Common fields include `changed`, `faile
 Ansible normally uses a linear strategy. It runs a task across the hosts in the current batch before moving to the next task. The `forks` setting controls parallel worker processes, while `serial` divides hosts into batches for rolling change. `throttle` restricts concurrency for a particular task or block. A production rollout might set `serial` to a small number, verify service health after each batch, and stop if failures exceed an accepted threshold.
 
 Task names form the operational narrative in console output and logs. Names should state the intended state, such as `Ensure Nginx is enabled and running`, rather than repeat the module name. Clear names also make `--start-at-task` and failure reports more useful.
+
 ## Privilege and connections
+
 The remote user establishes the connection. The `become` system then uses an existing escalation mechanism, such as `sudo`, to execute a task as another user. `become: true` does not itself authenticate to the remote host, and `become_user` does not imply that escalation is enabled.
 
 SSH key authentication supports non-interactive POSIX automation, but key handling still needs protection. Private keys should have passphrases where operationally practical, and an SSH agent or managed credential service can provide them during execution. Remote accounts should receive only the privileges their tasks require.
 
 Connection variables can define the user, address, port, private key, connection plugin, Python interpreter, and escalation behaviour. Secrets should not appear in inventory, playbooks, shell history, logs, or repositories as plaintext.
+
 ## Roles, collections, templates, and handlers
+
 Roles organise related tasks and assets under a recognised directory structure. They improve reuse when a playbook grows beyond a small, single-purpose file.
 
 A role can contain:
@@ -311,7 +338,9 @@ Collections package related Ansible content. A collection can include playbooks,
 Templates use Jinja to generate host-specific files from variables and facts. The template module renders content on the control node and transfers the result to the managed host. A template might set an application's bind address, port, environment name, or document root. Validation options should check generated configuration before it replaces a working file.
 
 Handlers run operations in response to change. A task uses `notify` when it changes, and Ansible normally runs the notified handler once near the end of the relevant play section. Restarting a service after a configuration update is the standard example. A failed task can prevent pending handlers from running unless the play deliberately forces them, so automation should account for failure behaviour.
+
 ### Reusable web service example
+
 A reusable web role can define overridable inputs in `defaults/main.yml`:
 
 ```yaml
@@ -370,7 +399,9 @@ A short playbook can apply the role:
 The fully qualified role name shows that the role belongs to the `organisation.web` collection. The play overrides a low-precedence default without changing the role. This boundary lets staging and production use the same tested implementation with different inputs.
 
 Roles should expose a small, documented interface. Defaults need descriptions, supported platforms need testing, and handlers need unique names or qualified references to avoid collisions. A role should not conceal unrelated operational workflows simply to reduce the number of playbook files.
+
 ## Security and secret handling
+
 Source control should contain playbooks, roles, inventories where appropriate, dependency manifests, tests, and documentation. It should not contain plaintext passwords, tokens, private keys, vault passwords, or sensitive command output.
 
 Ansible Vault encrypts individual variables or entire files. It protects data at rest, but Ansible must decrypt that data during execution. Vault does not automatically conceal a secret from task arguments, remote processes, debug output, or logs. Tasks that handle secrets should use `no_log: true` where appropriate, while recognising that `no_log` can also hide useful diagnostics.
@@ -388,7 +419,9 @@ ansible-playbook --vault-id production@prompt playbooks/site.yml
 Ansible Vault is distinct from HashiCorp Vault. Integrating HashiCorp Vault requires an appropriate lookup plugin or module from a collection, plus secure authentication to that service.
 
 Security also depends on dependency review, least privilege, protected control nodes, verified host keys, restricted repository access, safe temporary files, log handling, and tested recovery. Community roles and collections should be pinned, inspected, and updated through a controlled process.
+
 ## Troubleshooting and operational practice
+
 Troubleshooting should move from environment and scope to syntax, connectivity, task input, and remote state.
 
 1. Run `ansible --version` to confirm the executable, Python version, module paths, and configuration file.
@@ -409,6 +442,7 @@ Removing an unreachable host from inventory hides the symptom but does not diagn
 Reliable Ansible projects use version control, peer review, meaningful task names, consistent formatting, and automated validation. They separate production, staging, and development inventories while sharing reusable roles. They pin dependencies, test upgrades, lint YAML and Ansible content, and roll changes out to small host batches before broad deployment.
 
 A practical delivery path moves the same revision through validation and environments:
+
 1. format and lint YAML, playbooks, roles, and collections
 2. run syntax checks and automated role or collection tests
 3. execute check mode where it provides useful coverage

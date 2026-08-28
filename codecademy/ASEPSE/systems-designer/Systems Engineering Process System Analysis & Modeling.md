@@ -1,6 +1,9 @@
 # Systems Engineering Process: System Analysis & Modeling
+
 System analysis uses models to examine a system's purpose, boundary, structure, behaviour, environment, and life-cycle concerns. A model selects features that serve a defined question. It does not reproduce every feature of the real system. Engineers use models to communicate, compare alternatives, expose assumptions, analyse trade-offs, support decisions, and connect requirements with design and evidence.
+
 ## Model-based systems engineering
+
 Model-based systems engineering (MBSE) applies modelling formally to requirements, design, analysis, verification, and validation from conceptual design through later life-cycle stages. It places managed models at the centre of engineering work and links them with specialist analyses, simulations, documents, and physical evidence.
 
 A coherent model can connect stakeholder needs, requirements, functions, logical and physical architecture, interfaces, behaviour, risks, verification cases, and decisions. Different viewpoints let specialists inspect relevant concerns while preserving relationships with the wider system. This structure helps teams identify omissions, conflicts, interface problems, and change impacts earlier than disconnected documents often allow.
@@ -10,6 +13,7 @@ Systems thinking complements MBSE by treating system behaviour as the result of 
 Models also support structured trade studies. Teams define evaluation criteria, compare alternatives against requirements and uncertainty, record rationale, and revisit decisions when evidence changes. Cost and schedule estimates can use model information, but a model does not make those estimates accurate automatically. Their credibility still depends on sound data, assumptions, methods, and calibration.
 
 MBSE supports:
+
 - Requirements definition, allocation, traceability, and change control
 - Architecture exploration and comparison of design alternatives
 - Integration planning and analysis of component interactions
@@ -20,8 +24,11 @@ MBSE supports:
 The model can serve as an authoritative source, but it does not become true by designation. Governance, configuration control, validation, and evidence determine its reliability. MBSE also changes the role of documents rather than eliminating them. Contracts, safety cases, operating instructions, certification records, and other deliverables may still require controlled documents generated from or linked to the model.
 
 Verification checks whether a model or realised system satisfies its specified requirements. Validation checks whether the model represents its intended use adequately or whether the realised system fulfils stakeholder needs in its operational context. Reviews, analysis, simulation, demonstration, and testing can all contribute, but no single technique guarantees quality.
+
 ## Model forms and quality
+
 Engineers choose model forms according to purpose:
+
 - Physical models include mock-ups, prototypes, test articles, and scale models.
 - Abstract models include diagrams, equations, algorithms, state machines, and conceptual frameworks.
 - Descriptive models express structure, relationships, interfaces, or behaviour.
@@ -34,7 +41,9 @@ Engineers choose model forms according to purpose:
 A simulation conducts experiments on an executable model. The model provides the representation and rules, while the simulation evaluates behaviour under selected inputs and conditions. Visualisation presents model structure or results in an accessible form. A diagram can visualise a model without making it executable, and a simulation can produce results that require separate visualisation.
 
 Model quality depends on fitness for purpose, not maximum detail. Effective models state their purpose, audience, scope, boundary, assumptions, sources, units, and limitations. They use a suitable level of abstraction and fidelity, maintain internal consistency and traceability, and represent uncertainty honestly. Teams verify correct implementation, validate the representation against relevant evidence, control versions, and review the model whenever the system or its environment changes. Completeness always relates to the declared purpose and boundary.
+
 ## UML and SysML
+
 The Unified Modeling Language (UML) and Systems Modeling Language (SysML) are modelling languages, not software tools or methodologies. Tools implement these languages with varying levels of conformance, usability, analysis, interchange, and collaboration support.
 
 | Language | Scope | Distinctive features |
@@ -50,10 +59,13 @@ SysML v1.x reuses and adapts parts of UML for systems that can include hardware,
 SysML v2.0 received final OMG adoption in 2025. It is not a UML profile. KerML provides its semantic and syntactic foundation, while graphical and textual notations present the same underlying model. Its standard API supports model navigation, queries, updates, and tool integration. Organisations still need a transition strategy because tool support, migration quality, conformance, and user capability vary.
 
 Neither UML nor SysML automatically removes ambiguity or validates a design. Precise definitions, controlled requirements language, domain rules, executable constraints, reviews, and evidence remain necessary. Diagram consistency depends on a shared underlying model and tool behaviour, while interoperability concerns exchange between tools and connected engineering systems.
+
 ## Causal loop diagrams
+
 Causal loop diagrams (CLDs) belong to systems thinking and system dynamics. They are not UML diagrams. A CLD records a dynamic hypothesis about how variables influence one another through feedback.
 
 A CLD contains:
+
 - Variables whose values can increase or decrease over time
 - Directed causal links that state which variable influences another
 - Link polarities marked + or -
@@ -65,13 +77,17 @@ A positive link means that, with other conditions unchanged, the affected variab
 Loop polarity follows the complete closed path. A loop with no negative links or an even number of negative links reinforces change. A loop with an odd number of negative links balances change. Multiplying the link signs gives the same result. Delays affect timing and can contribute to overshoot or oscillation, but they do not determine loop polarity.
 
 Reinforcing feedback amplifies movement in a direction, including growth or decline. It produces exponential behaviour only under additional structural and mathematical conditions. Balancing feedback opposes change or pursues a goal, but delays, nonlinear relationships, shifting goals, and external forces can prevent smooth convergence.
+
 ### Product-growth feedback example
+
 Each variable needs a clear direction of increase. Higher product quality tends to raise customer satisfaction, so that link is positive. Higher satisfaction tends to raise sales volume, which is also positive. If higher sales increase marketing effort, that link is positive. Under a fixed resource constraint, greater marketing effort may reduce engineering capacity, while greater engineering capacity directly supports quality.
 
 The closed path from quality to satisfaction, sales, marketing, engineering capacity, and back to quality contains one negative link. It is therefore a balancing loop, not a reinforcing loop. A separate corrective loop might connect reported defects positively to corrective effort, corrective effort positively to quality, and quality negatively to reported defects. That loop also contains one negative link and is balancing.
 
 Customer feedback needs a precise definition. Positive feedback, negative feedback, total feedback volume, and actionable defect reports behave differently. An ambiguous variable cannot support a defensible polarity. Evidence must also support the proposed causal mechanism. Correlation, stakeholder agreement, or a polished diagram alone does not establish causation.
+
 ## Developing and analysing a causal model
+
 1. Define the decision or behaviour of interest, the reference pattern over time, the system boundary, the time horizon, and the required level of aggregation.
 2. Name variables as quantities that can move up or down. Distinguish actual conditions from perceived conditions, and record units where relevant.
 3. Add causal links only when a mechanism explains the influence. Assign polarity using the other-conditions-unchanged test, and mark significant delays.
@@ -81,7 +97,9 @@ Customer feedback needs a precise definition. Positive feedback, negative feedba
 7. Convert the hypothesis into stocks, flows, equations, and parameter values when the decision requires quantitative simulation. Test dimensions, extreme conditions, sensitivity, historical behaviour, and alternative structures.
 
 A CLD supports qualitative reasoning and communication. It does not calculate outcomes. Quantitative claims require an executable model with justified equations, parameters, initial conditions, and tests. Primary and secondary evidence can strengthen or refute links, but teams should preserve uncertainty and competing explanations instead of forcing agreement.
+
 ## Systems archetypes
+
 Systems archetypes describe recurring feedback structures and characteristic behaviours. They help teams recognise hypotheses worth testing, but they do not forecast an outcome or replace analysis of the actual system.
 
 | Archetype | Recurring structure |
@@ -96,7 +114,9 @@ Systems archetypes describe recurring feedback structures and characteristic beh
 | Growth and underinvestment | Capacity investment lags demand, degrades performance, and suppresses future demand or growth |
 
 Established names promote consistent diagnosis. A recurring story does not become a formal archetype simply because it has a memorable label. Analysts should map the actual feedback structure, compare it with an archetype, test the fit, and look for disconfirming evidence.
+
 ## Limitations and responsible adoption
+
 MBSE requires investment in tools, integration, training, governance, and model maintenance. Large models can become difficult to navigate, review, and update. Weak assumptions, incomplete boundaries, inconsistent semantics, stale data, and missing links can spread error across connected views. Tool lock-in, uneven standards conformance, and imperfect interchange can obstruct collaboration. A visually coherent model can also create unjustified confidence.
 
 These risks do not make MBSE inherently rigid, and systems modelling has a long technical history. Standards exist, although methods, tools, and organisational maturity remain uneven. Effective adoption combines structure with iteration and professional judgement.

@@ -1,6 +1,9 @@
 # Ad Hoc Commands
+
 Red Hat Enterprise Linux 10 provides `ansible-core` 2.16. A RHEL 10 control node can manage RHEL 9 and RHEL 10 hosts without installing Ansible on those managed hosts.
+
 ## Purpose and syntax
+
 An ad hoc command uses the `ansible` command-line tool to run one task across one host or a host pattern. It suits quick checks, one-off changes, service recovery, and information gathering. It does not preserve the task as reusable automation, so a playbook remains the better choice for repeated or multi-step work.
 
 The general form is:
@@ -33,11 +36,13 @@ ansible webservers -i inventory -b --check -m ansible.builtin.dnf -a 'name=httpd
 ```
 
 Check mode estimates changes and cannot replace validation on a suitable test system. Modules that lack check-mode support may skip the operation or provide limited information.
+
 ## Choosing modules
+
 Ansible distributes modules and other plugins in collections. The `ansible.builtin` collection accompanies `ansible-core`, while installed collections add support for other platforms and products. Fully qualified collection names identify the intended module and avoid name collisions.
 
 | Module | Appropriate use |
-|---|---|
+| --- | --- |
 | `ansible.builtin.command` | Runs a program without a shell |
 | `ansible.builtin.shell` | Runs a command through `/bin/sh` |
 | `ansible.builtin.raw` | Sends a command through the connection without the module subsystem |
@@ -57,7 +62,9 @@ ansible webservers -i inventory -m ansible.builtin.command -a 'rpm -q httpd'
 `raw` bypasses the module subsystem and does not require Python on the managed host. It can bootstrap an unusually minimal host or address a device that lacks Python. It offers limited change reporting and no check-mode support, so normal administration should use a dedicated module.
 
 The generic `ansible.builtin.package` and `ansible.builtin.service` modules can support mixed operating systems. On RHEL 10, `ansible.builtin.dnf` and `ansible.builtin.systemd_service` expose the platform's native capabilities more directly. Purpose-built modules also describe desired state more clearly than equivalent shell commands.
+
 ## RHEL 10 administration
+
 RHEL 10 uses DNF for package management and systemd for services. The following commands install Apache HTTP Server, start it, and enable it at boot:
 
 ```shell
@@ -76,7 +83,9 @@ ansible all -i inventory -b -m ansible.builtin.copy -a '{"content":"Authorised s
 The `content` argument replaces the destination with fixed text. The `src` argument instead transfers a file from the control node. Templates, managed blocks, or line-oriented modules suit content that requires variables or selective editing.
 
 `ansible.builtin.ping` returns `pong` after Ansible logs in and runs Python. It does not send an ICMP echo request. Windows and network devices require their platform-specific ping modules.
+
 ## Finding documentation
+
 Installed documentation reflects the available collections and versions:
 
 ```shell
@@ -87,7 +96,9 @@ ansible-galaxy collection list
 ```
 
 Module documentation describes parameters, requirements, examples, return values, and check-mode support. Administrators should extend Ansible through a custom collection or contribute upstream instead of editing installed module files, which package updates can replace.
+
 ## Sequencing commands
+
 A Bash script can sequence a small set of ad hoc commands:
 
 ```bash

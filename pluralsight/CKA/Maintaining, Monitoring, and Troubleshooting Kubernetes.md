@@ -1,25 +1,34 @@
 # Maintaining, Monitoring, and Troubleshooting Kubernetes
+
 > [!NOTE]
 > This guide covers reliable Kubernetes operations through Helm release management, availability planning, safe upgrades, observability, reliability objectives, chaos testing, and evidence-led troubleshooting.
+
 ## Helm release management
+
 Helm packages related Kubernetes resources as a chart. `Chart.yaml` defines chart metadata, including the chart version and optional application version. `values.yaml` supplies defaults, additional values files override them, and files under `templates/` generate Kubernetes manifests. Helm renders those templates and submits the resulting resources to the API server. It does not rewrite the chart's source YAML.
 
 A release records the installed chart, configuration, and revision. `helm upgrade --install` applies a repeatable installation or upgrade, `helm history` lists revisions, and `helm rollback` restores the configuration from an earlier revision as a new revision. Helm history supports operational recovery, but version control must retain chart source, reviewed values, and change history.
 
 Production workflows should run `helm lint`, inspect `helm template` output, validate it against the target API, protect secrets, and pin chart and image versions. Application source code should reside in built images rather than ConfigMaps.
+
 ## Availability and maintenance
+
 Replicas reduce the effect of a Pod failure only when remaining Pods have enough capacity and readiness probes keep unhealthy instances out of Service endpoints. A single database replica still creates a stateful failure point even when front-end and API tiers have several replicas.
 
 A PodDisruptionBudget, or PDB, limits concurrent voluntary evictions through the Eviction API. `kubectl drain` respects a PDB and waits when an eviction would breach `minAvailable` or `maxUnavailable`. A PDB does not block involuntary failures, direct Pod or controller deletion, Deployment updates, or scaling by the workload controller. It therefore supports maintenance but cannot guarantee uninterrupted service.
 
 Pod anti-affinity can separate replicas across nodes or zones. A preferred rule influences scheduling without guaranteeing placement. A required rule enforces separation but can leave Pods Pending when the cluster lacks suitable capacity. Topology spread constraints provide more direct control over balance across failure domains. Maintenance plans must combine replicas, accurate probes, spare capacity, disruption budgets, placement rules, graceful termination, and tested dependency resilience.
+
 ## kubeadm cluster upgrades
+
 An upgrade plan should confirm supported version skew, deprecated APIs, release-specific changes, cluster health, available capacity, and rollback or replacement procedures. It should also record responsibilities, success criteria, verification steps, maintenance timing, and escalation contacts. An etcd snapshot requires validation and secure storage. A complete recovery plan also preserves relevant certificates, configuration, manifests, and external dependencies.
 
 A kubeadm-managed cluster upgrades its control plane before its workers. A highly available control plane upgrades one node at a time. The first control-plane node runs `kubeadm upgrade plan` and `kubeadm upgrade apply`. Additional control-plane nodes run `kubeadm upgrade node`. Each worker follows a controlled sequence: cordon and drain the node, upgrade `kubeadm`, run `kubeadm upgrade node`, upgrade and restart the kubelet, verify health, and uncordon the node. Administrators should follow the documentation for the exact source and target versions rather than reuse old package commands.
 
 Each phase should stop when control-plane health, system Pods, nodes, workloads, or service indicators fail acceptance checks. Redundant workloads can preserve service during a node upgrade, but capacity limits, PDB conflicts, storage attachment, topology rules, or application faults can still cause disruption.
+
 ## Monitoring and observability
+
 Observability combines metrics, logs, and traces. Metrics quantify behaviour over time, logs describe discrete events, and traces follow requests across services. Useful telemetry should connect infrastructure signals with user-visible outcomes.
 
 Metrics Server aggregates recent CPU and memory measurements for the resource metrics API. It supports autoscaling and `kubectl top` spot checks. It does not provide a historical monitoring system, and live utilisation from `kubectl top` does not represent the scheduler's remaining allocatable capacity.
@@ -29,13 +38,17 @@ Prometheus scrapes configured metric endpoints, stores time series, evaluates Pr
 Kubernetes keeps container logs on nodes, where rotation, Pod deletion, or node loss can remove them. `kubectl logs --previous` can retrieve the preceding container instance while the kubelet still retains it, and label selectors can retrieve logs from several Pods. Cluster-level logging gives logs a lifecycle independent of Pods and nodes.
 
 Grafana Alloy can discover and ship Kubernetes logs to Loki. Loki indexes stream labels and stores compressed log chunks. Structured JSON logs improve filtering when they use consistent fields, timestamps, severity, service identity, and request correlation. Low-cardinality labels should identify stable dimensions such as cluster, namespace, and service. Retention, object storage, tenancy, encryption, and access policies require explicit configuration.
+
 ## Reliability objectives and chaos engineering
+
 A service level indicator, or SLI, measures user-relevant performance over a defined window. Many SLIs use the ratio of good events to valid events. Examples include successful requests, requests completed below a latency threshold, and correct responses. A service level objective, or SLO, sets the internal target. A service level agreement, or SLA, expresses an external commitment and may attach consequences.
 
 An SLO of 99.5% permits an error budget of 0.5% bad events during the measurement window. A documented error-budget policy can slow risky changes and prioritise reliability work when consumption becomes excessive.
 
 Chaos engineering tests a measurable steady-state hypothesis by introducing realistic failure conditions. Authorised experiments should start with a narrow blast radius, defined safeguards, live monitoring, abort criteria, and a restoration plan. Latency, error, and process-failure injection can reveal weaknesses, but uncontrolled experiments can create an outage rather than useful evidence.
+
 ## Systematic troubleshooting
+
 Diagnosis should proceed from symptom to evidence: identify affected objects, inspect detailed state and events, collect current and previous logs, test the relevant dependency, correct the owning manifest or configuration, and verify both Kubernetes status and application health. Structured output and timestamps provide safer evidence than table text alone.
 
 The first pass should preserve evidence before a restart or redeployment changes it:

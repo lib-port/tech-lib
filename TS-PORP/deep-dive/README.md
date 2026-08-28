@@ -1,11 +1,15 @@
 # *Deep Dive: Exploring the Real-World Value of Open Source Intelligence* Book Notes
+
 These notes cover material from [*Deep Dive: Exploring the Real-World Value of Open Source Intelligence*](https://www.wiley.com/en-us/shop/general-introductory-computer-science/deep-dive-exploring-the-real-world-value-of-open-source-intelligence-p-9781119933250) by Rae Baker. The notes cover using publicly available data to advance your investigative OSINT skills and how your adversaries are most likely to use publicly accessible data against you.
 
 The notes include:
+
 - Practical tips for new and intermediate analysts looking for concrete intelligence-gathering strategies
 - Methods for data analysis and collection relevant to today's dynamic intelligence environment
 - Tools for protecting your own data and information against bad actors and potential adversaries
+
 ## Notes
+
 - [Chapter 1: Open Source Intelligence](Chapter%201%20Open%20Source%20Intelligence.md)
 - [Chapter 2: The Intelligence Cycle](Chapter%202%20The%20Intelligence%20Cycle.md)
 - [Chapter 3: The Adversarial Mindset](Chapter%203%20The%20Adversarial%20Mindset.md)

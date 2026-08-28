@@ -1,7 +1,9 @@
 # Chapter 8: Transportation Intelligence
+
 Transportation intelligence examines how people, goods, vehicles, weapons, services, and infrastructure move between places. It combines transport records, imagery, public disclosures, signals, organisational data, infrastructure information, and subject intelligence to answer questions about location, ownership, routing, intent, vulnerability, and future movement.
 
 Analysts usually treat transport activity through five linked modes:
+
 - Road, including cars, trucks, buses, motorcycles, bicycles, heavy equipment, and military vehicles
 - Rail, including passenger trains, freight rail, metro systems, light rail, railcars, tracks, stations, yards, and signalling equipment
 - Water, including cargo vessels, tankers, fishing vessels, passenger ships, naval vessels, ports, offshore platforms, pipelines, and undersea cables
@@ -13,6 +15,7 @@ Transport data matters because modern life depends on continuous movement. Aroun
 Transport intelligence also supports geopolitical, security, law enforcement, humanitarian, and business analysis. Analysts may need to assess the movement of troops, refugees, weapons, sanctioned cargo, stolen vehicles, illegal fishing fleets, smuggling routes, or commercial shipments. Subject intelligence becomes stronger when transport evidence shows where a person, vehicle, aircraft, ship, or shipment could realistically have been.
 
 Common intelligence questions include:
+
 - Which route did the subject or asset take
 - Which ports, stations, airports, roads, or borders did it use
 - Does the movement match normal economic behaviour
@@ -26,8 +29,11 @@ Analysts should treat every source as partial. A signal can be spoofed, a schedu
 Transport selectors are the details that allow an analyst to pivot from one source to another. They include a vessel name, IMO number, MMSI, call sign, flag, draught, berth, container number, rail reporting mark, wagon number, service code, aircraft registration, ICAO address, call sign, flight number, airport code, vehicle plate, VIN, fleet number, company logo, route number, timestamp, and location. A single selector rarely answers the question. Its value comes from linking records and testing whether different sources describe the same asset.
 
 Intermodal analysis follows cargo across hand-offs. A container may leave a factory by truck, enter a rail terminal, load onto a ship, transfer through a port, move by rail again, and finish by truck. Each hand-off creates records, images, schedules, contracts, gate movements, customs interactions, or public disclosures. Analysts can use those hand-offs to bridge gaps when one transport mode has poor public visibility.
+
 ## Collection methods
+
 ### Visual intelligence
+
 Visual intelligence confirms what a transport asset looks like, where it appeared, and what identifiers it displayed. Analysts use direct sightings, photographs, video, social media, webcams, satellite imagery, street-level imagery, and specialised hobbyist collections.
 
 Spotter communities provide useful transport evidence. Plane spotters, ship spotters, and rail enthusiasts often record dates, locations, registration numbers, liveries, reporting marks, names, and photographs. Their material can verify that a vehicle, aircraft, train, or vessel existed in a specific place at a specific time. Spotter evidence also helps compare visible identifiers against signal data, registries, and ownership records.
@@ -45,7 +51,9 @@ Satellite analysis requires care. Analysts should compare size, scale, shape, sh
 Visual work also needs disciplined image handling. Analysts should preserve the original file, note the collection date, separate upload time from capture time, and record whether metadata is original, stripped, edited, or platform-generated. A reposted image can be useful, but it should not anchor a timeline unless the analyst can establish when and where it was captured. Shadows, weather, vegetation, road layout, port cranes, rail geometry, runway markings, signage, and skyline features can all support geolocation and time assessment.
 
 Transport images often contain small but decisive details. A vessel photograph may show its deck colour, funnel mark, crane layout, safety equipment, hull scars, or draught marks. A rail image may show reporting marks, hazardous goods placards, consist order, locomotive number, and trackside infrastructure. An aircraft image may show the registration under the wing, a temporary sticker, a sensor pod, a cargo door, or a refuelling boom. A road image may show a partial plate, mirror shape, bumper damage, roof equipment, or local inspection sticker.
+
 ### Signal intelligence from transport systems
+
 Transport platforms often broadcast or depend on navigation and identification signals. Analysts can use public or low-cost tracking platforms to follow vessels, aircraft, and sometimes rail or road assets, but they must understand what each signal can and cannot prove.
 
 GNSS is the global term for satellite navigation systems. GPS is one GNSS system. GNSS satellites broadcast timing and orbital data that receivers use to calculate position. AIS for vessels and ADS-B for aircraft depend on GNSS or other navigation sources to report position.
@@ -61,7 +69,9 @@ Spoofing creates false position or identity information. AIS spoofing can make a
 Identity manipulation changes the static details broadcast by a platform. A vessel may alter its name, Maritime Mobile Service Identity, IMO number, vessel type, destination, or draught. Analysts should treat mismatched identifiers, recycled names, inconsistent dimensions, abrupt flag changes, and conflicting ownership records as warning signs. IMO numbers are intended to stay with a hull, so inconsistencies deserve close review.
 
 Jamming degrades or masks satellite navigation by overpowering the receiver, transmitter, or local signal environment. It can affect ships, aircraft, vehicles, and unmanned systems. Meaconing intercepts and rebroadcasts navigation signals, usually at higher power, so a receiver accepts delayed or false navigation information. Jamming and meaconing can create safety risks, route deviations, collisions, false equipment faults, and geopolitical incidents.
+
 ## Maritime intelligence
+
 Maritime intelligence covers vessels, ports, offshore infrastructure, undersea cables, pipelines, owners, operators, crews, cargo, and facilitators. It is central to supply chain, sanctions, fisheries, conflict, smuggling, piracy, environmental, and critical infrastructure analysis.
 
 Key maritime entities include container ships, bulk carriers, tankers, passenger ships, naval vessels, submarines, offshore support vessels, fishing vessels, pleasure craft, dredgers, high-speed craft, roll-on roll-off ships, barges, buoys, offshore platforms, wind farms, undersea cables, pipelines, restricted zones, and autonomous maritime systems.
@@ -71,6 +81,7 @@ Basic vessel terminology improves visual and documentary analysis. The bow is th
 Maritime movement normally follows economic behaviour. Commercial vessels usually seek efficient routes that reduce time, fuel, risk, and cost. Long detours, unusual loitering, repeated meetings, dark activity, inconsistent cargo claims, or unexplained identity changes may indicate weather avoidance, piracy risk, sanctions evasion, conflict routing, smuggling, mechanical problems, or legitimate operational needs. Historical and geopolitical context decides whether a route is normal.
 
 Useful maritime questions include:
+
 - Where is the vessel now, and where has it been
 - Does the path match normal trade, weather, port, and safety constraints
 - Did the vessel go dark near a sensitive location
@@ -96,7 +107,9 @@ Potential maritime illegal activity includes sanctions evasion, arms smuggling, 
 Maritime critical infrastructure includes vessel control systems, bridge systems, engine control rooms, water ingress detection, rudders, safety systems, cargo tracking, shore-based navigation, cranes, port security, automated port systems, offshore platforms, undersea cables, and pipelines. Industrial control systems include SCADA, distributed control systems, programmable logic controllers, and other control components. Outdated systems, exposed interfaces, weak authentication, unmanaged contractors, and poor segmentation can create operational risk.
 
 Undersea cables carry more than 95 percent of international data and support communications, finance, government, cloud services, and military activity. They remain vulnerable to anchors, fishing, accidents, sabotage, espionage, and network intrusion. Pipelines and offshore platforms face physical and digital risks. Public cable and pipeline maps, maritime charts, satellite imagery, AIS tracks, ownership records, and repair vessel movements can support lawful infrastructure risk analysis.
+
 ## Railway intelligence
+
 Railway intelligence covers passenger trains, freight trains, railcars, locomotives, stations, platforms, yards, terminals, depots, routes, schedules, bridges, tunnels, signalling, power, communications, and control systems. Rail is efficient for heavy freight and high-volume passenger movement, and it often forms the inland leg of maritime and air cargo supply chains.
 
 Visual identification starts with line, company, livery, logo, route, reporting marks, railcar type, locomotive type, graffiti, cargo markings, placards, and visible numbers. Freight railcars often display reporting marks that identify the owner or lessee. Hazard placards, container numbers, waybills, and company markings can indicate cargo class or handling requirements. Analysts should compare visual evidence with official registries, company fleets, public photographs, and rail enthusiast records.
@@ -114,7 +127,9 @@ Cargo handling adds another layer. Intermodal containers retain identifiers acro
 Rail ownership and operations include infrastructure managers, train operating companies, freight carriers, leasing companies, terminal operators, maintenance providers, government agencies, port rail operators, intermodal carriers, and private industrial railways. Organisational intelligence can reveal contracts, fleet ownership, government funding, commodity flows, defence logistics, and service dependencies.
 
 Rail critical infrastructure includes onboard control systems, train backbone networks, signalling, points, crossings, positive train control or equivalent safety systems, communications, power, dispatch centres, bridges, tunnels, stations, yards, and maintenance facilities. Exposed devices, weak remote access, outdated systems, and public technical disclosures can create risk. Analysts should identify and report vulnerabilities only within lawful authority.
+
 ## Aircraft intelligence
+
 Aircraft intelligence covers aircraft, airports, airfields, aerodromes, air traffic control, operators, owners, cargo, passengers, maintenance, ground services, flight plans, NOTAMs, registries, ADS-B data, Mode S data, MLAT positions, photographs, and airport imagery.
 
 Aircraft categories include gliders, ultralights, balloons, helicopters, propeller aircraft, turboprops, business jets, airliners, cargo aircraft, military aircraft, drones, and specialised mission aircraft. Visual identification relies on registration markings, livery, make and model, wing shape, engine placement, tail design, windows, doors, landing gear, antennas, pods, sensors, and unusual modifications.
@@ -138,7 +153,9 @@ Airports use several code systems. IATA codes often appear in passenger travel a
 Aviation ownership and operation may involve registered owners, beneficial owners, trusts, leasing firms, charter operators, airlines, maintenance firms, shell companies, management companies, brokers, and ground handlers. Link analysis can connect aircraft to people, companies, contracts, sanctions, trips, cargo, and political or military activity.
 
 Aviation critical infrastructure includes aircraft avionics, airport operational technology, baggage systems, boarding systems, fuel systems, radar, radio, navigation aids, access control, surveillance, power, lighting, weather systems, and maintenance platforms. Analysts should focus on identification, exposure, and risk reporting, not exploitation.
+
 ## Road and vehicle intelligence
+
 Road intelligence covers personal vehicles, commercial fleets, buses, motorcycles, bicycles, logistics vehicles, trailers, construction machinery, agricultural machinery, emergency vehicles, and military vehicles. It supports investigations into subject movement, logistics, theft, smuggling, protests, organised crime, military activity, and infrastructure risk.
 
 Vehicle identification begins with make, model, body style, year range, colour, trim, wheels, lights, grille, badges, damage, accessories, stickers, roof racks, cargo, and modifications. Reverse image search, model comparison, street-view imagery, manufacturer brochures, sales listings, enthusiast forums, and vehicle recognition tools can narrow a vehicle type, but analysts should not treat automated recognition as conclusive.
@@ -158,7 +175,9 @@ Commercial vehicle analysis often pivots to organisational intelligence. Trucks,
 Modern vehicles contain electronic control units, sensors, telematics, infotainment systems, remote diagnostics, tyre pressure systems, GPS receivers, cellular modules, Bluetooth, Wi-Fi, keyless entry, cameras, and advanced driver assistance systems. Many internal components communicate across in-vehicle networks such as the CAN bus. Connectivity improves safety and efficiency but expands the attack surface. Publicly exposed telematics, weak credentials, outdated software, poor vendor management, and insecure remote access can create safety and privacy risks.
 
 Analysts assessing vehicle technology should work from lawful authority, visible disclosures, product documentation, manufacturer information, vulnerability databases, and approved security assessments. Risk findings should describe exposure, potential impact, and remediation paths without enabling misuse.
+
 ## Analytical discipline
+
 Transport intelligence works best when analysts build timelines and test each claim against independent evidence. A strong timeline records dates, times, time zones, locations, source type, confidence, and contradictions. The same event may appear differently in AIS, ADS-B, station schedules, port reports, social media, satellite imagery, and eyewitness material.
 
 Analysts should prioritise primary and high-confidence sources, including official registries, port and airport authorities, transport operators, regulators, satellite imagery, original photos, live cameras, and direct technical documentation. Secondary reporting and social media are useful leads, but they need verification.

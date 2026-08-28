@@ -1,6 +1,9 @@
 # Getting Started with Playbooks
+
 Red Hat Enterprise Linux 10 provides `ansible-core` 2.16 for supported management of RHEL 9 and RHEL 10 nodes. Playbooks express reusable configuration, deployment, and orchestration in YAML. Unlike a shell script that chains ad hoc commands, a playbook records host selection, privilege escalation, tasks, arguments, and desired state in one structured file.
+
 ## Playbook structure
+
 A playbook is an ordered list of plays. Each play selects managed hosts with a pattern and runs tasks against them. Tasks execute from top to bottom and call modules or other Ansible actions. Multiple plays also execute in file order.
 
 At minimum, a play selects hosts and defines work through at least one task, either directly or through a role. A descriptive `name` is optional but strongly recommended. `become: true` enables privilege escalation when administrative rights are required. Ansible gathers host facts at the start of each play by default unless `gather_facts: false` disables that step.
@@ -62,7 +65,9 @@ The firewall task requires the `rhel-system-roles` package on the control node. 
 `state: present` installs `httpd` without forcing an upgrade on every run. `state: latest` should appear only when the automation intentionally applies the newest available package. Ansible has no universal undo command. Administrators reverse a change by declaring the required replacement state, such as `state: absent`, or by restoring a tested backup or snapshot.
 
 State-oriented modules usually support idempotent operation. After the first run establishes the requested state, another run should report `ok` instead of applying the same change again. Idempotence depends on each module and its arguments, so arbitrary command tasks require explicit safeguards.
+
 ## YAML essentials
+
 YAML uses spaces to show hierarchy. Tabs cannot provide indentation. Two spaces per level form a common, readable convention, and sibling elements must align.
 
 A mapping uses `key: value` pairs. Ansible accepts `key=value` as shorthand for arguments in some contexts, but that form is a module argument string rather than a YAML mapping. Separate YAML keys provide clearer types, diffs, and maintenance.
@@ -70,7 +75,9 @@ A mapping uses `key: value` pairs. Ansible accepts `key=value` as shorthand for 
 A sequence uses a hyphen for each item. A module accepts a list only when its documented argument type permits one. For example, `ansible.builtin.dnf` accepts several package names under `name`, while `ansible.builtin.systemd_service` accepts one unit name per task.
 
 Plain, single-quoted, and double-quoted strings are available. Quoting values such as file modes avoids unintended type conversion. A literal block scalar introduced by `|` preserves line breaks. A folded block scalar introduced by `>` replaces most line breaks with spaces, which keeps a long logical line readable in the YAML source.
+
 ## Validation and execution
+
 An explicit inventory makes each command's scope clear:
 
 ```shell
@@ -98,7 +105,9 @@ ansible-playbook -i inventory site.yml -vv
 ```
 
 Moderate verbosity often reveals task arguments and results. Higher levels add connection and plugin details, increase output substantially, and can expose operational data. Operators should increase verbosity only as far as diagnosis requires.
+
 ## Managing multiple plays
+
 Separate plays suit workflows that target different host groups or use different connection, user, privilege, or fact-gathering settings. A deployment can configure application servers, configure database servers, and then validate the service from the control node.
 
 Each play may set its own `remote_user`, `become`, and `gather_facts` values. These settings support ordered orchestration across systems with different access requirements. They do not schedule plays independently, because one `ansible-playbook` run processes the plays as a single ordered workflow.

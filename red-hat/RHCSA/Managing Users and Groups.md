@@ -1,9 +1,12 @@
 # Managing Users and Groups
+
 > [!NOTE]
 > A practical guide to securely managing RHEL users, groups, passwords, account lifecycles, and delegated privileges through accurate identity inspection and least-privilege administration.
 
 Red Hat Enterprise Linux 8 controls access through user identities, group identities, authentication data, file permissions, and delegated administrative privileges. Sound administration keeps local identity records consistent, applies account policy deliberately, and grants each person or service only the access it requires.
+
 ## Identity databases and lookups
+
 RHEL stores local identity data in four colon-delimited files.
 
 | File | Purpose |
@@ -40,7 +43,9 @@ getent passwd | awk -F: '$3 >= 1000 && $3 <= 60000 {print $1, $3}'
 The first command prints Alice's login name, UID, primary GID, home directory, and shell. The second prints accounts in RHEL's default regular UID range from sources that allow enumeration. A direct command such as `grep '^alice:' /etc/passwd` examines only the local file and can miss a central identity. It can also find a different result from `getent` when NSS source order or account overrides apply.
 
 Account-management commands lock and update related files consistently. Administrators should not edit `/etc/passwd`, `/etc/shadow`, `/etc/group`, or `/etc/gshadow` with an ordinary text editor. `vipw` and `vigr` provide locking when exceptional manual repair becomes necessary. `pwck` and `grpck` check structural consistency, although a clean structural check does not prove that account policy or ownership remains correct.
+
 ## Creating and maintaining users
+
 `useradd` creates a local account. On a standard RHEL 8 host, it assigns the next available regular UID, creates a user private group with the same name, creates a home directory, copies initial files from `/etc/skel`, and assigns the configured shell.
 
 ```shell
@@ -53,6 +58,7 @@ Account-management commands lock and update related files consistently. Administ
 RHEL normally reserves UIDs and GIDs below 1000 for system users and groups. `/etc/login.defs` defines ranges such as `UID_MIN`, `UID_MAX`, `SYS_UID_MIN`, and `SYS_UID_MAX`. Administrators should avoid hard-coding IDs unless shared storage, containers, or cross-system consistency requires stable values.
 
 Several sources control account defaults:
+
 - `useradd -D` displays and changes selected defaults.
 - `/etc/default/useradd` defines values such as the base home path, default shell, skeleton directory, and password-inactivity default.
 - `/etc/login.defs` defines UID and GID ranges, password-age defaults, home creation, and user private group behaviour.
@@ -92,7 +98,9 @@ Account renaming and home relocation require coordinated options. `usermod -l ne
 `userdel` removes an account record. `userdel -r` also removes the user's home directory and mail spool when the tool can identify them. It does not guarantee removal of every file, scheduled task, process, or resource owned by the UID. Before deletion, an administrator should record the UID, stop or reassign processes, locate files on relevant file systems, preserve business records, and decide whether another owner should receive them. Deleting the account before recording its UID can leave numeric ownership that is harder to interpret.
 
 A staged departure process often locks access first, preserves the account while records transfer, terminates active sessions, and deletes the identity only after approval. This sequence gives administrators time to distinguish personal files from organisational records and to prevent a later UID reuse from inheriting abandoned ownership.
+
 ## Passwords, ageing, and account state
+
 RHEL stores password verifiers as salted, one-way hashes rather than reversible passwords. A modular crypt string commonly has the form `$id$salt$hash`. In RHEL 8, `$6$` identifies SHA-512 crypt where that algorithm remains configured. The salt causes identical passwords to produce different stored strings, which prevents a simple comparison from revealing shared passwords. During authentication, the system applies the recorded algorithm and salt to the supplied password, then compares the resulting hash with the stored hash.
 
 Some hash formats include parameters such as work factors, so scripts should not assume that every valid field has exactly three components. PAM and account-management configuration choose the format used for newly set local passwords. Changing that configuration does not automatically rehash existing passwords. The system normally upgrades a stored verifier only when a user changes the password or another authorised process resets it.
@@ -160,7 +168,9 @@ The first command places the account expiry in the past. The second removes that
 `chpasswd` can set passwords for several local users from `user:password` input, while RHEL's `passwd --stdin` can read one password from standard input. Automation must keep cleartext passwords out of command histories, process arguments, logs, source repositories, and long-lived files. A secret-management system or a controlled provisioning mechanism provides safer input than an exposed `echo` pipeline.
 
 System accounts usually should not authenticate interactively. A locked password, a shell such as `/sbin/nologin`, restricted file permissions, and service-specific confinement reduce exposure. Password ageing provides little benefit to an identity that has no usable password. Administrators should rotate the actual credentials used by the service, such as keys, certificates, or tokens, under the controls designed for those credential types.
+
 ## Managing groups
+
 A user has one primary group and can have several supplementary groups. `/etc/passwd` records the primary GID in field 4. `/etc/group` records explicit supplementary members in field 4 of the group entry. Consequently, an empty member list in `/etc/group` does not prove that no user has the group as a primary group.
 
 RHEL's user private group model creates a group for each regular user. The user receives that group as the primary group, although the user's name need not appear in the member list in `/etc/group`. Administrators should describe this relationship as primary membership, not supplementary membership.
@@ -190,7 +200,9 @@ The result depends on NSS enumeration. A central directory that disables enumera
 `gpasswd -M alice,bob marketing` replaces the complete local member list. As with `usermod -G`, replacement can remove access unintentionally. Add and delete operations provide safer changes when an administrator intends to alter one membership. After any change, `getent group marketing`, `id alice`, and a fresh login session provide complementary checks.
 
 Group passwords weaken accountability because several people share one secret. When a non-member supplies a valid group password to `newgrp` or `sg`, the command changes group credentials for a new shell or command. It does not add a persistent member entry to `/etc/group`. Administrators should prefer explicit, attributable membership and should normally restrict or remove group passwords.
+
 ## Privilege elevation
+
 UID 0 carries root authority. Administrators can change identity with `su` or execute authorised commands with `sudo`.
 
 `su` without a target selects root and starts a non-login shell. It preserves much of the caller's environment and current directory. `su -` or `su -l` starts a login shell with the target user's login environment and home directory. An unprivileged caller normally supplies the target account's password. Root can use `su - alice` to test an account without Alice's password.
@@ -229,13 +241,17 @@ Rules should grant the smallest practical command set. Broad access to shells, e
 `NOPASSWD` removes an authentication barrier and requires a documented operational reason. Sudo's credential cache also affects reauthentication and uses a configurable timeout. A user can run `sudo -k` to invalidate the cached credential. `sudo -i` starts a root login shell and should remain limited to administrators who genuinely require unrestricted access.
 
 Sudo resets much of the caller's environment by default. This behaviour reduces the risk that variables such as `PATH`, library paths, or language-specific settings alter a privileged program. `visudo` uses the editor allowed by sudoers policy. Administrators who require a standard editor can configure a fixed value such as `Defaults editor=/usr/bin/vim`. Retaining a user-controlled `EDITOR` variable through `env_keep` expands trust in the caller's environment and should follow an explicit policy decision.
+
 ## Verification and audit
+
 Identity administration requires checks at both the database and session levels. `getent` confirms the record selected by NSS, `id` resolves current group assignments for a named account, and a fresh login proves that a new session receives the intended credentials. File ownership checks confirm that account changes did not strand important data under an obsolete UID or GID.
 
 Periodic reviews should identify duplicate numeric IDs, unexpected interactive shells, missing or incorrectly owned home directories, expired temporary accounts, dormant privileged accounts, unnecessary supplementary groups, and sudo rules that exceed current duties. Central and local records also require comparison because a local account can shadow a remote name according to NSS order.
 
 An administrator should retain evidence of the requested change, approval, commands, verification results, and rollback or recovery action. The record should distinguish a password lock from account expiry, a database membership from credentials held by an existing process, and a sudo syntax check from a successful authorisation test. These distinctions prevent a technically successful command from creating an incomplete security outcome.
+
 ## Administrative controls
+
 - Administrators should resolve identities with `getent`, `id`, and `groups` before changing them.
 - Account changes should preserve required files, UID and GID consistency, active workloads, and audit records.
 - Password locks, password expiry, account expiry, and session termination should remain separate controls.

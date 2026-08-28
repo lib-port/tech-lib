@@ -1,7 +1,10 @@
 # Managing Kubernetes Controllers and Deployments
+
 > [!NOTE]
 > This guide explains how Kubernetes controllers reconcile desired state and how to configure, update, troubleshoot, and safely operate Deployments, ReplicaSets, DaemonSets, Jobs, CronJobs, and StatefulSets.
+
 ## Reconciliation and controller architecture
+
 Kubernetes uses declarative configuration. An object records a desired state in the API, while one or more controllers compare that state with the cluster's observed state and act to reduce the difference. Each controller runs a reconciliation loop. The loop watches relevant objects, evaluates their current condition, and submits changes through the API server. Reconciliation continues after the first successful action, so the cluster can respond to later failures, configuration changes, and scaling requests.
 
 A controller does not normally issue instructions directly to every node. It reads and writes API objects, then other components respond to those objects. For example, a Deployment controller creates or updates a ReplicaSet. The ReplicaSet controller creates Pods. The scheduler assigns unscheduled Pods to nodes, and each node's kubelet starts the assigned containers. This separation allows several specialised control loops to cooperate through a common API.
@@ -11,7 +14,9 @@ Most built-in controllers run within `kube-controller-manager`. A highly availab
 The cloud controller manager runs control loops that depend on a cloud provider, such as node lifecycle, routes, and external load balancers. Separating this component from the core controller manager lets a cloud integration evolve without changing the core Kubernetes control plane. Clusters without a supported cloud integration may not run it.
 
 Controllers provide self-healing within the limits of their specifications. They can replace a failed Pod, restore a replica count, or create work for a missed state transition. They cannot repair an application that reports false health, preserve data that lacks durable storage, or guarantee capacity that the cluster does not possess. Effective reconciliation therefore depends on accurate selectors, suitable health probes, sufficient resources, and correct workload design.
+
 ## Choosing a workload controller
+
 Each workload controller encodes a different lifecycle. A controller should match the identity, placement, duration, and scheduling needs of the workload.
 
 | Controller | Primary purpose | Core behaviour |
@@ -24,8 +29,11 @@ Each workload controller encodes a different lifecycle. A controller should matc
 | StatefulSet | Applications that need stable identity, ordered operations, or persistent storage | Gives each Pod a stable ordinal, network identity, and associated storage claim |
 
 A Deployment normally provides the right abstraction for replicated stateless services. Administrators should not manage its ReplicaSets directly because the Deployment owns their lifecycle and revision history. A bare ReplicaSet remains useful for understanding reconciliation and for rare cases that do not require Deployment rollouts.
+
 ## Deployments and ReplicaSets
+
 ### Deployment specification
+
 A Deployment uses the `apps/v1` API. Its specification defines a selector, a Pod template, and usually a replica count. The selector must match the labels in the Pod template. Kubernetes rejects a new `apps/v1` Deployment when these fields conflict. The replica count is optional and defaults to one, although an explicit value often makes operational intent clearer.
 
 ```yaml
@@ -64,7 +72,9 @@ The top-level metadata identifies the Deployment. The template metadata labels e
 Selectors form part of a controller's identity. A Deployment selector is immutable after creation. An administrator who needs a different selector normally creates a new Deployment and migrates traffic deliberately. Broad or overlapping selectors can cause one controller to adopt Pods that another process created, so each controller should use distinctive labels.
 
 `matchLabels` expresses equality requirements. `matchExpressions` adds set-based operators such as `In`, `NotIn`, `Exists`, and `DoesNotExist`. Requirements within one selector combine with logical AND. A ReplicaSet can therefore select across several labels and expressions. The older ReplicationController also supports multiple equality-based requirements, but it does not support the ReplicaSet's set-based selector syntax.
+
 ### Ownership and reconciliation
+
 Creating a Deployment produces an ownership chain:
 
 ```text
@@ -80,7 +90,9 @@ The ReplicaSet controller continuously compares the number of matching Pods with
 Changing or removing a selected label from one Pod can isolate that Pod from its ReplicaSet. The ReplicaSet then detects a shortfall and creates another Pod. The isolated Pod continues to run until an administrator or another controller deletes it. This behaviour demonstrates why direct Pod edits can create unexpected capacity and why workload-level changes should target the owning controller.
 
 A controller never moves an existing Pod to another node. Pods remain bound to their assigned nodes for their lifetime. When a node or Pod fails, the relevant controller creates a different Pod, and the scheduler chooses a node for that replacement. The new Pod receives a new name and unique identifier, even when it runs the same application configuration.
+
 ### Deletion and ownership boundaries
+
 Deleting a controller normally starts cascading garbage collection of the objects it owns. Deleting a Deployment therefore removes its owned ReplicaSets and their Pods under the usual background propagation policy. A Service remains because it is a separate object and does not belong to the Deployment.
 
 Propagation policy changes the sequence. Background deletion removes the owner from the API and lets garbage collection remove dependants. Foreground deletion keeps the owner in a terminating state until blocking dependants disappear. Orphan propagation removes the owner while preserving dependants and clearing the relevant owner references.
@@ -98,7 +110,9 @@ Finalizers can delay deletion while a controller performs required cleanup. An o
 Deletion and scaling do not have identical storage effects across controllers. Deployment Pods usually reference shared or externally defined volumes. StatefulSet Pods often own stable claims through their ordinal identities, and those claims commonly survive Pod or StatefulSet deletion. An administrator must inspect the retention policy, PersistentVolume reclaim policy, and backup status before removing stateful resources.
 
 `kubectl delete pod` tests replacement behaviour but does not update desired state. A ReplicaSet, Deployment, DaemonSet, or StatefulSet can recreate the Pod immediately. To stop the workload, operations should scale or delete the owner, suspend the relevant batch controller, or change node eligibility according to the intended lifecycle.
+
 ### Declarative and imperative management
+
 Declarative management stores desired state in a manifest and applies it through the API:
 
 ```bash
@@ -118,7 +132,9 @@ kubectl set image deployment/web web=nginx:1.28
 An imperative change can drift from the repository that should define production state. A subsequent declarative apply may reverse that change. Operational practice should therefore record intended changes in source control and reconcile emergency changes back into the maintained manifests.
 
 The obsolete `--record` workflow should not support change history. Current practice can associate a change with a source-control revision, deployment system record, or ticket. An optional `kubernetes.io/change-cause` annotation can provide a human-readable note, but it should complement rather than replace a durable audit system.
+
 ### Inspection and diagnosis
+
 Several views expose different parts of the ownership chain and current state:
 
 ```bash
@@ -133,8 +149,11 @@ kubectl get pod POD_NAME -o jsonpath='{.metadata.ownerReferences}'
 `kubectl get` gives a compact status view. `kubectl describe` combines fields, conditions, and recent events. YAML or JSON output exposes the complete stored object. Events can explain scheduling failures, image pull errors, probe failures, quota rejection, and other transitions, but event retention is limited. Long-term operations require central logging and monitoring.
 
 Deployment status does not reduce to one universal phase. An administrator should inspect replica counts and conditions such as `Available`, `Progressing`, and `ReplicaFailure`. Desired, current, updated, available, and unavailable replica counts answer different questions. A Deployment can report progress while some new Pods remain unready, and it can have all replicas created before any become available.
+
 ## Updating Deployments
+
 ### What triggers a rollout
+
 A Deployment starts a new revision when `.spec.template` changes. Common triggers include a new image, an environment variable, a label, a resource request, a volume, or a probe. Changing `.spec.replicas` alone scales the current ReplicaSet and does not create a new revision.
 
 An image update can target one named container:
@@ -145,7 +164,9 @@ kubectl rollout status deployment/web
 ```
 
 The Pod template should use immutable image digests when release reproducibility is essential. A mutable tag can resolve to different image content at different times, which weakens rollback and audit guarantees. A registry policy and admission controls can enforce approved image sources and signatures.
+
 ### RollingUpdate and Recreate
+
 `RollingUpdate` is the default Deployment strategy. The controller creates a new ReplicaSet, increases its replica count, and decreases the old ReplicaSet in controlled steps. It continues until the new ReplicaSet supplies the desired replicas and the old one reaches zero. Old ReplicaSets normally remain with zero replicas so the Deployment can preserve revision history.
 
 Two fields control rollout capacity:
@@ -160,7 +181,9 @@ For a Deployment with 20 replicas, `maxUnavailable: 25%` allows five unavailable
 A rollout does not guarantee uninterrupted service by itself. Availability also depends on enough replicas, spare cluster capacity, accurate readiness probes, graceful termination, suitable Service selectors, application compatibility, and external dependencies. A single-replica Deployment can experience interruption if the cluster cannot run a surge Pod or if the new Pod becomes ready only after the old one stops.
 
 `Recreate` scales old Pods down before it creates new ones. This strategy suits workloads that cannot run old and new versions together, but it introduces an intentional service gap unless another layer supplies capacity. Manually deleting old Pods can still produce a brief overlap, so `Recreate` should not serve as a strict mutual-exclusion mechanism.
+
 ### Readiness and availability
+
 The Deployment controller uses readiness to determine whether new Pods can receive traffic and whether a rollout can proceed within its availability limits. A readiness probe should test the conditions required to serve requests. It should not duplicate every deep dependency check if a temporary dependency failure would remove all replicas and worsen an incident.
 
 A liveness probe answers a different question. It asks whether the kubelet should restart the container. A startup probe protects slow-starting containers from premature liveness and readiness failures. Misconfigured probes can create restart loops or route traffic too early.
@@ -170,7 +193,9 @@ A liveness probe answers a different question. It asks whether the kubelet shoul
 `progressDeadlineSeconds` defines how long the controller waits for progress before it reports a `ProgressDeadlineExceeded` condition. The default is 600 seconds. This condition reports a stalled rollout. Kubernetes does not automatically roll the Deployment back, and the controller can continue retrying. Monitoring or a delivery system must decide whether to alert, pause, fix, or roll back.
 
 Typical causes of a stalled rollout include an invalid image name, missing registry credentials, insufficient CPU or memory, an unsatisfied affinity rule, a taint without a toleration, a failing admission policy, a missing ConfigMap or Secret, and a readiness probe that never succeeds.
+
 ### Rollout status and history
+
 The following commands inspect a rollout and its revisions:
 
 ```bash
@@ -191,7 +216,9 @@ kubectl annotate deployment/web \
   kubernetes.io/change-cause='Release 2026-08-01, image nginx:1.28' \
   --overwrite
 ```
+
 ### Pause, resume, rollback, and restart
+
 Pausing a Deployment lets several Pod-template changes accumulate without starting an intermediate rollout for each change:
 
 ```bash
@@ -221,7 +248,9 @@ kubectl rollout status deployment/web
 ```
 
 A restart can refresh Pods after an external dependency or mounted configuration has changed. It does not fix an invalid template, increase capacity, or guarantee that an application reloads data from an external service.
+
 ### Scaling
+
 The Deployment's replica count can change declaratively or imperatively:
 
 ```bash
@@ -231,7 +260,9 @@ kubectl scale deployment/web --replicas=8
 Scaling changes the current desired count without creating a rollout revision. Scaling down deletes Pods and can terminate in-flight work. Pod disruption budgets constrain some voluntary disruptions, but they do not prevent every controller-driven deletion. Applications should handle termination signals, expose readiness accurately, and use a sufficient termination grace period.
 
 A HorizontalPodAutoscaler can manage a Deployment's scale subresource from resource or custom metrics. Manual changes to `.spec.replicas` can then conflict with autoscaling and may be overwritten during the next reconciliation. A Git-managed manifest that continually reapplies a fixed replica count can create the same conflict. Operational ownership of the replica field should remain clear.
+
 ## Node failure and Pod replacement
+
 The node controller monitors node health. When a node becomes unreachable or not ready, Kubernetes represents that condition with node taints. Ordinary Pods receive default tolerations for `node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable`, commonly with `tolerationSeconds: 300`. This grace period can prevent unnecessary replacement during a short network interruption.
 
 After the relevant tolerance expires, the control plane can evict affected Pods and their workload controllers can create replacements. The exact outcome depends on the node condition, taints, tolerations, Pod type, and controller behaviour. Static Pods and some DaemonSet Pods follow different rules. An administrator should not treat an old `pod-eviction-timeout` explanation as the complete current model.
@@ -239,7 +270,9 @@ After the relevant tolerance expires, the control plane can evict affected Pods 
 Replacement Pods do not schedule onto a node that the scheduler regards as unavailable. If no healthy node satisfies resource, affinity, topology, volume, and taint constraints, the replacement remains Pending. The controller has restored the desired object count, but the cluster has not restored service capacity.
 
 Persistent storage introduces additional recovery constraints. A volume may remain attached to the failed node, support only one attachment, or reside in a topology zone unavailable to other nodes. Stateful applications require storage and failure-domain planning beyond controller replica counts.
+
 ## Diagnosing failed reconciliation
+
 Troubleshooting should follow the ownership chain from the highest controller to the Pod rather than begin with repeated Pod deletion. Each layer can reach its own desired state while a lower layer remains blocked. A Deployment can create the correct ReplicaSet, the ReplicaSet can create the correct number of Pod objects, and every Pod can still remain Pending because no node can accept it.
 
 | Observation | Likely layer | Useful evidence |
@@ -281,7 +314,9 @@ kubectl apply --server-side --dry-run=server -f web-deployment.yaml
 A successful dry run does not prove that the scheduler can place the Pods or that the application will start. It confirms API validation, admission, and compatible field ownership at that moment.
 
 Repeated manual deletion can conceal the original symptom and consume evidence. An administrator should first capture YAML, conditions, events, logs, revision history, and relevant metrics. Remediation should change the owning template, capacity, policy, or dependency that caused the failure. The controller can then perform the replacement under its normal safety limits.
+
 ## DaemonSets
+
 A DaemonSet ensures that every eligible node, or every node selected by its scheduling rules, runs a copy of a Pod. When an eligible node joins, the controller creates a Pod for it. When a node ceases to qualify, the controller removes the associated Pod. Typical uses include log collectors, node monitoring agents, storage daemons, networking components, and security agents.
 
 Eligibility does not mean worker nodes only. Node selectors, affinity, taints, and tolerations determine placement. Control-plane nodes commonly carry a `NoSchedule` taint, so a DaemonSet needs a matching toleration before it can run there. The DaemonSet controller also adds tolerations for some node conditions so node-local agents can remain present when ordinary workloads leave.
@@ -315,7 +350,9 @@ spec:
 As with a Deployment, the selector must match the template labels and becomes immutable after creation. A DaemonSet normally omits `replicas` because eligible nodes determine the count. Desired, current, ready, available, and unavailable figures can differ while nodes join, leave, or fail health checks.
 
 Many clusters deploy `kube-proxy` as a DaemonSet, but Kubernetes does not require every networking implementation to do so. Some environments replace it or implement service networking by other means.
+
 ### DaemonSet updates
+
 `RollingUpdate` replaces DaemonSet Pods gradually and is the default strategy. `maxUnavailable` defaults to one. Current DaemonSet rolling updates can also use `maxSurge`, which defaults to zero. The two values cannot both be zero. Surge support depends on the running Kubernetes version and workload constraints, so cluster policy should define suitable values.
 
 `OnDelete` updates the template but leaves existing Pods running. New Pods receive the new template only after an administrator or another event deletes the old Pods. This strategy allows manual sequencing, but it also lets a fleet remain indefinitely mixed if operations stop partway through.
@@ -328,7 +365,9 @@ kubectl rollout undo daemonset/node-agent -n operations
 ```
 
 Before a broad node-agent update, operations should test compatibility with each node operating system, architecture, kernel, container runtime, and security policy. A faulty privileged DaemonSet can affect every node, so staged node selection or a canary DaemonSet can reduce blast radius.
+
 ## Jobs
+
 A Job manages finite work and tracks successful completion. It creates one or more Pods, retries failures within policy, and records a terminal `Complete` or `Failed` condition. Suitable tasks include data processing, schema migration, report generation, backups, and administrative batch work. A continuously running service belongs in a Deployment or StatefulSet instead.
 
 ```yaml
@@ -356,7 +395,9 @@ Job Pod templates allow `restartPolicy: Never` or `OnFailure`. With `OnFailure`,
 `activeDeadlineSeconds` limits the Job's active duration and takes precedence over the backoff limit. When the deadline expires, Kubernetes terminates running Pods and marks the Job failed. A suspended Job handles this timer specially, so operations should consult the active cluster version before relying on pause duration semantics.
 
 `ttlSecondsAfterFinished` makes a finished Job eligible for automatic cleanup after the specified delay. Without it, the Job and its Pods remain until another retention mechanism removes them. Retaining selected objects can aid diagnosis, but unlimited completed Jobs consume API storage and clutter operational views.
+
 ### Completion and parallelism
+
 Without explicit `completions` or `parallelism`, a Job normally runs one Pod to one successful completion. `completions` sets the required number of successful Pods. `parallelism` limits how many Pods may run at once.
 
 ```yaml
@@ -379,7 +420,9 @@ spec:
 An indexed Job gives each completion a stable index, allowing each Pod to process a distinct partition. A non-indexed Job requires cooperating workers or an external work queue when tasks must remain unique. Kubernetes can occasionally start more than one Pod for the same work after node, kubelet, or controller disruptions. Batch operations should therefore be idempotent or protect side effects with transactional coordination.
 
 Parallelism is a maximum rather than a promise. Quotas, scheduling constraints, resource shortages, or controller throttling can reduce actual concurrency. Lowering parallelism does not necessarily terminate existing Pods immediately. Suspending a Job stops new Pod creation and can remove active Pods, so applications should tolerate interrupted execution.
+
 ### Observing and cleaning up Jobs
+
 ```bash
 kubectl get job report
 kubectl describe job report
@@ -392,7 +435,9 @@ kubectl delete job report
 The Job condition type is `Complete`, while a successfully terminated Pod has phase `Succeeded`. Some `kubectl` tables display a human-readable status such as `Completed`, but scripts should query structured fields rather than parse display text.
 
 Logs belong to Pods and containers, not to the Job object. `kubectl logs job/report` selects a Pod for convenience. Parallel or retried Jobs can have several Pods, so diagnosis may require listing each Pod, inspecting attempts, and collecting logs centrally. Deleting a Job normally deletes its dependent Pods according to garbage-collection policy.
+
 ## CronJobs
+
 A CronJob creates Jobs on a repeating schedule. It uses `apiVersion: batch/v1`. The removed `batch/v1beta1` API should not appear in current manifests.
 
 ```yaml
@@ -424,7 +469,9 @@ The schedule uses five cron fields for minute, hour, day of month, month, and da
 `suspend: true` prevents future scheduled Jobs but does not stop Jobs that already started. Unsuspending can make missed schedules eligible to start, subject to the deadline and the controller's missed-schedule rules.
 
 `startingDeadlineSeconds` limits how late the controller may start a missed occurrence. A short deadline may skip work during a brief control-plane outage. An absent deadline permits broader catch-up, although the controller limits excessive missed schedules. The correct value follows the business tolerance for delayed execution.
+
 ### Concurrency and retention
+
 The concurrency policy applies only to Jobs created by the same CronJob:
 
 | Policy | Behaviour when the previous Job still runs |
@@ -447,10 +494,13 @@ kubectl patch cronjob nightly-report --type=merge -p '{"spec":{"suspend":true}}'
 ```
 
 Creating a one-time Job from the CronJob template supports testing without changing the recurring schedule. Test inputs and outputs should remain isolated from production work, particularly when the template performs destructive or externally visible actions.
+
 ## StatefulSets
+
 A StatefulSet manages Pods that need a stable identity. Each Pod receives an ordinal name such as `database-0`, `database-1`, and `database-2`. Replacing a failed Pod preserves its ordinal even though the replacement receives a new unique identifier and may run on another node.
 
 StatefulSet identity combines three properties:
+
 - A stable ordinal and Pod name
 - A stable network identity, normally through a headless Service
 - Stable storage claims created from `volumeClaimTemplates`
@@ -464,7 +514,9 @@ StatefulSets default to ordered Pod management. They create Pods from the lowest
 Rolling updates normally proceed from the highest ordinal down. A partition can restrict an update to Pods at or above a selected ordinal, which supports staged releases. Stateful application upgrades must also respect membership protocols, quorum, data format compatibility, and leader placement. Kubernetes controls Pod lifecycle, but the application must preserve distributed-system safety.
 
 A StatefulSet does not automatically configure replication or copy data between Pods. It supplies stable building blocks. The application, operator, or external system still manages membership, replication, failover, backups, and recovery validation.
+
 ## Operational safeguards
+
 Controller operations become safer when the surrounding configuration supports clear ownership and observable health.
 
 - Version control should hold production manifests and record reviewed changes.
@@ -479,7 +531,9 @@ Controller operations become safer when the surrounding configuration supports c
 - Persistent workloads should test backup restoration and node or zone failure recovery.
 
 Direct Pod changes rarely provide a durable fix because a controller can replace the Pod from its template. An administrator should identify the owner, update the highest appropriate controller, and observe reconciliation through status, events, and application telemetry.
+
 ## Command reference
+
 ```bash
 # Inspect ownership and status
 kubectl get deploy,rs,pods

@@ -1,4 +1,4 @@
-# Portfolio Project: Photo Caption Content
+# Portfolio Project: Photo Caption Contest
 *Photo Caption Contest* is the portfolio project for the *Security, Infrastructure, & Scalability* module of Codecademy's Back-End Engineer Professional Certification.
 
 A secure and simple backend for a photo caption contest platform.

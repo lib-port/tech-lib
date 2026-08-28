@@ -1,4 +1,5 @@
 # Linux Administration with Ansible: Writing Ansible Playbooks
+
 > [!NOTE]
 > Explains how to build reliable, portable Ansible playbooks using clear YAML, inventories, variables, modules, handlers, validation, idempotent execution, and reusable automation components.
 
@@ -7,7 +8,9 @@ Ansible playbooks describe the state or sequence of operations that managed host
 Red Hat Enterprise Linux 10 includes `ansible-core` 2.16. A RHEL 10 control node can manage RHEL 9 and RHEL 10 hosts, while Red Hat Ansible Automation Platform can provide a controlled execution environment for larger operations. Managed RHEL hosts do not need Ansible installed. Most standard modules require Python on the managed host, while connection-specific modules and a small set of bootstrap actions do not.
 
 RHEL system roles provide supported interfaces for complex operating system services. The `redhat.rhel_system_roles` collection covers areas such as firewalls, SELinux, OpenSSH, storage, sudo, systemd, and time synchronisation. These roles reduce direct edits to implementation-specific configuration files and help an organisation apply consistent settings across supported RHEL releases.
+
 ## Establishing the automation baseline
+
 An automation project should define its control-node version, collections, roles, inventory sources, and execution dependencies. Version control should contain the playbooks, templates, variable files, and a dependency manifest. An execution environment or another isolated Python environment should hold the matching Ansible packages and collections.
 
 | Component | RHEL 10 baseline |
@@ -39,7 +42,9 @@ collections:
 ```
 
 An organisation should select versions from its tested and supported repository and replace each placeholder with an exact pin. The project should record role dependencies in the same way. `ansible-galaxy collection list`, `ansible-doc`, and the execution-environment build definition reveal what the runtime actually provides. The filesystem location of a module is an internal implementation detail and should not become a project dependency.
+
 ## Defining inventory and host scope
+
 Inventory names the managed hosts and organises them into groups. It can come from a static file, an inventory directory, or a dynamic inventory plugin that queries an infrastructure source. The project should treat inventory as operational data, validate its source, and prevent an unreviewed host from entering a privileged group.
 
 A compact YAML inventory can separate web and database tiers:
@@ -87,7 +92,9 @@ Connection variables should choose the supported transport. Standard RHEL hosts 
 The automation account needs permission on each selected host before the main playbook starts. A bootstrap workflow can create that account and install its public key, but the organisation should separate bootstrap authority from routine configuration authority. A permanent production play should not keep account-provisioning credentials that it no longer needs.
 
 Unreachable hosts differ from failed tasks. A block's `rescue` section cannot repair a host that Ansible never reached. Inventory validation, DNS checks, SSH host-key management, credential tests, and `ansible.builtin.ping` can identify connection failures before a change window.
+
 ## Writing reliable YAML
+
 YAML represents mappings, sequences, and scalar values. Ansible reads these structures and interprets particular keys as playbook keywords or module arguments. Spaces control YAML indentation. Tabs must not indent YAML, and a consistent two-space increment keeps the hierarchy visible.
 
 A mapping associates keys with values:
@@ -157,7 +164,9 @@ YAML anchors can reduce duplication, but they can also hide the effective value 
 Local tools should validate YAML that may contain credentials. Sending unpublished inventory, tokens, passwords, or configuration to an online parser can disclose sensitive data. Visual Studio Code with the Red Hat Ansible extension, or another local editor with YAML and Ansible support, can flag indentation, schema, and module errors without uploading the file.
 
 `ansible-lint` examines more than YAML syntax. It detects many Ansible-specific defects, risky shell use, weak task names, non-idempotent patterns, and inconsistent module naming. On RHEL, the DNF package belongs to a Red Hat Ansible Automation Platform subscription. Other environments should install it in an isolated tool environment, such as `pipx` or a virtual environment, and pin a version compatible with the project's `ansible-core`. Installing Python packages into the RHEL system interpreter can conflict with RPM-managed software.
+
 ## Structuring plays and tasks
+
 A play maps a host pattern to an ordered list of tasks. A playbook contains one or more plays and runs them from top to bottom. Tasks also run in source order for each host, subject to strategy, serialisation, conditions, failures, and delegation.
 
 ```yaml
@@ -203,7 +212,9 @@ Short names may resolve, but two collections can publish modules with the same s
 Module arguments form a mapping below the module name. Task keywords such as `when`, `register`, `notify`, `become`, `loop`, and `tags` align with the module name. Misplacing a task keyword under the module's arguments produces an unsupported-parameter error or an unintended value.
 
 Tags allow selective execution, but they do not create independent workflows automatically. A tagged subset can fail if it skips prerequisite tasks. Roles and separate playbooks provide stronger boundaries for operations that must run independently.
+
 ## Facts, variables, conditions, and results
+
 Variables separate environment data from task logic. Inventory variables, group variables, host variables, role defaults, role variables, play variables, registered results, and extra variables have different precedence. High-precedence input can override a carefully chosen default, so a playbook should validate external values before using them.
 
 Descriptive names such as `account_state` or `web_service_name` reduce ambiguity. Variable names should use letters, numbers, and underscores, and should not begin with a number. A project should avoid names that collide with Ansible keywords, Python methods, or magic variables.
@@ -279,7 +290,9 @@ A task can register its result for later decisions:
 ```
 
 Registered results commonly expose `rc`, `stdout`, `stderr`, `changed`, `failed`, and `skipped`. The exact fields depend on the module. `changed_when` should describe an observed change accurately, not suppress a genuine change to produce cleaner output. `failed_when` should accept documented non-zero return codes only when the command uses them for an expected state.
+
 ## Driving tasks from structured data
+
 Loops apply one task definition to a sequence of values. The loop input should carry enough structure to keep the task readable:
 
 ```yaml
@@ -347,7 +360,9 @@ Distribution-specific values can sit in variable files selected by facts:
 The file name comes from a trusted fact rather than unchecked user input. A RHEL-focused role can simplify the interface further by supporting only RHEL 9 and RHEL 10 and asserting that range. RHEL system roles already encapsulate many release differences, which reduces local branching.
 
 Lists and mappings should describe desired state, not an ordered imitation of terminal commands. A data model such as `managed_accounts`, `firewall`, or `storage_pools` lets the task logic remain stable while environment data changes. Assertions at the role boundary can reject missing keys, invalid choices, unsafe sizes, and unsupported combinations before a module acts.
+
 ## Idempotence and native commands
+
 An idempotent task converges a host on the declared state. Running it again against that state should report `ok` and should not repeat a change. Package, file, user, and service modules usually support this model because they inspect current state before acting. Idempotence still depends on module behaviour, input stability, external services, and the resources being managed.
 
 Ansible should use a purpose-built module or RHEL system role whenever one represents the desired resource. A command that installs a package cannot give Ansible the structured state, check-mode support, and error handling available through `ansible.builtin.dnf`. Direct commands remain valid for software or operations that have no suitable module.
@@ -409,7 +424,9 @@ A maintained module, role, or package should replace a script when the automatio
 `raw` bypasses the module subsystem and passes a command through the configured remote shell. It is suitable for a narrow bootstrap operation, such as installing Python on a host that lacks it. It does not provide normal change reporting or check-mode support. Network automation should use the platform's connection plugin and network modules rather than treating every device as a Python-free Linux shell.
 
 Ad hoc commands can appear in a controlled shell script for a short operational task, but a playbook provides better structure, review, and error reporting. If a script invokes Ansible, it should use an inventory, a restricted host pattern, explicit module names, checked exit status, and quoted arguments. Repeated administration should move into a playbook or role.
+
 ## Packages, files, services, and handlers
+
 Package installation, configuration deployment, and service management form a common sequence. On RHEL 10, `ansible.builtin.dnf` expresses package state directly:
 
 ```yaml
@@ -547,7 +564,9 @@ Time synchronisation should use the RHEL timesync role instead of deleting comme
 ```
 
 The timesync role replaces the configuration of the selected provider. The variable set must therefore describe every required source and option. On RHEL 10, the role normally configures `chronyd`. Network Time Security can authenticate time sources, but a deployment should follow the role's rules for NTS-only source sets.
+
 ## Managing users and secure access
+
 Account automation should separate the desired account state from credentials and authorisation. A structured variable can define ordinary attributes:
 
 ```yaml
@@ -680,7 +699,9 @@ Blocks apply shared directives and can provide error handling:
 ```
 
 Tasks in a block inherit directives such as `become`, `when`, and `tags`. A `rescue` section runs after a task returns a failed state, but it does not catch invalid task definitions or unreachable hosts. For hosts that enter block error handling and remain active, an `always` section runs after the block and any rescue tasks. Error handling should not conceal a failed security control. Recovery tasks should restore a safe state or add useful evidence, and the run should fail when the desired security state remains absent.
+
 ## Reusing tasks, roles, and playbooks
+
 Small playbooks can keep related tasks together. As an automation project grows, roles provide standard directories for tasks, handlers, defaults, variables, templates, files, and metadata. A role exposes a coherent interface and reduces long collections of one-task files.
 
 Ansible supports dynamic includes and static imports:
@@ -749,7 +770,9 @@ Static and dynamic reuse have different inheritance and evaluation rules. A proj
 An imported playbook contains complete plays with their own `hosts` and task sections. It does not belong inside a play's `tasks` list.
 
 Role defaults should provide low-precedence, user-overridable values. Role variables should remain rare because their high precedence makes overrides difficult. Role arguments can use an argument specification to validate types, required fields, and choices before tasks make changes.
+
 ## Scheduled work and backups
+
 `ansible.builtin.cron` can manage traditional cron entries:
 
 ```yaml
@@ -777,7 +800,9 @@ When a local archive forms one stage of a backup process, the module name and co
 ```
 
 A later task or backup system must transfer the archive to durable storage and remove the staging file under an approved retention policy. Removing the source during archival is not a backup operation and can cause data loss.
+
 ## Managing LVM-VDO storage on RHEL 10
+
 RHEL 10 integrates Virtual Data Optimizer with LVM. Old playbooks that create a standalone VDO service or call a legacy VDO module do not represent the RHEL 10 storage model. The `redhat.rhel_system_roles.storage` role can create an LVM-VDO volume with compression and deduplication.
 
 Storage automation can destroy data. A playbook should target stable device identifiers, confirm that each device is disposable or approved, restrict the host set, record capacity assumptions, and test recovery before production use. A path such as `/dev/sdb` may identify a different device after hardware or discovery changes. `/dev/disk/by-id` names provide a safer basis where the environment supports them.
@@ -811,8 +836,11 @@ The RHEL 10 storage role can create a VDO-backed logical volume:
 `vdo_pool_size` defines the physical space consumed by the VDO pool. `size` defines the virtual size presented by the VDO volume. The virtual size may exceed physical capacity because compression and deduplication can reduce stored data, but the saving depends on the workload. Capacity monitoring must track physical data usage and VDO health. Exhausting the physical pool can disrupt writes and damage service availability.
 
 The storage role permits one volume per LVM-VDO pool. Administrators should consult the installed role README for every supported variable because the packaged role defines the interface available on the control node. A syntax check confirms YAML and task structure, but it cannot confirm that a selected disk is safe to erase.
+
 ## Validating and operating playbooks
+
 Validation should progress from inexpensive static checks to controlled execution:
+
 1. The editor checks YAML structure and Ansible schemas.
 2. `ansible-playbook --syntax-check` parses the playbook in its execution environment.
 3. `ansible-lint` examines Ansible-specific quality and safety rules.
@@ -830,7 +858,6 @@ ansible-playbook --syntax-check site.yml
 ansible-lint
 ansible-playbook site.yml --list-hosts
 ansible-playbook site.yml --check --diff --limit web-canary-01
-ansible-playbook site.yml --limit web-canary-01
 ansible-playbook site.yml --limit web-canary-01
 ```
 

@@ -1,8 +1,11 @@
 # Using Task Control
+
 Ansible controls task execution through loops, conditions, handlers, result tests, and blocks. These features let a playbook apply the same operation to several values, select tasks for each host, react to genuine changes, and recover from failures.
 
 RHEL 10 supplies `ansible-core` 2.16 for control nodes that use RHEL System Roles. It uses DNF for software management and systemd for services. Playbooks should therefore favour `ansible.builtin.dnf`, `ansible.builtin.systemd_service`, native Boolean values such as `true`, and fully qualified collection names. The `yum` name remains an alias for the DNF module, but `ansible.builtin.dnf` states the intended package manager clearly.
+
 ## Loops and list data
+
 A loop runs one task once for each value in a list. During each iteration, Ansible assigns the current value to `item`. The `loop` keyword sits at the task level, alongside the module call.
 
 Modules that accept a list should receive the complete list directly. A single DNF transaction is more efficient than one transaction per package. Modules that accept one value, such as a service module acting on one unit, require a loop.
@@ -66,10 +69,13 @@ This package audit treats both "installed" and "not installed" as expected query
 ```
 
 The custom loop variable appears in every registered result as `package_name`. Restricting accepted return codes prevents an expected negative query from stopping the play while preserving genuine command failures.
+
 ## Conditional execution
+
 The `when` keyword evaluates a raw Jinja expression for each host. It does not use `{{ }}` delimiters. Literal strings still need YAML quoting. An unquoted name does not become a number. Jinja treats it as an identifier, which can produce an undefined-variable error.
 
 Common tests include:
+
 - `variable is defined` and `variable is not defined`
 - `value in values`
 - `feature_enabled` and `not feature_enabled`
@@ -98,7 +104,9 @@ Facts must be gathered or supplied before a condition can use them. `ansible_fac
 `when` can also filter loop iterations. For example, a task can loop over `ansible_facts['mounts']` and run only when `item.mount == '/boot'` and `item.size_available` exceeds the required byte count. Ansible reports the other iterations as skipped.
 
 Registered results support decisions based on earlier work. Membership tests such as `'lisa' in account_data.stdout` are clearer than comparing the result of Python's `find()` method with `-1`. Interactive `vars_prompt` input can set a variable, but unattended automation should obtain values from inventory, variable files, a survey, or another controlled input source.
+
 ## Handlers
+
 A handler performs an operation only after a notifying task reports `changed`. A successful task that reports `ok` does not notify its handlers. This rule prevents unnecessary service restarts and other disruptive actions.
 
 ```yaml
@@ -127,10 +135,13 @@ Ansible queues a notified handler and normally runs it after each relevant secti
 A later failure on a host normally suppresses that host's queued handlers. `force_handlers: true` at play level runs notified handlers despite later task failures, although unreachable hosts can still prevent execution. This option does not turn an unchanged task into a notification.
 
 When a looped task notifies handlers, any changed iteration marks the entire task as changed and triggers every notification attached to that task. Separate tasks or carefully selected handler topics avoid restarting unrelated services. The `listen` keyword lets several uniquely named handlers subscribe to one topic, which separates the notification interface from handler names.
+
 ## Failures and task status
+
 Ansible normally stops later tasks on the host where a task fails and continues on other hosts. `any_errors_fatal: true` stops the play across the current batch after a failure. `ignore_errors: true` lets execution continue after a task returns `failed`, but it does not cover unreachable hosts, invalid task definitions, syntax errors, or undefined variables. `ignore_unreachable` controls unreachable-host handling separately.
 
 Task status affects reporting, conditions, and handlers:
+
 - `ok` means that the task succeeded without changing the host.
 - `changed` means that the task succeeded and changed the host.
 - `failed` means that the module or a custom test declared failure.
@@ -152,10 +163,13 @@ A list under `failed_when` combines tests with AND. A single string containing `
 Purpose-built modules remain safer and more idempotent than shell commands. `ansible.builtin.file` should remove or create files, `ansible.builtin.dnf` should manage packages, `ansible.builtin.systemd_service` should manage units, and `ansible.builtin.reboot` should reboot a host.
 
 Error policy should reflect the required scope. A local optional probe can use an explicit `failed_when` rule. A non-critical operation may use `ignore_errors` when later tasks can safely continue. A fleet-wide invariant can use `any_errors_fatal`. Broadly ignoring failures can leave hosts in different states and can conceal the original fault.
+
 ## Blocks and recovery
+
 A block groups tasks and applies shared directives such as `when`, `become`, and `any_errors_fatal`. A loop cannot attach directly to a block. A repeated task group should move into a file and use `include_tasks` with a loop.
 
 Error-handling blocks contain up to three parts:
+
 - `block` contains the primary tasks.
 - `rescue` runs after a task in `block` returns `failed`.
 - `always` runs after the block outcome, whether the primary tasks succeed or fail.

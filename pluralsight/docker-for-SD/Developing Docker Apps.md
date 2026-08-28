@@ -1,7 +1,10 @@
 # Developing Docker Apps
+
 > [!NOTE]
 > A hands-on guide to building fast, secure, and maintainable containerized development workflows using live code mounting, multi-stage builds, intelligent caching, safe secret handling, linting, logging, and modern debugging tools.
+
 ## Development inside containers
+
 A Dockerfile defines how Docker builds an image for an application. The file normally specifies the base image, working directory, source files, dependency installation steps, exposed port and command used to start the process. Docker reads these instructions during an image build and combines operating system content, application code and build artefacts into a template for container instances.
 
 The normal development loop changes when an application must run in a container. Developers usually edit code, compile when necessary, run the application, test the result and debug failures before committing changes. Containerised development adds an image build before each test run if every code change must be baked into a new image. Complex Dockerfiles can make that step slow enough to interrupt the inner loop.
@@ -19,7 +22,9 @@ A Node.js to-do application illustrates the pattern. The image can keep the norm
 Docker Compose Watch provides another development workflow. A Compose file can watch selected paths and apply actions such as `sync`, `rebuild` or `sync+restart`. This gives more granular control than a broad bind mount. It suits multi-service applications and teams that already use Compose, while bind mounts remain a simple and effective option for many single-service workflows.
 
 Compose Watch also lets different file types trigger different actions. Source files can synchronise into the container. Dependency manifests can trigger a rebuild because the image needs new packages. Configuration files can synchronise and restart the service. This gives teams a declarative development model for applications that need several containers to start together.
+
 ## File ownership and container users
+
 Bind mounts can expose ownership problems. Host files have user and group identifiers. Containers often run as root unless the image sets another user. Files created inside a bind mount can then appear on the host with ownership that prevents the host user from editing or deleting them.
 
 Running development containers as root also increases risk. A root process inside a container does not automatically have unrestricted root access on the host, but it can increase the impact of a container escape, excessive Linux capabilities or unsafe mounts. Development images should run as a non-root user where practical.
@@ -27,7 +32,9 @@ Running development containers as root also increases risk. A root process insid
 A useful pattern creates a user and group in the image with the same user ID and group ID as the host developer. Dockerfile build arguments can provide defaults, such as `1000`, while allowing teams to override the values during the image build. The resulting container user can create and modify bind-mounted files without fighting host permissions.
 
 This approach also keeps the Dockerfile portable across workstations. One developer can build with the default IDs. Another can pass different values with `--build-arg` during the image build. The Dockerfile remains the shared source of truth, while each build adapts to the local host user.
+
 ## Compiled applications and build separation
+
 Compiled languages add another step to the inner loop. A source change may require compilation before the application can run. Putting the compiler and full toolchain in the runtime image works, but it produces large images and increases the attack surface.
 
 The builder pattern separates compilation from execution. A build image contains the compiler and dependency tools. A runtime image contains only the compiled artefact and the libraries needed to run it. A Go application can compile a binary in a container that has the Go toolchain, then copy that binary into a small Debian, Alpine, scratch or distroless runtime image.
@@ -37,7 +44,9 @@ This pattern improves runtime image size, distribution speed and security. It al
 A simple Go editor example shows the benefit. A single image that contains the Go toolchain and the compiled binary can exceed hundreds of megabytes. Splitting the build and runtime responsibilities lets the development image compile the binary while the runtime image carries only the executable and minimal operating system content. The runtime image starts faster, transfers faster and exposes fewer tools to attackers.
 
 The same separation helps testing. A build or development container can contain compilers, test fixtures and diagnostic tools, while the runtime image remains close to production. Developers can test the exact binary that will be shipped rather than a different binary built on the host.
+
 ## Docker image structure and multi-stage builds
+
 Docker image content is stored as ordered read-only layers. Dockerfile instructions that create or copy files, such as `RUN`, `COPY` and `ADD`, contribute content layers. Instructions such as `CMD`, `ENTRYPOINT`, `WORKDIR` and `EXPOSE` mostly set image configuration metadata.
 
 When Docker creates a container, it presents the image layers as a unified filesystem and adds a temporary writable layer for that container. New files live in the writable layer. Modified files from a lower layer are copied up before Docker writes changes, a behaviour known as copy-on-write. Removed files remain in the lower image layer but are hidden by whiteout entries. These mechanics explain why deleting temporary build files later in a Dockerfile may not reduce the earlier layer size.
@@ -47,6 +56,7 @@ Multi-stage Dockerfiles split one Dockerfile into named build stages. Each `FROM
 Named stages are easier to maintain than numeric stage references. `FROM golang AS build` and `COPY --from=build` remain clear if instructions move. A later stage can also use an earlier stage as its base. This removes duplication when several stages share common setup.
 
 A practical multi-stage development Dockerfile can separate work by purpose:
+
 - `base` defines the shared language image.
 - `deps` copies dependency manifests and downloads dependencies.
 - `lint` installs and runs a linter.
@@ -57,7 +67,9 @@ A practical multi-stage development Dockerfile can separate work by purpose:
 This structure supports linting, iterative development and production image generation from one Dockerfile. Large stages can contain tools for development and analysis, while the runtime stage stays small.
 
 The lint stage can mount one source file or the whole project and run the configured linter in a throwaway container. The dev stage can mount source code and run Air, which recompiles the Go binary after changes. The run stage can build the production image from the same file without including the linter, watcher or compiler. This keeps development convenience and production discipline in the same build definition.
+
 ## Dockerfile linting and build checks
+
 Dockerfile linting catches problems before a slow build fails. Docker build checks provide native BuildKit analysis of Dockerfiles and build options. Running `docker build --check .` validates the build configuration without producing an image. Checks can flag mixed keyword casing, relative `WORKDIR` paths, unsafe shell-form `CMD` or `ENTRYPOINT` use and other rule violations.
 
 Hadolint provides a wider community linter for Dockerfiles. It parses Dockerfiles, applies best-practice rules and uses ShellCheck to inspect shell code in `RUN` instructions. It can detect missing base image tags, relative copy destinations, invalid ports, package-manager issues and shell variable mistakes. Docker build checks and Hadolint overlap, but they do not produce identical findings. Using both gives broader coverage.
@@ -65,7 +77,9 @@ Hadolint provides a wider community linter for Dockerfiles. It parses Dockerfile
 Linting also improves team communication. A Dockerfile that follows consistent casing, absolute paths, pinned base images and JSON-form commands is easier to review. Automated checks in an editor, pre-commit hook or continuous integration job catch issues before a developer waits for a full build.
 
 The findings should be treated as guidance rather than a substitute for engineering judgement. Some rules enforce syntax that prevents clear failures. Others express conventions that a team may tune. The important practice is to make Dockerfile quality visible, repeatable and reviewable.
+
 ## Build cache strategy
+
 Docker uses a build cache to avoid repeating work. The builder compares Dockerfile instructions and relevant file metadata with cached layers. If a layer still matches, Docker reuses it. If a cache miss occurs, Docker rebuilds that instruction and every later instruction.
 
 `COPY` and `ADD` instructions invalidate cache when relevant file metadata changes. A `RUN` instruction usually uses the command text for the cache key, so Docker does not automatically rerun package updates just because remote packages changed. This is useful for speed, but it means Dockerfile authors must decide when to force fresh builds.
@@ -81,7 +95,9 @@ Cache mounts improve package manager performance when a layer must rebuild. A `R
 External build caches help ephemeral environments such as continuous integration pipelines. A local builder keeps its own cache, but a remote registry or other external cache can share cache data across builders. Pipelines can import cache before a build and export updated cache afterwards.
 
 Cache mounts are most useful when the ordinary layer cache has to miss. If a package list changes, Docker must rerun the package-install instruction. Without a cache mount, the package manager downloads everything again. With a cache mount, it can reuse cached package data and download only the missing content. The first build may take the same time or slightly longer, but later builds usually improve.
+
 ## Base images, secrets and build context
+
 Base image choice affects size, security and reproducibility. Teams should choose trusted sources, inspect image contents and select a variant that matches the application runtime. Official images cover many common stacks. Alpine, distroless and hardened images can reduce image size and unused tooling, but they must still fit the application.
 
 Images should not use an omitted tag or the `latest` tag for reproducible builds. Tags are mutable, so the same Dockerfile can resolve to different content later. A specific version tag improves clarity, while a digest pins the exact image content. Combining a version tag with a digest gives both readability and precision.
@@ -93,7 +109,9 @@ The build context should include only files needed for the build. Docker sends t
 The base image and context decisions should be treated as security controls. A small image is not automatically secure, and a large image is not automatically unsafe, but every unnecessary package creates maintenance work and potential vulnerabilities. Teams should rebuild images regularly, update base images deliberately and scan images as part of the build pipeline.
 
 Secret handling needs the same discipline in local development and automation. A developer workstation may feel private, but image history and local registries can retain values longer than expected. Continuous integration systems multiply that risk because build logs, caches and images may be visible to more people. Secret mounts reduce exposure by keeping credentials temporary and scoped to a single build step.
+
 ## IDE-based container development
+
 Container workflows do not require terminal-only development. Integrated development environments can build images, run containers, inspect objects and provide Dockerfile feedback. Visual Studio Code supports this through extensions such as Microsoft Container Tools and Docker DX. Container Tools exposes local containers, images, registries and related objects. Docker DX provides Dockerfile and Compose feedback, including syntax checks and some vulnerability warnings for referenced images.
 
 A project can define reusable IDE tasks that run Docker commands. A `tasks.json` entry can start a development container with bind-mounted source code and a custom command such as `yarn dev`. The developer edits code in the IDE, the watcher in the container sees saved changes, and the application reloads without rebuilding the image.
@@ -101,7 +119,9 @@ A project can define reusable IDE tasks that run Docker commands. A `tasks.json`
 Editor feedback can also shorten the error cycle. Dockerfile problems such as a relative `WORKDIR` or ambiguous `COPY` destination can appear as warnings while the file is open. Fixing them before the build starts saves time and makes the same rules visible to developers who prefer graphical tools over command-line linting.
 
 Extension choice still requires due diligence. Official extensions from Microsoft and Docker are suitable starting points. Third-party extensions may be useful, but teams should review publisher identity, maintenance history, permissions and adoption before installing them.
+
 ## Logging and debugging
+
 Containerised applications should write logs to standard output and standard error rather than managing log files inside the container. Docker captures these streams and passes them to a configured logging driver. This fits the twelve-factor application model because the application emits an event stream and the platform handles routing, storage and retention.
 
 Docker supports several logging drivers. The `json-file` driver is the default and stores logs in JSON format. The `local` driver stores logs in an efficient local format with rotation and compression options. The `journald` driver sends logs to the systemd journal on Linux hosts. Other drivers can send logs to remote systems such as Fluentd, Splunk or cloud logging services.

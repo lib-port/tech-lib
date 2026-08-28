@@ -1,12 +1,16 @@
 # Managing Security
+
 > [!NOTE]
 > A layered approach to securing RHEL systems through SSH key authentication, precise ACL permissions, SELinux enforcement, persistent policy configuration, and disciplined audit-led troubleshooting.
 
 RHEL 8 protects systems through several complementary controls. OpenSSH authenticates remote hosts and users. POSIX access control lists extend conventional owner, group, and other permissions. SELinux applies mandatory access control after ordinary discretionary checks. Each control addresses a different risk, so one control does not replace another.
 
 Secure administration requires more than enabling features. Administrators must verify host identities, protect private keys, calculate effective ACL permissions, keep SELinux enforcing, and test every configuration change. They should also retain a recovery path before changing authentication or policy settings.
+
 ## SSH key-based authentication
+
 ### Host authentication and user authentication
+
 SSH performs two distinct checks:
 
 | Check | Client-side record | Server-side record | Purpose |
@@ -44,7 +48,9 @@ chmod 600 ~/.ssh/id_ed25519
 The exact private-key filename depends on the selected algorithm and any custom name. On an SELinux system, `restorecon -Rv ~/.ssh` can restore expected labels after files have been copied or created unusually.
 
 `authorized_keys` can also constrain a key with options such as a forced command, a source-address restriction, or disabled forwarding. These restrictions suit narrowly defined automation accounts, especially backup and deployment services. Administrators should test them carefully because an incorrect forced command or source restriction can block the intended workflow. A key used for interactive administration should not automatically become a general automation credential.
+
 ### Using `ssh-agent`
+
 A passphrase-protected key normally prompts for its passphrase when the client needs the key. `ssh-agent` does not cache the passphrase. It holds an unlocked private key in memory and answers signing requests on the user's behalf. `ssh-add` loads an identity into the running agent:
 
 ```shell
@@ -54,7 +60,9 @@ ssh-add -l
 ```
 
 The optional lifetime reduces exposure by removing the identity after a set period. Desktop and login environments often start an agent automatically, so starting a second agent in every shell can create abandoned processes and confusing sockets. Administrators should inspect the existing environment before adding agent startup code. They should also avoid forwarding an agent to untrusted hosts because a process that can access the forwarded socket may request signatures.
+
 ### Client configuration
+
 The per-user file `~/.ssh/config` can define aliases, users, identity files, and connection settings. OpenSSH uses the first value it obtains for most directives, so specific host blocks should precede broad defaults:
 
 ```text
@@ -70,7 +78,9 @@ Host *
 ```
 
 The alias permits `ssh app-prod`. `ServerAliveInterval` asks the server for a response after a period without received data, while `ServerAliveCountMax` limits unanswered probes before disconnection. These controls detect a lost connection. They do not strengthen authentication.
+
 ### Disabling password authentication safely
+
 An administrator should disable SSH password authentication only after every required account can log in with a key. The administrator should retain an existing privileged session, console access, or out-of-band recovery while testing. On RHEL 8, relevant server settings include:
 
 ```text
@@ -90,7 +100,9 @@ systemctl reload sshd
 Editing `sshd_config` does not make a running daemon adopt the change automatically. A reload or restart must follow successful validation. The administrator should then open a separate connection and confirm key-based access before closing the recovery session. Disabling `PasswordAuthentication` alone may leave keyboard-interactive authentication available, so the effective authentication methods require explicit review.
 
 These settings affect remote authentication through `sshd`. They do not disable local console passwords, `sudo` authentication, or passwords used by unrelated services. Other controls require separate decisions, including direct root login, permitted user groups, multi-factor authentication, connection limits, and idle-session policy. Administrators should change only the controls supported by the organisation's access and recovery design.
+
 ## POSIX access control lists
+
 Traditional Linux mode bits define permissions for one owner, one owning group, and all other users. POSIX ACLs add named user and named group entries without forcing administrators to create a new group for every sharing pattern. They remain discretionary controls. The file owner or a sufficiently privileged process can change them, and SELinux can still deny an operation that an ACL permits.
 
 RHEL 8 normally supports POSIX ACLs on XFS and ext4. The `acl` package supplies `getfacl` and `setfacl`. Administrators can confirm the package, file-system type, and mount options:
@@ -106,7 +118,9 @@ An access ACL applies to an existing file or directory. A default ACL exists onl
 Linux evaluates ACL entries in a defined order. It first checks the file owner. It then checks a matching named-user entry. If neither applies, it evaluates the owning group and every matching named group. Finally, it checks the `other` entry. The mask limits named-user and group-class results. An ACL does not provide a general ordered list of allow and deny rules, so administrators should not design it like a Windows discretionary ACL.
 
 The access decision also uses the process's effective user ID, effective group ID, and supplementary groups. A user who belongs to several matching groups can receive the combined permissions of those matching group entries, subject to the mask. Removing permissions from one matching group does not create an explicit denial if another matching group grants them.
+
 ### Managing access ACLs
+
 `setfacl -m` adds or changes entries. `setfacl -x` removes a selected entry. The `X` permission adds execute access to directories and to files that already have an execute bit, which makes recursive directory operations safer than granting execute to every regular file.
 
 ```shell
@@ -116,7 +130,9 @@ setfacl -x u:alice /srv/project
 ```
 
 Directory permissions have distinct meanings. Read lists names, write creates or removes entries, and execute searches or traverses the directory. A user often needs execute on every parent directory in a path even when the final file requires only read access.
+
 ### Default ACLs and object creation
+
 A directory can give an operations group continuing access to new content while excluding other users:
 
 ```shell
@@ -126,13 +142,17 @@ getfacl /srv/project
 ```
 
 The first command sets access on the directory itself. The second defines the default ACL inherited by new children. During creation, the requested file mode still limits inherited permissions. A program that creates a regular file without execute permission does not gain execute permission solely because the directory's default ACL includes it.
+
 ### The ACL mask
+
 An extended ACL contains a mask that limits the effective rights of the owning group, named users, and named groups. The mask does not limit the file owner or the `other` entry. `getfacl` reports an `effective` comment when an entry requests permissions that the mask removes.
 
 When an extended ACL exists, the group triplet displayed by `ls -l` represents the ACL mask, not necessarily the owning group's entry. A mode such as `rwxrwx---` can therefore coexist with a more restrictive owning-group ACL. The display does not mean that every member of the owning group receives all three group-class permissions.
 
 `setfacl` normally recalculates the mask from the union of affected entries unless an administrator supplies a mask or uses `-n`. A later `chmod` can also change the mask and unexpectedly reduce or expand effective ACL rights. Administrators should inspect `getfacl` after either command instead of inferring access from `ls -l` alone.
+
 ### Removal, backup, and restoration
+
 An administrator can remove a named entry with `-x`, remove extended access entries with `-b`, and remove a directory's default ACL with `-k`. A recursive backup preserves ACL text for restoration:
 
 ```shell
@@ -143,7 +163,9 @@ setfacl --restore=/root/project.acl
 The `-p` option retains absolute pathnames. Without it, `getfacl` normally strips leading slashes, so restoration depends on the working directory recorded by the backup. Backups should receive protection appropriate to the ownership and access information they contain.
 
 Copy and archive workflows need explicit testing. A move within one file system normally preserves an inode and its ACL, while a copy creates a new object and may inherit the destination directory's default ACL. Tools and options differ in whether they preserve ACL metadata. Administrators should verify restored content with `getfacl` instead of assuming that matching file data also means matching access controls.
+
 ## SELinux states, modes, and policy
+
 SELinux adds mandatory access control to the kernel. Conventional mode bits and POSIX ACLs run first. If they permit an operation, SELinux policy can still deny it. This design confines services even when a process has elevated discretionary privileges.
 
 Policy evaluates subjects and objects, not pathnames alone. A process domain identifies the subject. File types, port types, device types, object classes, and requested operations describe the target interaction. A confined process running with user ID 0 can bypass many discretionary checks through Linux capabilities, yet SELinux can still deny an operation outside the process domain's authorised policy.
@@ -170,7 +192,9 @@ sestatus
 Administrators should prefer a short, controlled permissive interval to disabling SELinux. They should reproduce the failure, collect AVC records, correct the configuration, and return to enforcing mode. Re-enabling SELinux after a disabled period requires careful relabelling because objects created while policy was absent may lack valid labels. A controlled recovery commonly starts in permissive mode, schedules relabelling with `fixfiles -F onboot`, reboots, reviews denials, and then restores enforcing mode.
 
 System-wide permissive mode removes enforcement from every domain. Where diagnosis requires a longer observation period, an administrator can place one domain into permissive operation with `semanage permissive -a <domain>` while the rest of the system remains enforcing. This exception still weakens protection for that domain, so it needs a defined scope, monitoring, and prompt removal with `semanage permissive -d <domain>`.
+
 ### Policy tools and booleans
+
 The base packages provide commands such as `getenforce`, `setenforce`, and `restorecon`. RHEL 8 supplies `semanage` through `policycoreutils-python-utils`, while `setroubleshoot-server` provides higher-level denial analysis:
 
 ```shell
@@ -186,7 +210,9 @@ setsebool -P use_nfs_home_dirs on
 ```
 
 The `-P` option writes the value to persistent policy configuration. A boolean broadens or narrows an existing policy path, so an administrator should read its description and assess its scope before changing it.
+
 ## SELinux contexts and persistent labelling
+
 SELinux associates a context with files, processes, ports, and other objects. A context normally contains an SELinux user, role, type, and level:
 
 ```text
@@ -228,10 +254,13 @@ restorecon -Rv /staff
 The equivalence rule records expected labels for the new path. File-creation behaviour, service tools, or a later `restorecon` determines when objects receive those labels. Administrators should verify the result rather than assume that the mapping changed every inode immediately.
 
 Deliberately relabelling `/etc/shadow` provides a hazardous demonstration because it can disable authentication and `sudo`. Training should use disposable systems and non-critical test objects. If an accidental label change affects a system file, a retained root session, rescue environment, or console can run `restorecon` on the affected path.
+
 ## Diagnosing SELinux denials
+
 An access failure does not automatically identify SELinux as the cause. Administrators should first check service configuration, process state, file ownership, mode bits, ACLs, parent-directory traversal, firewall rules, and network listeners. SELinux evaluates access alongside these controls rather than replacing them.
 
 A disciplined diagnosis follows a short sequence:
+
 1. `getenforce` confirms whether SELinux can enforce a denial.
 2. The administrator reproduces the failure once and records the time.
 3. `ausearch` retrieves relevant audit events.
@@ -258,7 +287,9 @@ An AVC record commonly identifies `scontext`, `tcontext`, `tclass`, the denied p
 | Application behaviour has no suitable policy path | Correct the application or develop a narrowly scoped local policy |
 
 Permissive mode can produce denials for operations that an enforcing system would have stopped earlier, so not every permissive AVC represents an independently reachable failure. Administrators should reproduce the intended transaction under enforcing mode after correction and confirm that the service still follows least privilege.
+
 ## Apache with non-standard settings
+
 Changing an HTTP service from port 80 to an uncommon port does not provide meaningful security. Network scans can still discover the service, and the same application remains exposed. An alternate port should serve an operational requirement, while firewalls, TLS, authentication, patching, and least privilege provide substantive protection.
 
 SELinux permits `httpd_t` to bind only to ports labelled with an allowed type. An administrator can inspect the current `http_port_t` assignments before choosing a port:
@@ -305,7 +336,9 @@ curl -I http://localhost:3131/
 ```
 
 A bind failure points towards configuration, port ownership, privileges, or a port-label denial. An HTTP 403 response points towards Apache authorisation, path permissions, ACLs, or file labels. Audit evidence distinguishes these cases and supports the narrowest effective correction.
+
 ## Layered operational validation
+
 Security changes should pass functional, negative, persistence, and recovery tests. A functional test confirms that the intended account or service can complete its approved action. A negative test confirms that other identities remain blocked. A persistence test reloads the service or reboots the host, then verifies effective settings. A recovery test proves that console access, a retained session, or a documented rollback can restore service after an error.
 
 Administrators should record the configuration change, expected security effect, validation evidence, rollback command, and responsible owner. Configuration management should apply SSH settings, ACLs, SELinux customisations, and service configuration consistently across equivalent hosts. Monitoring should detect changed host keys, failed authentication, unexpected ACL expansion, permissive SELinux operation, repeated AVC denials, and unapproved listening ports.

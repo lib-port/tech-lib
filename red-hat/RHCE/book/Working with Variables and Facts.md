@@ -1,6 +1,9 @@
 # Variables, Facts, Vault, and Registered Results on RHEL 10
+
 Red Hat Enterprise Linux 10 provides `ansible-core` 2.16 for supported management of RHEL 9 and RHEL 10 nodes. Variables separate reusable automation from host-specific data. Facts describe managed hosts, magic variables expose Ansible's internal context, Vault protects sensitive values at rest, and registered results carry task outcomes to later tasks.
+
 ## Defining and using variables
+
 Ansible variables use YAML data and Jinja expressions. A valid name contains letters, numbers, and underscores, cannot begin with a number, and cannot use a Python or playbook keyword. An initial underscore is valid but provides no privacy.
 
 Jinja encloses an expression in double braces. YAML requires quotes when a value begins with an expression:
@@ -35,7 +38,7 @@ A list stores ordered items and uses zero-based indexes such as `web_packages[0]
 Variables can reside in a play's `vars` block, files named under `vars_files`, role defaults and variables, inventory, `group_vars`, `host_vars`, task-level definitions, registered results, or extra variables. Inventory variables remain supported and are not deprecated. Separate `group_vars/GROUP` and `host_vars/HOST` files usually organise structured data more clearly than inline INI inventory values.
 
 | Location | Typical use |
-|---|---|
+| --- | --- |
 | Role defaults | Values that callers can readily override |
 | Inventory and `group_vars` | Environment, location, or host-group policy |
 | `host_vars` | A host-specific exception or connection value |
@@ -55,7 +58,9 @@ vars_files:
 The enabled `host_group_vars` plugin automatically loads matching files relative to the inventory source or playbook. These implicit locations improve reuse but require a coherent project layout so administrators can trace each value.
 
 Precedence does not follow one universal "most specific value" rule. Configuration settings, command-line options, playbook keywords, variables, and direct plugin assignments occupy different precedence categories. Within variable sources, role defaults have low precedence, while `--extra-vars` or `-e` overrides every other variable. A project should define each value in one intentional location and consult the formal precedence order when duplication cannot be avoided.
+
 ## Gathering and using facts
+
 Ansible runs fact gathering at the beginning of each play by default. The `ansible.builtin.setup` module discovers operating system, network, hardware, storage, date, and other host properties. An ad hoc command can inspect selected facts:
 
 ```console
@@ -86,7 +91,9 @@ The `ansible.builtin.debug` module can display a variable without Jinja delimite
 A play that requires no host facts can set `gather_facts: false`. A later `ansible.builtin.setup` task can gather all facts or a filtered subset. Persistent cache plugins can reduce collection time across runs, but administrators must choose an appropriate expiry and avoid decisions based on stale disk, network, package, or security data.
 
 Specialised modules can add information that default gathering omits. For example, `ansible.builtin.package_facts` returns installed-package data. Module documentation defines each returned structure, and supporting utilities on the managed host can affect which facts are available.
+
 ## Custom facts and magic variables
+
 Linux local facts normally reside in `/etc/ansible/facts.d` on each managed host. Every filename ends in `.fact`. A static file uses INI or JSON and must not be executable. A dynamic `.fact` program must be executable and return valid JSON.
 
 Ansible places local facts under `ansible_facts['ansible_local']`. For `/etc/ansible/facts.d/site.fact` containing an INI section named `software`, the package value appears as:
@@ -123,7 +130,9 @@ Fact gathering occurs before normal tasks. A play that copies a new `.fact` file
 These file tasks require privilege escalation for the system directory.
 
 Magic variables describe execution and inventory context. `inventory_hostname` identifies the current inventory host, `group_names` lists its groups, `groups` maps group names to members, and `hostvars` maps hosts to their variables. Facts for another host appear through `hostvars` only after Ansible gathers or caches them. Ansible reserves magic-variable names, so project variables must not reuse them.
+
 ## Protecting sensitive values with Vault
+
 Ansible Vault encrypts complete files or individual YAML values. It protects stored content but decrypts values during execution, so task output, logs, templates, and external systems can still disclose a secret. Sensitive tasks should use `no_log: true` where appropriate, and operators should secure editors, temporary files, output, backups, and password sources.
 
 Vault supports `create`, `encrypt`, `encrypt_string`, `edit`, `view`, `decrypt`, and `rekey`. A labelled Vault ID clarifies which password source belongs to encrypted content:
@@ -134,7 +143,7 @@ ansible-playbook -i inventory site.yml --vault-id prod@prompt
 ```
 
 | Operation | Effect |
-|---|---|
+| --- | --- |
 | `create` | Creates and edits a new encrypted file |
 | `encrypt` | Encrypts an existing file |
 | `encrypt_string` | Produces an encrypted YAML value |
@@ -153,7 +162,9 @@ Password files and client scripts remove interactive prompts but become high-val
 Public variable names and encrypted values can remain separate. For example, an unencrypted variables file can map `db_password` to `vault_db_password`, while a Vault-encrypted file defines `vault_db_password`. This structure keeps the expected interface visible without exposing the value.
 
 Vault encryption does not create an operating system password hash. On RHEL 10, `ansible.builtin.user` requires its `password` argument to contain an encrypted Linux password hash. Automation should generate an approved hash securely, protect that hash with Vault, and avoid passing a plaintext login password to the module.
+
 ## Registering task results
+
 The `register` keyword stores a task result as a per-host variable for the current playbook run. Every registered result contains task status, while each module documents its additional return keys. Command modules commonly return `rc`, `stdout`, `stdout_lines`, `stderr`, and `stderr_lines`.
 
 ```yaml

@@ -1,12 +1,16 @@
 # Creating and Configuring File Systems
+
 > [!NOTE]
 > A practical framework for creating, securing, sharing, optimising, and expanding RHEL file systems using XFS, EXT4, LVM, NFS, VDO, Stratis, and stable mount configurations.
 
 Red Hat Enterprise Linux 8 supports XFS and ext4 as its principal local file systems. XFS is the default and suits large, high-performance storage. Ext4 remains a mature alternative with broad tooling and the ability to shrink an unmounted file system. RHEL 8 also provides LVM for flexible allocation, NFS for network sharing, VDO for block-level deduplication and compression, and Stratis for pool-based storage management.
 
 Storage administration affects availability and data integrity. Administrators should confirm device identities, maintain current backups, test configuration changes, and monitor capacity at every layer. Commands that create file systems, initialise physical volumes, wipe signatures, or destroy snapshots erase data on the selected devices.
+
 ## Creating and managing local file systems
+
 ### Identifying devices and file systems
+
 Linux represents disks, partitions, LVM logical volumes, and device-mapper targets as block devices. A mounted file system attaches one of these devices to a directory in the unified directory tree. The following commands provide complementary views:
 
 ```shell
@@ -43,7 +47,9 @@ udevadm settle
 ```
 
 XFS labels contain at most 12 characters. Ext file-system labels contain at most 16 characters. Both tools can truncate an overlong label, so an administrator should verify the stored value with `blkid` or `lsblk --fs`.
+
 ### Creating XFS and ext4 file systems
+
 `mkfs` dispatches to a file-system-specific formatter. The specialised commands make the intended type explicit:
 
 ```shell
@@ -58,7 +64,9 @@ XFS uses journal recovery and `xfs_repair` for checking and repair. The generic 
 Repair tools require a clear diagnosis and a current backup. An administrator normally unmounts a damaged non-root file system before repair. `xfs_repair -n` performs a read-only assessment of XFS metadata, while `e2fsck -n` answers repair prompts negatively and reports ext-family problems. A read-only check can still place heavy load on failing media, so hardware errors, kernel messages, and storage-controller evidence need review before a long scan. XFS log replay normally requires mounting and unmounting the file system on the same architecture. The destructive `xfs_repair -L` option clears a corrupt log and can lose metadata updates, so it belongs only in a recovery decision that accepts that loss.
 
 File-system metadata also supports reconstruction after documentation fails. `lsblk --fs`, `blkid`, labels, UUIDs, LVM names, and mount histories can help associate devices with intended paths. None proves that a candidate contains the latest data. Recovery work should preserve original media, record commands and results, and avoid assigning a new UUID until duplicate identifiers have been assessed.
+
 ### Securing mount points
+
 A mount-point directory belongs to its parent file system until another file system is mounted there. After the mount, the root directory of the mounted file system supplies the visible owner, group, permissions, and contents. Existing files under the mount point become hidden until unmounting.
 
 An inaccessible underlying directory prevents users from writing into the empty mount point when the intended file system is offline. Without that protection, applications can write data into the parent file system, fill the wrong volume, and hide the misplaced files after the intended mount returns.
@@ -74,7 +82,9 @@ chmod 2770 /data/sales
 ```
 
 The first permission change protects the underlying directory. The second applies to the root directory of the mounted file system. An administrator should unmount the file system and inspect the underlying directory if data appears to have been written while the mount was absent.
+
 ### Persistent mounts
+
 Each `/etc/fstab` entry has six fields: device, mount point, file-system type, mount options, `dump` backup flag, and `fsck` pass number. The fifth field controls the legacy `dump` utility. The sixth controls boot-time checking order. A value of `0` disables an `fsck` pass, `1` normally identifies the root file system, and `2` identifies other file systems that require checking. XFS entries normally use `0` because XFS does not use a conventional boot-time `fsck`.
 
 An ext4 entry can use a stable UUID and a non-root check pass:
@@ -103,7 +113,9 @@ umount /data/sales
 ls -la /data/sales
 mount /data/sales
 ```
+
 ### Extending LVM storage and its file system
+
 LVM separates physical volumes, volume groups, and logical volumes. `vgs` displays volume-group information. It does not scan for volume groups, which is the role of `vgscan`. Before assigning a new disk, the administrator must confirm that the selected device contains no required data and uses a compatible logical block size.
 
 ```shell
@@ -119,7 +131,9 @@ lvextend --resizefs --extents +100%FREE /dev/rhel_rhel8/root
 ```
 
 Mounted XFS and ext4 file systems can grow online when their underlying logical volumes grow. XFS cannot shrink. Ext4 can shrink only while unmounted, and the operation requires a separate, carefully ordered workflow. Allocating every free extent to one logical volume leaves no reserve for other volumes, snapshots, or emergency growth. A fixed increment such as `--size +10G` often preserves greater operational flexibility.
+
 ## Collaborative directory permissions
+
 Linux mode bits divide ordinary permissions among the owner, group, and others. A leading octal digit adds three special bits:
 
 | Octal value | Name | Main effect |
@@ -131,7 +145,9 @@ Linux mode bits divide ordinary permissions among the owner, group, and others. 
 Set-user-ID and set-group-ID on executables carry significant security risk because they grant the program an effective identity derived from the file. Set-group-ID on a directory serves a different purpose. It keeps new files and subdirectories in the directory's collaborative group instead of the creator's primary group.
 
 The sticky bit does not mean that each user can delete only files that the user owns. In a sticky directory, deletion and renaming remain available to the file owner, the directory owner, and a suitably privileged process. The bit also does not stop an authorised user from modifying a file whose own permissions allow writing.
+
 ### Establishing a shared directory
+
 A collaborative directory needs a group, appropriate membership, inherited group ownership, and a suitable `umask`. The following pattern gives the `sales` group full directory access, removes access for others, applies set-group-ID, and applies the sticky bit:
 
 ```shell
@@ -161,7 +177,9 @@ Directory write permission controls creation, deletion, and renaming of director
 A short test with two non-privileged accounts exposes mistakes that a root-only test misses. Each account should create a file, read the colleague's file, attempt an authorised update, and attempt a deletion that policy should reject. `namei -l /data/sales/report.txt` displays permissions on every path component, which helps locate a missing execute bit on a parent directory.
 
 `ls -ld` displays special bits in the execute positions. Lower-case `s` or `t` means that the corresponding execute bit is also set. Upper-case `S` or `T` means that the special bit is set while the corresponding execute bit is absent. An upper-case result often indicates a configuration that requires review.
+
 ### Finding special permissions
+
 GNU `find` distinguishes between any requested bit and all requested bits:
 
 ```shell
@@ -171,9 +189,13 @@ find /data -type d -perm -1000 -perm -0002
 ```
 
 The first command finds directories with either set-group-ID or the sticky bit. The second finds directories with both bits. The third finds world-writable sticky directories. These searches support audits, but the administrator must still inspect ownership, access-control lists, mount options, SELinux labels, and the operational purpose of each result.
+
 ## Sharing file systems with NFS
+
 NFS allows a client to mount a server directory within its local directory tree. RHEL 8 clients negotiate the highest protocol version offered by the server unless a mount option selects a version. NFSv4.2 supports current NFSv4 features and can reduce firewall complexity. A true NFSv4-only server requires more than disabling UDP because NFSv3 can use both TCP and UDP.
+
 ### Configuring an NFSv4-only server
+
 The `nfs-utils` package supplies server and client tools:
 
 ```shell
@@ -199,7 +221,9 @@ systemctl mask --now rpc-statd.service rpcbind.service rpcbind.socket
 ```
 
 Red Hat's procedure additionally prevents `rpc.mountd` from listening for NFSv3 mount requests through a systemd drop-in, then reloads systemd and restarts `nfs-mountd`. Once that configuration is complete, the NFS service uses TCP port 2049 for ordinary NFSv4 traffic. NFSv3 requires extra RPC services and firewall openings.
+
 ### Exporting a directory
+
 Exports can reside in `/etc/exports` or in files ending with `.exports` under `/etc/exports.d/`. A network should use CIDR notation rather than an address containing an asterisk:
 
 ```exports
@@ -231,7 +255,9 @@ showmount --exports localhost
 ```
 
 `showmount` relies on RPC services associated with older NFS discovery and can be unhelpful on a tightly restricted NFSv4-only server. The active export table and a real client mount provide stronger verification.
+
 ### Mounting from a client
+
 The client installs `nfs-utils`, creates a mount point, mounts the export, and verifies the negotiated options:
 
 ```shell
@@ -250,7 +276,9 @@ server.example.com:/data/sales /mnt/sales nfs4 rw,hard,_netdev 0 0
 ```
 
 The `_netdev` option marks the mount as network-dependent. A hard mount preserves NFS retry semantics during a transient outage, but a server failure can block processes that access the mount. Operational monitoring and recovery procedures must account for that behaviour.
+
 ### Mounting on demand with autofs
+
 `autofs` creates mounts when a process accesses a configured path and removes idle mounts later. This approach avoids maintaining many inactive NFS mounts.
 
 ```shell
@@ -277,7 +305,9 @@ ls /data/sales
 ```
 
 Accessing the key triggers the mount. The configured timeout controls later unmounting. Active references, open files, or current working directories can keep the mount busy.
+
 ### SELinux
+
 SELinux is a mandatory access-control system, not a mandatory access-control list. It evaluates labels and policy in addition to discretionary owner, group, and mode permissions. An NFS configuration can therefore fail even when UNIX permissions appear sufficient.
 
 RHEL 8 supplies service-specific SELinux documentation in the `selinux-policy-doc` package:
@@ -289,13 +319,17 @@ man nfsd_selinux
 ```
 
 `ls -Z`, `ps -eZ`, and recent AVC records help identify label or policy failures. Administrators should use documented labels and booleans, retain enforcing mode, and avoid broad local allow rules that conceal the underlying configuration error.
+
 ## Optimising storage with VDO
+
 VDO is a thinly provisioned block-storage target that performs block-level deduplication and compression before writing data to its backing device. It is not a file system. XFS, ext4, LVM, or another supported upper layer uses the logical device that VDO exposes under `/dev/mapper/`.
 
 Deduplication hashes incoming blocks and uses the UDS index to identify likely duplicates. VDO verifies a match before sharing physical storage. Compression acts on unique blocks that remain after deduplication. Workloads with repeated unencrypted blocks can save substantial space. Client-side encryption makes blocks appear unrelated and should therefore sit below VDO when the design requires both encryption and data reduction. Placement changes the security boundary and requires an architecture-level decision.
 
 These examples use the standalone `vdo` service and command set available in RHEL 8. Systems built with LVM-VDO use the corresponding LVM workflow.
+
 ### Creating and mounting a VDO volume
+
 The packages provide the management tools and kernel module:
 
 ```shell
@@ -333,7 +367,9 @@ A local standalone VDO device uses a normal persistent mount entry:
 ```
 
 A network-dependent backing device also needs `_netdev`. The mounted file system then requires the same ownership and permission controls as any other local file system.
+
 ### Monitoring capacity and reduction
+
 `df` reports logical file-system capacity. It cannot show how close the VDO backing store is to physical exhaustion. `vdostats` reports physical use, available capacity, and space saving:
 
 ```shell
@@ -362,7 +398,9 @@ Deleting files does not allow VDO to reclaim physical blocks until the file syst
 ```shell
 systemctl enable --now fstrim.timer
 ```
+
 ### Growing VDO
+
 Logical growth changes the size presented to the upper layer:
 
 ```shell
@@ -379,11 +417,15 @@ vdo growPhysical --name=vdo1
 ```
 
 VDO cannot shrink its logical or physical size through these workflows. Adding an unrelated disk directly to a VDO target is not the growth operation. A multi-device design normally places VDO on expandable storage such as an LVM logical volume.
+
 ## Managing layered storage with Stratis
+
 Stratis presents storage pools and file systems through a single management interface. The `stratisd` service builds the underlying layers from Linux device-mapper technologies and XFS. Thin provisioning, snapshots, caching, and encryption remain pool-level capabilities.
 
 Red Hat classifies Stratis as a Technology Preview in its RHEL 8 documentation. Technology Preview features do not receive production service-level support, so production adoption requires an explicit support and risk decision.
+
 ### Creating a pool and file system
+
 The daemon and command-line client install separately:
 
 ```shell
@@ -436,7 +478,9 @@ stratis pool list
 ```
 
 This action expands the pool but does not replace monitoring. Thinly provisioned file systems can collectively claim more logical capacity than the pool physically holds.
+
 ### Snapshots
+
 A Stratis snapshot is a first-class, read-write Stratis file system created from another file system at a point in time:
 
 ```shell

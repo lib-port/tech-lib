@@ -1,7 +1,10 @@
 # Python for Data Science, AI & Development
+
 > [!NOTE]
-> This comprehensive guide builds practical Python skills for data science, AI, and software development, including core syntax and programming concepts, Jupyter, pandas, NumPy, APIs, web scraping, and reliable data workflows. 
+> This comprehensive guide builds practical Python skills for data science, AI, and software development, including core syntax and programming concepts, Jupyter, pandas, NumPy, APIs, web scraping, and reliable data workflows.
+
 ## Python Basics
+
 Python is a high-level, general-purpose programming language known for relatively clear syntax and a large ecosystem. It is used in fields including data analysis, machine learning, web development, automation, scientific computing, education, and embedded projects. Its extensive standard library covers common programming tasks, while third-party packages such as NumPy, pandas, SciPy, Matplotlib, scikit-learn, TensorFlow, PyTorch, and NLTK provide specialised capabilities. These packages are not part of the standard library.
 
 Python uses dynamic typing, so a name does not need a declared data type before assignment. The language supports several programming styles, including procedural, object-oriented, and functional techniques.
@@ -9,7 +12,9 @@ Python uses dynamic typing, so a name does not need a declared data type before 
 Python is developed openly by a global community. An elected five-person Steering Council governs the language and the reference CPython implementation, while the Python Software Foundation supports the broader project and community. The community has a formal code of conduct, and groups such as PyLadies support women who are Python developers or aspiring developers.
 
 Python 3 is the supported language series. Python 2 reached end of life on 1 January 2020 and receives no official improvements or security fixes, although some legacy systems may still contain Python 2 code.
+
 ### Execution and errors
+
 In the reference CPython implementation, source code is compiled to bytecode and then executed by a virtual machine. Python is still commonly described as interpreted because normal use does not require a separate, manual compilation step. This mixed model is more accurate than a strict interpreted-versus-compiled distinction.
 
 The `print()` function sends a value to standard output:
@@ -26,7 +31,9 @@ print("Hello, world!")  # Print a greeting
 ```
 
 Python reports different categories of error. A misspelt name such as `frint` normally raises `NameError` when execution reaches it. An unclosed string raises `SyntaxError` while the code is being parsed, so that code block does not begin execution. An unhandled exception stops the current execution. In an interactive session, the interpreter or kernel generally remains available for later commands. `sys.version` reports the version and build information for the running interpreter.
+
 ### Jupyter notebooks
+
 Project Jupyter provides free, open-source tools for interactive computing. Its name comes from Julia, Python, and R, the languages the project originally supported, but kernels now support many languages. Jupyter Notebook and JupyterLab are browser-based editors for computational notebooks.
 
 An `.ipynb` file is a JSON document containing cells, saved outputs, and metadata. Code cells send instructions to a kernel and display returned results. Markdown cells hold formatted explanations, headings, equations, and other narrative content. Raw cells pass content through without notebook evaluation. `Shift-Enter` runs the selected cell and moves to the next one in the standard Notebook interface.
@@ -36,7 +43,9 @@ In a Python notebook, the final expression in a code cell is usually displayed w
 The kernel is a separate process that holds live objects and variable bindings. Cells can therefore use results created earlier, but running cells out of order can make displayed results inconsistent with a clean run. Restarting a kernel clears its live state. Interrupting it attempts to stop a long calculation. Closing a browser tab does not necessarily stop the kernel, while shutting down the session releases its resources.
 
 Notebook editors can open and arrange multiple documents, combine code with narrative and rich output, and export notebooks to formats such as HTML. Presentation features depend on the installed interface and tools. Sharing an `.ipynb` file preserves its code, Markdown, metadata, and saved outputs. Reproducing the computation may also require the same data, package versions, environment, and execution order.
+
 ### Objects, types, and conversions
+
 Every Python object has a type. `type()` identifies it, and the common introductory types include:
 
 | Type | Example | Main characteristic |
@@ -64,7 +73,9 @@ str(12)        # "12"
 Converting a finite float to `int` truncates towards zero. A string must use syntax accepted by the target conversion, so `int("1 or 2")` raises `ValueError`. Text such as a telephone number must remain quoted because an unquoted expression such as `123-456-7890` is parsed as subtraction.
 
 `True` and `False` convert numerically to `1` and `0`. Zero, empty strings, empty collections, `None`, and `False` have false truth values. Most other objects have true truth values unless their class defines otherwise.
+
 ### Expressions and names
+
 Expressions combine operands with operators. Python's basic arithmetic includes addition `+`, subtraction `-`, multiplication `*`, exponentiation `**`, true division `/`, floor division `//`, and remainder `%`. With ordinary real-number operands, `/` produces a float. Floor division rounds the mathematical quotient towards negative infinity, so `25 // 6` is `4` and `-25 // 6` is `-5`. Its result is an `int` for two integer operands and a `float` when a float operand participates.
 
 Normal precedence rules apply. Exponentiation is evaluated before multiplication and division, which precede addition and subtraction. Parentheses make the intended grouping explicit:
@@ -82,7 +93,9 @@ total_hours = total_minutes / 60
 ```
 
 Later expressions can use these names. If `total_minutes` is rebound, `total_hours` retains its existing value until its assignment is run again.
+
 ### Strings
+
 String literals may use matching single or double quotes. Indexing starts at zero, while negative indexes count from the end. For `artist = "Michael Jackson"`, `artist[0]` is `"M"`, `artist[-1]` is `"n"`, and `len(artist)` is `15`.
 
 A slice `text[start:stop]` includes `start` but excludes `stop`. An optional third value is the stride, so `text[::2]` selects every second character. Omitting an endpoint uses the relevant end of the string. Indexing outside the valid range raises `IndexError`, while a slice is clipped to available bounds.
@@ -108,7 +121,9 @@ message = f"{name} scored {score:.1f}%"
 ```
 
 `str.format()` and percent formatting remain supported, but f-strings often give direct, readable interpolation.
+
 ### Regular expressions
+
 The standard-library `re` module provides regular-expression matching for structured text searches. Raw string literals are commonly used for patterns so that Python string escapes do not obscure regular-expression escapes.
 
 ```python
@@ -126,7 +141,9 @@ parts = re.split(r"\s+", text)
 For Unicode string patterns, `\d` matches Unicode decimal digits, `\w` matches Unicode alphanumeric characters plus underscore, and `\s` matches Unicode whitespace. The `re.ASCII` flag narrows these classes to ASCII definitions. `\b` denotes a boundary between word and non-word positions, including a string edge next to a word character. `\B` denotes a position that is not such a boundary.
 
 Regular-expression metacharacters such as `.`, `*`, `+`, `?`, brackets, and parentheses have structural meanings. `re.escape()` can protect arbitrary literal text before it is inserted into a pattern.
+
 ## Python Data Structures
+
 Python's built-in tuples, lists, dictionaries, and sets organise multiple objects according to different rules. Tuples and lists are positional sequences. Dictionaries associate unique keys with values. Sets store distinct elements and support membership tests and mathematical set operations. Each collection can contain mixed object types, subject to the hashability rules for dictionary keys and set elements.
 
 Python names are bound to objects. Assignment does not copy an object. If `B = A`, both names refer to the same object until either name is rebound. This behaviour is especially important for mutable collections.
@@ -137,7 +154,9 @@ Python names are bound to objects. Assignment does not copy an object. If `B = A
 | List | `["Thriller", 1982]` | By position | Mutable | An ordered collection that may change |
 | Dictionary | `{"Thriller": 1982}` | By key | Mutable | Direct lookup from keys to values |
 | Set | `{"Thriller", "Rumours"}` | By membership | Mutable | Distinct elements and group comparisons |
+
 ### Lists and tuples
+
 Lists and tuples support zero-based indexing, negative indexing, slicing, membership tests, concatenation, and `len()`. Index `0` selects the first item, while `-1` selects the last. A slice excludes its stop bound, so `items[1:4]` selects indices `1`, `2`, and `3`. Slicing and concatenation produce new sequences.
 
 An out-of-range index raises `IndexError`. The `in` operator tests for an equal item, and `len()` counts top-level items. The `+` operator concatenates two lists or two tuples without modifying either operand. It does not concatenate a list with a tuple. The optional step in `items[start:stop:step]` can skip positions or traverse them in reverse.
@@ -179,7 +198,9 @@ priority = shopping[1:3]
 `list.remove(value)` removes the first equal value and raises `ValueError` if none exists. `list.pop(index)` removes and returns an item. Without an index, `pop()` operates on the last item.
 
 Assignment can create aliases for a mutable list. After `B = A`, a change through either name is visible through the other. `B = A[:]` and `B = A.copy()` create a new outer list, but each is a shallow copy. Nested mutable objects remain shared. `copy.deepcopy()` is available when supported nested content also needs independent copies.
+
 ### Dictionaries
+
 A dictionary maps unique, hashable keys to values and preserves insertion order. Strings and numbers are common keys, but any hashable object can serve as a key. A tuple is hashable only when all its elements are hashable. Lists, dictionaries, and sets are not hashable. Values can be arbitrary objects and can repeat.
 
 ```python
@@ -196,7 +217,9 @@ del released["Graduation"]
 Assigning a new key inserts an entry. Assigning an existing key replaces its value. `key in released` tests for a key, not a value. Direct lookup of a missing key raises `KeyError`, while `get()` can supply a default. `keys()`, `values()`, and `items()` return dynamic views that reflect later changes.
 
 If a dictionary display repeats a key, the last associated value wins. Updating a key does not change its position. Deleting and later reinserting it places it at the end of the insertion order.
+
 ### Sets
+
 A set is an unordered collection of distinct, hashable objects. It does not support positional indexing or slicing. A non-empty set display uses braces without colons. Empty braces create a dictionary, so `set()` creates an empty set. `set(iterable)` converts an iterable and collapses equal duplicates.
 
 A mutable set is not hashable and cannot be a dictionary key or an element of another set. `frozenset` provides an immutable, hashable set type when its elements are hashable.
@@ -214,13 +237,19 @@ either_not_both = A ^ B
 ```
 
 Intersection contains elements in both sets. Union contains elements in either set. Difference contains elements in the left set but not the right. Symmetric difference contains elements in exactly one set. `issubset()` and `issuperset()` test containment between sets. These operations return new sets and leave their operands unchanged.
+
 ### Choosing a collection
+
 A tuple suits an ordered grouping whose top-level membership should remain fixed. A list suits ordered data that will be edited. A dictionary suits lookup through meaningful keys. A set suits duplicate removal, fast membership testing, and comparisons between groups. Nested structures can combine these roles when position, keys, uniqueness, and mutability differ across levels.
+
 ## Python Programming Fundamentals
+
 Python programs combine expressions, statements, objects, and names. Expressions produce values. Statements perform actions such as binding a name, choosing a branch, repeating a block, defining a function or class, and handling an exception. Indentation is part of the syntax, so the indented suite beneath a header belongs to that statement.
 
 Names refer to objects rather than containing independent copies of them. Integers, floating-point numbers, strings, lists, dictionaries, functions, classes, and class instances are all objects. Their types determine which operations and methods they support. This object model links the language's control flow, functions, classes, and exception system.
+
 ### Conditions, comparisons, and branching
+
 A comparison usually produces `True` or `False`. The principal comparison operators are:
 
 | Operator | Meaning |
@@ -247,6 +276,7 @@ Python also permits chained comparisons. The condition `18 <= age < 65` has the 
 Conditions are not limited to comparison results. In a Boolean context, `False`, `None`, numeric zero, and empty strings or containers are false. Most other objects are true, although a class can customise truth testing. These conventions support concise checks such as `if records:` for a non-empty collection.
 
 The operators `and`, `or`, and `not` combine or invert conditions. They use short-circuit evaluation:
+
 - `x and y` returns `x` when `x` is false. Otherwise, it evaluates and returns `y`.
 - `x or y` returns `x` when `x` is true. Otherwise, it evaluates and returns `y`.
 - `not x` always returns a Boolean with the opposite truth value.
@@ -272,7 +302,9 @@ def admission_category(age):
 Parentheses around a simple condition are optional. The colon and indentation are required. Code following the whole statement at the outer indentation level runs after the selected branch finishes.
 
 Branches often validate data before performing an operation. Validation should reflect the actual contract rather than rely on an analogy. If an age threshold is 18 and older, the condition is `age >= 18`. If it is strictly older than 18, the condition is `age > 18`. Boundary values such as 18, zero, an empty string, and the last valid index deserve explicit tests because a single operator can change their treatment.
+
 ### Loops and iteration
+
 Loops repeat a suite. A `for` loop consumes items from an iterable, which may be a list, tuple, string, dictionary, range, file, generator, or user-defined iterable. It is not restricted to a collection whose length is known in advance.
 
 ```python
@@ -332,7 +364,9 @@ Changing a collection while iterating over it requires care. Deleting list items
 Accumulation and search are common loop patterns. An accumulator is initialised before the loop and updated for each relevant item. A search may stop with `break` as soon as a match is found. A `for` loop is usually the natural choice when processing an iterable. A `while` loop fits repetition governed by changing state, such as accepting input until it passes validation. The distinction concerns the source of continuation, not whether the final iteration count can be calculated in advance.
 
 An index-based `while` loop needs both a bounds condition and a state condition when it reads a sequence. The bounds condition should be evaluated first. An assumption that a sentinel value will always appear can otherwise lead to `IndexError` if the data ends before the sentinel.
+
 ### Functions
+
 A function packages a computation or action behind a name. A function definition begins with `def`, followed by the function name, a parameter list, a colon, and an indented body. The optional string literal at the start of the body is its docstring.
 
 ```python
@@ -356,13 +390,17 @@ Functions are objects. A name can refer to a function, a function can be stored 
 Python operators are selected by operand types. A function written as `return a + b` may add numbers, concatenate strings, or concatenate compatible sequences. Likewise, multiplying a string by an integer repeats the string. This flexibility can support generic code, but it can also allow an unintended type to travel farther through a program before failing. Input validation, type annotations, and tests can clarify the intended domain without changing Python's runtime rules.
 
 A syntactically required suite cannot be empty. The `pass` statement performs no action and can serve as a temporary body for a function, class, branch, or loop. It does not supply an implementation, and a function containing only `pass` still returns `None`.
+
 #### Built-in functions and methods
+
 Built-in functions are available without an import. `len()` returns the number of items in a supported object. `sum()` adds a starting value and the items of an iterable from left to right. The call `sum([1, 2])` returns `3`, whereas `sum(1, 2)` raises `TypeError` because the first argument must be iterable. `min()` and `max()` select extrema, and `print()` writes values to an output stream.
 
 `sorted(iterable)` always returns a new list. In contrast, `some_list.sort()` rearranges that list in place and returns `None`. The distinction illustrates a broader point. A function or method may create a result, mutate an existing object, or do both, so its documented contract is more reliable than a general assumption about functions and methods.
 
 Small built-ins can be composed. `len(records)` measures a collection, `sum(ratings)` aggregates numeric items, and `sorted(records, key=...)` can order items by an extracted key. `help(function_name)` displays documentation derived in part from the object's docstring and signature. Built-ins accept specific protocols rather than a short closed list of concrete types. For instance, `sum()` accepts an iterable, not only a list, tuple, or set.
+
 #### Defaults and flexible argument lists
+
 A parameter can have a default value, allowing the caller to omit that argument:
 
 ```python
@@ -381,7 +419,9 @@ def describe(*items, **labels):
         "labels": labels,
     }
 ```
+
 #### Scope and name binding
+
 An assignment inside a function normally binds a local name. Name lookup proceeds through the local scope, any enclosing function scopes, the module's global scope, and the built-in namespace. A local name ceases to be directly accessible after the call ends, although an object created during the call can survive if another reference to it remains.
 
 A function may read a global name when no local or enclosing binding shadows it. Rebinding a module-level name from inside a function requires a preceding `global` declaration. Rebinding a name in the nearest enclosing function scope requires `nonlocal`. Routine dependence on mutable global state can obscure inputs and make testing harder, so arguments and return values are generally clearer channels.
@@ -414,7 +454,9 @@ def word_frequencies(text):
 ```
 
 This simple tokenisation treats whitespace and selected punctuation only. Natural-language analysis requires more sophisticated rules for apostrophes, hyphens, scripts, and Unicode normalisation.
+
 ### Objects and classes
+
 A class creates a new type and groups data with behaviour. An object created from a class is an instance of that class. Instance attributes record state, while methods define operations associated with the type. Classes can model concrete entities such as vehicles or geometric shapes, as well as abstract concepts such as accounts, events, and parsers.
 
 In Python 3, a class with no explicit base class already inherits from `object`, so `class Circle:` and `class Circle(object):` have the same base. Calling a class normally creates an instance. The special method `__new__()` performs instance creation, and `__init__()` then initialises the created instance. For ordinary classes, only `__init__()` usually needs to be defined.
@@ -466,7 +508,9 @@ Class attributes and instance attributes represent different ownership. A vehicl
 Classes are useful when several values and operations form a coherent stateful abstraction. A small calculation that has no persistent state may remain clearer as a function. Inheritance is also optional. Composition, in which one object holds and uses another, often keeps responsibilities easier to see.
 
 An instance can gain a new writable attribute through assignment unless the class restricts that behaviour. This dynamism is useful, but accidental spelling differences can silently create the wrong attribute. Initialisation, properties, data classes, tests, and static analysis can make an object's intended shape clearer.
+
 ### Exceptions and reliable failure handling
+
 An exception is an object that interrupts normal control flow when it is raised. Python raises exceptions for detected problems, and application code can raise them deliberately. If no matching handler is found, the exception propagates through calling functions. An unhandled exception normally ends the program's current execution and produces a traceback.
 
 The everyday term "error" does not identify a separate Python category defined by severity or origin. `SyntaxError`, `NameError`, `ValueError`, and `ZeroDivisionError` are all exception classes. Every built-in exception derives from `BaseException`. Most application-level failures derive from `Exception`, while `SystemExit`, `KeyboardInterrupt`, and `GeneratorExit` sit outside that branch so broad application handlers do not normally intercept them.
@@ -533,11 +577,15 @@ Application code can reject invalid state with `raise`, as the `Circle` class do
 The square-root task illustrates the difference. A function documented only for real, non-negative inputs can validate `number < 0` and raise `ValueError`, or it can allow `math.sqrt()` to raise that exception. Catching every exception and returning `None` would also hide unrelated defects, such as a misspelled name. A handler should translate only the failures that belong to the function's public contract.
 
 Exception handling should surround operations whose failures are understood and recoverable. It cannot repair a failed operation in place. Recovery requires an alternative action, a new attempt, or continuation at an outer level. Specific validation, limited `try` suites, accurate exception types, and preserved tracebacks make failures easier to diagnose without disguising defects.
+
 ### How the elements work together
+
 Control flow chooses and repeats operations. Functions give those operations names and local scopes. Classes attach operations to stateful objects. Exceptions move control to a handler when an operation cannot fulfil its contract. These mechanisms compose naturally. A function can iterate over objects, call their methods, branch on returned values, and handle only the failures for which it has a recovery strategy.
 
 Clear Python code tends to prefer direct iteration, small and explicit interfaces, local state, validated class invariants, and specific exception handling. Each construct has a distinct role, but all depend on the same foundations: names bound to objects, types defining behaviour, and indentation defining the suites that execute together.
+
 ## Working with Data in Python
+
 Python's built-in file interface, pandas, and NumPy cover three related layers of data work. File objects move text or bytes between a program and storage. pandas represents labelled, tabular data and provides tools for loading, selecting, filtering, combining, and exporting it. NumPy supplies compact, multidimensional arrays and numerical operations that pandas and many scientific libraries build upon.
 
 Libraries are reusable packages of classes, functions, and other objects. After a package has been installed, an `import` statement makes its public features available. Conventional aliases keep common operations concise:
@@ -548,7 +596,9 @@ import pandas as pd
 ```
 
 The three layers often form one workflow. Python may first acquire or create a file, pandas may convert tabular records into a DataFrame, and NumPy may perform numerical calculations on the underlying values. Each layer has different rules for indexing, data types, copying, and persistence, so choosing the appropriate abstraction prevents subtle errors.
+
 ### Text files and file objects
+
 Python's built-in `open()` function accepts a path and a mode, then returns a file object. A relative path is interpreted from the process's current working directory. An absolute path identifies a location from the filesystem root. Code that assumes the wrong working directory can therefore open the wrong file or raise `FileNotFoundError`.
 
 Text mode reads and writes `str` objects. Binary mode reads and writes `bytes` without decoding, encoding, or translating newlines. Text code should normally state the expected encoding, because the default encoding depends on the platform. UTF-8 is a sound choice when the file is known to use it.
@@ -565,7 +615,9 @@ print(text)
 ```
 
 The context manager closes the file when the block ends, including when an exception leaves the block. The string assigned to `text` remains available afterwards because it is a separate object. Further reads from the closed file object fail.
+
 #### File modes
+
 The mode controls whether a file must already exist, whether existing content is retained, and whether operations use text or bytes.
 
 | Mode | Effect |
@@ -581,7 +633,9 @@ The mode controls whether a file must already exist, whether existing content is
 | `t` | Added to another mode, explicitly selects text I/O. It is normally omitted because text is the default. |
 
 Opening a file in `w` or `w+` is destructive even if no subsequent call to `write()` succeeds. Exclusive creation with `x` is safer when overwriting would be an error. Updating through `r+` or `a+` requires careful control of the stream position and, for complex changes, a temporary file may be safer than an in-place rewrite.
+
 #### Reading text
+
 A file object maintains a current stream position. Reading advances it, so consecutive calls continue rather than restarting automatically.
 
 - `read()` returns all remaining content. `read(n)` returns at most `n` characters in text mode or `n` bytes in binary mode.
@@ -602,7 +656,9 @@ with open("example.txt", "r", encoding="utf-8") as file:
 The escape sequence `\n` represents a newline in a Python string. It is a backslash followed by `n`, not `/n`. In ordinary text mode, Python can translate the platform's line endings while reading and writing.
 
 Reading a whole file is convenient for small inputs, but its memory use grows with the file. Iteration or fixed-size chunks suit larger inputs. End of file is signalled by an empty string in text mode or empty bytes in binary mode.
+
 #### Positions, seeking, and truncation
+
 `tell()` reports the current stream position, and `seek()` changes it. Their interpretation differs between binary and text streams. In binary mode, positions are byte offsets and seeking can use the beginning, current position, or end as a reference. In text mode, `tell()` returns an opaque position value that accounts for decoding. Portable text-mode seeking is limited to the start, the end through `seek(0, 2)`, or a value previously returned by `tell()`.
 
 ```python
@@ -612,7 +668,9 @@ with open("data.bin", "rb") as file:
 ```
 
 `truncate()` resizes a writable file to a supplied size or, when no size is supplied, to the current position. It is useful after an in-place rewrite in `r+` mode because shorter replacement content otherwise leaves old trailing bytes or characters. Truncation should follow a confirmed write, since discarded content is not recoverable from the file itself.
+
 #### Writing, appending, and copying
+
 `write()` accepts a string in text mode and returns the number of characters accepted. It adds no separator or newline. Multiple calls continue at the current position, except that append mode directs each write to the end under the platform's append semantics.
 
 ```python
@@ -645,7 +703,9 @@ When a text file acts as a small register, an update usually has four stages. Th
 Rewriting the original file in place can expose partially updated content if validation or writing fails. A safer pattern writes the complete replacement to a temporary file in the same destination directory, closes it successfully, and then replaces the original through an operating-system file operation. The exact durability and atomicity guarantees depend on the platform and filesystem, but the approach narrows the period in which incomplete output is visible. Appending removed records to a second file needs separate error handling because two files cannot generally be committed as one indivisible transaction.
 
 Closing a file flushes Python's buffered data to the underlying stream, although storage hardware and operating systems may apply further buffering. Resource management, error handling, explicit encodings, and cautious mode selection are therefore part of correct file processing, not optional decoration.
+
 ### Labelled tables with pandas
+
 pandas is designed for labelled and often heterogeneous data. A `Series` is a one-dimensional labelled array. A `DataFrame` is a two-dimensional labelled table whose columns may hold different data types. A DataFrame can be viewed as an ordered collection of aligned Series objects sharing an index.
 
 A dictionary of equal-length lists offers a direct construction pattern. The dictionary keys become column labels, and each list supplies one column:
@@ -662,7 +722,9 @@ staff = pd.DataFrame(records)
 ```
 
 The lists must have compatible lengths unless pandas can align supplied labelled objects by their indexes. The resulting index defaults to integer labels starting at zero, but another column or an explicit sequence can provide meaningful labels.
+
 #### Loading and inspecting data
+
 `pd.read_csv()` parses comma-separated or otherwise delimited text into a DataFrame. `pd.read_excel()` reads supported spreadsheet formats and may require an appropriate Excel engine. Both accept several kinds of paths and file-like objects, and both provide parameters for headers, selected columns, missing-value markers, dates, and data types.
 
 ```python
@@ -683,7 +745,9 @@ Automatic type inference is convenient but should be checked. Identifiers with l
 | `df.describe()` | Descriptive statistics for supported columns. |
 
 These checks reveal schema problems before calculations propagate them.
+
 #### Selecting rows, columns, and values
+
 Bracket selection has an important type distinction. A single column label normally returns a Series. A list of labels, even a one-item list, returns a DataFrame:
 
 ```python
@@ -702,7 +766,9 @@ named_block = sales.loc[0:2, "OrderID":"Category"]
 ```
 
 The positional slice `0:2` excludes position 2. The label slice `0:2` includes both endpoint labels when they are present, so the second block can contain labels 0, 1, and 2. This difference is a frequent source of off-by-one errors. Replacing the index with labels such as `a`, `b`, and `c` does not change `.iloc` positions, but it changes the labels expected by `.loc`.
+
 #### Filtering and analysing columns
+
 Comparisons on a Series produce a Boolean Series aligned with its index. Supplying that mask to a DataFrame selects rows where the condition is true:
 
 ```python
@@ -720,13 +786,17 @@ category_count = sales["Category"].nunique()
 ```
 
 Common operations include `sort_values()` for ordering, `groupby()` for split-apply-combine analysis, `merge()` and `join()` for combining tables, and `fillna()` or `dropna()` for missing data. Reductions such as `mean()`, `sum()`, `min()`, and `max()` depend on column dtype and chosen axis. `DataFrame.apply()` passes each column by default or each row with `axis=1`. Element-by-element transformation is a different operation, provided by `DataFrame.map()` in current pandas.
+
 #### Alignment, missing data, and combination
+
 Labels do more than identify values. pandas aligns many operations by index and column label before calculating. Adding two Series with different index orders matches equal labels rather than equal physical positions. A label that appears on only one side normally produces a missing result at that location. This behaviour is valuable when records arrive in different orders, but it can conceal a misspelt or unintended label. Inspecting indexes before arithmetic or joins is therefore essential.
 
 Missing values require a decision based on the data's meaning. `isna()` identifies them, `notna()` identifies present values, `dropna()` removes selected rows or columns, and `fillna()` supplies replacements. Filling every missing numerical value with zero can change the interpretation of a data set, because unknown, not applicable, and observed zero are distinct states. Summary methods also differ in how they treat missing values, so their defaults and parameters need checking.
 
 `groupby()` partitions rows by one or more keys and then supports aggregation, transformation, or filtering. For example, total sales by category can be calculated by grouping on `Category` and summing `Total`. `merge()` combines tables through specified key columns in a database-style operation, while `join()` often combines through indexes. Inner, left, right, and outer joins retain different sets of unmatched keys. Duplicate keys can multiply rows, so key uniqueness should be tested when a one-to-one result is expected.
+
 #### Exporting results
+
 `to_csv()` writes a DataFrame as delimited text. A `.csv` suffix is conventional but not enforced by the method. The index is written by default, so `index=False` is appropriate when row labels should not become an extra column on the next import.
 
 ```python
@@ -734,7 +804,9 @@ electronics.to_csv("electronics_orders.csv", index=False)
 ```
 
 pandas also supports Excel, SQL, JSON, and other formats, subject to format-specific dependencies and options. Round-trip accuracy should be checked when data types, time zones, missing values, formulas, or formatting carry meaning that a simpler format cannot preserve.
+
 ### Numerical arrays with NumPy
+
 NumPy's `ndarray` is an N-dimensional, rectangular array. Its elements are typically homogeneous, and a `dtype` records their representation. Once an array exists, its total element count is fixed, although its shape can sometimes be changed without changing the data. This regular structure enables compact storage and vectorised numerical operations.
 
 ```python
@@ -757,11 +829,15 @@ A one-dimensional array with shape `(n,)` has no separate row or column orientat
 row = vector[np.newaxis, :]
 column = vector[:, np.newaxis]
 ```
+
 #### Creating and reshaping arrays
+
 `np.array()` converts a regular Python sequence into an array and infers a common dtype unless one is supplied. Mixed numerical values may be promoted to a type that can represent them, while incompatible or irregular nested sequences require explicit handling. Other constructors express intent directly. `np.zeros()` and `np.ones()` initialise known values, `np.arange()` creates values from a start, stop, and step, and `np.linspace()` creates a requested number of evenly spaced samples.
 
 Reshaping changes the arrangement of axes without changing the element count. An array of six values can have shapes `(6,)`, `(2, 3)`, or `(3, 2)`, but it cannot be reshaped to `(4, 2)` without adding or removing data. `reshape()` returns a view when possible and a copy when required by the memory layout. `flatten()` always returns a flattened copy, while `ravel()` returns a view where possible. Code that later mutates either object should make the sharing decision explicit rather than infer it from appearance.
+
 #### Indexing, slicing, and assignment
+
 Indexes are zero based. In a two-dimensional array, the first index selects a row position and the second selects a column position:
 
 ```python
@@ -787,7 +863,9 @@ even_values = values[values % 2 == 0]
 ```
 
 This works for any ordering, unlike a slice that finds even values only when they happen to alternate at known positions.
+
 #### Elementwise operations and broadcasting
+
 Arithmetic operators generally act element by element. Equal shapes work directly, while some unequal shapes work through broadcasting.
 
 | Expression | Operation |
@@ -808,7 +886,9 @@ shifted = a + offset
 ```
 
 Here, the shape `(3,)` aligns with the last axis of shape `(2, 3)`, and the offset is applied to each row. Incompatible shapes raise `ValueError`. Broadcasting avoids many explicit Python loops, but a broadcast that creates a very large intermediate result can still consume substantial memory.
+
 #### Universal functions and summaries
+
 Universal functions, or ufuncs, apply compiled elementwise operations while observing dtype and broadcasting rules. Examples include `np.sin()`, `np.sqrt()`, `np.add()`, and `np.multiply()`. The last two correspond to elementwise `+` and `*`, not to matrix multiplication.
 
 Aggregations such as `sum()`, `mean()`, `min()`, `max()`, and `std()` can summarise the entire array or a selected axis. On a two-dimensional array, `axis=0` reduces down rows and returns one result per column, while `axis=1` reduces across columns and returns one result per row.
@@ -821,7 +901,9 @@ y = np.sin(x)
 ```
 
 The arrays can then be plotted or used in further calculations. `endpoint=False` excludes the stop value when a half-open interval is needed.
+
 #### Vectors and matrix multiplication
+
 For real one-dimensional arrays of equal length, `np.dot(u, v)` returns the inner product, the sum of elementwise products. It depends on both vector magnitudes and the angle between them. It is therefore related to directional similarity but is not a normalised similarity measure. Non-zero perpendicular real vectors have an inner product of zero.
 
 Scalar multiplication scales every component. For a non-zero vector, multiplication by a positive scalar preserves direction and scales magnitude by the scalar's absolute value. A negative scalar reverses direction.
@@ -837,7 +919,9 @@ C = A @ B
 The expression `A * B` is different. It requests elementwise multiplication and succeeds only when the shapes are broadcast-compatible. `np.dot(A, B)` also performs matrix multiplication when both inputs are exactly two-dimensional, but `@` states that intention more clearly.
 
 The transpose `A.T` reverses an array's axes. For a two-dimensional array, rows become columns. Transposing a one-dimensional array leaves its shape unchanged because there is only one axis. A row or column representation requires adding an axis explicitly.
+
 #### Performance and appropriate use
+
 NumPy often outperforms loops over Python numbers when an operation covers large homogeneous numerical arrays. Vectorised operations move looping into compiled code, and views can avoid copying buffers. The advantage is conditional rather than universal. Small arrays, object dtypes, repeated allocations, unsuitable memory layouts, and oversized broadcast results can reduce or reverse it.
 
 Direct iteration remains available:
@@ -848,19 +932,27 @@ for value in vector:
 ```
 
 Iteration is sometimes clearer for control-heavy tasks, while vectorised expressions are usually preferable for regular numerical transformations. pandas adds labels, mixed column types, missing-data conventions, and table operations on top of this numerical foundation. Python file objects remain the lower-level choice when exact control over text, bytes, encodings, and stream positions is required.
+
 ### Choosing the appropriate layer
+
 The choice follows the data's structure. Raw text, byte streams, unusual record layouts, and precise persistence rules favour file objects. Labelled rows and columns, heterogeneous fields, joins, and missing values favour pandas. Dense homogeneous numbers, multidimensional shapes, broadcasting, and linear algebra favour NumPy. Conversions between layers are common, but each conversion can alter labels, dtypes, missing-value representations, or encodings. Checking those boundaries keeps a compact workflow accurate as well as convenient.
+
 ## APIs and Data Collectiion
+
 Application programming interfaces, or APIs, define how software can request functionality or data from another component. An API may be local, such as the methods exposed by a pandas `DataFrame`, or remote, such as a web service reached over a network. In both cases, the caller relies on a documented interface: accepted inputs, available operations, returned values, and possible errors. The implementation behind that interface can change without requiring callers to understand its internal design.
 
 APIs support reuse and automation. A program can use an established library for tabular analysis, obtain current data from a service, or connect several systems without rebuilding every capability. These benefits do not remove operational risk. Remote APIs can change, impose quotas, become unavailable, return malformed data, or expose security weaknesses. Reliable integrations therefore validate inputs and outputs, authenticate appropriately, protect secrets, limit resource use, and handle failures explicitly.
+
 ### Local APIs and web APIs
+
 Pandas illustrates a local API. Constructing a `DataFrame` creates an object whose methods and attributes expose operations over its data. `head()` returns the first rows, `mean()` calculates column means where applicable, and `plot()` delegates visualisation work to a plotting backend. The caller uses these documented operations without needing to know which parts of pandas are implemented in Python, Cython, or compiled extensions.
 
 A web API crosses a process or network boundary. The calling program acts as a client and sends a request to an endpoint. The server processes the request and returns a response. An endpoint is a URI associated with an operation or resource. In REST, a resource is an abstraction that can be identified, such as a customer, a team, a collection of observations, or a current price series. The server sends a representation of that resource, which might use JSON, HTML, XML, an image format, or another media type.
 
 REST is an architectural style rather than a synonym for every HTTP API. Its constraints include client-server separation, stateless interactions, cacheability, a uniform interface, a layered system, and optional downloadable code. Many services described as REST APIs follow some of these constraints without implementing the complete style.
+
 ### HTTP requests and responses
+
 HTTP is an application-level protocol for transferring representations and metadata. HTTPS applies HTTP over a connection protected by TLS and should normally be used for network APIs.
 
 A URI can contain a scheme, authority, path, query, and fragment. In the example `https://api.example.com/items?category=fruit`, `https` is the scheme, `api.example.com` is the host within the authority, `/items` is the path, and `category=fruit` is the query. A URL is a URI that also provides a way to locate a resource. The term route is common in web frameworks, but path is the standard URI component name.
@@ -888,7 +980,9 @@ The first digit of a three-digit status code identifies its class:
 | `5xx` | The server failed to fulfil an apparently valid request | `500 Internal Server Error` and `503 Service Unavailable` |
 
 The reason phrase can be misleading if read without the specification. `401 Unauthorized` normally means that valid authentication credentials are absent. `403 Forbidden` means that the server understood the request but refuses to fulfil it. A parsed JSON error response is still an error if its status code indicates failure.
+
 ### HTTP with Python Requests
+
 The Requests library provides a compact Python interface to HTTP. A response object exposes the final URL, status code, headers, encoding, request details, and response content. `response.text` decodes content as text, while `response.content` returns bytes. `response.json()` decodes JSON but does not prove that the request succeeded, so status and media type still require checking.
 
 Query parameters should be passed through `params` so that Requests performs the required encoding. Production code should set a timeout, catch request exceptions at an appropriate boundary, and reject unexpected response formats.
@@ -920,7 +1014,9 @@ response.raise_for_status()
 ```
 
 Public demonstration APIs can return generated profiles, fruit records, jokes, sports results, or cryptocurrency time series. They are useful for learning request construction and response parsing, but their availability, schemas, access rules, and update intervals can change. A robust application pins supported API versions where possible and validates required fields rather than assuming that a previous example remains current.
+
 ### Converting API data into tables
+
 JSON objects commonly decode to Python dictionaries, while JSON arrays decode to lists. Records can often be passed directly to `pd.DataFrame()`. Nested objects require deliberate flattening, for which `pd.json_normalize()` is useful.
 
 ```python
@@ -938,7 +1034,9 @@ selected = frame.loc[
 The code should first verify that `results` exists and has the expected type. Normalisation can produce dotted column names for nested fields. A table also needs semantic checks, including units, time zones, identifier uniqueness, allowed ranges, and the meaning of missing values.
 
 Time-series responses often contain pairs such as a Unix timestamp and a value. `pd.to_datetime()` can convert timestamps when the correct unit and time zone are known. Daily open, high, low, and close values can be derived by grouping observations by date and selecting the first, maximum, minimum, and last value in chronological order. The result is only as reliable as the sampling frequency and ordering of the underlying observations.
+
 ### HTML structure and web scraping
+
 HTML describes a document through elements such as `html`, `head`, `body`, headings, paragraphs, links, images, and tables. Most elements have a start tag, content, and an end tag. Attributes add information, such as an `id`, a CSS class, or an `href` on a link. The parsed document forms a tree. An element can have children, a parent, descendants, and siblings.
 
 A table normally uses `table` for the container, `tr` for rows, `th` for header cells, and `td` for data cells. Real pages may contain malformed markup, nested tables, generated content, or layouts that only resemble tables visually. CSS and JavaScript can also determine what appears in a browser, so the downloaded HTML may differ from the rendered page.
@@ -973,7 +1071,9 @@ frame = tables[0]
 `read_html()` searches actual HTML table elements and returns a list of DataFrames. It does not extract arbitrary page layouts, and the result can retain link text, repeated headers, merged-cell artefacts, and unrelated tables. Selection and cleaning remain necessary. Beautiful Soup offers finer control over non-tabular content. A browser automation tool may be required when authorised data only appears after JavaScript execution, although an official API is usually more stable when one is available.
 
 Scraping should respect applicable law, privacy, copyright, contractual terms, and site capacity. A scraper should identify itself where appropriate, limit request rates, cache responses, avoid collecting unnecessary personal data, and stop when access is refused. `robots.txt` communicates crawler preferences, but it is neither access permission nor a security control. Authentication barriers and technical restrictions should not be bypassed without explicit authorisation.
+
 ### Data engineering and file formats
+
 Data engineering commonly organises work as extract, transform, and load. Extraction collects data from files, APIs, databases, or web pages. Transformation validates, cleans, reshapes, combines, and standardises it. Loading writes the prepared data to a destination such as a database, analytical store, or file. In practice, these stages can overlap or run in a different order, but the model usefully separates acquisition from quality work and storage.
 
 A file format defines how bytes represent information. A filename extension is a useful hint, not proof of the format. Reliable software also considers file signatures, declared media types, encodings, and parser results. Text formats still consist of bytes and require a character encoding. Binary formats are not inferior or unreadable by definition. They use structures intended for software and can offer compression, richer types, or faster access.
@@ -993,7 +1093,9 @@ JSON is a text-based, language-independent interchange format derived from JavaS
 XML represents a tree and can preserve distinctions that a rectangular DataFrame cannot. `xml.etree.ElementTree` can create elements, write trees, parse files, and traverse nodes. `pd.read_xml()` is convenient for shallow, repeated records and accepts an XPath expression, but namespaces or complex documents may require `ElementTree`, `lxml`, or an explicit transformation.
 
 Pillow is the maintained imaging library commonly imported as `from PIL import Image`. Opening an image decodes a binary file according to its format. Displaying, resizing, converting, and saving are separate operations. File type, dimensions, decompression limits, colour mode, and metadata deserve validation before an image enters an analytical pipeline.
+
 ### Inspecting, transforming, and validating data
+
 A newly loaded DataFrame should be inspected before analysis. `head()` and `tail()` reveal sample rows. `shape` reports row and column counts. `info()` summarises the index, columns, data types, non-null counts, and memory use. `describe()` returns descriptive statistics appropriate to the selected columns. `dtypes` is an attribute that reports each column's data type, while `astype()` converts data when the values support the requested type.
 
 `loc` selects by labels, and `iloc` selects by integer position. A column can be selected with `frame["name"]`, several columns with a list of labels, and rows with conditions. Label and positional indexing should not be mixed implicitly because an integer label is not necessarily the same as an integer position.
@@ -1005,6 +1107,7 @@ Missing-data checks require both technical and domain knowledge. `isna()` and `n
 Visualisation can reveal distributions, imbalance, outliers, and suspicious values, but a chart does not establish causation or data quality. Labels, units, denominators, and population definitions should accompany percentages. Medical or demographic datasets require particular care because missingness, selection criteria, and historical labels can affect both interpretation and fairness.
 
 A dependable pipeline follows a short sequence:
+
 1. It records the source, schema, licence, collection time, and expected update frequency.
 2. It retrieves data with authentication, timeouts, bounded retries, and status checks.
 3. It validates media type, structure, required fields, units, ranges, and identifiers.

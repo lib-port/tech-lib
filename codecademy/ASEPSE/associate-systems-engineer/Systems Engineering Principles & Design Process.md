@@ -1,5 +1,7 @@
 # Systems Engineering: Principles and Design Process
+
 ## Engineering and systems thinking
+
 Engineering applies scientific, mathematical and practical knowledge to create, operate and improve products, services and infrastructure. It supports public safety, health care, transport, communications, energy, manufacturing and digital technology. A disciplined engineering approach helps teams define problems, compare options, test assumptions and control technical risk. It can also improve quality, productivity and cost performance, although it cannot guarantee success or remove all risk.
 
 Systems engineering coordinates the development and management of complex systems across their life cycles. It considers the whole system, its elements, its users, its operating environment and the organisations that create, support and retire it. The approach connects stakeholder needs with requirements, architecture, design, integration, verification, validation, operation and support.
@@ -9,8 +11,11 @@ Systems engineering applies to hardware, software, services, enterprises and com
 The approach creates value when it improves decisions across organisational and disciplinary boundaries. A component team may optimise its own design while unintentionally increasing cost, risk or complexity elsewhere. Systems engineering exposes those interactions and supports balanced decisions. It also encourages early attention to operation, maintenance, training, disposal and future change, which can prevent a short-term development saving from becoming a larger life-cycle cost.
 
 Systems engineering should remain proportionate. Small or familiar systems may need lightweight plans, a compact requirements set and a few focused reviews. Novel, safety-critical or highly interconnected systems may require formal modelling, independent assurance and extensive evidence. Applying every available process without regard to risk creates bureaucracy rather than control.
+
 ## The systems engineer's role
+
 A systems engineer helps a multidisciplinary team maintain a coherent view of the system. Core responsibilities commonly include:
+
 - identifying stakeholders and clarifying their needs
 - defining system boundaries, interfaces and constraints
 - developing and managing requirements
@@ -24,24 +29,30 @@ A systems engineer helps a multidisciplinary team maintain a coherent view of th
 The role requires systems thinking, technical judgement, communication and facilitation. A systems engineer does not need to be the leading specialist in every discipline. Instead, the engineer must know when to involve domain experts, integrate their evidence and expose conflicts between local decisions and system-wide goals.
 
 Systems engineers and project managers work closely but have different emphases. Project managers generally lead scope, schedule, resources, governance and delivery. Systems engineers generally lead technical coherence and evidence that the proposed system can satisfy its requirements and intended use. Both roles contribute to risk management, stakeholder engagement, planning and review.
+
 ## System context and boundaries
+
 A system-of-interest is the system selected for analysis or development. Its context includes the external people, systems, organisations, conditions and rules that influence it or receive effects from it. A context diagram shows the system boundary and important external interfaces.
 
 The chosen boundary depends on the decision under review. A narrow view may focus on one product. A wider view may include supporting services, operators, infrastructure, suppliers, regulators and connected products. Engineers may revise the boundary as understanding improves, but they must record the choice because it shapes requirements, responsibilities and risks.
 
 Common contexts include:
+
 - a product and its enabling systems
 - a service involving people, processes and technology
 - an enterprise containing multiple products and services
 - a system of systems whose constituent systems retain operational or managerial independence while contributing to a broader capability
 
 A system-of-interest is not identical to its context. The context surrounds and interacts with the selected system. This distinction helps teams analyse interfaces, assumptions and external constraints without claiming authority over every contributing system.
+
 ## Project outcomes and complex problems
+
 Systems engineering improves project outcomes by creating traceability from stakeholder needs to technical decisions and evidence. It helps teams detect misunderstandings early, focus on high-value capabilities and assess the consequences of changes. The greatest benefit often appears in avoided rework, controlled interfaces and clearer decisions rather than in a visible standalone deliverable.
 
 Complex problems rarely have one obvious cause or one acceptable solution. Systems engineers first describe the problem, its context and its effects. They gather evidence from stakeholders, users, operators, developers and specialists. They then identify assumptions, constraints, dependencies and competing objectives.
 
 Effective problem solving follows several principles:
+
 - define the problem before selecting a solution
 - distinguish symptoms from underlying causes
 - consider the whole life cycle and operating environment
@@ -57,12 +68,15 @@ The preferred option is not always the most technically advanced. It should prov
 Trade studies make this comparison explicit. The team defines criteria, assigns suitable measures and records how each option performs. Criteria may include capability, reliability, interoperability, energy use, staffing, supply constraints and ease of transition. Weightings can help structure a decision, but numerical scores do not remove judgement. Engineers should test the sensitivity of the result and show whether a small change in assumptions would reverse the choice.
 
 Risk analysis continues after concept selection. The team identifies uncertain events or conditions, estimates their likelihood and consequence, assigns owners and chooses responses. Responses may avoid, reduce, transfer or accept a risk. Technical margins, prototypes, redundancy, staged delivery and additional testing can reduce exposure. Risk registers are useful only when they drive action and reflect current evidence.
+
 ## Modelling and technical communication
+
 Models represent selected aspects of a system for a defined purpose. They may describe structure, behaviour, functions, data, performance, interfaces, physical components or user interactions. A model is useful only when its scope, assumptions and level of detail suit the decision being made.
 
 Model-Based Systems Engineering, or MBSE, applies modelling formally to support requirements, design, analysis, verification and validation across the life cycle. It is not limited to hardware and does not require every activity to follow a strictly top-down sequence. Teams often combine top-down decomposition, bottom-up evidence and iterative refinement.
 
 Useful model types include:
+
 - functional models that describe what the system must do
 - logical and physical architecture models that show elements and relationships
 - behavioural models that show states, activities or interactions
@@ -77,10 +91,13 @@ Every model simplifies reality. Engineers should state what the model includes, 
 Modelling can reveal interface gaps, inconsistent requirements and unexpected behaviour before physical integration. It can also support scenario analysis when real-world testing is costly, dangerous or impossible. These benefits depend on model quality, skilled interpretation and disciplined maintenance. A polished visual model does not establish that a design is correct.
 
 Technical communication also includes requirements, interface definitions, specifications, decision records, test plans and operating guidance. Clear documentation preserves knowledge, supports review and allows later teams to modify or reproduce the system.
+
 ## Systems engineering planning
+
 Systems engineering planning defines how the technical work will be organised, performed, assessed and controlled. Organisations use different names, including a Systems Engineering Plan or a Systems Engineering Management Plan. In some government acquisition settings, these names have specific contractual or governance meanings.
 
 A sound plan normally addresses:
+
 - system scope, life-cycle stages and technical objectives
 - roles, responsibilities and decision authority
 - stakeholder and requirements management
@@ -99,8 +116,11 @@ A technical baseline records an approved set of requirements, architecture or de
 Technical reviews should have clear entry criteria, questions and decision outcomes. A review is not successful because a meeting occurred or slides were presented. It should determine whether the available evidence supports progression, rework, further analysis or a revised plan. Independent reviewers can improve challenge where consequences are severe or teams have become committed to one approach.
 
 Functional leads and specialists contribute plans for their areas, while the responsible technical and program leadership integrate them. Teams should review the plan regularly, especially after major decisions, discoveries or changes in risk. An outdated plan can misdirect work and weaken accountability.
+
 ## Engineering design process
+
 Engineering design is an iterative process for creating a solution to a defined need. The sequence varies by domain, but the main activities usually include:
+
 1. identify stakeholders and understand the operating context
 2. define the problem, needs, constraints and success measures
 3. develop requirements and acceptance criteria
@@ -123,10 +143,13 @@ Concept generation benefits from diverse perspectives because specialists notice
 A prototype is a focused learning tool, not necessarily a reduced copy of the final system. It may test usability, performance, integration, safety or a high-risk technical concept. The team should define what each prototype is intended to prove and how results will influence the design.
 
 Stakeholder feedback is most valuable when participants can examine concrete scenarios, models or increments. Demonstrations often expose needs that were difficult to express during initial interviews. The team should record feedback, resolve conflicting requests through authorised decision channels and distinguish new needs from defects in the agreed solution. Not every suggestion should become a requirement. Each accepted change should have a clear rationale and impact assessment.
+
 ## Design principles and evidence
+
 Creative thinking helps engineers find alternatives beyond the first plausible idea. Brainstorming is most useful when participants separate idea generation from evaluation, involve varied expertise and later apply clear selection criteria.
 
 Sound design also depends on measurable evidence:
+
 - accuracy describes closeness to an accepted reference or true value
 - precision describes the consistency of repeated measurements
 - resolution describes the smallest change that an instrument or system can distinguish or produce
@@ -139,7 +162,9 @@ Human factors and ergonomics influence safety, usability and performance whereve
 Design baselines and controlled review points give teams stable configurations for analysis and testing. A baseline does not ban all later change. It requires proposed changes to be assessed, approved and traced so that the system remains coherent.
 
 Verification and validation answer different questions. Verification establishes whether the system or element conforms to specified requirements and design descriptions. Validation establishes whether the verified system fulfils its intended use and stakeholder expectations in the intended environment. Both may use test, analysis, inspection or demonstration, and both should occur progressively rather than only at final delivery.
+
 ## Lessons from the Digital Horizons case
+
 The fictional Digital Horizons case shows the risk of abandoning disciplined work to accept an unrealistic deadline. The supplier began development with incomplete requirements, irregular customer reviews and no stable feature baselines. Conflicting directions, limited feedback and uncontrolled change produced extensive rework and an unreliable forecast.
 
 Recovery began when both organisations restored a defined process. The customer appointed an authorised contact, the teams reviewed work frequently and completed features against agreed criteria. The revised arrangement improved feedback, progress reporting and acceptance, although much of the initial work had to be discarded.

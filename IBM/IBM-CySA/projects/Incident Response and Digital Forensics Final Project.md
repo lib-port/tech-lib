@@ -1,10 +1,17 @@
 # *Incident Response and Digital Forensics* Final Project
+
 ## Part 1 - Case Study: Incident response at SecureSync Corporation
+
 SecureSync Corporation is a mid-sized technology company that develops cloud-based solutions for businesses. With a team of over 500 employees, this organization prides itself on innovation and reliability. The company is headquartered in San Francisco with additional offices in Austin and Boston. The company's IT infrastructure supports a client base of approximately 200,000 users. Although the organization feels confident in its incident response capabilities, the company does not have a formalized incident response plan.
+
 ### Technical details
+
 The company's IT infrastructure follows a hybrid model that combines on-premises servers with cloud-based services, specifically using Azure and Amazon Web Services (AWS) for scalability and redundancy. These services host the company's cloud-based solutions, which are segmented into virtual private networks (VPNs) for enhanced security. The organization's network architecture supports a multilayered security approach, incorporating firewalls, intrusion detection systems (IDS), and data encryption protocols.
+
 ### Current security tools and protocols
+
 SecureSync Corporation uses the following security tools and protocols:
+
 - **Firewalls:** SecureSync Corp. uses hardware and software firewalls to control incoming and outgoing network traffic based on predetermined security rules. These firewalls are critical in defending against unauthorized access.
 - **Intrusion detection and prevention systems (IDPS):** The company uses real-time IDPS to monitor network traffic for suspicious activities and potential threats. These systems alert the IT team when anomalies are detected.
 - **Endpoint security:** All employee devices are equipped with endpoint protection software, such as antivirus, threat detection, and response capabilities, to safeguard against malware infection and data breaches.
@@ -13,6 +20,7 @@ SecureSync Corporation uses the following security tools and protocols:
 - **Logging and monitoring:** Comprehensive logging configurations capture detailed records across all systems and applications. These logs play a crucial role in incident detection and retrospective analysis.
 
 Although SecureSync Corp. understands the importance of incident response, the company does not have a formal incident response plan documented. The Chief Information Officer (CIO) recognizes the need to document the preparedness plan, which will now include:
+
 - Updated staff training programs focused on recognizing phishing attempts,
 - Task reporting of suspicious activity
 - Regular security drills.
@@ -20,10 +28,13 @@ Although SecureSync Corp. understands the importance of incident response, the c
 The organization has established key personnel roles, which include an incident response team leader, a communication liaison, and technical specialists.
 
 The organization also invested in advanced detection software systems to enhance their defenses against cyberthreats.
+
 ### Incident response in action
+
 On a busy Monday morning, the IT security team at SecureSync Corp. detected unusual network activity. The IT security team identified multiple unauthorized access attempts on the company's email server, which stores sensitive client data and internal communications. This attempt raised concerns about a potential data breach. Initial scans revealed malware deployed to siphon sensitive data to an unknown offsite server.
 
 During the incident investigation, the following information was discovered:
+
 - The IT security team received alerts about anomalous behavior indicative of a cyberattack using the company's Incident Detection System (IDS).
 - Log files revealed remote logins occurring at odd hours and from unusual locations.
 - Automated scripts captured packet details, suggesting potential data exfiltration.
@@ -37,7 +48,9 @@ With the incident under control, SecureSync Corp. initiated a comprehensive post
 SecureSync Corp. also planned educational workshops to reinforce cybersecurity practices among employees to mitigate potential future threats. The management also recognized the importance of public transparency and issued a client-facing report assuring clients of improved security measures, reinforcing trust, and retaining brand credibility.
 
 ---
+
 ### Tasks
+
 **Task 1: List the roles and responsibilities of four key team members in the incident response team.**
 
 1. Incident response team leader: Leads the response, confirms the incident's severity and scope, assigns tasks, coordinates decisions, records approvals, and reports status to the Chief Information Officer.
@@ -113,6 +126,7 @@ Step 2: Verify and preserve integrity. Calculate an approved cryptographic hash,
 Step 3: Examine and analyse verified copies. Use validated tools to extract relevant artefacts, correlate independent sources into a normalised timeline, test malicious and benign explanations, and record every query, filter, transformation, tool, and result. Recheck integrity where required and document any collection gap, clock difference, or action that may have changed the evidence.
 
 ---
+
 ## Part 2 - Forensic investigations: Creating an Incident Response Plan
 
 You will document steps and reason for an incident response plan that outlines the steps an organization would follow for any digital forensics investigation.
@@ -120,7 +134,9 @@ You will document steps and reason for an incident response plan that outlines t
 Your company will use this document as its standardized process and checklist to ensure consistency, thoroughness, and integrity in future investigations. You will divide the plan into four phases, each with specific objectives.
 
 ---
+
 ## Tasks
+
 **Task 9: List the three types of digital evidence that the organization should review as part of a forensic investigation to determine the breach's origin and method. Then explain the purpose for that digital evidence.**
 
 Evidence Type 1: Network evidence, including packet captures, flow records, firewall logs, DNS logs, proxy logs, and cloud network logs. These help trace malicious connections, lateral movement, command-and-control activity, and suspected transfers to the unknown offsite server.

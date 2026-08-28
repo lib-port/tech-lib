@@ -1,9 +1,12 @@
 # Operating Running Systems
+
 > [!NOTE]
 > A practical guide to operating RHEL systems safely through controlled shutdowns, root password recovery, systemd service management, evidence-based performance tuning, and comprehensive logging.
 
 Red Hat Enterprise Linux 8 uses systemd to coordinate booting, service management, targets, shutdown, and logging. Effective administration depends on controlled maintenance, accurate service-state interpretation, evidence-based performance analysis, and durable logs. Administrative commands require root privileges, usually obtained through `sudo`. An administrator should test disruptive procedures on a lab system before applying them to production.
+
 ## Controlled shutdown and user access
+
 A clean shutdown lets applications stop, file systems flush pending writes, and users save their work. The `shutdown` command suits shared systems because it can schedule the event, warn logged-in users, and cancel the operation. Direct `systemctl`, `reboot`, and `poweroff` commands suit controlled situations in which no warning period is required.
 
 On RHEL 8, the familiar `reboot` and `poweroff` commands invoke systemd-compatible operations. Their short syntax does not provide the scheduling controls that make `shutdown` useful on a multi-user server. Before any planned interruption, an administrator should identify logged-in users with commands such as `who` or `w`, check active remote sessions, inspect critical jobs, and confirm that clustered or replicated applications can tolerate the change. The maintenance notice should state the reason, start time, expected duration, and contact path.
@@ -30,7 +33,9 @@ System maintenance is in progress. New logins are temporarily unavailable.
 The administrator removes `/etc/nologin` after maintenance. This control does not disconnect existing users, and its effect depends on the login service's PAM configuration. A maintenance plan should therefore combine user communication, session checks, application-specific drain procedures, and a tested recovery path.
 
 After the system returns, the administrator should confirm successful boot completion, service health, storage availability, network reachability, and application readiness before reopening access. `systemctl --failed`, `systemctl is-system-running`, and current-boot journal records provide useful early checks. Removing a manually created `/etc/nologin` should follow those checks rather than precede them.
+
 ## Recovering a lost root password
+
 Root-password recovery requires console access and control of the boot process. That access carries the power to bypass normal authentication, so production systems should protect firmware settings, boot media, GRUB configuration, console management, and encrypted storage. Full-disk encryption can still require an independent unlock secret before the recovery environment can reach the root file system.
 
 System firmware starts the boot loader. GRUB then loads the Linux kernel and an initial RAM file system, or initramfs. The initramfs supplies early user space, storage drivers, and tools needed to locate and mount the installed root file system. The `rd.break` kernel parameter stops this sequence before control passes to the installed system.
@@ -40,6 +45,7 @@ SELinux applies policy-based mandatory access control through security labels. A
 `ls -Z /etc/shadow` displays the file's current SELinux context. A wrong type can prevent `passwd`, `sudo`, SSH, and other authentication paths from using the password database even when conventional permissions appear correct. This failure demonstrates why a password reset must address both file contents and security labelling. Permissive mode records policy violations but allows the associated operations, while enforcing mode records and blocks denied access.
 
 The following RHEL 8 procedure resets the password and requests a complete SELinux relabel:
+
 1. The administrator restarts the host and presses `e` on the GRUB entry that should boot.
 2. The administrator appends `rd.break` to the end of the `linux` line.
 3. The administrator presses `Ctrl+x` to boot into the initramfs break environment.
@@ -77,7 +83,9 @@ getenforce
 The `chcon` command assigns a label directly, but that change may conflict with the persistent policy and disappear during relabelling. The `restorecon` command reads the policy's expected context and restores it. Administrators should use `restorecon` for routine recovery unless a deliberate policy change requires tools such as `semanage fcontext`.
 
 Recovery should end with authentication and audit checks. The administrator should verify local root access from the console, confirm that an authorised `sudo` user can elevate privileges, review current-boot journal entries for SELinux or authentication failures, and replace any temporary password with a secret that meets organisational policy. A recovered host also warrants investigation when the password loss or access failure lacks a clear administrative explanation.
+
 ## Managing services and systemd units
+
 Systemd runs as process ID 1 and manages resources as units. Common unit types include services, sockets, targets, timers, mounts, and devices. `systemctl` provides the principal administrative interface.
 
 A service has separate runtime and boot states. An active service currently runs. An enabled service participates in a dependency path that normally starts it during boot or another activation event. A service can therefore be active but disabled, or inactive but enabled. Administrators should check both states instead of treating them as one.
@@ -117,7 +125,9 @@ sudo systemctl restart crond.service chronyd.service
 Quoted glob patterns can match loaded units, but explicit names reduce accidental scope and make change records easier to review. Unit names may omit `.service` when the service type is unambiguous, although the complete name improves precision in scripts and documentation.
 
 A failed start requires more than repeated restarts. The administrator should read the full status, inspect `journalctl -u UNIT`, validate the application's own configuration, check listening ports, review dependencies, and confirm permissions and SELinux labels. `systemctl reset-failed UNIT` clears the recorded failed state after the cause has been fixed. It does not repair the underlying service.
+
 ### Unit files and administrative overrides
+
 Systemd reads unit definitions from locations with defined precedence:
 
 | Directory | Role |
@@ -146,7 +156,9 @@ sudo systemctl unmask atd.service
 Administrators should inspect dependencies before masking a shared service. A mask can prevent another unit from starting and can cause a wider outage.
 
 Timers offer another important unit type. A timer can activate a service once or repeatedly and can replace many uses of `cron` or `at` while retaining systemd dependencies, logging, and state inspection. `systemctl list-timers --all` shows scheduled and elapsed activations. The corresponding service performs the work, while the timer defines when systemd starts it.
+
 ### Socket activation
+
 A socket unit lets systemd open a listening socket before the associated service runs. When traffic arrives, systemd activates the service and passes the connection or listening socket to it. This design can defer process startup and reduce idle resource use.
 
 RHEL 8 Cockpit provides a common example:
@@ -159,7 +171,9 @@ sudo ss -lntp
 ```
 
 Systemd initially owns the listening socket on TCP port 9090. A connection activates Cockpit's service components. Socket activation does not suit every daemon, and administrators should enable the unit type documented by the package rather than assuming that a `.service` and `.socket` unit behave interchangeably.
+
 ### Targets and rescue states
+
 Targets group units and provide synchronisation points during boot. They replace much of the operational role that SysV runlevels once served, although the mapping is an analogy rather than an identity. `multi-user.target` provides a non-graphical multi-user state, `graphical.target` adds a graphical login, `rescue.target` provides a maintenance shell with a limited set of services, and `emergency.target` provides a smaller environment with the root file system mounted read-only.
 
 The administrator can inspect and change the default target:
@@ -175,9 +189,13 @@ sudo systemctl set-default multi-user.target
 Only targets whose unit files permit isolation can accept this operation. Moving from `graphical.target` to `multi-user.target` normally removes the graphical session while retaining multi-user services. Moving to `rescue.target` removes far more. The older runlevel numbers remain useful as historical comparisons, with multi-user resembling runlevel 3, graphical resembling runlevel 5, and rescue resembling runlevel 1, but systemd dependencies provide a more flexible model than a single numeric level.
 
 At the GRUB editor, the temporary kernel argument `systemd.unit=rescue.target` selects rescue mode for one boot. The rescue environment normally mounts local file systems, starts essential services, omits network activation, and asks for the root password. `systemctl rescue` changes a running system to rescue mode and warns logged-in users. `systemctl isolate multi-user.target` can return a repaired system to its normal non-graphical state when the repair leaves systemd functional.
+
 ## Observing and tuning performance
+
 Performance work begins with a baseline. Administrators should record normal load, response time, memory use, I/O behaviour, user count, and service demand before changing priorities or tuning profiles. A single measurement can reveal a symptom, but comparisons across representative periods reveal whether the system has changed.
+
 ### Uptime, load average, and top
+
 `uptime` displays the current time, elapsed uptime, logged-in user count, and load averages over approximately 1, 5, and 15 minutes. Linux load average counts tasks that run on a CPU, wait for CPU time, or wait in uninterruptible states such as some I/O waits. It does not report CPU utilisation as a percentage.
 
 The load values are not normalised for processor count. A sustained load near the number of online logical CPUs may indicate that all logical CPUs have work available, but blocked I/O can also raise the load. Consequently, dividing load by CPU count does not produce an exact utilisation percentage.
@@ -197,7 +215,9 @@ lscpu -e
 The first line of `top` echoes uptime and load data. Its task summary separates running, sleeping, stopped, and zombie tasks. The CPU summary distinguishes user time, system time, nice-adjusted work, idle time, I/O wait, hardware and software interrupt handling, and virtual-machine steal time. The memory summary shows physical memory and swap, but available memory provides a more useful capacity signal than the simple free value because Linux uses otherwise idle memory for caches.
 
 A diagnostic should correlate these fields. High user CPU time and a busy process list suggest computational demand. High system time can point towards kernel or system-call overhead. High I/O wait with blocked tasks can point towards storage latency. Sustained swap activity and low available memory can indicate pressure. Measurements from `vmstat`, `iostat`, or Performance Co-Pilot can extend the investigation when `top` identifies the direction but not the cause.
+
 ### Shell jobs and processes
+
 Appending `&` starts a shell command in the background. The `jobs` command reports jobs associated with the current shell, not every process on the host. `fg` returns a selected job to the foreground, and `bg` resumes a stopped job in the background.
 
 System-wide process tools operate independently of the shell's job table:
@@ -210,7 +230,9 @@ pgrep -f 'complete command pattern'
 ```
 
 `pgrep` normally matches process names. The `-f` option matches the full command line. Administrators should inspect matches before using `pkill`, especially when a short pattern could select unrelated processes.
+
 ### Niceness and signals
+
 Normal Linux processes use nice values from -20 to 19. Lower values give a process more favourable scheduling weight, and higher values give it less. The default is usually 0. `nice` starts a command with an adjustment, while `renice` changes the value of a running process:
 
 ```shell
@@ -231,7 +253,9 @@ kill -KILL 12345
 ```
 
 `SIGKILL` cannot be caught or ignored, so it can leave temporary files, incomplete transactions, or other inconsistent state. Administrators should verify the PID, inspect the process state, try `SIGTERM`, and allow reasonable cleanup time before escalating.
+
 ### TuneD profiles
+
 TuneD applies coordinated settings for workloads such as virtual guests, virtual hosts, low-latency services, high-throughput servers, desktops, and power-saving systems. Profiles provide a tested starting point, but they do not replace workload measurement.
 
 ```shell
@@ -242,7 +266,9 @@ sudo tuned-adm profile virtual-guest
 ```
 
 `tuned-adm recommend` identifies a profile based on detected hardware and role. `tuned-adm profile` activates a selected profile persistently. An administrator should compare measured performance before and after a change, confirm that the profile matches the workload, and return to the recommended profile when an experiment provides no benefit.
+
 ## Logging, rotation, and secure transfer
+
 RHEL 8 combines `systemd-journald` with Rsyslog. Journald collects kernel messages, early boot output, service standard output, service errors, and syslog events. Rsyslog reads relevant journal events, filters them by rules, writes traditional files under `/var/log`, and can forward records to remote systems.
 
 Logs support service diagnosis, operational auditing, and security monitoring. A useful investigation establishes an event time, affected host, service, user, and symptom before filtering. Clock synchronisation strengthens correlation across hosts. Administrators should preserve original timestamps and avoid changing a failing system before collecting enough evidence to understand its state.
@@ -276,7 +302,9 @@ sudo tail -n 0 -f /var/log/messages
 ```
 
 The second command shows only records appended after `tail` starts. `Ctrl+c` stops the follow operation.
+
 ### Journal persistence
+
 Journald's `Storage` setting accepts `volatile`, `persistent`, `auto`, or `none`. Volatile storage uses `/run/log/journal` and disappears at reboot. Persistent storage uses `/var/log/journal`, with a temporary fallback during early boot or when the disk cannot accept writes. Under `auto`, the existence of `/var/log/journal` controls whether journald stores records persistently.
 
 An administrator can enforce persistence with a local drop-in rather than editing the vendor file:
@@ -296,7 +324,9 @@ sudo journalctl --list-boots
 ```
 
 Persistent logging consumes disk space, so the administrator should also review retention and size controls in `journald.conf`.
+
 ### Rsyslog rules
+
 Rsyslog reads `/etc/rsyslog.conf` and local `.conf` files under `/etc/rsyslog.d/`. A traditional selector combines a facility with a priority. The facility identifies a message category or source. Facilities `local0` through `local7` support locally defined uses. The priority runs from `debug` through `emerg`, with `debug` least severe and `emerg` most severe.
 
 The following rule writes `local1` messages at `warning` priority and above to a dedicated file:
@@ -319,7 +349,9 @@ sudo tail /var/log/myapp.log
 Remote logging should prefer reliable, protected transport when record loss or exposure carries risk. TCP with queues improves delivery compared with bare UDP, while RELP or TLS can provide stronger reliability or confidentiality for suitable deployments.
 
 The `logger` utility also lets scripts and operators send structured syslog messages without writing directly to a log file. Facility and priority choices should reflect an agreed local convention so filters route the event correctly. Test records should carry a distinct message and should be removed from alert evaluation when they could trigger an incident workflow.
+
 ### Log rotation
+
 Logrotate limits file growth through rotation, retention, compression, and removal policies. RHEL 8 normally invokes it from a daily cron task, although an administrator can run it manually for testing. Service-specific policies belong under `/etc/logrotate.d/`.
 
 A weekly policy that also rotates early when a file exceeds 100 MB can use `maxsize`:
@@ -354,7 +386,9 @@ sudo logrotate -f /etc/logrotate.conf
 The debug command reports decisions without rotating. A forced run changes files and should occur only after the administrator verifies paths, permissions, ownership, and service-reopen actions.
 
 Rotation does not provide archival retention by itself. The administrator should align local copy counts, age limits, compression, central forwarding, backup, legal retention, and secure deletion with operational and compliance needs. Sensitive logs require access controls because they can contain account names, network addresses, command details, and application data.
+
 ### Secure copying with OpenSSH
+
 OpenSSH encrypts remote login and file-transfer traffic. `scp` copies a file through SSH, while `sftp` provides an interactive transfer interface. Key-based authentication uses a private key on the client and a matching public key in the remote account's `~/.ssh/authorized_keys`.
 
 An administrator should protect a private key with a passphrase and use `ssh-agent` when repeated entry becomes inconvenient. `ssh-copy-id` installs the public key with fewer ownership and formatting errors than manual copying:

@@ -1,7 +1,10 @@
 # Getting Started with Podman
+
 > [!NOTE]
 > A practical guide to using Podman for secure, reproducible container workflows, covering images, services, storage, networking, systemd integration, custom builds, Compose, and multi-container automation labs.
+
 ## Podman and Linux containers
+
 Podman builds, runs, and manages Open Container Initiative containers and images. It offers a command-line interface familiar to Docker users, but its local Linux workflow does not depend on a central, permanently running daemon. An optional API service supports remote clients and Compose providers. Podman can also run as an unprivileged user, which reduces the authority available to a compromised container process.
 
 A container packages an application with its user-space libraries, configuration, and executable files. It shares the host kernel rather than booting a separate kernel, so it usually starts faster and consumes fewer resources than a virtual machine. An image supplies immutable layers and configuration. A container adds a writable layer and runs one or more processes from that image.
@@ -40,7 +43,9 @@ exit
 ```
 
 The first shell sees its own PID tree. The second also receives a separate network namespace. These commands demonstrate namespace isolation, but they do not assemble the storage, security policy, networking, lifecycle management, and image workflow that a container engine supplies.
+
 ## Lab and installation
+
 A small RHEL 9, Fedora, Rocky Linux, or AlmaLinux virtual machine can support a command-line lab. Two CPU cores, 2 GB of memory, and about 20 GB of storage suit the basic exercises, although image builds benefit from more memory and disk space. Package names and available Podman versions depend on the distribution and its enabled repositories.
 
 RHEL provides the `container-tools` package group and also offers Podman, Buildah, and Skopeo separately. A minimal installation uses:
@@ -74,7 +79,9 @@ podman compose --help
 ```
 
 The provider controls the supported Compose features, so its documentation and version remain relevant.
+
 ## Images and registries
+
 An image registry stores named image repositories. Each repository can contain multiple tags, and each tag points to an image manifest. A tag such as `24.04` communicates a release choice, while a digest such as `sha256:...` identifies immutable manifest content. Tags can move, including `latest`, so a digest offers stronger reproducibility.
 
 Podman accepts short image names, but short names can be ambiguous. System-wide registry configuration normally lives in `/etc/containers/registries.conf` and `/etc/containers/registries.conf.d/`. User configuration can override system defaults. Distribution-supplied short-name aliases can map a name such as `hello` to a fully qualified reference. Production definitions should use a fully qualified registry, namespace, repository, and tag or digest.
@@ -132,7 +139,9 @@ podman image inspect \
 ```
 
 The image configuration can define an entry point, a default command, environment variables, a working directory, labels, exposed-port metadata, and other defaults. `podman run` can override many of these values.
+
 ## Creating and managing containers
+
 `podman run` creates and starts a container. If the referenced image is absent, Podman pulls it first. A short smoke test can run the Podman hello image and remove the stopped container automatically:
 
 ```shell
@@ -228,7 +237,9 @@ podman events --since 10m
 The operator should preserve the failing state long enough to inspect it. Automatically removing a failed container can discard useful metadata. Health checks can test application behaviour rather than process existence, and systemd or another supervisor can respond to a failed health policy.
 
 `podman container prune` removes stopped containers after confirmation. A targeted `podman container rm NAME` is safer when the operator knows the exact object to delete.
+
 ## Ports, web content, and volumes
+
 A web server image can run without installing the server on the host. The following container serves a host directory with Apache HTTP Server:
 
 ```shell
@@ -280,7 +291,9 @@ podman volume inspect app-data
 ```
 
 The example uses a moving tag for brevity. A controlled deployment should pin an approved tag or digest. Removing a container does not normally remove a named volume.
+
 ## Starting containers with systemd
+
 Quadlet provides the current declarative integration between Podman and systemd. Podman has deprecated the older `podman generate systemd` command but keeps it available. Quadlet reads files such as `.container`, `.network`, `.volume`, `.pod`, and `.build`, then generates standard systemd services.
 
 A rootless web service can use `~/.config/containers/systemd/web.container`:
@@ -328,7 +341,9 @@ systemctl --user stop web.service
 ```
 
 The `.container` file remains the source definition. `systemctl --user daemon-reload` regenerates the service after a change. A restart then applies the new container configuration. Rootful units use `sudo systemctl` and the system journal instead.
+
 ## Building custom images
+
 A `Containerfile` or `Dockerfile` records repeatable image-build instructions. Podman executes each instruction, creates image layers, and tags the result. A sound build uses an approved base image, combines package installation with cache cleanup, minimises installed software, validates copied configuration, and avoids embedding private keys, passwords, or tokens.
 
 Build context controls which local files the builder can read. A `.containerignore` or `.dockerignore` file should exclude private keys, version-control data, caches, test output, and unrelated large files. A copied secret remains recoverable from an image layer even if a later instruction deletes it. Runtime secrets or supported build-secret mounts prevent that exposure.
@@ -406,7 +421,9 @@ The administrator should enable it only when the authorised workload requires it
 An Ubuntu managed-node image follows the same structure but uses an Ubuntu base, `apt`, the `sudo` group, and Ubuntu package and service names. Every base image should use a supported release and, when replay must produce identical content, a verified digest.
 
 An SSH client should record and verify host keys. Disabling strict host-key checking and directing the known-hosts file to `/dev/null` conceals server identity changes. Ephemeral labs can use a separate known-hosts file and refresh it deliberately after a container rebuild.
+
 ## Podman networks
+
 Podman gives containers outbound networking by default unless the operator selects `--network none`. Rootful containers normally use a bridge network. Current rootless Podman normally uses `pasta` for its default private network mode. The exact network data shown by `podman inspect`, including a conventional container IP address, depends on the mode and host configuration.
 
 A user-defined bridge network creates a stable application boundary and supports container-to-container name resolution through its DNS plugin:
@@ -452,7 +469,9 @@ podman run -d \
 Other containers on the DNS-enabled network can resolve both `ubuntu` and `managed-node`. Static IP addresses are rarely necessary because DNS names survive address reallocation and express service intent.
 
 A Podman pod solves a different problem. Containers in a pod can share namespaces, including one network stack, and communicate through localhost when configured to share networking. A user-defined network gives separate containers their own network stacks and connects them through a virtual network. The deployment model determines which design fits.
+
 ## Compose orchestration
+
 A Compose file defines related services, image builds, networks, volumes, ports, and other runtime settings in YAML. `podman compose` passes the file and command to the configured external provider. The administrator should select and test the provider explicitly because compatibility can vary.
 
 The project name scopes generated container, network, and volume names. Explicit service names and DNS aliases should carry application meaning, while generated resource names can retain the project prefix. Relative paths resolve from the Compose project directory, so automation should run from a known location or pass the file explicitly with `-f`.
@@ -501,7 +520,9 @@ podman compose down
 Compose expresses desired topology, but service order does not prove application readiness. A database process may start before it accepts connections. Health checks, retrying clients, and dependency conditions supported by the selected provider can coordinate readiness. Logs, exit codes, and `podman compose ps` remain necessary when part of the project fails.
 
 Configuration should avoid hard-coded credentials. An environment file can separate non-sensitive settings, while Podman secrets or another secret facility should carry sensitive values. A committed example file can document required variable names without containing operational values.
+
 ## Ansible test lab
+
 The controller image can carry Ansible while the host supplies playbooks through a bind mount. An inventory can group Fedora and Ubuntu nodes, assign the appropriate connection data, and define distribution-specific variables. For example, the Apache package and service use `httpd` on Fedora and `apache2` on Ubuntu.
 
 A small INI inventory can identify both nodes:
@@ -562,7 +583,9 @@ The first connectivity test should distinguish an SSH failure from a Python or p
 The host bind mount keeps playbook edits outside the controller's writable layer. Destroying and recreating the controller therefore tests whether the declared image, mount, network, and credentials contain everything required. A test that succeeds only after an undocumented interactive change has not produced a reproducible lab.
 
 The lab still needs sound security boundaries. Passwords should not appear in image layers, Compose files, shell history, or source control. Passwordless sudo should remain limited to disposable training nodes. SSH host keys require verification. The operator should apply resource limits when concurrent builds or services could exhaust the host.
+
 ## End-to-end lab workflow
+
 1. The administrator creates a dedicated unprivileged account, confirms its subordinate UID and GID ranges, and checks Podman, cgroup, storage, network, and SELinux settings. The account keeps the lab separate from rootful containers and unrelated user workloads.
 2. The operator selects fully qualified base images from approved publishers. Skopeo retrieves remote metadata, and the release process records tags, digests, architectures, and relevant provenance. A digest pins any image that must replay with identical content.
 3. Each build context contains a minimal Containerfile, public configuration, and a restrictive ignore file. The build excludes private keys, passwords, tokens, caches, and unrelated source. Package installation and cleanup occur in the same image layer.
@@ -573,7 +596,9 @@ The lab still needs sound security boundaries. Passwords should not appear in im
 8. The operator verifies inventory, SSH host identities, Python availability, and privilege elevation before running the main Ansible playbook. A second playbook run should report no unnecessary changes when the first run reached the declared state.
 9. The operator destroys and recreates the containers from the declarations. Successful recovery confirms that interactive changes did not become hidden dependencies. Separately managed secrets return through the authorised runtime mechanism rather than through image layers.
 10. Compose removes the disposable project after testing. Targeted inspection precedes broader pruning, and volume removal follows a data-retention decision. Version-controlled definitions and approved external secrets remain sufficient to rebuild the environment.
+
 ## Cleanup and recovery
+
 Podman reports storage use before cleanup:
 
 ```shell

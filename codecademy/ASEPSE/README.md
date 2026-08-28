@@ -1,18 +1,26 @@
 # *Associate Systems Engineer to Principal Systems Engineer* Course Notes
+
 These notes cover material from Codecademy's 52-hour, self-paced, [Associate Systems Engineer to Principal Systems Engineer](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey) course. The notes cover core principles, requirements engineering, system analysis and design, safety, reliability, optimization, testing, lifecycle management, and modern methods such as Model-Based Systems Engineering. It also explores governance, risk and supply chain management, organizational culture, and applications in cybersecurity, aerospace, healthcare, and smart mobility.
+
 ## Module Notes
+
 ### Track 1: Associate Systems Engineer
+
 - [Systems Engineering: An Introduction](associate-systems-engineer/Systems%20Engineering%20An%20Introduction.md)
 - [Systems Engineering: Principles & Design Process](associate-systems-engineer/Systems%20Engineering%20Principles%20&%20Design%20Process.md)
 - [Systems Engineering: System Architecture & Design](associate-systems-engineer/Systems%20Engineering%20System%20Architecture%20&%20Design.md)
 - [Systems Engineering: Systems Thinking](associate-systems-engineer/Systems%20Engineering%20Systems%20Thinking.md)
+
 ### Track 2: Requirements Engineer
+
 - [Requirements Engineering: An Introduction](requirements-engineer/Requirements%20Engineering%20An%20Introduction.md)
 - [Requirements Engineering: Elicitation](requirements-engineer/Requirements%20Engineering%20Elicitation.md)
 - [Requirements Engineering: Analysis and Specification](requirements-engineer/Requirements%20Engineering%20Analysis%20and%20Specification.md)
 - [Requirements Engineering: Validation and Verification](requirements-engineer/Requirements%20Engineering%20Validation%20and%20Verification.md)
 - [Requirements Engineering: Management and Traceability](requirements-engineer/Requirements%20Engineering%20Management%20and%20Traceability.md)
+
 ### Track 3: Systems Designer
+
 - [Systems Engineering Process: System Analysis & Modeling](systems-designer/Systems%20Engineering%20Process%20System%20Analysis%20&%20Modeling.md)
 - [Systems Engineering Process: Human Factors in System Design](systems-designer/Systems%20Engineering%20Process%20Human%20Factors%20in%20System%20Design.md)
 - [Systems Engineering Process: Design Principles](systems-designer/Systems%20Engineering%20Process%20Design%20Principles.md)
@@ -22,7 +30,9 @@ These notes cover material from Codecademy's 52-hour, self-paced, [Associate Sys
 - [System Development Process](systems-designer/System%20Development%20Process.md)
 - [System Integration & Verification](systems-designer/System%20Integration%20&%20Verification.md)
 - [Systems Engineering for Complex Systems](systems-designer/Systems%20Engineering%20for%20Complex%20Systems.md)
+
 ### Track 4: Systems Architect
+
 - Decision Analysis and Management: System Safety & Reliability
 - Decision Analysis and Management: System Testing & Reliability
 - Decision Analysis and Management: Systems Engineering Performance Measurement
@@ -32,7 +42,9 @@ These notes cover material from Codecademy's 52-hour, self-paced, [Associate Sys
 - Modern Systems Engineering: Model-based Systems Engineering (MBSE)
 - Modern Systems Engineering: Modeling Complex Systems with Sparx EA
 - Modern Systems Engineering: Concurrent Engineering
+
 ### Track 5: Principal Systems Engineer
+
 - Process Enhancements: System Life Cycle Process & Models Management
 - Process Enhancements: System Governance & Standardization
 - Process Enhancements: Technical Planning & Risk Management

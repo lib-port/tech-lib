@@ -1,10 +1,13 @@
 # Deploying Files
+
 Ansible manages file attributes, content, transfers, SELinux labels, and generated configuration. RHEL 10 control nodes include `ansible-core` 2.16 for RHEL System Roles. Fully qualified collection names identify each module and expose dependencies outside `ansible-core`.
+
 ## Selecting a file module
+
 Each operation should use the narrowest suitable module.
 
 | Requirement | Module |
-|---|---|
+| --- | --- |
 | Inspect a path | `ansible.builtin.stat` |
 | Manage directories, links, ownership, modes, or deletion | `ansible.builtin.file` |
 | Deploy static content from the control node | `ansible.builtin.copy` |
@@ -45,13 +48,17 @@ Direct state enforcement usually needs no preliminary test:
 `lineinfile` manages one line. Its regular expression should match both the original line and the replacement so repeated runs stay idempotent. `blockinfile` maintains several lines between marker lines, and each managed block in one file needs a distinct marker. `replace` suits repeated regular-expression substitutions. A template is safer when automation owns most of a configuration file. The `validate` option can test a temporary candidate before `copy`, `lineinfile`, or `template` replaces the live file.
 
 Configuration tasks should set ownership and mode explicitly. `backup: true` preserves the previous destination when a module changes it. `ansible-playbook --check --diff` can preview supported changes, although a syntax check or check-mode run cannot prove that the resulting service will work. Diffs can expose secrets, so sensitive tasks need appropriate output controls.
+
 ## Transferring files
+
 `copy` transfers a file only when its content or managed metadata differs. It does not create a fresh file on every run. `ansible.posix.synchronize` wraps rsync for efficient directory-tree transfers, originates on the control or delegated host, and requires rsync on both ends. It belongs to the `ansible.posix` collection rather than `ansible-core`.
 
 By default, `copy.src` refers to the control node. `remote_src: true` instead reads an existing path on the managed host. The `content` parameter suits short, fixed text. A separate template should render structured content or variables. Large trees with hundreds of files favour `synchronize` because recursive `copy` does not scale well.
 
 `fetch` copies in the opposite direction. With `src: /etc/motd` and `dest: /backup`, the default destination is `/backup/<inventory-host>/etc/motd`. `flat: true` removes that host-and-path hierarchy, but hosts with the same source basename can overwrite one another.
+
 ## Managing SELinux labels
+
 RHEL 10 normally runs the targeted SELinux policy in enforcing mode. A non-standard service directory needs a persistent file-context mapping and labels applied from that policy. Setting `setype` directly through `file`, `copy`, or `template` changes the current inode label but does not add a policy mapping, so a later relabel can undo it.
 
 The `community.general.sefcontext` module manages persistent mappings and requires its collection plus the RHEL `policycoreutils-python-utils` package. It does not relabel existing files. `restorecon` must apply the mapping after the files exist.
@@ -74,11 +81,13 @@ The relabelling task should not depend only on a handler notified by the mapping
 The supported `redhat.rhel_system_roles.selinux` role can manage policy changes and restore directory contexts through `selinux_restore_dirs`. SELinux booleans should enable only policy-defined behaviour that the service requires. Broad permissions, writable content types, and permissive mode should not replace a specific policy correction.
 
 Type selection follows the required access. Apache can read `httpd_sys_content_t` content, while content that the service must modify generally needs `httpd_sys_rw_content_t`. Filesystem ownership and mode still apply alongside SELinux. An administrator should verify both controls and inspect audit messages before changing policy.
+
 ## Generating files with Jinja
+
 The `template` module renders UTF-8 Jinja source on the control node, then transfers the result to each managed host. Jinja uses three principal delimiters:
 
 | Form | Purpose |
-|---|---|
+| --- | --- |
 | `{{ expression }}` | Insert or transform a value |
 | `{% statement %}` | Control flow with `for`, `if`, and related statements |
 | `{# comment #}` | Add a template-only comment |

@@ -1,6 +1,9 @@
 # Managing Services and the Boot Process on RHEL 10
+
 Red Hat Enterprise Linux 10 uses systemd to manage services, scheduled work, boot targets, and shutdowns. Ansible can maintain this state consistently across managed hosts.
+
 ## Managing systemd services
+
 `ansible.builtin.systemd_service` is the preferred module for systemd units. Its earlier name, `ansible.builtin.systemd`, remains an alias. `ansible.builtin.service` provides a generic interface for different init systems, but it exposes fewer systemd-specific controls.
 
 | Requirement | Ansible interface |
@@ -27,7 +30,9 @@ ansible_facts.services['sshd.service'].state
 ```
 
 Service facts do not report package versions. `ansible.builtin.package_facts` supplies that information.
+
 ## Scheduling work
+
 Systemd timers provide the native RHEL 10 scheduler for service-aware tasks. A timer activates a matching service unit. `OnCalendar` defines calendar schedules, `Persistent=true` catches up a missed calendar event after downtime, and a randomised delay can spread work across a fleet. Ansible can deploy the unit and timer files, then enable and start the timer with `systemd_service` or the RHEL system role.
 
 `ansible.builtin.cron` remains suitable for established cron workloads. It requires a compatible implementation such as `cronie`, but the module does not install the package or start `crond`. Each job needs a unique `name`, which Ansible stores in a `#Ansible:` marker. Reusing the name updates the job, and `state: absent` removes it. `special_time: reboot` represents an `@reboot` entry. A system-wide `cron_file` also requires a `user`.
@@ -35,9 +40,13 @@ Systemd timers provide the native RHEL 10 scheduler for service-aware tasks. A t
 Cron normally runs commands through `/bin/sh`, unless its environment selects another shell. A literal `%` in a command requires escaping. A scheduled command should call `/usr/bin/date` or `logger` when it needs its actual execution time because `ansible_date_time` reflects the earlier fact-gathering instant.
 
 Historical `at` automation depends on an external collection and the host's `at` service. A systemd one-shot or transient timer usually provides a better RHEL 10 design.
+
 ## Configuring the default boot target
+
 Systemd reads `/etc/systemd/system/default.target` to select the default boot target. Ansible can manage this path as a symbolic link to `/usr/lib/systemd/system/multi-user.target` for a text-oriented server or `graphical.target` for a graphical system. The `ansible.builtin.file` module with `state: link` keeps the link idempotent.
+
 ## Rebooting managed hosts
+
 `ansible.builtin.reboot` initiates a restart, waits for the host to disconnect and return, verifies that the boot identifier changed, and runs a validation command. The default validation command is `whoami`, while an application readiness check provides stronger assurance.
 
 `reboot_timeout` defaults to 600 seconds and applies separately to reboot verification and post-boot validation. `connect_timeout` limits each connection attempt. On Linux, `pre_reboot_delay` converts to whole minutes, so values below 60 seconds become zero. `post_reboot_delay` pauses before validation. A custom `reboot_command` bypasses the normal message and delay handling.

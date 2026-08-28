@@ -1,4 +1,5 @@
 # Getting Started with Ansible
+
 > [!NOTE]
 > This practical guide introduces Ansible’s agentless, desired-state approach and explains how to build, validate, scale, and troubleshoot secure, repeatable infrastructure automation.
 
@@ -7,6 +8,7 @@ Ansible automates system configuration, software deployment, and infrastructure 
 Ansible works best when automation describes the required end state. A task can declare that a directory must exist, a package must be installed, a setting must have a particular value, or a service must be running. A module examines the current state and changes it only when necessary. This approach reduces the conditional scripting otherwise required to handle every possible starting state.
 
 The principal concepts form a simple progression:
+
 - Modules perform focused operations.
 - Tasks call modules with specific arguments.
 - Plays apply ordered tasks to selected hosts.
@@ -16,12 +18,15 @@ The principal concepts form a simple progression:
 - Facts describe managed systems and support conditional configuration.
 
 The basic workflow combines these concepts. The controller loads configuration and inventory, selects hosts through a pattern, connects to each target, gathers facts when requested, and runs the tasks in a play. Ansible reports whether each task succeeded, failed, changed the target, or was skipped.
+
 ## Installation and environment
+
 The controller requires a supported Python version on a UNIX-like system. Linux, macOS, BSD, and Windows Subsystem for Linux can act as control nodes. Native Windows does not serve as a supported control node. Python support changes between `ansible-core` releases, so the current support matrix should determine the interpreter version rather than a fixed version copied from an older example.
 
 Most POSIX managed nodes also require Python and an account that Ansible can use through an appropriate transport. Exceptions exist. Network modules can operate without Python on the device, and some low-level actions can bootstrap a host before Python becomes available. Each module documents its own requirements.
 
 Two related Python packages serve different needs:
+
 - `ansible-core` supplies the execution engine, command-line tools, and the `ansible.builtin` collection.
 - `ansible` includes `ansible-core` plus a community-curated set of collections for many platforms and services.
 
@@ -49,7 +54,9 @@ Command completion can reduce typing and expose available options. The optional 
 pipx inject --include-apps ansible argcomplete
 activate-global-python-argcomplete --user
 ```
+
 ## Modules, tasks, and desired state
+
 A module is a focused unit of automation. `ansible.builtin.file` manages paths and attributes, `ansible.builtin.copy` transfers or creates files, `ansible.builtin.apt` manages packages on Debian-family systems, and `ansible.builtin.timezone` configures time zones. The fully qualified collection name, or FQCN, identifies the exact content and avoids ambiguity.
 
 An ad hoc command runs one module without creating a playbook. The following command tests local module execution:
@@ -98,7 +105,9 @@ ansible all -m ansible.builtin.command -a "date"
 ```
 
 Shell operators such as pipes, redirection, variable expansion, and command substitution do not work through `ansible.builtin.command`. Tasks that genuinely require those features can use `ansible.builtin.shell`, although a purpose-built module usually offers safer quoting, stronger idempotence, and clearer results.
+
 ## Check mode, diff mode, and validation
+
 Check mode simulates supported tasks without changing managed systems. It predicts whether a module would change a target. It does not expose every internal command, and it cannot guarantee the result of a real run. Modules that do not support check mode do nothing and report no useful prediction. Later tasks can also behave differently when they depend on output that an earlier simulated task could not produce.
 
 The following command previews a playbook:
@@ -118,6 +127,7 @@ This combination helps validate file, template, user, and other configuration ch
 The `check_mode` and `diff` keywords can control behaviour at task or play scope. `check_mode: true` forces a task to simulate even during a normal run. `check_mode: false` forces it to execute even when the command includes `--check`. Such overrides require care because a supposedly non-changing validation run can otherwise alter a target.
 
 Ansible provides several additional validation tools:
+
 - `ansible-playbook site.yml --syntax-check` checks playbook syntax.
 - `ansible-playbook site.yml --list-hosts` shows the hosts a play would target.
 - `ansible-playbook site.yml --list-tasks` shows selected tasks.
@@ -126,7 +136,9 @@ Ansible provides several additional validation tools:
 - `ansible-lint` checks playbooks against configurable quality and safety rules.
 
 These checks answer different questions. Syntax validation cannot prove that credentials work, inventory selects the intended assets, a module supports the target platform, or the final state is correct. A safe release process combines static checks, check mode where useful, a constrained real run, and verification of the resulting service.
+
 ## Inventory, configuration, and connections
+
 Inventory describes the hosts Ansible can manage. It may come from a command-line host list, an INI or YAML file, a directory of sources, or a dynamic inventory plugin. Inventory can also define groups, variables, aliases, and connection behaviour.
 
 An inline list needs a trailing comma so Ansible treats it as a host list rather than a filename:
@@ -167,7 +179,9 @@ ansible pi3 -m ansible.builtin.ping
 For many Python-based modules, Ansible transfers generated code to the remote host, locates a compatible interpreter, executes the module, captures structured output, and removes temporary files. Other modules and plugins use different mechanisms. Cloud modules may call an API from the controller, network modules may use a device transport, and container plugins may invoke Docker through its CLI or API.
 
 Ansible creates an implicit `localhost` when a task explicitly targets it and no matching inventory host exists. This host uses the local connection rather than SSH. It does not automatically join the effective inventory in the same way as an explicitly defined host, so a pattern such as `all` may not include it. Automation that must include the controller should define or target it deliberately.
+
 ## Privilege escalation and facts
+
 Some tasks need privileges beyond those of the connection account. Package installation, system-wide configuration, and protected file changes commonly require escalation. The `become` mechanism applies privilege escalation on the machine where the task executes:
 
 ```shell
@@ -209,7 +223,9 @@ Conditionals belong to the task, not to the module argument dictionary:
 Fact collection consumes time. A play that does not use facts can set `gather_facts: false`. A play that needs only limited categories can use `gather_subset` or call the setup module with filters. Disabling facts solely for speed can break variables, conditions, and modules that rely on the information.
 
 Interpreter discovery selects a Python executable on each managed POSIX host. A warning deserves investigation when the discovered path might change after an installation or upgrade. Pinning `ansible_python_interpreter` can provide stability when the environment guarantees that path. Silent discovery settings suppress warnings but do not correct an unsuitable interpreter.
+
 ## Playbooks as executable configuration
+
 A playbook records repeatable automation in YAML. Each play selects hosts and contains an ordered list of tasks. Each task normally calls one module. The following play installs NGINX and replaces its default page on Debian-family hosts:
 
 ```yaml
@@ -267,7 +283,9 @@ The `--limit` option narrows the hosts selected by a play without expanding them
 Editor support can improve authoring. The Red Hat Ansible extension for Visual Studio Code provides completion, documentation, and validation. `ansible-lint` identifies problems such as risky shell use, ambiguous module names, missing task names, and non-idempotent patterns. Teams can configure rule profiles, but they should understand a rule before suppressing it. A formatter and ordinary YAML validation can also correct indentation and trailing whitespace.
 
 The `ansible-doc -t keyword` command documents playbook keywords and their valid scope. It distinguishes Boolean values such as `gather_facts` from lists such as `gather_subset`, and it shows whether a keyword applies to a play, block, role, or task.
+
 ## Collections and fully qualified names
+
 Collections package reusable Ansible content. A collection can contain modules, inventory plugins, connection plugins, lookup plugins, filter plugins, roles, playbooks, and supporting code. Collections let different maintainers develop and release content independently from `ansible-core`.
 
 The `ansible` community package bundles a curated set of collections. `ansible-core` supplies only the core runtime and built-in content. A controller using `ansible-core` can install selected collections from Galaxy or another configured distribution server:
@@ -308,7 +326,9 @@ ansible-doc community.general.timezone
 Galaxy and the official collection index support broader searches by technology, collection, and plugin type. Popularity can help identify established content, but selection should also consider maintainership, release activity, documentation, compatibility, security, dependencies, and licence terms.
 
 `ansible-galaxy collection download` can fetch a collection and its requirements for offline use. Collection removal still relies on removing the intended installation directory. Before any removal, the operator should identify the active collection path and avoid deleting a broader namespace or collection root by mistake.
+
 ## Static and dynamic inventory
+
 Static inventory suits stable hosts. Dynamic infrastructure changes as virtual machines, containers, and cloud resources appear or disappear. Inventory plugins query an authoritative source at run time and convert its current resources into Ansible hosts, groups, and variables. This prevents a hand-maintained list from drifting away from the platform.
 
 Docker provides a compact laboratory for this model. The `community.docker.docker_container` module can declare containers on the controller:
@@ -359,7 +379,9 @@ ansible all -i lab.docker.yml -m ansible.builtin.ping
 Dynamic inventory should filter resources so automation reaches only intended assets. Docker labels, names, states, or composed groups can separate a laboratory from unrelated local containers. Cloud inventory should similarly constrain accounts, regions, projects, tags, and lifecycle states.
 
 Desired-state automation repairs simple laboratory drift. If containers stop, the container playbook can start them. If a declared container disappears, the playbook can recreate it. This recovery demonstrates convergence, but production replacement may involve persistent data, identity, health checks, traffic draining, and dependency ordering that a small laboratory does not model.
+
 ## Parallelism, batches, and rolling changes
+
 Ansible's default linear strategy runs each task across selected hosts before it advances to the next task. The `forks` setting limits the number of hosts that can execute work concurrently. Raising it can shorten a run when the controller, network, managed systems, and external services can sustain the additional load. Lowering it can protect constrained infrastructure.
 
 Forks control concurrency within a task, not rolling-update safety. With ten web servers and five forks, Ansible can update five hosts at once, then the other five, before it begins the next task. If the first task temporarily leaves every host unable to serve traffic until a later task completes, all hosts can pass through that unsafe intermediate state.
@@ -387,7 +409,9 @@ The `serial` keyword divides hosts into batches and completes the whole play for
 With ten hosts, `serial: 3` creates batches of three, three, three, and one. Each batch completes all tasks before the next begins. A safe rolling deployment usually adds load-balancer removal, health validation, failure thresholds, and re-entry steps. Batch size should preserve enough healthy capacity for expected traffic and failures.
 
 Execution order and completion order differ. Ansible may start tasks in a predictable inventory order, but varying host performance changes the order of results. Logs should use host names and task names rather than line position as identity. Callback plugins can change output density and structure, while automation platforms can retain structured event data for later analysis.
+
 ## Templates, variables, and cleanup
+
 The copy module distributes static content. The template module renders Jinja expressions on the controller and transfers the resulting file to each target. A template can combine facts, play variables, inventory variables, and special variables:
 
 ```jinja2
@@ -434,8 +458,11 @@ Repeated arguments can move to `module_defaults` at play scope:
 Module defaults reduce repetition, but broad defaults can hide important behaviour. Their scope and group syntax depend on the collection and module, so the installed documentation should guide their use.
 
 An effective Ansible project keeps playbooks, inventory definitions, dependency constraints, templates, and non-secret configuration under version control. It validates changes, limits early runs, records dependencies, protects credentials, and tests recovery as well as deployment. The resulting automation converts system intent into repeatable, reviewable, and scalable operations.
+
 ## Operational practice and troubleshooting
+
 ### Convergence and idempotence
+
 Convergence describes the movement from the current state to the declared state. Idempotence describes the ability to repeat an operation without introducing another change after the target has converged. Most configuration modules aim for idempotence, but the outcome depends on arguments and external behaviour. A command that appends a line on every run remains non-idempotent even when Ansible launches it. A dedicated file module can instead test whether the line already exists.
 
 An unexpected `changed` result deserves investigation because a task that changes on every run can restart services, rewrite timestamps, consume API quotas, or hide genuine drift. An unexpected `ok` result also needs attention when the required effect did not occur. The module's documented comparison rules, target permissions, check-mode support, and return data help distinguish a correct result from an incomplete declaration.
@@ -445,6 +472,7 @@ Modules do not infer broad intent beyond their arguments. Removing a package tas
 Module return data supports diagnosis and later tasks. A task can register its result, then inspect fields such as `stdout`, `stderr`, `rc`, `changed`, or module-specific values. Registered data varies by module and can contain secrets, so debugging should display only necessary fields. A failed module often returns a direct explanation, the attempted operation, and relevant target details. Higher verbosity adds transport and interpreter information when the normal message does not reveal the cause.
 
 Several frequent failures have distinct causes:
+
 - `unreachable` usually indicates name resolution, routing, authentication, host-key, transport, or connection-plugin trouble.
 - A missing interpreter error indicates that a selected module cannot find a compatible runtime on the managed host.
 - A permission error often indicates insufficient access or a missing `become` setting.
@@ -452,7 +480,9 @@ Several frequent failures have distinct causes:
 - An argument error indicates that the task does not match the module interface for the installed version.
 
 Diagnosis should start at the failed layer. A direct SSH test cannot validate an API-based cloud module, and reinstalling Ansible cannot fix a remote privilege policy. `ansible --version`, `ansible-config dump --only-changed`, `ansible-inventory --host HOST`, and the relevant `ansible-doc` page provide a compact view of the execution context.
+
 ### Inventory and connection checks
+
 Configuration discovery requires care. Environment variables, command-line options, playbook keywords, variables, and direct assignment can override settings at different precedence levels. A value shown in `ansible.cfg` may therefore lose to a later source. Diagnosis should examine the effective configuration, resolved inventory variables, and task context rather than the contents of one file alone.
 
 Inventory variables can describe connection details without changing a host's inventory name. An alias can map `app01` to an IP address through `ansible_host`, select a login through `ansible_user`, and choose an interpreter through `ansible_python_interpreter`. Group variables apply shared values to related hosts. Host variables handle exceptions. Excessive inventory logic becomes difficult to audit, so behavioural variables should remain deliberate and documented.
@@ -462,7 +492,9 @@ Static inventory can combine functional, geographical, and lifecycle groups. A h
 `ansible-inventory --graph` shows groups and hosts. `ansible-inventory --host app01` displays variables resolved for one host. `ansible all --list-hosts` checks a pattern without connecting. These commands reduce the risk of discovering a targeting error only after a task begins.
 
 Host-key verification protects SSH connections from impersonation. Disabling it can make a disposable laboratory easier to start, but it weakens trust and should not become a routine production workaround. A stable environment should manage known hosts, SSH certificates, or another suitable trust mechanism.
+
 ### Playbook structure and recovery
+
 YAML indentation defines structure. Module arguments sit below the module name, while task keywords such as `name`, `when`, `tags`, `become`, `check_mode`, and `register` align with the module name. A condition indented under the module arguments becomes an invalid module option instead of a task condition.
 
 Task names should describe the intended outcome rather than repeat the module name. `Ensure the application package is installed` provides more useful logs than `Run apt`. Clear names help operators locate a failure across many hosts and allow `--start-at-task` to identify a recovery point. Names also improve reviews by expressing why a task exists.
@@ -472,13 +504,17 @@ Variables separate reusable intent from environment-specific values. Inventory c
 Version control turns playbooks into an auditable configuration history. A commit can connect a state change with its author, rationale, review, and reversal. A useful review examines more than YAML syntax. It asks which hosts a pattern selects, which privileges a task receives, whether an operation is idempotent, what check mode can predict, how secrets flow, and how a failed partial run recovers.
 
 Playbooks execute tasks in order, but a later failure does not automatically reverse earlier changes. A package installed by task one remains installed when task two fails. Modules should therefore leave useful intermediate states, and deployment designs should include validation, rescue logic, or explicit rollback where the risk warrants it.
+
 ### Collection architecture
+
 Ansible originally distributed most content in one package. The collections model separated the execution engine from independently maintained automation content. This architecture lets a cloud collection release fixes without waiting for an `ansible-core` release and lets a controller install only required integrations. The separation also places responsibility on projects to manage collection versions and compatibility.
 
 The broad `ansible` package provides convenience, not a guarantee that every integration is present or current enough. Some collections leave the package, change support policies, or require separate Python libraries. A project should declare the collections it uses even when a developer's global installation already supplies them. An execution environment can package `ansible-core`, collections, Python dependencies, and system libraries into a reproducible container image.
 
 Downloading a collection reveals its structure. Namespace and collection directories contain metadata and content-type directories such as `plugins/modules`, `plugins/inventory`, and `plugins/connection`. This structure explains why `community.general.timezone` and `community.docker.docker_containers` resolve to different files and plugin types even though both use dot-separated names.
+
 ### A layered container laboratory
+
 The Docker laboratory contains two automation layers. The first playbook manages containers as resources through the Docker daemon. The second layer treats running containers as managed hosts and configures their internal state. Keeping the layers separate clarifies which connection and inventory apply. Container creation targets `localhost`, while configuration targets hosts returned by the Docker inventory plugin.
 
 The connection plugin determines how tasks enter a container. `community.docker.docker` uses the Docker CLI, while `community.docker.docker_api` uses the API. Neither requires an SSH daemon inside the container. Ansible launches processes through Docker, then runs compatible module code in the container. A command such as `hostname` can confirm that execution occurs inside the intended container by returning its container hostname.
@@ -488,14 +524,19 @@ A minimal Python image provides a convenient target because many POSIX modules n
 Loops scale declared containers without copying tasks. `range(1, 11)` produces numbers one through ten because the upper bound is exclusive. The task combines each number with a prefix to form `c1` through `c10`. The loop result records one outcome per item, which helps locate a failed container declaration.
 
 The environment can test connectivity, facts, templates, conditional tasks, concurrency, and batch behaviour without changing production hosts. It should remain isolated from valuable local containers because cleanup tasks can remove every resource selected by their names or labels.
+
 ### Concurrency and safe batches
+
 The default fork count is often five, but configuration or command-line options can change it. `--forks 2` permits up to two host workers for a task. Actual concurrency may remain lower when a play selects fewer hosts, a task uses throttling, or the strategy imposes another limit. External APIs can also enforce their own rate limits.
 
 Serial values can use numbers, percentages, or a list that changes batch size over the run. A small first batch acts as a canary, followed by larger batches after successful validation. Failure settings such as `max_fail_percentage` can stop a rollout when a batch exceeds an acceptable threshold. These controls limit impact, but health checks must still detect whether a changed host can serve real traffic.
 
 The `free` strategy allows each host to advance independently instead of waiting for every host to finish the current task. It can improve throughput for independent work, but it changes ordering assumptions and does not create a safe rolling deployment by itself. Strategy selection should follow task dependencies and service availability requirements.
+
 ### Practical progression
+
 A controlled learning sequence builds confidence without obscuring cause and effect:
+
 1. A local ping confirms installation and module execution.
 2. File and directory tasks demonstrate desired state and repeated runs.
 3. Check and diff modes show prediction limits and before-and-after output.

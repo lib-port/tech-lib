@@ -1,11 +1,14 @@
 # Creating Shell Scripts
+
 > [!NOTE]
-> How to build reliable, secure, and maintainable Bash scripts on RHEL using command-line testing, validation, exit statuses, arguments, loops, functions, and safe input handling. 
+> How to build reliable, secure, and maintainable Bash scripts on RHEL using command-line testing, validation, exit statuses, arguments, loops, functions, and safe input handling.
 
 Shell scripts turn repeated command-line work into reusable procedures. A script can create accounts, inspect system state, process files, and apply the same checks each time it runs. This consistency reduces manual effort, but automation also repeats mistakes quickly. Administrators should therefore develop scripts on a test system, validate every assumption, and check each command that can fail.
 
 Bash uses the same language for interactive commands and scripts, including commands, variables, expansions, redirections, tests, loops, and functions. Interactive Bash adds facilities such as command history, job control, and line editing that a non-interactive script may not provide. A script should not depend on those interactive facilities.
+
 ## Script files, variables, and quoting
+
 A shell script is a plain-text file. Any editor that preserves plain text can create one. Consistent indentation does not change Bash's grammar, but it reveals the boundaries of conditions, loops, and functions. Comments begin with `#` and continue to the end of the line. The shebang is the only `#` line that the operating system interprets before Bash starts.
 
 Variable assignments contain no spaces around `=`:
@@ -38,7 +41,9 @@ program_name=$(basename -- "$0")
 ```
 
 Bash removes trailing newlines from that captured output. It does not preserve a command's status in `$?` after another command runs, so scripts should test important commands directly. `printf` gives controlled formatting and handles arbitrary data more consistently than `echo`, whose option and escape handling varies across implementations.
+
 ## Commands, status values, and simple logic
+
 Every Bash command returns an integer status from 0 to 255. Status 0 denotes success. A non-zero status denotes failure or another condition that the command documents. Negative exit statuses do not occur. Bash reserves or commonly uses some values for special failures, so a script should document any status values that it assigns.
 
 `$?` expands to the status of the most recently completed foreground pipeline. Another command immediately replaces that value, so a script should test the command directly or save the status at once.
@@ -54,6 +59,7 @@ fi
 ```
 
 The `&&` and `||` operators form conditional command lists:
+
 - `first && second` runs `second` only when `first` succeeds.
 - `first || second` runs `second` only when `first` fails.
 
@@ -85,7 +91,9 @@ generate_report | compress_report
 With `set -o pipefail`, the pipeline reports failure when any component fails. This option supports reliable automation, especially when the last command could succeed after receiving incomplete input. Each command can still define several non-zero results, so scripts should consult command documentation when they must distinguish absence, invalid input, permission failure, and system failure.
 
 `&&` and `||` have equal precedence in an AND-OR list and associate from left to right. Mixing them without grouping can obscure intent. An `if` statement makes a multi-step recovery path clearer and prevents a later editor from misreading which failure triggers which action.
+
 ## Loops at the command line and in scripts
+
 A `for` loop processes a list. The shell assigns each item to a variable, runs the body, and continues until it exhausts the list.
 
 ```shell
@@ -121,7 +129,9 @@ done < names.txt
 `IFS=` prevents `read` from trimming leading or trailing whitespace, and `-r` prevents backslashes from escaping the next character. The loop stops when `read` reaches end of file. If the final line lacks a newline, a more elaborate condition may need to process the remaining text.
 
 Loop bodies should quote data, check consequential commands, and guarantee progress. A `while` condition that never changes creates an infinite loop unless the body deliberately uses `break`, receives a signal, or terminates the script.
+
 ## Interpreters, permissions, and command lookup
+
 A directly executed Bash script should begin with this shebang on RHEL 8:
 
 ```shell
@@ -155,7 +165,9 @@ command -v report.sh
 ```
 
 The `export` command above affects the current shell and its descendants. A suitable assignment in `~/.bash_profile` or another applicable startup file makes the change available after later logins. RHEL installations and user profiles can differ, so each user should inspect the actual `PATH` instead of assuming that `$HOME/bin` already appears there. `command -v` reports how Bash would resolve a command and avoids relying on the less consistent external `which` utility.
+
 ## Positional and special parameters
+
 Arguments supplied after a script name become positional parameters. Bash temporarily replaces a function's positional parameters with the arguments supplied to that function.
 
 | Expansion | Meaning |
@@ -193,7 +205,9 @@ An array and the special parameter `@` are related but not identical. Bash maint
 program_name=$(basename -- "$0")
 printf 'Usage: %s USER...\n' "$program_name" >&2
 ```
+
 ## Conditions and input
+
 An `if` statement runs a command or test and chooses a branch from its status. Bash closes the construct with `fi`.
 
 ```shell
@@ -254,7 +268,9 @@ do
   printf 'Password cannot be empty or whitespace only.\n' >&2
 done
 ```
+
 ## Functions and structured automation
+
 A function gives a related command sequence a name. Bash executes a function in the current shell context, so variable changes can affect the surrounding script unless the function declares local variables.
 
 ```shell
@@ -273,7 +289,9 @@ A function's variables remain global unless `local` limits their scope. Local na
 Function definitions must execute before Bash reaches the corresponding calls. Scripts commonly place definitions near the top and keep a short main routine at the bottom. This organisation separates reusable operations from execution order.
 
 Clear functions separate validation, account creation, password handling, and reporting. The main loop can then show the overall control flow without duplicating commands.
+
 ## Account creation with validation
+
 Account creation requires administrative authority and careful password handling. Each new account should receive its own password. Reusing one password across several accounts creates an avoidable security weakness.
 
 The script below accepts one or more user names, refuses existing accounts, prompts twice for each new password, creates a home directory, and reports failures. RHEL 8 supplies the `passwd --stdin` option used here. Other distributions may require a different password-setting command.
@@ -382,8 +400,11 @@ The pipeline sends the password through standard input rather than placing it in
 `getent` performs the collision check before `useradd`, but `useradd` remains the authoritative creation attempt. Another process could create the same account between those operations. The explicit `useradd` check catches that race and prevents password handling from continuing after a failed creation.
 
 The script does not delete a newly created account automatically when password setup fails. Automatic cleanup could remove files or state created concurrently by another process. Instead, the locked account and clear diagnostic leave an administrator to inspect the result and choose recovery or deletion. Production automation can implement a stronger transaction policy when it controls all related state.
+
 ## Reliable development
+
 Small, testable changes make shell automation safer. Administrators should first run commands manually on a disposable RHEL 8 system, then place the working sequence in a script and add validation around it. Useful checks include:
+
 - `bash -n script.sh` parses Bash syntax without executing the script.
 - `bash -x script.sh` traces expanded commands during execution.
 - `command -v name` verifies how Bash resolves a command.

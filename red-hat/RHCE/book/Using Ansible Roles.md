@@ -1,6 +1,9 @@
 # Using Ansible Roles
+
 Ansible roles organise related tasks, handlers, variables, files, templates, and metadata into reusable units. A role can configure one service or implement a focused system function. This structure reduces duplication, supports testing, and keeps playbooks concise.
+
 ## Role structure
+
 Ansible loads conventional files named `main.yml` from standard subdirectories. A role needs only the directories that its work requires.
 
 | Path | Purpose |
@@ -31,7 +34,9 @@ ansible-galaxy role init motd --init-path roles
 A role task refers to content within its own resource directory without repeating that directory name. For example, a template task uses `src: motd.j2`, not `src: templates/motd.j2`. File modes should use quoted strings such as `'0444'`. Templates should use current fact notation such as `ansible_facts['hostname']`.
 
 An MOTD role can keep its message template in `templates/motd.j2`, expose the responsible team as a default, and deploy `/etc/motd` through `ansible.builtin.template`. The playbook then supplies environment-specific contact details without changing the role.
+
 ## Applying roles
+
 Roles listed under `roles` act as static imports. Ansible runs `pre_tasks`, their notified handlers, roles in the declared order, ordinary tasks, their notified handlers, `post_tasks`, and the remaining notified handlers. Role dependencies run before the dependent role.
 
 ```yaml
@@ -52,7 +57,9 @@ Dependencies suit genuine prerequisites, such as a web application requiring a d
 Projects should keep inventories, `group_vars`, `host_vars`, playbooks, roles, and dependency files under version control. Each role should have a narrow purpose, documented inputs, sensible defaults, argument validation, and automated tests. A site playbook can coordinate several focused roles without embedding their implementation.
 
 Separate inventories can represent development, testing, and production. Shared values belong in group variables, host exceptions belong in host variables, and `site.yml` can provide the main entry point.
+
 ## Galaxy roles and collections
+
 Ansible Galaxy distributes standalone roles and collections. Collections now provide the main packaging model for roles, modules, plugins, and related content. Before adopting external content, administrators should inspect its publisher, source, licence, maintenance activity, supported platforms, dependencies, tests, and implementation. Download counts do not establish quality or security.
 
 A requirements file records reviewed dependencies and pins versions so that later installations use the intended releases:
@@ -68,7 +75,9 @@ collections:
 ```
 
 The command `ansible-galaxy install -r requirements.yml` installs both sections. Separate `role` and `collection` subcommands support searching, inspecting, listing, installing, verifying, and removing content where applicable. Teams should review updates before changing pinned versions.
+
 ## RHEL System Roles
+
 RHEL System Roles provide supported automation for common RHEL services and settings. On a RHEL 10 control node, `ansible-core` 2.16 manages RHEL 9 and RHEL 10 nodes. The command `dnf install rhel-system-roles` installs the `redhat.rhel_system_roles` collection and `ansible-core`. The collection resides under `/usr/share/ansible/collections/ansible_collections/redhat/rhel_system_roles/`. Ansible Automation Platform can install the same collection from Red Hat Automation Hub.
 
 Playbooks should use fully qualified names such as `redhat.rhel_system_roles.selinux` and `redhat.rhel_system_roles.timesync`.

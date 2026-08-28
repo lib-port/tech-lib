@@ -1,14 +1,18 @@
 # Docker Foundations
+
 > [!NOTE]
 > A comprehensive introduction to Docker’s core workflow: building secure, portable images, distributing them through registries, and running disposable containers individually or as multi-service applications with Compose.
 
 Docker helps developers build, share and run applications as containers. A container packages an application with the files, libraries and configuration it needs, then runs it as an isolated process. Containers share the host kernel, so they are not small virtual machines, although developers often manage them with similar start, stop and restart workflows.
 
 A practical Docker setup gives developers three core capabilities:
+
 - Build container images from application source code.
 - Store and share those images through a registry such as Docker Hub.
 - Run containers locally, in CI pipelines, on servers or in orchestrated platforms.
+
 ## Choosing a Docker environment
+
 Docker Desktop suits most software development work. It bundles Docker Engine, the Docker CLI, Docker Compose, Docker Hub integration, Docker Scout, Kubernetes support and a graphical interface for managing containers, images, volumes, extensions and related tools. It runs on macOS, Windows and Linux, with builds for common AMD64 and ARM64 systems.
 
 Docker Desktop is free for personal use, education, non-commercial open source projects and small businesses that meet Docker's free-tier limits. Larger organisations and some commercial uses need a paid subscription. Developers should check their organisation's policy before installing it on work-managed devices.
@@ -22,11 +26,15 @@ Podman Desktop and Rancher Desktop are useful alternatives when Docker Desktop i
 The safest learning path is to begin with Docker Desktop when licensing and local policy allow it, then learn where the same commands map to other engines. This prevents the graphical interface from becoming a crutch. The GUI helps with discovery, but the CLI remains the portable skill. A developer who can build, tag, push, run, inspect and remove containers from the terminal can work across desktop machines, build agents and servers.
 
 Tool choice should also reflect risk. Desktop tools are convenient because they bundle many features, but they can hide resource use and background services. Server and CI environments usually need fewer moving parts, clearer upgrade control and tighter security settings. A team should standardise the supported toolchain so local builds, CI builds and production images do not drift.
+
 ## Docker ID and registries
+
 A Docker ID gives developers access to Docker Hub. Docker Hub stores container images in repositories, which makes images available across laptops, servers, CI jobs and deployment environments. Docker Hub is not the only registry. GitHub, AWS, Azure, Google and private on-premises registries can also store images. Any registry that follows the OCI distribution specification works with standard container tooling.
 
 Developers usually push images to a registry after building them locally. The registry becomes the shared source of truth, while local machines pull images as needed. This workflow keeps application packaging consistent across development and deployment.
+
 ## Images, containers and Dockerfiles
+
 A container image is an immutable package that contains the files, binaries, libraries and configuration needed to create a container. A container is a running instance of an image. Multiple containers can run from the same image, just as many objects can be created from one class or many virtual machines can be created from one template. The image is not a stopped container. It is the template from which containers start.
 
 A Dockerfile describes how Docker should build an image. For a simple Node.js web application, the Dockerfile might start from a Node base image, add metadata, create an application directory, copy source files into the image, install dependencies from `package.json`, set a working directory and define the command that runs when a container starts.
@@ -46,7 +54,9 @@ docker build -t example-user/dockerfun:2025 .
 ```
 
 The tag identifies the registry namespace, repository name and image tag. The final `.` tells Docker to use the current directory as the build context, including the Dockerfile and application files. Docker reads the Dockerfile, downloads any required base layers, adds the application and dependencies, and produces a local image.
+
 ## Publishing and multi-platform images
+
 Developers publish an image with `docker push`:
 
 ```bash
@@ -60,7 +70,9 @@ Architecture matters. An image built on Apple Silicon may produce an ARM64 image
 A registry tag such as `2025` or `latest` is a movable label. It can point to a different image after a later push. For repeatable deployments, teams should track immutable digests or use version tags that align with release processes. Tags remain useful for humans, but digests identify the exact image content.
 
 Pushing to a registry also creates a supply-chain boundary. Developers should avoid publishing images that contain secrets, private source code that should not leave the organisation, or build files that reveal internal infrastructure. Registry permissions, image scanning and retention policies should be part of the workflow rather than afterthoughts.
+
 ## Running and managing containers
+
 Developers start containers with `docker run`. A web application that listens on port 8080 inside the container can publish that service on port 8000 of the host:
 
 ```bash
@@ -72,6 +84,7 @@ The `-d` flag runs the container in the background. The `--name` flag gives the 
 Docker checks for the image locally first. If the image is absent and the name does not specify another registry, Docker tries Docker Hub. After Docker pulls the image, it starts the container and assigns it a unique container ID.
 
 Common container management commands include:
+
 - `docker ps` lists running containers.
 - `docker ps -a` lists running and stopped containers.
 - `docker stop web` asks the container to shut down.
@@ -92,10 +105,13 @@ The `-i` flag keeps standard input open, and `-t` allocates a terminal. Exiting 
 Containers should be treated as disposable. A container filesystem may preserve changes while that container exists, but rebuilding or replacing the container can remove those changes. Persistent data belongs in named volumes, bind mounts or external services. Logs should go to standard output and standard error so Docker, Compose and production platforms can collect them consistently.
 
 Port publishing should be deliberate. Publishing a port exposes a service beyond the container network, often to the host and sometimes to other machines depending on host firewall and binding settings. Databases, queues and internal services should normally remain on private networks unless another component outside Docker must reach them.
+
 ## Multi-container applications with Docker Compose
+
 Most real applications use more than one container. A web frontend, database, cache, queue and worker process may each need a separate container. Docker Compose lets developers define those services, networks and volumes in a YAML file, then start the application with one command.
 
 A simple Compose application might include:
+
 - A frontend service called `fe` that builds from a local Dockerfile and runs a Python Flask application.
 - A backend service called `be` that uses the `redis:alpine` image from Docker Hub.
 - A private network called `internal` that lets the frontend reach Redis without publishing Redis to the host.
@@ -108,7 +124,9 @@ The command `docker compose down` stops and removes the application resources cr
 Compose does not replace production orchestration, but it gives teams a readable application model. The same file can document which services exist, which images or build contexts they use, which ports they publish, which environment variables they expect and which volumes they mount. This makes onboarding easier because a new developer can start a known application stack without manually creating each container.
 
 A Compose file should avoid embedding secrets directly. Environment files and secret managers provide safer patterns, especially when the same repository is shared. Compose is also useful in CI because tests can start a real database or cache for integration testing, then tear the stack down when the job ends.
+
 ## Related Docker Desktop features
+
 Docker Desktop now reaches beyond basic container workflows. These features are useful, but they should not distract from the core container model of images, registries and running containers.
 
 Docker Model Runner helps developers pull, run and serve AI models from Docker Hub, OCI-compliant registries and Hugging Face. It integrates with Docker Desktop and the Docker CLI and can expose models through an OpenAI-compatible API. It is useful for local AI development, but platform support, GPU support and performance vary by operating system and hardware.
@@ -120,10 +138,13 @@ Docker Desktop has supported Wasm workloads alongside Linux containers, but Dock
 Docker Offload lets developers build and run containers in Docker-managed cloud resources while using local Docker Desktop tools and workflows. It can help when local machines lack nested virtualisation, sufficient CPU or GPU capacity, but it requires Docker Desktop 4.68 or later and access to the Docker Offload subscription. Because Offload shifts execution to cloud resources, developers should monitor context, cost and data-transfer implications.
 
 Docker Scout analyses container images, builds a software bill of materials and compares components with vulnerability data. It can report affected packages, severity, policy status and remediation guidance. Scout works well as part of supply-chain security, but it does not remove the need to patch base images, rebuild applications, test changes and manage exceptions for false positives or accepted risk.
+
 ## Practical guidance
+
 Docker Desktop is the best default for developers who want the broadest local workflow and whose organisation permits it. Docker Engine is better for Linux servers, automation and lean CI runners. Podman suits teams that prefer a daemonless, rootless-first model or need Docker-like commands without Docker Desktop. Rancher Desktop suits developers focused on local Kubernetes and open container tooling.
 
 The core workflow remains consistent across these tools:
+
 - Start with application source code and a Dockerfile.
 - Build an image.
 - Push the image to a registry.

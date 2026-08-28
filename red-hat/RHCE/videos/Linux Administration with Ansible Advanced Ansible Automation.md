@@ -1,4 +1,5 @@
 # Linux Administration with Ansible: Advanced Ansible Automation
+
 > [!NOTE]
 > Explains how advanced Ansible practices (including templating, roles, collections, Vault, execution controls, and network resource modules) enable safer, scalable, reusable, and data-driven automation.
 
@@ -9,6 +10,7 @@ A RHEL 10 control node needs an inventory, SSH access to managed nodes, and an a
 Project-specific settings belong in a reviewed `ansible.cfg`, not in undocumented shell state. `ansible-config dump --only-changed` reveals the effective differences from defaults, while `ansible --version` reports the configuration file and collection search paths in use. Each repository should also identify its inventory source, required collections, supported operating systems, and expected Ansible release.
 
 Automation should progress through increasingly realistic checks:
+
 - `ansible-playbook --syntax-check` catches structural YAML and playbook errors.
 - `ansible-lint` detects many style, safety, and portability problems.
 - `ansible-playbook --check --diff` previews changes where modules support those modes.
@@ -18,6 +20,7 @@ Automation should progress through increasingly realistic checks:
 Check mode cannot prove that a syntactically valid configuration will work, and some modules cannot simulate every action. Tests must verify the resulting service, not only a successful Ansible return code.
 
 Ansible automation rests on six related capabilities:
+
 - Jinja templates turn variables and facts into host-specific text files.
 - Roles organise reusable tasks, handlers, defaults, files, and templates.
 - Collections distribute versioned modules, plugins, roles, and documentation.
@@ -26,10 +29,13 @@ Ansible automation rests on six related capabilities:
 - Network resource modules translate structured data into device configuration.
 
 Playbooks should use fully qualified collection names, pin external content versions, keep secrets out of output, and pass syntax, lint, check-mode, and integration tests before production use.
+
 ## Jinja templating
+
 Jinja renders text on the control node before Ansible transfers the result to a managed host. Managed RHEL 10 hosts therefore do not need a separate Jinja installation. The `ansible.builtin.template` module renders one result for each host, compares that result with the destination, and changes the destination only when the content or managed file attributes differ.
 
 Jinja uses three delimiter forms:
+
 - `{{ expression }}` prints a value.
 - `{% statement %}` controls an `if` block, loop, or other operation.
 - `{# comment #}` records a template comment without adding it to the result.
@@ -126,8 +132,11 @@ Custom templating remains useful for applications without maintained automation 
 ```
 
 An NTS source can set `nts: true`. A configuration should not mix authenticated NTS sources with unauthenticated fallback sources. Verification should check `chronyc tracking`, `chronyc sources`, and, for NTS, `chronyc -N authdata`.
+
 ## Roles
+
 A role groups related automation under a known directory structure. Current Ansible documentation identifies seven main standard directories:
+
 - `tasks/` contains the task sequence.
 - `handlers/` contains actions notified by changed tasks.
 - `templates/` contains Jinja templates.
@@ -160,6 +169,7 @@ Role defaults expose supported inputs. Role vars should hold internal values tha
 Handlers enter the play's global handler scope. Duplicate handler names can therefore conflict across roles. A role can use a qualified notification such as `role_name : handler_name`, or handlers can share a `listen` topic. Handlers run after notified task sections and only when a notifying task reports a change.
 
 Roles support three main reuse forms:
+
 - `roles:` performs static reuse at play level and runs those roles before ordinary tasks.
 - `ansible.builtin.import_role` performs static reuse at its task position.
 - `ansible.builtin.include_role` performs dynamic reuse at run time and supports conditions on the include.
@@ -171,7 +181,9 @@ Dependencies in `meta/main.yml` run before the dependent role. Dependencies can 
 Migrating a large playbook into roles starts with cohesive task groups. Associated handlers, templates, files, and defaults move with each group. The remaining playbook coordinates the roles and application-specific tasks. The migration should preserve task order, notification behaviour, variable precedence, privilege escalation, and idempotence.
 
 Idempotence means that a second run against the desired state reports no unnecessary changes. Command and shell tasks often break this property unless `creates`, `removes`, `changed_when`, or a purpose-built module supplies state awareness. A role test should run twice and treat unexpected changes on the second run as a defect. Handlers should not restart services on every execution.
+
 ## Collections and content sources
+
 `ansible-core` supplies the automation language, runtime, command-line tools, and the `ansible.builtin` collection. External collections supply most vendor, cloud, database, and network content. A fully qualified collection name identifies the exact source, as in `community.general.timezone` or `cisco.ios.ios_facts`, and avoids collisions between plugins with the same short name.
 
 RHEL 10 administrators can install `rhel-system-roles`, which places the `redhat.rhel_system_roles` collection under `/usr/share/ansible/collections/ansible_collections/`. Ansible Automation Platform users can obtain supported content from Red Hat Automation Hub and package it in an execution environment. Ansible Galaxy hosts community content. Private Automation Hub can curate approved content for an organisation.
@@ -197,7 +209,9 @@ A single `requirements.yml` can contain both `roles:` and `collections:`. In tha
 Only one version of a given collection can occupy one installation path at a time. Separate projects or execution environments can carry different tested versions. Configuration should use the current `collections_path` setting or the corresponding search-path controls for the installed Ansible release.
 
 Collection dependencies in `MANIFEST.json` can install transitively, but a project-level requirements file should still record direct dependencies. Builds should preserve the resolved versions in an execution environment image or another repeatable artefact. Pulling an unpinned latest release during a production job makes testing and rollback unreliable.
+
 ## Ansible Vault
+
 Ansible Vault protects data at rest with symmetric encryption. It can encrypt a complete file or an individual string embedded in YAML. It does not protect a secret after Ansible decrypts it, sends it to a module, writes it to a managed host, or exposes it in output.
 
 Complete files suit variable sets and structured data:
@@ -228,12 +242,15 @@ Vaulted templates and files decrypt during use. A file supplied to modules such 
 Whole-file encryption hides variable names and can hinder review. A common layout keeps public variable names in one file and sensitive values in a separate vaulted file with a `vault_` prefix. The public value refers to its encrypted counterpart. This pattern keeps the role interface visible without exposing the secret.
 
 Vault works well for encrypted data stored with a project. A dedicated secret manager offers stronger access control, audit, rotation, and short-lived credential workflows. Whichever method an organisation selects, it should separate duties, restrict decryption access, rotate compromised credentials, and test recovery from lost Vault passwords.
+
 ## Parallelism and execution control
+
 Ansible uses the `linear` strategy and five forks by default. Linear execution runs a task across the current host set before starting the next task. The effective concurrency never exceeds the smallest applicable limit from the host batch, available forks, and task throttle.
 
 `forks` sets the maximum number of worker processes. A larger value can shorten execution, but no universal host-to-memory formula determines a safe value. Module payloads, fact gathering, connection plugins, network latency, controller CPU, controller memory, and target capacity all influence performance. Teams should benchmark representative jobs, increase gradually, and observe controller and target health.
 
 The principal strategies serve different needs:
+
 - `linear` preserves task-by-task coordination across hosts.
 - `free` lets each host advance through tasks without waiting for slower hosts.
 - `host_pinned` keeps a worker with one host until that host finishes, while limiting active hosts through forks and batches.
@@ -261,7 +278,9 @@ A rolling service change can combine a conservative batch with a task-specific l
 ```
 
 The batch protects overall service capacity, while the throttle protects the shared dependency used by the migration. A load balancer drain, health probe, and rejoin step should surround the update when traffic must stay available. `any_errors_fatal` can halt all active hosts after a critical failure, while `max_fail_percentage` defines the tolerated failure rate within the current batch.
+
 ## Network resource modules
+
 Ansible can manage network devices through native configuration modules, rendered command templates, or resource modules. Native modules expose device commands directly. Jinja templates generate those commands from variables. Resource modules accept structured data for a defined resource such as interfaces, VLANs, routes, or access control lists.
 
 The `cisco.ios` collection does not ship in `ansible-core`. A project must install and pin it before using `cisco.ios.ios_facts` or `cisco.ios.ios_acls`. Network facts can gather selected resources as structured data under `ansible_facts['network_resources']`. Resource module output can also return `before`, `after`, and generated native commands.
@@ -286,6 +305,7 @@ Network plays normally disable ordinary server fact gathering and call the platf
 The resulting structured facts can support compliance checks, backups, migration, and input to a resource module. An observed configuration is not automatically the intended configuration. A controller should compare observed facts with reviewed source data and then calculate a controlled change.
 
 Common resource states include:
+
 - `merged` adds supplied configuration without removing unspecified entries.
 - `replaced` replaces the specified resource subsection.
 - `overridden` makes the supplied resource configuration authoritative across the managed scope.
@@ -325,5 +345,7 @@ An ACL change that permits NTP traffic should add the narrowest required rule an
 ACL behaviour depends on attachment direction, return traffic, existing entries, and the device platform. A safe change gathers the current state, records an independent backup, renders or checks the proposed commands, reviews the diff, tests from an out-of-band management path, applies to a limited device set, and verifies both time synchronisation and administrative access. Saving live configuration directly into auto-loaded `host_vars` can blur observed state and intended state. Separate audit snapshots from authoritative inventory data.
 
 Resource modules improve consistency and idempotence, but they do not remove the need for network design knowledge. Teams must understand the module's scope, the device's command semantics, and the consequences of each state before applying a change.
+
 ## Operational baseline
+
 Reliable RHEL 10 automation uses a repeatable control environment, supported RHEL System Roles where available, explicit collection versions, role argument validation, and fully qualified names. Templates and resource modules should validate generated configuration before deployment. Vault or an external secret service should protect stored credentials, while `no_log` and controlled logging should protect run-time output. Concurrency should follow measured capacity and service limits. Check mode, diff review, staged rollout, application health checks, and verified rollback should precede broad production changes.

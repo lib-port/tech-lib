@@ -1,7 +1,10 @@
-# Using Essential Tools 
+# Using Essential Tools
+
 > [!NOTE]
 > A practical introduction to essential RHEL command-line skills, covering lab setup, remote access, text processing, file management, permissions, ownership, links, archiving, and compression.
+
 ## RHEL 8 and a safe practice environment
+
 Red Hat Enterprise Linux 8 is an enterprise Linux distribution built for long support cycles, controlled updates, and stable application compatibility. Application Streams can have shorter life cycles than the operating system, so administrators must check the life cycle of each selected stream.
 
 A RHEL subscription governs access to Red Hat repositories, updates, support services, and related content. Much of the underlying software uses open-source licences, but RHEL binaries and updates may carry conditions. An eligible Red Hat account and subscription can register a development or production system. Interactive registration avoids exposing a password in shell history or a process list:
@@ -33,7 +36,9 @@ uname -r
 ```
 
 Vagrant commands operate against the `Vagrantfile` in the project directory. `vagrant up` creates or starts the machine, `vagrant ssh` uses connection details and keys maintained by Vagrant, and `vagrant halt` requests a clean shutdown. This convenience does not remove the need to register an entitled RHEL guest, patch it, protect credentials, and understand the resulting network exposure.
+
 ## bash access, SSH, and command help
+
 A physical or virtual bash connects directly to a terminal such as `/dev/tty1`. An SSH session normally uses a pseudo-terminal such as `/dev/pts/0`. The `tty` command identifies the current terminal.
 
 Before an SSH connection, an administrator checks the host identity, addresses, service, listening sockets, firewall policy, and route:
@@ -78,7 +83,9 @@ ls -l "$(tty)"
 ```
 
 Quoting the substitution keeps its result as one argument. Shell quoting, expansion, and splitting occur before a program receives its arguments, so a displayed command can behave differently when quotes disappear.
+
 ## Streams, redirection, pipelines, and `tee`
+
 Every process starts with three conventional file descriptors:
 
 | Descriptor | Name | Normal destination or source |
@@ -133,7 +140,9 @@ command >>combined.log 2>&1
 ```
 
 `/dev/null` discards data, but silent error removal can hide a failed operation. Logging an expected failure with context usually serves administration better than discarding all standard error. A pipeline's exit status normally comes from its last command unless Bash enables `pipefail`, so robust scripts commonly use `set -o pipefail` and test the resulting status.
+
 ## Creating and editing text
+
 `touch file1` creates an empty file when `file1` does not exist. When it exists, `touch` updates its timestamps unless options request another action. The `file file1` command examines content and metadata to classify the object. `cat file1` writes its content to standard output.
 
 Nano offers direct editing and displays its principal shortcuts. An administrator opens a file with `nano path`, edits it, presses `Ctrl-X`, confirms whether to save, and confirms the file name. A privileged configuration file requires an authorised command such as `sudo nano /etc/hosts`.
@@ -160,7 +169,9 @@ sudo systemctl reload sshd
 ```
 
 The administrator retains the current privileged session until a second connection confirms that SSH still works. This practice prevents a syntax or access error from closing the only available management path.
+
 ## Paths, directories, files, and shell expansion
+
 Linux presents many resources through file-like interfaces, but the phrase "everything is a file" is shorthand. Regular files, directories, symbolic links, devices, pipes, and sockets have distinct semantics. A directory maps names to filesystem objects rather than behaving like an ordinary text file.
 
 An absolute path begins at `/`, the filesystem root. A relative path begins at the current working directory. `.` names the current directory, `..` names its parent, and `~` expands to a user's home directory. These commands control location:
@@ -209,7 +220,9 @@ rm -- -unusual-name
 ```
 
 Copy and move commands can overwrite an existing destination. Interactive options can request confirmation, but scripts need explicit collision handling. Preserving metadata may require `cp -a` rather than plain `cp`, especially for a directory tree containing links, timestamps, ownership, or extended attributes.
+
 ## Reading and searching text
+
 Different tools suit different file sizes and questions:
 
 | Command | Use |
@@ -247,7 +260,9 @@ sudo grep -Ev '^[[:space:]]*(#|$)' /etc/ssh/sshd_config | wc -l
 ```
 
 The count describes the filtered text, not the number of effective configuration directives. Duplicate keys, included files, context-specific blocks, and built-in defaults still require a configuration-aware validator. `grep` reads data without changing the source file, which makes it suitable for inspection before an edit.
+
 ## Metadata and file types
+
 `ls -l` shows the file type and mode, hard-link count, owner, group, size, modification time, and name. `ls -ld directory` reports on the directory entry instead of listing its contents. Colour depends on aliases and environment settings, so it cannot establish type, security, or access.
 
 `stat` supplies fuller metadata and supports selected output:
@@ -273,7 +288,9 @@ The first character in an `ls -l` mode string identifies the broad object type:
 | `s` | Socket |
 
 A socket can represent local interprocess communication or a network endpoint. It does not always represent an active network connection.
+
 ## Permissions, `umask`, and mode changes
+
 Discretionary access-control mode bits divide permissions among the owning user, owning group, and all other users. The kernel selects one applicable class. It uses owner bits when the effective user ID matches the owner, group bits when a group matches, and other bits otherwise. It does not combine a matching owner's permissions with group or other permissions.
 
 The symbols `r`, `w`, and `x` change meaning for directories:
@@ -322,7 +339,9 @@ ls -lZ /srv/project/report.txt
 `namei -l` displays path components and their modes. `getfacl` reveals named user, named group, and mask entries that `ls -l` compresses into a `+` marker. An ACL mask limits the effective permissions of named users, named groups, and the owning group. `chmod` can change that mask, so administrators should recheck ACLs after a mode change.
 
 SELinux labels add type-based controls independently of discretionary permissions. Broadening a mode to `0777` cannot solve a denial caused by an unsuitable SELinux type, and it can create an unrelated exposure. Administrators should examine audit records and repair the label or policy instead of disabling SELinux or opening every mode bit.
+
 ## Ownership, identities, privilege, and links
+
 RHEL commonly creates a private group with the same name as each ordinary user. A new file normally takes the process's effective user ID and effective group ID. A directory with the set-group-ID bit can instead make new entries inherit the directory's group.
 
 `chown` changes ownership, and `chgrp` changes group ownership:
@@ -363,7 +382,9 @@ ln -s /etc/services ports
 ```
 
 Symbolic links can cross filesystems and can refer to directories. They have their own inode and can dangle when the target disappears. Relative link targets resolve from the directory containing the link, not from the process's current directory.
+
 ## Restricted directories and reliable logging
+
 Execute permission without read permission on a directory allows traversal and access to known names but blocks an ordinary listing. This arrangement does not provide strong confidentiality because users can guess names, learn them elsewhere, or observe them through another channel. Write and execute permission can let a user create entries and remove or rename known entries.
 
 The sticky bit protects a shared writable directory by restricting removal and renaming to an entry's owner, the directory owner, or a privileged process:
@@ -394,7 +415,9 @@ getfacl /srv/project/report.txt
 ```
 
 The ACL mask can reduce the displayed named entry's effective access. Administrators should use `getfacl` to verify the result and should remember that copying or archiving may require explicit options to preserve ACLs and extended attributes.
+
 ## Archives and compression
+
 An archive combines files and metadata into one stream. Compression reduces repeated data patterns within that stream. An uncompressed tar archive does not guarantee space savings. Tar adds headers and padding, and comparisons between a directory's allocated blocks and an archive's apparent size can mislead.
 
 GNU tar uses `-c` to create, `-t` to list, `-x` to extract, and `-f` to identify the archive:

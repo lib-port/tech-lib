@@ -1,17 +1,27 @@
 # Python for Data Science, AI & Development Final Project
+
 An international firm that is looking to expand its business in different countries across the world has recruited you. You have been hired as a junior Data Engineer and are tasked with creating a script that can extract the list of the top 10 largest economies of the world in descending order of their GDPs in Billion USD (rounded to 2 decimal places), as logged by the International Monetary Fund (IMF).
 
-The required data is available [here](https://web.archive.org/web/20230902185326/https://en.wikipedia.org/wiki/List_of_countries_by_GDP_%28nominal%29).
+The required data is available from the [Internet Archive](https://web.archive.org/web/20230902185326/https://en.wikipedia.org/wiki/List_of_countries_by_GDP_%28nominal%29).
+
 ## Excercise 1
+
 Extract the required GDP data from the given URL using Web Scraping. You can use Pandas library to extract the required table directly as a DataFrame. Note that the required table is the third one on the website, as shown in the image below.
+
 ## Exercise 2
+
 Modify the GDP column of the DataFrame, converting the value available in Million USD to Billion USD. Use the `round()` method of Numpy library to round the value to 2 decimal places. Modify the header of the DataFrame to `GDP (Billion USD)`.
+
 ## Exercise 3
-Modify the GDP column of the DataFrame, converting the value available in Million USD to Billion USD. Use the `round()` method of Numpy library to round the value to 2 decimal 
+
+Modify the GDP column of the DataFrame, converting the value available in Million USD to Billion USD. Use the `round()` method of Numpy library to round the value to 2 decimal
 places. Modify the header of the DataFrame to `GDP (Billion USD)`.
+
 ## Solution
+
 > [!NOTE]
 > This times out often if you have high latency with the Internet Archive. Multiple attempts might be required.
+
 ```python
 from io import StringIO
 import numpy as np

@@ -1,10 +1,13 @@
 # *Introduction to Agile Development and Scrum* Final Project
+
 In this scenario, you will play the roles of a product owner, scrum master, and developer. As a product owner, you will create stories for your team and organize these stories into a product backlog. As a scrum master, you will create a sprint milestone and ensure that a subset of the stories is ready to be placed in a sprint plan. As a developer, you will create the sprint backlog and execute some of the stories by moving them across the kanban board in a simulated sprint.
 
 Your team has been tasked with developing the back-end product catalog for an e-commerce website. Stakeholders require the ability to create, retrieve, update, and delete products from the catalog, along with features like indicating product likes and hosting on a cloud environment with automated deployments.
 
 Your team will use a kanban board to create a backlog and sprint plan for this work. As the product owner, you will drive the process by leveraging the skills learned in the lessons and labs to create a new GitHub repository and kanban board and fill the kanban board with issues that will become user stories.
+
 ## Stakeholder requirements
+
 Following are the requirements from your stakeholders that you should use to create the user stories in Kanban board.
 
 1. Need the ability to create a product in the catalog.
@@ -17,7 +20,9 @@ Following are the requirements from your stakeholders that you should use to cre
 8. Need the ability to query a subset of products in the catalog.
 9. Must be hosted in the cloud.
 10. Must have automation to deploy new changes to the cloud.
+
 ## Tasks
+
 1. Create a new GitHub repository called `agile-final-project` and ensure it is public.
 2. Create a **Project** in your GitHub repository and name it **Final Project**.
 3. Create an issue template for the new repository similar to the labs.
@@ -25,8 +30,11 @@ Following are the requirements from your stakeholders that you should use to cre
 5. Move requirements 7 and 8 issues into the **Icebox**.
 6. Move the remaining issues into the **Product Backlog**.
 7. Conduct a **Sprint Planning** meeting. Add the top 4  stories to the sprint, assign them to the sprint milestone, and assign  story point estimates. Move these 4 stories to the **Sprint Backlog**.
-##  Solution
+
+## Solution
+
 ### Authenticate and create the repository
+
 ```bash
 set -euo pipefail
 
@@ -51,7 +59,9 @@ gh repo create "$FULL_REPO" \
 
 cd "$REPO"
 ```
+
 ### Add and commit the user-story template
+
 ````bash
 mkdir -p .github/ISSUE_TEMPLATE
 
@@ -93,7 +103,9 @@ git add .github/ISSUE_TEMPLATE/user-story.md user-story.md
 git commit -m "Add user story issue template"
 git push
 ````
+
 ### Create and configure the public Project
+
 ```bash
 PROJECT_NUMBER="$(
   gh project create \
@@ -124,7 +136,9 @@ gh project field-create "$PROJECT_NUMBER" \
   --name "Story points" \
   --data-type NUMBER
 ```
+
 ### Create user stories
+
 ```bash
 create_story() {
   local title="$1"
@@ -268,8 +282,11 @@ add_story \
   "the deployment workflow runs" \
   "the new version is deployed and its result is reported"
 ```
+
 ### Build Product Backlog and Icebox
+
 Requirements 7 and 8 go to `Icebox`. Rverything else initially goes to `Product Backlog`.
+
 ```bash
 for i in "${!ISSUE_URLS[@]}"; do
   gh project item-add "$PROJECT_NUMBER" \
@@ -295,26 +312,33 @@ gh project item-list "$PROJECT_NUMBER" \
   --field "Workflow" \
   --field "Story points"
 ```
+
 At this point, the expected distribution is:
 
 | Workflow        | Requirements |
 | --------------- | ------------ |
 | Product Backlog | 1-6, 9, 10   |
 | Icebox          | 7, 8         |
+
 ### Configure Kanban view
+
 ```bash
 gh project view "$PROJECT_NUMBER" --owner "$OWNER" --web
 ```
 
 In GitHub:
+
 1. Select **New view**.
 2. Select **View -> Layout -> Board**.
 3. Rename the view *Kanban Board*.
 4. Select **View -> Column field -> Workflow**.
 5. Ensure all six workflow columns are visible.
 6. Save the view by selecting **Save changes**.
+
 ### Create Sprint 1 and plan the top four stories
+
 Change `SPRINT_DUE` if necessary.
+
 ```bash
 SPRINT_TITLE="Sprint 1"
 SPRINT_DUE="2026-08-22T15:59:59Z"
@@ -355,6 +379,7 @@ for i in 0 1 2 3; do
     --value "Sprint Backlog" >/dev/null
 done
 ```
+
 The resulting sprint plan is:
 
 | Story            | Points | Workflow       |
@@ -365,7 +390,9 @@ The resulting sprint plan is:
 | Delete product   |      2 | Sprint Backlog |
 
 ### Optional mock-sprint movement
+
 This leaves story 1 complete, story 2 in progress, and stories 3-4 in the Sprint Backlog.
+
 ```bash
 # Developers start stories 1 and 2.
 for i in 0 1; do

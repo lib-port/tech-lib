@@ -1,11 +1,16 @@
 # Microservices with Docker
+
 > [!NOTE]
 > This guide shows how to build, connect, scale, and deploy a containerized microservices application across Docker Compose, Docker Swarm, and Google Kubernetes Engine while addressing networking, storage, resilience, and monitoring.
+
 ## Architecture
+
 A microservices architecture divides a system into small, autonomous services aligned with business capabilities. Each service owns a clear boundary. Teams can build, deploy, scale, and revise each service independently. Running a web front end, an API, and PostgreSQL in separate containers creates a multi-container application, but container count alone does not establish microservice boundaries. Independent ownership, deployment, and data responsibilities provide that distinction.
 
 Containers package each component consistently. Docker Compose coordinates local development, Docker Swarm orchestrates Docker Engine clusters, and Kubernetes manages workloads on platforms such as Google Kubernetes Engine (GKE).
+
 ## Local development with Docker Compose
+
 `docker init` can generate a Dockerfile, `.dockerignore`, and Compose configuration for a detected application such as ASP.NET Core. Teams should review generated files, pin supported base images, remove unnecessary build content, and run application processes as non-root users where feasible.
 
 Compose defines services, networks, volumes, configurations, and secrets in YAML. A catalogue application can use three services:
@@ -30,7 +35,9 @@ Startup order does not prove readiness. Compose starts a dependency before its c
 | `docker compose ps` | Shows service containers and their state |
 | `docker compose logs -f api` | Streams API logs |
 | `docker compose down` | Removes service containers and the default network |
+
 ## Cluster orchestration with Docker Swarm
+
 `docker swarm init --advertise-addr <manager-ip>` creates a swarm manager with a stable advertised address. Worker nodes join with a generated token, which operators must protect and rotate if exposed. A single manager suits a lab, but production requires an odd manager quorum, commonly three or five managers distributed across failure domains.
 
 A Swarm service declares an image, replica count, ports, placement rules, update behaviour, and resource constraints. Swarm schedules each replica as a task, replaces failed tasks, and maintains the requested count. Scaling a replicated service changes that count. Published ports use the routing mesh, which accepts traffic on swarm nodes and routes requests to service tasks.
@@ -40,7 +47,9 @@ Useful commands include `docker service ls`, `docker service ps <service>`, `doc
 A stack groups services, networks, volumes, configs, and secrets. `docker stack deploy -c stack.yaml staging` runs only on a manager. It does not build images and ignores `build`, so a pipeline must build, test, tag, and push images to a registry first. Stack deployment still uses the legacy Compose version 3 format rather than the complete current Compose Specification.
 
 Docker configs distribute non-sensitive files such as NGINX or initialisation configuration. Swarm does not encrypt configs at rest. Docker secrets protect passwords and keys, and only authorised service tasks can access them. A placement constraint that binds PostgreSQL to one node can reconnect it to a node-local volume, but it also creates a failure dependency. Production databases need durable shared storage, tested backups, recovery procedures, or a managed database service.
+
 ## Production deployment on GKE
+
 GKE Autopilot manages cluster nodes and infrastructure. Current commands should state the location and project explicitly:
 
 ```sh

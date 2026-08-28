@@ -1,11 +1,15 @@
 # *Red Hat Certified Specialist in Performance Tuning* Course Notes
+
 *v1.0 stable release*
 
 These notes cover material from Pluralsight's 12 hour, self-paced [Red Hat Certified Specialist in Performance Tuning](https://www.pluralsight.com/courses/red-hat-certified-specialist-in-performance-tuning-ex442) course. They cover how to analyze the performance of a Red Hat Enterprise Linux system, build and validate your knowledge of these tools, and update and tune the performance of a Red Hat Enterprise Linux system and the applications hosted on it.
+
 ## Performance tuning method
+
 Effective tuning begins with a defined workload and a measurable objective. Throughput, latency, response time, resource efficiency, power use, and recovery time describe different outcomes. Improving one can degrade another. A change that increases bulk throughput can increase tail latency, while aggressive caching can improve read performance at the cost of memory pressure.
 
 An administrator should use a controlled cycle:
+
 1. Define the workload, service-level target, test duration, and acceptable risk.
 2. Record hardware, software, topology, configuration, and workload versions.
 3. Establish a baseline under representative load.
@@ -21,8 +25,11 @@ Measurements need context. CPU utilisation without run-queue length, I/O wait, i
 Application selection follows the same discipline. Administrators should compare supported versions with identical data, load, hardware, configuration, and test duration. Selection should account for CPU, memory, storage, network traffic, dependencies, support life, operational complexity, scaling, and failure behaviour. The newest version is not automatically the best performer for a specific workload.
 
 Tests should run in a non-production environment when tools add significant overhead or when changes can destabilise the host. Production investigation should begin with low-overhead observation. Administrators should record commands, timestamps, output, and rollback steps before changing a live service.
+
 ## Kernel behaviour
+
 ### Boot-time and runtime parameters
+
 Kernel command-line parameters take effect during boot. Runtime parameters exposed through `sysctl`, `/proc/sys/`, and `/sys/` control behaviour after the kernel starts.
 
 The running command line appears in:
@@ -92,7 +99,9 @@ grep -R "net.ipv4.ip_forward" /etc/sysctl.d /run/sysctl.d /usr/local/lib/sysctl.
 ```
 
 Kernel settings can exhaust memory, prevent boot, weaken isolation, or disrupt networking. A runtime test, a console or recovery path, and a rollback command reduce that risk.
+
 ### Kernel modules
+
 Kernel modules extend the running kernel. The principal inspection and runtime commands are:
 
 ```bash
@@ -154,8 +163,11 @@ reboot
 ```
 
 After the reboot, `lsmod`, `systemctl status`, and relevant device checks confirm the outcome. A module required for storage, encryption, networking, or the root file system must not be denied without a tested recovery route.
+
 ## System and application measurement
+
 ### Common command-line tools
+
 RHEL 10 provides core tools through `procps-ng`, `sysstat`, `perf`, and related packages:
 
 ```bash
@@ -230,7 +242,9 @@ sadf -d /var/log/sa/sa31 -- -r ALL
 ```
 
 All interval tools need a long enough observation window to include warm-up, steady state, and relevant peaks. Synchronised clocks and timestamps allow administrators to correlate application logs, kernel messages, and infrastructure metrics.
+
 ### Correlating resource symptoms
+
 No single counter identifies a bottleneck. A diagnosis should combine demand, delay, and completed work:
 
 | Resource | Demand evidence | Delay or pressure evidence | Work evidence |
@@ -253,7 +267,9 @@ cat /proc/pressure/io
 The `some` line records periods when at least one task stalls. The `full` line records periods when all non-idle tasks stall together. CPU pressure has no `full` line because at least one runnable task always executes. The `avg10`, `avg60`, and `avg300` fields are recent percentages, while `total` accumulates stall time in microseconds. PSI helps distinguish busy but productive work from resource contention, especially when aligned with application latency and throughput.
 
 Sampling can miss short events. Historical `sar` or PCP archives establish when a change began, while event-based tools such as `perf`, SystemTap, and eBPF identify the responsible code path. Application logs then connect the system event to a user-visible operation. Agreement across these layers provides stronger evidence than any isolated peak.
+
 ### perf
+
 `perf` connects user-space analysis to kernel performance counters, tracepoints, kprobes, and uprobes. It can answer whether a process spends cycles executing instructions, missing caches, switching context, waiting on faults, or running particular functions.
 
 ```bash
@@ -267,7 +283,9 @@ perf report
 `perf stat` counts events over a run. Instructions, cycles, branches, branch misses, cache references, cache misses, task clocks, context switches, and faults help characterise a workload. `perf record` samples activity into `perf.data`, while `perf report` attributes samples to symbols. `-g` captures call graphs when the binaries, unwinding method, and permissions support them.
 
 Missing debug symbols reduce function and source resolution. Sampling frequency, call-graph collection, and system-wide capture add overhead. An administrator should begin with a short, scoped recording and expand it only when the evidence supports a broader trace.
+
 ### Repeatable workload comparison
+
 A useful comparison holds input data, concurrency, duration, warm-up, cache state, CPU placement, and external dependencies constant. At least several runs are needed because scheduler activity, background work, thermal behaviour, and storage state create natural variation. The result should report a distribution or confidence range, not only the best run.
 
 The external `time` command adds process resource statistics:
@@ -288,8 +306,11 @@ strace -c -f application arguments
 `-f` follows child processes and threads, `-tt` records timestamps, and `-T` reports time spent in each call. Summary mode aggregates calls and errors. Tracing every call changes timing and can generate sensitive arguments or data, so administrators should narrow the process, syscall set, and duration. `perf trace` offers another system-call view and integrates with kernel events.
 
 A result becomes operationally useful only when it links a configuration change to a workload outcome. The record should include the exact command, input version, environment, start and finish times, raw data, summary method, and rollback state. A statistically visible change that does not improve the service objective should not become a production tuning policy.
+
 ## Application analysis and tracing
+
 ### Valgrind
+
 Valgrind instruments user-space binaries and adds substantial overhead. Administrators should run it against a reproducible workload outside production whenever possible:
 
 ```bash
@@ -332,7 +353,9 @@ ms_print massif.out.PID
 ```
 
 Valgrind identifies evidence for developers and vendors. It does not repair a program, and instrumentation can alter timing enough to hide or expose concurrency behaviour.
+
 ### SystemTap
+
 SystemTap probes kernel and user-space events through scripts. It can aggregate events, filter by process or device, and report behaviour that broad monitoring tools cannot attribute. It compiles many scripts into instrumentation modules, so the running kernel and debug packages must match.
 
 The usual preparation is:
@@ -348,7 +371,9 @@ The debug and source repositories must be enabled. `stap-prep` installs packages
 SystemTap processes a script through parsing, semantic analysis, translation to C, compilation, and execution. Verbose output exposes these passes. Supplied examples under `/usr/share/systemtap/examples/` include process, network, storage, and system-call probes.
 
 Scripts should limit scope, duration, output volume, and aggregation cardinality. A broad probe on a busy host can consume significant CPU or produce unmanageable output. Scripts that observe terminal input or user activity also require explicit organisational authority and privacy controls. SystemTap or kprobes must not run while a kernel live patch is being applied.
+
 ### eBPF, BCC, and bpftrace
+
 eBPF runs verified programs at kernel hooks without recompiling the kernel or loading a conventional tracing module. RHEL 10 supplies pre-built BCC tools and the `bpftrace` language:
 
 ```bash
@@ -388,8 +413,11 @@ bpftrace -e 'tracepoint:raw_syscalls:sys_enter { @[comm] = count() }'
 ```
 
 Administrators should prefer documented tracepoints over unstable internal function names. They should also verify tool syntax against the installed version because BCC options can change between releases.
+
 ## Performance Co-Pilot
+
 Performance Co-Pilot, or PCP, collects, stores, retrieves, and visualises metrics through a consistent namespace. It can monitor one host, archive local metrics, or centralise data from many clients. Its architecture separates metric providers from consumers:
+
 - `pmcd` coordinates access to live metrics from Performance Metrics Domain Agents.
 - `pmlogger` records selected metrics into archives.
 - `pmie` evaluates rules and can report performance conditions.
@@ -436,8 +464,11 @@ pmrep --archive archive_name --start @03:00 --interval 5seconds --samples 10 --o
 A central collector needs `pcp-system-tools`, client reachability to `pmcd` on TCP port 44321, an appropriate firewall rule, SELinux policy, and a control entry under `/etc/pcp/pmlogger/control.d/`. Administrators should bind `pmcd` only to required addresses and protect access across untrusted networks. `pmdumplog -L` verifies that each remote archive names the expected host and time range.
 
 PCP provides continuity across live and historical analysis. An administrator can detect a current spike with `pmrep`, inspect the same metric before the event, compare archives, and graph the relevant interval without changing metric definitions.
+
 ## Tuning a running system
+
 ### Process priorities and scheduling
+
 The nice value influences CPU time for normal processes under the scheduler. It ranges from `-20`, which receives the greatest weight, to `19`, which receives the least. A new process normally starts at `0`, and a child inherits its parent's value.
 
 Administrators can inspect nice values and scheduling classes with:
@@ -472,7 +503,9 @@ chrt --round-robin --pid 10 PID
 ```
 
 Administrators should start with low real-time priorities, limit runtime, retain an administrative console, and measure scheduler latency and service health. A persistent service policy belongs in a systemd override, not an ad hoc command.
+
 ### TuneD profiles
+
 TuneD applies coordinated settings for workload classes such as virtual guests, throughput, latency, and power saving. It uses static and dynamic tuning plugins and can manage sysctl values, devices, CPU policy, disks, network interfaces, boot arguments, and scripts.
 
 ```bash
@@ -522,7 +555,9 @@ systemctl disable --now tuned
 ```
 
 No-daemon mode applies settings and exits, but it loses D-Bus, hot-plug, monitoring, and rollback functions. The standard service mode suits most systems.
+
 ### PowerTOP
+
 PowerTOP attributes wake-ups and estimated power use to processes, devices, kernel work, idle states, and frequency states. It also suggests tunables:
 
 ```bash
@@ -554,7 +589,9 @@ tuned-adm verify
 ```
 
 Switching to the previous profile reverses the TuneD-managed settings without requiring a reboot in most cases.
+
 ## Resource control with cgroup v2 and systemd
+
 RHEL 10 uses the unified cgroup v2 hierarchy, and systemd always operates through cgroup v2. RHEL 8 guidance that treated cgroup v1 as the default does not apply. systemd maps services, scopes, and slices directly into `/sys/fs/cgroup/` and should manage application resources in normal administration.
 
 The following commands expose the hierarchy and live consumption:
@@ -623,7 +660,9 @@ systemd-run --unit=test-load.service -p CPUQuota=25% -p MemoryMax=512M applicati
 ```
 
 Direct writes to cgroupfs can help with specialised testing, but hand-built cgroups and PID assignments are easy to lose when a service restarts. A process-specific change also misses replacement processes unless a parent unit captures them. Persistent policy should normally attach to the systemd service, scope, or slice.
+
 ### Hierarchy and I/O controls
+
 Resource controls inherit through the systemd hierarchy. A service belongs to a slice, and the parent slice can restrict the combined resources of all child units. A child cannot escape a tighter ancestor limit. This structure supports policies such as one budget for all batch services and separate limits within that budget.
 
 The following commands expose unit placement and inherited settings:
@@ -649,8 +688,11 @@ systemctl set-property application.service IOWriteBandwidthMax="/dev/mapper/vg_d
 Tests should inspect `io.stat`, application latency, device latency, and throughput before and after a control. Buffered writes can initially complete in memory and reach the device later, which can hide enforcement during a short test. A sustained workload that exceeds cache capacity reveals the steady-state effect more clearly.
 
 Changes also need failure testing. A `MemoryMax=` value can terminate processes, a CPU quota can delay health checks, and an I/O cap can lengthen shutdown or recovery. Service start timeouts, restart policy, and dependency behaviour should remain safe when the unit reaches its limit.
+
 ## Hardware, CPU, interrupts, and NUMA
+
 ### Hardware and kernel evidence
+
 Hardware topology and firmware can change application behaviour even when the operating-system configuration appears identical. Useful inventory commands include:
 
 ```bash
@@ -682,7 +724,9 @@ sos report --case-id CASE_ID
 ```
 
 `sos report` gathers configuration, package, service, kernel, log, and diagnostic information into an archive for support analysis. Reports can contain hostnames, addresses, account data, and configuration secrets. Administrators should handle them as sensitive records and use `sos clean` when obfuscation is required.
+
 ### CPU frequency, idle states, and thermal limits
+
 Processor frequency and idle-state policy can change latency, throughput, and power use without changing process demand. Firmware, the scaling driver, the governor, TuneD, thermal limits, and a hypervisor can all influence the observed speed.
 
 RHEL 10 supplies CPU power-management tools through `kernel-tools`:
@@ -708,7 +752,9 @@ A CPU-bound workload that slows as a test continues may have reached a power or 
 TuneD profiles coordinate CPU policy with other controls. `latency-performance` favours fast response, `throughput-performance` favours sustained work, and power-oriented profiles accept more wake-up or frequency transition latency. Manually changing a governor while TuneD remains active can produce a setting that TuneD later replaces.
 
 A frequency-policy test should use the same workload, CPU set, cooling state, and duration. It should report work completed, response-time distribution, power consumption, and throttling, not clock speed alone. A higher frequency can increase heat and power enough to reduce sustained performance. A successful policy needs persistent management through TuneD or another single owner and verification after reboot.
+
 ### CPU and IRQ placement with Tuna
+
 Tuna displays and changes thread policy, priority, CPU affinity, CPU isolation, and IRQ affinity:
 
 ```bash
@@ -742,7 +788,9 @@ systemctl restart application.service
 ```
 
 Low-latency systems can use the TuneD `cpu-partitioning` profile. Isolated CPUs should host explicitly pinned application threads, while housekeeping CPUs handle services, kernel work, timers, and movable interrupts. The administrator must verify isolation after reboot.
+
 ### NUMA locality
+
 Non-Uniform Memory Access systems provide lower latency when a thread accesses memory attached to its local CPU node. A scheduler migration can leave memory on the original node and turn local access into remote access.
 
 ```bash
@@ -760,8 +808,11 @@ numactl --cpunodebind=0 --membind=0 application
 ```
 
 A strict bind can fail or cause reclaim when the selected node lacks memory. `--preferred` allows fallback, while `--interleave` distributes pages across nodes. For services, systemd supports persistent `NUMAPolicy=` and `NUMAMask=` settings. A strict memory policy should align with `CPUAffinity=`.
+
 ## Memory tuning
+
 ### Observation and pressure
+
 Memory analysis should separate free memory, available memory, file cache, anonymous memory, reclaim, swap activity, faults, and cgroup pressure:
 
 ```bash
@@ -774,7 +825,9 @@ cat /proc/pressure/memory
 ```
 
 `MemAvailable` estimates memory available for new work without swapping. Low `MemFree` is normal when useful cache occupies RAM. Persistent swap-in and swap-out activity, direct reclaim, major faults, or memory pressure stalls provide stronger evidence of contention.
+
 ### Overcommit and swap preference
+
 `vm.overcommit_memory` controls virtual-memory allocation:
 
 | Value | Policy |
@@ -804,7 +857,9 @@ vm.swappiness = 20
 ```
 
 The administrator should calculate the resulting commit limit, test allocation failure behaviour, and monitor paging and service latency before deployment.
+
 ### HugeTLB and transparent huge pages
+
 Larger pages reduce translation lookaside buffer pressure for memory-intensive workloads. They also consume physically contiguous memory, reduce allocation flexibility, and can waste space when applications use only part of each page.
 
 Base page size depends on architecture and installed kernel. On x86-64 it is normally 4 KiB. Common HugeTLB sizes are 2 MiB and 1 GiB. The following commands show the active base and huge-page configuration:
@@ -845,7 +900,9 @@ cmdline=transparent_hugepage=madvise
 ```
 
 After activating the profile, the administrator reboots if the boot argument changes, checks the active mode, and measures page faults, compaction, memory use, and application latency. Disabling THP by habit can remove a useful optimisation.
+
 ### System V shared memory
+
 Applications such as databases can depend on System V shared memory. The key controls are:
 
 | Parameter | Function |
@@ -861,14 +918,19 @@ ipcs -m
 ```
 
 Values must match application allocation patterns, page size, container limits, and available RAM. Excessive limits do not reserve memory, but they can permit one workload to consume resources needed by others.
+
 ### Dirty page writeback
+
 Dirty pages hold modified file data that has not reached storage. The kernel starts background writeback at `vm.dirty_background_ratio` or `vm.dirty_background_bytes`. A generating process begins synchronous writeback at `vm.dirty_ratio` or `vm.dirty_bytes`.
 
 Only one control from each ratio or byte pair should define the threshold. Byte values often behave more consistently on hosts with very large or changing memory sizes. Additional timers include `vm.dirty_writeback_centisecs`, which controls periodic writeback wake-ups, and `vm.dirty_expire_centisecs`, which determines when dirty data becomes old enough for writeback.
 
 Lower thresholds smooth writeback and reduce the size of a sudden flush, but they can increase write frequency. Higher thresholds support bursts and aggregation, but they can create long stalls and more data at risk before a crash. Administrators should correlate `Dirty` and `Writeback` in `/proc/meminfo` with application latency, `iostat`, and storage-controller behaviour.
+
 ## Disk and file subsystems
+
 ### I/O schedulers
+
 RHEL 10 block devices support multi-queue scheduling. The available scheduler depends on the kernel, driver, and device:
 
 | Scheduler | Characteristics and common use |
@@ -921,8 +983,11 @@ cat /sys/block/sdb/queue/scheduler
 ```
 
 Changing the scheduler can reorder or delay I/O. Tests should use representative read and write mixtures, queue depths, request sizes, synchronisation patterns, and latency percentiles.
+
 ### File-system selection and layout
+
 File-system design begins with workload characteristics:
+
 - Local, shared, or network storage
 - Small files, large files, or a mixture
 - Sequential or random access
@@ -943,7 +1008,9 @@ mount -t cifs -o credentials=/root/smb.cred,seal,vers=3.0 //server/share /mnt/sh
 ```
 
 Credential files need restrictive permissions. Persistent NFS and SMB mounts require suitable `/etc/fstab` entries, network ordering, timeouts, and failure policy.
+
 ### XFS creation, growth, and repair
+
 `mkfs.xfs` creates an XFS file system:
 
 ```bash
@@ -982,8 +1049,11 @@ mount /data
 ```
 
 `journalctl -k`, `dmesg`, SMART or vendor diagnostics, and controller logs help distinguish file-system damage from failing storage. Repairing metadata without correcting the device fault can produce another failure.
+
 ## Network performance
+
 ### Baseline and bottleneck location
+
 Network tuning should begin with the failing layer. Packet drops can occur in NIC rings, driver queues, the network backlog, IP processing, socket buffers, or the application. Latency can arise from physical links, congestion, interrupt moderation, routing, DNS, transport retransmission, or application delay.
 
 Useful observations include:
@@ -1001,7 +1071,9 @@ sar -n DEV,TCP,ETCP 2 10
 Driver-specific drop counters and ring occupancy direct investigation towards the NIC. TCP retransmissions and resets direct it towards the path or peer. UDP receive errors can indicate socket-buffer or application-consumption limits.
 
 `iperf3` measures controlled TCP or UDP throughput between hosts. A test needs the same path, duration, streams, protocol, window, message size, and CPU placement as the target scenario. Application encryption, framing, and storage can produce a lower ceiling than a synthetic network test.
+
 ### TCP buffers and the bandwidth-delay product
+
 The bandwidth-delay product estimates the data in flight needed to fill a path:
 
 ```text
@@ -1027,7 +1099,9 @@ sysctl -p /etc/sysctl.d/60-tcp-buffers.conf
 ```
 
 Changing the default value requires affected applications to reopen sockets. TCP autotuning can apply a changed maximum to established connections. Administrators should verify throughput, retransmissions, memory use, and latency after the change.
+
 ### UDP buffers
+
 UDP has no transport-level retransmission or flow control. When the application or kernel cannot drain a receive buffer quickly enough, new datagrams can be dropped. `net.core.rmem_max` and `net.core.wmem_max` set the largest receive and send buffers that an application can request:
 
 ```ini
@@ -1039,7 +1113,9 @@ net.core.wmem_max = 16777216
 The application must request the larger buffers through `setsockopt()`, or it continues to use default values. Linux accounts up to twice the requested socket memory internally, so a large limit across many sockets can consume substantial RAM. Administrators should increase buffers only after observing drops and should restart the application after changing its configured socket size.
 
 UDP tests should use an unfragmented payload. For an MTU of 1500 bytes, a common IPv4 payload ceiling is 1472 bytes after the 20-byte IP header and 8-byte UDP header. IPv6 requires a 40-byte base header. Path encapsulation can lower the effective ceiling.
+
 ### NIC queues, interrupts, and profiles
+
 If NIC drop counters rise because the receive ring fills, `ethtool -g` shows current and maximum ring sizes. RHEL 10 stores persistent ring settings in NetworkManager profiles:
 
 ```bash
@@ -1051,7 +1127,9 @@ nmcli connection up CONNECTION
 Larger rings can absorb bursts but can also add queueing latency. Interrupt coalescence trades fewer interrupts and higher throughput against faster packet delivery. Receive-side scaling, queue count, IRQ affinity, CPU frequency, and NUMA placement should keep packet processing near the application and NIC.
 
 TuneD supplies `network-throughput` and `network-latency` profiles. A custom profile can inherit one and add measured site-specific controls. Profile names express goals, but the administrator still needs workload validation.
+
 ## Persistence and verification
+
 A correct tuning change has four states:
 
 | State | Required evidence |
@@ -1062,6 +1140,7 @@ A correct tuning change has four states:
 | Beneficial | Repeated measurements improve the target without unacceptable regressions |
 
 Configuration checks should use the subsystem's runtime view:
+
 - `sysctl key` for runtime kernel parameters
 - `/proc/cmdline` for active boot arguments
 - `lsmod` and `modinfo` for modules

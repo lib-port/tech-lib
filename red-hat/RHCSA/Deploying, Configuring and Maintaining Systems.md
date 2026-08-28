@@ -1,13 +1,18 @@
 # Deploying, Configuring and Maintaining Systems
+
 > [!NOTE]
 > A practical guide to deploying and maintaining RHEL systems through disciplined package management, time synchronisation, systemd boot configuration, and task scheduling.
 
 Red Hat Enterprise Linux 8 administrators need command-line skills and root access for package management, time synchronisation, boot configuration, and job scheduling. A registered RHEL host normally receives signed software and errata from Red Hat repositories. An installation DVD can supply packages to an isolated host, but it cannot supply later bug fixes or security updates.
+
 ## Managing software packages
+
 ### DNF, YUM, and repositories
+
 RHEL 8 uses DNF to manage RPM packages and their dependencies. The `yum` command provides a compatible interface to the same package-management stack, so most RHEL 8 documentation and scripts can use either name. Administrators should use one form consistently and should not depend on the implementation path or symbolic-link layout.
 
 BaseOS contains the core operating-system packages. AppStream contains additional applications, language runtimes, databases, and related components. AppStream distributes ordinary RPM packages and modular content:
+
 - A module stream selects a supported version or release line of an application stack.
 - A module profile selects a package set for a purpose such as client, server, common, or development use.
 - A system normally enables one stream for a module at a time. Modules expose alternative supported streams in the repositories, but they do not generally install several active versions of the same stack together.
@@ -45,7 +50,9 @@ DNF checks RPM signatures against trusted keys when `gpgcheck` remains enabled. 
 `dnf remove` removes the named package and can remove dependencies that no installed package needs. RHEL 8 DNF does not provide a standard `purge` operation equivalent to the Debian command. RPM can preserve modified configuration files during package transactions, so administrators should review application data and retained files separately before deleting them.
 
 DNF treats kernels and other packages listed by the `installonlypkgs` setting differently from ordinary updates. It installs a new kernel alongside retained kernels, subject to the configured limit. The running system continues to use the old kernel until the next boot selects the new one.
+
 ### Transaction history
+
 DNF records package transactions. Administrators can inspect the record and reverse suitable installation or removal transactions:
 
 ```shell
@@ -58,7 +65,9 @@ sudo dnf history rollback 12
 `history undo` reverses one transaction. `history rollback` reverses later transactions until the system reaches the state associated with the selected transaction number. Both operations require the relevant package versions to remain available.
 
 Administrators should not use transaction history as a general system rollback mechanism. Red Hat does not support downgrading core system packages such as the kernel, `glibc`, SELinux packages, and their critical dependencies through `history undo` or `history rollback`. A tested backup, snapshot, or deployment rollback process provides safer recovery for broad updates.
+
 ### Local and web repositories
+
 Repository definitions reside in `/etc/yum.repos.d/` as files ending in `.repo`. One file can define several repositories, and `dnf repolist --all` displays enabled and disabled definitions.
 
 A RHEL installation DVD already contains repository metadata for its BaseOS and AppStream trees. An administrator can mount the media read-only and add both locations:
@@ -99,7 +108,9 @@ sudo dnf --disablerepo='*' --enablerepo=local-baseos list available
 An organisation can publish the same repository trees through an HTTP server and configure base URLs such as `http://repo.example.com/rhel8/BaseOS/` and `http://repo.example.com/rhel8/AppStream/`. The server must expose the RPMs and `repodata` directories, and its firewall, file permissions, and SELinux policy must permit HTTP access. `dnf makecache` tests metadata retrieval, but an installation test confirms package access.
 
 DVD content reflects the release recorded on the media. It does not replace access to current Red Hat errata. Organisations that mirror current content should use a supported repository-management or mirroring process.
+
 ### Security updates and advisories
+
 RHEL repository metadata identifies security advisories, bug fixes, and enhancements. Administrators can review security errata before changing the system:
 
 ```shell
@@ -123,7 +134,9 @@ An advisory can update several packages, and one package transaction can address
 Severity filtering supports risk-based prioritisation, but severity alone cannot express local exposure. Administrators should also consider whether the vulnerable component is installed, enabled, reachable, or protected by another control. Red Hat advisory identifiers provide a stable unit for change records, maintenance approvals, and verification.
 
 Before an update, the host should have enough free space, a recoverable configuration, and a tested path to restart affected workloads. After the update, administrators should review the transaction, service health, relevant logs, and the running kernel version. Automated updates can use `dnf-automatic`, but production policy should define download behaviour, installation windows, exclusions, notifications, and reboots.
+
 ### Application Streams
+
 Module commands show the content available on the current host:
 
 ```shell
@@ -136,9 +149,13 @@ sudo dnf module reset NAME
 The colon separates a module name from its stream, and the slash separates a stream from its profile. If the command omits a stream or profile, DNF uses an applicable default. A reset removes the stream selection but does not remove installed packages. Stream changes can alter dependencies, so administrators should follow the documented switching procedure and confirm that the destination stream supports the application.
 
 Enabling a stream and installing its packages are separate operations. `dnf module enable NAME:STREAM` selects a stream without necessarily installing its profile. `dnf module remove NAME:STREAM/PROFILE` removes packages associated with an installed profile, subject to dependency review. `dnf module disable NAME` prevents DNF from using all streams of that module. Administrators should always inspect the transaction because modular and non-modular packages can share dependencies.
+
 ## Configuring time services
+
 Accurate time supports log correlation, authentication, certificate validation, clustered services, and incident analysis. RHEL 8 implements NTP through `chronyd`, supplied by the `chrony` package. RHEL 8 does not support the former `ntpd` implementation.
+
 ### Time zones, clocks, and services
+
 The following commands install and activate chrony, display the current time configuration, and set a time zone:
 
 ```shell
@@ -168,7 +185,9 @@ systemctl cat chronyd
 ```
 
 `systemctl disable` alone changes boot-time enablement but does not stop a running service. The `--now` option also changes the current state. `systemctl cat` shows the vendor unit and any overrides. Administrators should normally use `systemctl edit chronyd` to create a focused drop-in override. `systemctl edit --full` creates a complete replacement under `/etc/systemd/system/`, which can hide later vendor-unit changes and therefore requires deliberate maintenance.
+
 ### Chrony configuration and verification
+
 RHEL stores the main chrony configuration in `/etc/chrony.conf`. A client can use one named server or a DNS pool:
 
 ```text
@@ -194,7 +213,9 @@ Several common directives shape client behaviour. `driftfile` stores the measure
 A host that supplies NTP to other systems needs an `allow` directive for the authorised client network and firewall access to UDP port 123. The default client configuration does not grant unrestricted server access. Administrators should limit permitted networks, prefer authenticated sources where available, and avoid exposing an internal time service to the public internet.
 
 Immediately after a restart, `chronyc tracking` can show an unsynchronised state while chrony samples and selects sources. Persistent failure requires checks of DNS, routing, firewall policy, source reachability, configuration syntax, and service logs. `journalctl -u chronyd` provides the service record.
+
 ## Working with systemd targets
+
 A systemd target groups units into an operational state. Targets replace the central role that SysV runlevels held in earlier RHEL releases, although compatibility commands still map common targets to runlevel numbers. `multi-user.target` broadly corresponds to runlevel 3, and `graphical.target` broadly corresponds to runlevel 5.
 
 Several targets can remain active because a high-level target pulls in supporting targets. Administrators can list active targets and inspect the configured default:
@@ -234,7 +255,9 @@ sudo grubby --update-kernel=ALL --remove-args="systemd.unit"
 ```
 
 The correct kernel parameter is `systemd.unit`, with a full stop between the words. A temporary GRUB edit can apply the parameter to one boot. A persistent change to `ALL` affects every current kernel entry, so the default target usually provides the simpler system-wide choice. A distinct GRUB entry suits a genuine alternative boot path.
+
 ## Scheduling jobs
+
 RHEL 8 provides three principal scheduling mechanisms. `at` runs one-off jobs, cron runs compact recurring schedules, and systemd timers integrate recurring or boot-relative work with unit dependencies and the journal.
 
 | Scheduler | Best fit | Main inspection command |
@@ -244,7 +267,9 @@ RHEL 8 provides three principal scheduling mechanisms. `at` runs one-off jobs, c
 | systemd timer | Recurring or boot-relative work that needs unit controls and journal integration | `systemctl list-timers --all` |
 
 The scheduler starts a command, but the command still needs safe locking, error handling, idempotent behaviour where appropriate, and useful output. A scheduler should not launch a second copy of a job that cannot run concurrently. The job can use an application lock, `flock`, or a service design that rejects overlapping execution.
+
 ### One-off jobs with at
+
 The `at` package supplies the `at` client and the `atd` service:
 
 ```shell
@@ -268,7 +293,9 @@ atrm 4
 `/etc/at.allow` and `/etc/at.deny` control user access. If `at.allow` exists, only listed users may submit jobs. Otherwise, `at.deny` excludes listed users. If neither file exists, only root may use `at`. Root retains administrative control.
 
 `at -c JOB_ID` displays the generated job script, including the captured environment and working directory. This output helps confirm the exact command but can also expose environment values, so administrators should handle it carefully. Secrets should not appear on a command line or in a saved job body.
+
 ### Recurring jobs with cron
+
 The `crond` service reads system schedules from `/etc/crontab` and `/etc/cron.d/`, and user schedules managed by `crontab`. A system entry contains six scheduling and identity fields before the command:
 
 | Field | Valid form |
@@ -307,7 +334,9 @@ Files in `/etc/cron.d/` should use simple names containing letters, digits, hyph
 `/etc/cron.hourly/` contains executable scripts that `run-parts` invokes. RHEL commonly uses Anacron to run daily, weekly, and monthly work that does not require an exact clock time. Anacron can run missed periodic work after a host returns to service, while a plain cron entry normally loses an activation that occurred during downtime. Script filenames in these directories must satisfy the `run-parts` naming rules.
 
 A crontab can define variables such as `SHELL`, `PATH`, and `MAILTO` before job entries. Explicit values reduce differences between an interactive shell and the scheduled environment. Commands should send failures to a monitored destination, and administrators should test the underlying script directly before testing the schedule.
+
 ### Recurring jobs with systemd timers
+
 A systemd timer activates a service unit with the same base name unless `Unit=` names another unit. Calendar timers use `OnCalendar=`, while monotonic timers use settings such as `OnBootSec=` or `OnUnitInactiveSec=`. `Persistent=true` causes an eligible missed calendar activation to run after downtime. `RandomizedDelaySec=` spreads load across hosts.
 
 Calendar expressions can describe weekdays, dates, and times. For example, `OnCalendar=Mon..Fri 03:30` runs on weekdays at 03:30. Administrators can validate an expression before installing a unit:

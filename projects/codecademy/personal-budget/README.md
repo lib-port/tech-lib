@@ -1,4 +1,4 @@
-# Portfolio PRoject: Personal Budget
+# Portfolio Project: Personal Budget
 
 Personal Budget is the portfolio project for the *Back-End Development*, *Advanced Back-End Development*, and *Interview Prep* modules of Codecademy's Back-End Engineer Professional Certification.
 
