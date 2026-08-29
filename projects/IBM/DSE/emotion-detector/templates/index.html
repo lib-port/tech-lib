@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Emotion Detection</title>
+    <script src="{{ url_for('static', filename='mywebscript.js') }}" defer></script>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: system-ui, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #172033;
+            margin: 0;
+        }
+
+        main {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgb(23 32 51 / 10%);
+            margin: 4rem auto;
+            max-width: 760px;
+            padding: 2rem;
+        }
+
+        h1 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        textarea {
+            border: 1px solid #aab4c5;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font: inherit;
+            min-height: 110px;
+            padding: 0.75rem;
+            resize: vertical;
+            width: 100%;
+        }
+
+        button {
+            background: #2457c5;
+            border: 0;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font: inherit;
+            margin-top: 1rem;
+            padding: 0.7rem 1rem;
+        }
+
+        button:disabled {
+            cursor: wait;
+            opacity: 0.65;
+        }
+
+        section {
+            border-top: 1px solid #d9dfeb;
+            margin-top: 2rem;
+            padding-top: 1rem;
+        }
+
+        #system_response {
+            line-height: 1.6;
+            min-height: 1.6rem;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>NLP - Emotion Detection</h1>
+        <form id="emotion-form">
+            <label for="textToAnalyze">Please enter the text to be analyzed</label>
+            <textarea id="textToAnalyze" name="textToAnalyze"></textarea>
+            <button id="analyze-button" type="submit">Run Sentiment Analysis</button>
+        </form>
+
+        <section aria-labelledby="result-heading">
+            <h2 id="result-heading">Result of Emotion Detection</h2>
+            <p id="system_response" role="status" aria-live="polite"></p>
+        </section>
+    </main>
+</body>
+</html>
+
