@@ -15,7 +15,7 @@ Prerequisites:
 - Git and GitHub
 - Command line
 
-## Partial Clone
+## Partial clone
 To clone only this folder and not rest of repo:
 ```Bash
 git clone --depth=1 --filter=blob:none --sparse https://github.com/lib-port/tech-lib.git

@@ -11,7 +11,7 @@ A secure and simple backend for a photo caption contest platform.
 - Transaction-safe caption create/delete logic to keep `photo.caption_count` accurate.
 - Swagger docs at `/docs`.
 
-## Project Structure
+## Project structure
 - `src/config`: environment and database setup
 - `src/models`: Sequelize models and associations
 - `src/routes`: feature routes and handlers (users, photos, captions)
@@ -47,7 +47,7 @@ npm run db:init
 npm start
 ```
 
-## API Quick Start
+## API quick start
 - `POST /users` create user
 - `POST /users/login` get JWT token
 - `GET /health` service health check
@@ -56,13 +56,13 @@ npm start
 - `POST /captions` create caption (requires `Authorization: Bearer <token>`)
 - `GET /docs` interactive Swagger documentation
 
-## Security and Performance Notes
+## Security and performance notes
 - Uses `helmet`, request size limits, and rate limiting.
 - Passwords are hashed with bcrypt.
 - JWT tokens have expiration.
 - Read-heavy endpoints use local cache with TTL.
 
-## Partial Clone
+## Partial clone
 To clone only this folder and not rest of repo:
 ```Bash
 git clone --depth=1 --filter=blob:none --sparse https://github.com/lib-port/tech-lib.git

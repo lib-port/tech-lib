@@ -107,7 +107,7 @@ Then deploy as a Web Service with start command:
 npm start
 ```
 
-## Partial Clone
+## Partial clone
 To clone only this folder and not rest of repo:
 ```Bash
 git clone --depth=1 --filter=blob:none --sparse https://github.com/lib-port/tech-lib.git

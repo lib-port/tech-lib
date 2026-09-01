@@ -1,6 +1,6 @@
 # *IBM Cybersecurity Analyst Professional Certificate* Notes
 
-Course notes for the [IBM Cybersecurity Analyst Professional Certificate](https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst).
+Course notes and projects for the [IBM Cybersecurity Analyst Professional Certificate](https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst).
 
 ## Course Description
 

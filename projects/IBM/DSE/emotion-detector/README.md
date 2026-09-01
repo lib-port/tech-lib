@@ -1,4 +1,4 @@
-# Final project
+# Developing AI Applications with Python and Flask Final project
 
 This is a small Flask application that detects five emotions in customer
 feedback: anger, disgust, fear, joy, and sadness. It uses the official GitHub
@@ -88,7 +88,7 @@ python3 -m pylint EmotionDetection server.py test_emotion_detection.py
 After authenticating, use the package example above as the manual live-service
 smoke test.
 
-## Partial Clone
+## Partial clone
 
 To clone only this folder and not the rest of the repository:
 
