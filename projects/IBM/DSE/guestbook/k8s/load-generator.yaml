@@ -1,0 +1,35 @@
+# Apply this file to start the load generator. Delete it to stop it.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-generator
+  namespace: lib-port
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: load-generator
+  template:
+    metadata:
+      labels:
+        app: load-generator
+    spec:
+      containers:
+        - name: load-generator
+          image: docker.io/library/busybox:1.37.0
+          command: [/bin/sh, -c]
+          args:
+            - |
+              for worker in 1 2 3 4; do
+                (while true; do
+                  wget -q -T 5 -O /dev/null http://guestbook:3000/work || sleep 1
+                done) &
+              done
+              wait
+          resources:
+            requests:
+              cpu: 50m
+              memory: 16Mi
+            limits:
+              cpu: 250m
+              memory: 64Mi

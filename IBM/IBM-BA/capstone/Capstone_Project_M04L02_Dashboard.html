@@ -1,0 +1,1720 @@
+<!doctype html>
+<html lang="en" data-visualize-standalone>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>HealthFirst Care Operational Dashboard</title>
+<style>:root {
+  color-scheme: light dark;
+  background-color: transparent !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --main-surface-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: light-dark(rgb(26 28 31), rgb(255 255 255));
+  --card: color-mix(in oklab, var(--foreground) 5%, transparent);
+  --card-foreground: var(--foreground);
+  --popover: light-dark(rgb(255 255 255), rgb(45 45 45));
+  --popover-foreground: var(--foreground);
+  --primary: light-dark(rgb(51 156 255), rgb(131 195 255));
+  --primary-foreground: light-dark(rgb(255 255 255), rgb(13 13 13));
+  --secondary: light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%));
+  --secondary-foreground: var(--foreground);
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: light-dark(
+    rgb(95 99 104),
+    rgb(255 255 255 / 49.8%)
+  );
+  --accent: light-dark(rgb(229 242 255), rgb(13 39 63));
+  --accent-foreground: var(--primary);
+  --destructive: light-dark(rgb(226 85 7), rgb(255 133 73));
+  --border: light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%));
+  --input: light-dark(
+    rgb(26 28 31 / 11.8%),
+    color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+  );
+  --ring: light-dark(rgb(51 156 255), rgb(131 195 255 / 76%));
+  --font-size-base: 14px;
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, "Segoe UI", sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: 10px;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z'/%3E%3C/svg%3E");
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+  --color-background-primary: var(--background);
+  --color-text-primary: var(--foreground);
+  --color-border-secondary: var(--border);
+}
+
+:root[data-visualize-standalone] {
+  background-color: var(--background) !important;
+}
+
+/* Generic mobile code-block hosts provide light/dark mode but no series palette.
+   AppBlock hosts set all six variables themselves. */
+:root:not([data-app-block-surface]) {
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(#f3883b, #f59a56);
+  --viz-series-3: light-dark(#5dc977, #74d58b);
+  --viz-series-4: light-dark(#eb77b1, #f08fc0);
+  --viz-series-5: light-dark(#9b79ec, #aa91ef);
+  --viz-series-6: light-dark(#3ab9b1, #5acbc2);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html > body {
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+:root:not([data-app-block-surface]) > body {
+  padding: 12px;
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget > :not(.card) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-legend,
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls > .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls > .form-label > :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type="checkbox"]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: "";
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type="radio"] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type="radio"]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: "";
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+    [aria-pressed="true"],
+    [aria-selected="true"],
+    .is-selected
+  ) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed="true"], [aria-selected="true"], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget > svg {
+  width: 100%;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+</style>
+<style>
+    #healthfirst-care-dashboard {
+      color: var(--foreground);
+      width: 100%;
+    }
+
+    #healthfirst-care-dashboard * {
+      box-sizing: border-box;
+    }
+
+    #healthfirst-care-dashboard .hfc-header,
+    #healthfirst-care-dashboard .hfc-section-heading,
+    #healthfirst-care-dashboard .hfc-chart-heading,
+    #healthfirst-care-dashboard .hfc-filter-summary {
+      display: flex;
+      align-items: center;
+    }
+
+    #healthfirst-care-dashboard .hfc-header,
+    #healthfirst-care-dashboard .hfc-section-heading,
+    #healthfirst-care-dashboard .hfc-chart-heading {
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-header {
+      align-items: flex-start;
+      padding-block-end: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    #healthfirst-care-dashboard .hfc-header p,
+    #healthfirst-care-dashboard .hfc-section-heading p,
+    #healthfirst-care-dashboard .hfc-chart-heading p,
+    #healthfirst-care-dashboard .hfc-note,
+    #healthfirst-care-dashboard .hfc-chart-summary,
+    #healthfirst-care-dashboard .hfc-filter-summary,
+    #healthfirst-care-dashboard .hfc-stat-context {
+      color: var(--muted-foreground);
+      margin: 0;
+    }
+
+    #healthfirst-care-dashboard .hfc-eyebrow {
+      color: var(--muted-foreground);
+      margin: 0 0 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    #healthfirst-care-dashboard h1,
+    #healthfirst-care-dashboard h2,
+    #healthfirst-care-dashboard h3 {
+      margin: 0;
+    }
+
+    #healthfirst-care-dashboard .hfc-badge {
+      background: var(--muted);
+      color: var(--muted-foreground);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.3rem 0.65rem;
+      white-space: nowrap;
+    }
+
+    #healthfirst-care-dashboard .hfc-controls {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.75rem;
+      padding-block: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    #healthfirst-care-dashboard .hfc-controls .form-label {
+      min-width: 0;
+    }
+
+    #healthfirst-care-dashboard .hfc-controls .form-select,
+    #healthfirst-care-dashboard .hfc-controls .form-control {
+      width: 100%;
+    }
+
+    #healthfirst-care-dashboard .hfc-filter-summary {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.5rem 1rem;
+      padding-block: 0.75rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-error {
+      color: var(--destructive);
+      min-height: 1.4em;
+    }
+
+    #healthfirst-care-dashboard .hfc-section {
+      padding-block: 1.15rem;
+      border-top: 1px solid var(--border);
+    }
+
+    #healthfirst-care-dashboard .hfc-section:first-of-type {
+      border-top: 0;
+    }
+
+    #healthfirst-care-dashboard .hfc-section-heading {
+      align-items: flex-end;
+      margin-bottom: 0.75rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-stat-context {
+      margin-top: 0.3rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-readiness {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-readiness-item {
+      background: var(--muted);
+      color: var(--muted-foreground);
+      border-left: 3px solid var(--viz-series-2);
+      padding: 0.7rem 0.8rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-chart-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-chart-panel {
+      min-width: 0;
+      padding-block: 0.25rem 0.75rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-chart-panel-full {
+      grid-column: 1 / -1;
+    }
+
+    #healthfirst-care-dashboard .hfc-chart-heading {
+      align-items: flex-start;
+      padding-bottom: 0.65rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-chart-heading > div {
+      min-width: 0;
+    }
+
+    #healthfirst-care-dashboard .hfc-chart-host {
+      min-height: 18rem;
+      width: 100%;
+    }
+
+    #healthfirst-care-dashboard .hfc-chart-host svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    #healthfirst-care-dashboard .hfc-axis,
+    #healthfirst-care-dashboard .hfc-gridline {
+      stroke: var(--border);
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+    }
+
+    #healthfirst-care-dashboard .hfc-gridline {
+      opacity: 0.75;
+    }
+
+    #healthfirst-care-dashboard .hfc-svg-label {
+      fill: var(--muted-foreground);
+      font-family: inherit;
+    }
+
+    #healthfirst-care-dashboard .hfc-svg-value {
+      fill: var(--foreground);
+      font-family: inherit;
+      font-weight: 500;
+    }
+
+    #healthfirst-care-dashboard .hfc-bar {
+      fill: var(--viz-series-1);
+    }
+
+    #healthfirst-care-dashboard .hfc-satisfaction-high {
+      fill: var(--viz-series-3);
+    }
+
+    #healthfirst-care-dashboard .hfc-satisfaction-low {
+      fill: var(--viz-series-2);
+    }
+
+    #healthfirst-care-dashboard .hfc-empty {
+      min-height: 17rem;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 1rem;
+      background: var(--muted);
+      border: 1px dashed var(--border);
+    }
+
+    #healthfirst-care-dashboard .hfc-empty strong,
+    #healthfirst-care-dashboard .hfc-empty span {
+      display: block;
+    }
+
+    #healthfirst-care-dashboard .hfc-empty span {
+      color: var(--muted-foreground);
+      margin-top: 0.35rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-chart-summary {
+      margin-top: 0.55rem;
+      min-height: 1.4em;
+    }
+
+    #healthfirst-care-dashboard .hfc-table-wrap {
+      width: 100%;
+      overflow-x: visible;
+    }
+
+    #healthfirst-care-dashboard .hfc-heatmap {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0.3rem;
+      table-layout: fixed;
+    }
+
+    #healthfirst-care-dashboard .hfc-heatmap th,
+    #healthfirst-care-dashboard .hfc-heatmap td {
+      text-align: center;
+      padding: 0.7rem 0.5rem;
+      overflow-wrap: anywhere;
+    }
+
+    #healthfirst-care-dashboard .hfc-heatmap th:first-child {
+      text-align: left;
+    }
+
+    #healthfirst-care-dashboard .hfc-heat-0 {
+      background: var(--muted);
+      color: var(--muted-foreground);
+    }
+
+    #healthfirst-care-dashboard .hfc-heat-1 {
+      background: color-mix(in srgb, var(--viz-series-2) 28%, var(--muted));
+      color: var(--foreground);
+    }
+
+    #healthfirst-care-dashboard .hfc-heat-2 {
+      background: color-mix(in srgb, var(--viz-series-2) 55%, var(--muted));
+      color: var(--foreground);
+    }
+
+    #healthfirst-care-dashboard .hfc-heat-3 {
+      background: color-mix(in srgb, var(--viz-series-2) 78%, var(--muted));
+      color: var(--foreground);
+      font-weight: 500;
+    }
+
+    #healthfirst-care-dashboard .hfc-quality-note {
+      background: var(--muted);
+      border-left: 3px solid var(--viz-series-2);
+      padding: 0.85rem 1rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-quality-note ul {
+      margin-bottom: 0;
+    }
+
+    #healthfirst-care-dashboard .hfc-hidden-table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 0.75rem;
+    }
+
+    #healthfirst-care-dashboard .hfc-hidden-table th,
+    #healthfirst-care-dashboard .hfc-hidden-table td {
+      border-bottom: 1px solid var(--border);
+      padding: 0.4rem 0.25rem;
+      text-align: left;
+    }
+
+    @media (max-width: 900px) {
+      #healthfirst-care-dashboard .hfc-controls,
+      #healthfirst-care-dashboard .hfc-kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      #healthfirst-care-dashboard .hfc-chart-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      #healthfirst-care-dashboard .hfc-chart-panel-full {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 560px) {
+      #healthfirst-care-dashboard .hfc-header,
+      #healthfirst-care-dashboard .hfc-section-heading,
+      #healthfirst-care-dashboard .hfc-chart-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      #healthfirst-care-dashboard .hfc-controls,
+      #healthfirst-care-dashboard .hfc-kpi-grid,
+      #healthfirst-care-dashboard .hfc-readiness {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      #healthfirst-care-dashboard .hfc-heatmap th,
+      #healthfirst-care-dashboard .hfc-heatmap td {
+        padding: 0.45rem 0.2rem;
+      }
+
+      #healthfirst-care-dashboard #hfc-satisfaction-chart .hfc-svg-label,
+      #healthfirst-care-dashboard #hfc-satisfaction-chart .hfc-svg-value {
+        font-size: 24px;
+      }
+    }
+
+    @media print {
+      #healthfirst-care-dashboard .hfc-controls {
+        display: none;
+      }
+
+      #healthfirst-care-dashboard .hfc-chart-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      #healthfirst-care-dashboard .hfc-bar {
+        transition: all 180ms ease;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="healthfirst-care-dashboard" class="hfc-dashboard">
+
+  <header class="hfc-header">
+    <div>
+      <p class="hfc-eyebrow">HealthFirst Care</p>
+      <h1>Operational Dashboard</h1>
+      <p class="hfc-note">Supplied sample only · January 1–20, 2024</p>
+    </div>
+  </header>
+
+  <main>
+  <form class="hfc-controls" aria-label="Dashboard filters">
+    <label class="form-label" for="hfc-department-filter">
+      Department
+      <select id="hfc-department-filter" class="form-select">
+        <option value="All">All departments</option>
+        <option value="Cardiology">Cardiology</option>
+        <option value="General">General</option>
+        <option value="Neurology">Neurology</option>
+        <option value="Orthopedics">Orthopedics</option>
+        <option value="Pediatrics">Pediatrics</option>
+      </select>
+    </label>
+
+    <label class="form-label" for="hfc-start-date">
+      From date
+      <input id="hfc-start-date" class="form-control" type="date" min="2024-01-01" max="2024-01-20" value="2024-01-01">
+    </label>
+
+    <label class="form-label" for="hfc-end-date">
+      To date
+      <input id="hfc-end-date" class="form-control" type="date" min="2024-01-01" max="2024-01-20" value="2024-01-20">
+    </label>
+
+    <label class="form-label" for="hfc-resource-filter">
+      Resource ID / type
+      <select id="hfc-resource-filter" class="form-select">
+        <option value="All">All resources</option>
+        <optgroup label="Resource types">
+          <option value="type:Doctor">Doctor</option>
+          <option value="type:Equipment">Equipment</option>
+          <option value="type:Nurse">Nurse</option>
+          <option value="type:Room">Room</option>
+          <option value="type:Technician">Technician</option>
+        </optgroup>
+        <optgroup label="Resource IDs">
+          <option value="id:R1">R1 — Doctor</option>
+          <option value="id:R2">R2 — Nurse</option>
+          <option value="id:R3">R3 — Equipment</option>
+          <option value="id:R4">R4 — Room</option>
+          <option value="id:R5">R5 — Technician</option>
+          <option value="id:R6">R6 — Doctor</option>
+          <option value="id:R7">R7 — Nurse</option>
+          <option value="id:R8">R8 — Equipment</option>
+          <option value="id:R9">R9 — Room</option>
+          <option value="id:R10">R10 — Technician</option>
+        </optgroup>
+      </select>
+    </label>
+  </form>
+
+  <div class="hfc-filter-summary">
+    <span id="hfc-scope-summary" aria-live="polite"></span>
+    <span>Department does not filter resource panels: no resource Department field.</span>
+  </div>
+  <div id="hfc-filter-error" class="hfc-error" role="alert" aria-live="assertive"></div>
+
+    <section class="hfc-section" aria-labelledby="hfc-kpi-heading">
+      <div class="hfc-section-heading">
+        <div>
+          <h2 id="hfc-kpi-heading">1. Key performance overview</h2>
+          <p>Filtered descriptive values; not a hospital-wide baseline.</p>
+        </div>
+      </div>
+
+      <div class="hfc-kpi-grid">
+        <div class="card viz-stat">
+          <span class="text-muted">Appointments</span>
+          <span id="hfc-kpi-appointments" class="viz-stat-value">20</span>
+          <span id="hfc-kpi-appointments-context" class="hfc-stat-context">20 supplied rows</span>
+        </div>
+        <div class="card viz-stat">
+          <span class="text-muted">Completion rate</span>
+          <span id="hfc-kpi-completion" class="viz-stat-value">40.0%</span>
+          <span id="hfc-kpi-completion-context" class="hfc-stat-context">8 completed</span>
+        </div>
+        <div class="card viz-stat">
+          <span class="text-muted">Average feedback score</span>
+          <span id="hfc-kpi-feedback" class="viz-stat-value">7.00</span>
+          <span id="hfc-kpi-feedback-context" class="hfc-stat-context">15 responses · scale unknown</span>
+        </div>
+        <div class="card viz-stat">
+          <span class="text-muted">Resource records</span>
+          <span id="hfc-kpi-resources" class="viz-stat-value">10</span>
+          <span id="hfc-kpi-resources-context" class="hfc-stat-context">52 recorded hours</span>
+        </div>
+      </div>
+
+      <div class="hfc-readiness" role="group" aria-label="Data readiness indicators">
+        <div class="hfc-readiness-item">
+          <strong>Average wait time: N/A</strong>
+          <span id="hfc-wait-coverage">0 of 15 feedback rows contain a calculable wait value.</span>
+        </div>
+        <div class="hfc-readiness-item">
+          <strong>Resource utilization: N/A</strong>
+          <span>Capacity hours and resource Department are not supplied.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="hfc-section" aria-labelledby="hfc-resource-heading">
+      <div class="hfc-section-heading">
+        <div>
+          <h2 id="hfc-resource-heading">2. Resource analysis</h2>
+          <p>Recorded hours and status counts are descriptive substitutes for unavailable utilization measures.</p>
+        </div>
+      </div>
+
+      <div class="hfc-chart-grid">
+        <article class="hfc-chart-panel">
+          <div class="hfc-chart-heading">
+            <div>
+              <h3>Average recorded hours by resource type</h3>
+              <p>Not a utilization rate; capacity hours are missing.</p>
+            </div>
+            <span class="hfc-badge">Hours</span>
+          </div>
+          <div id="hfc-resource-bar-chart" class="hfc-chart-host"></div>
+          <p id="hfc-resource-bar-summary" class="hfc-chart-summary" aria-live="polite"></p>
+        </article>
+
+        <article class="hfc-chart-panel">
+          <div class="hfc-chart-heading">
+            <div>
+              <h3>Resource records by type and availability</h3>
+              <p>Status-count heatmap; it does not indicate demand or underutilization.</p>
+            </div>
+            <span class="hfc-badge">Record count</span>
+          </div>
+          <div id="hfc-resource-heatmap" class="hfc-chart-host"></div>
+          <p id="hfc-resource-heatmap-summary" class="hfc-chart-summary" aria-live="polite"></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="hfc-section" aria-labelledby="hfc-satisfaction-heading">
+      <div class="hfc-section-heading">
+        <div>
+          <h2 id="hfc-satisfaction-heading">3. Satisfaction by feedback score</h2>
+          <p>Response counts by score, classified High or Low under the lab rule.</p>
+        </div>
+      </div>
+
+      <article class="hfc-chart-panel hfc-chart-panel-full">
+        <div class="hfc-chart-heading">
+          <div>
+            <h3>Satisfaction level by feedback score</h3>
+            <p>Department and date filters apply; the survey scale is not supplied.</p>
+          </div>
+          <span class="hfc-badge">Response count</span>
+        </div>
+        <div id="hfc-satisfaction-chart" class="hfc-chart-host"></div>
+        <p id="hfc-satisfaction-summary" class="hfc-chart-summary" aria-live="polite"></p>
+      </article>
+    </section>
+
+    <noscript>This dashboard requires JavaScript for filter-driven calculations and charts.</noscript>
+  </main>
+
+    <aside class="hfc-quality-note" aria-label="Data quality decision note">
+      <strong>Decision note</strong>
+      <ul>
+        <li>Add physical check-in and consultation-start timestamps before monitoring the 20% wait-time target.</li>
+        <li>Add resource Department, capacity, demand, reservation interval, and location before calculating utilization.</li>
+        <li>Approve the survey scale and a meaningful satisfaction threshold before using High/Low as a performance measure.</li>
+      </ul>
+    </aside>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var root = document.getElementById("healthfirst-care-dashboard");
+      if (!root) return;
+
+      var appointments = [
+        { date: "2024-01-01", department: "Cardiology", status: "Completed" },
+        { date: "2024-01-02", department: "Orthopedics", status: "No Show" },
+        { date: "2024-01-03", department: "Neurology", status: "Rescheduled" },
+        { date: "2024-01-04", department: "Pediatrics", status: "Cancelled" },
+        { date: "2024-01-05", department: "General", status: "Completed" },
+        { date: "2024-01-06", department: "Cardiology", status: "Completed" },
+        { date: "2024-01-07", department: "Orthopedics", status: "No Show" },
+        { date: "2024-01-08", department: "Neurology", status: "Rescheduled" },
+        { date: "2024-01-09", department: "Pediatrics", status: "Cancelled" },
+        { date: "2024-01-10", department: "General", status: "Completed" },
+        { date: "2024-01-11", department: "Cardiology", status: "Completed" },
+        { date: "2024-01-12", department: "Orthopedics", status: "No Show" },
+        { date: "2024-01-13", department: "Neurology", status: "Rescheduled" },
+        { date: "2024-01-14", department: "Pediatrics", status: "Cancelled" },
+        { date: "2024-01-15", department: "General", status: "Completed" },
+        { date: "2024-01-16", department: "Cardiology", status: "Completed" },
+        { date: "2024-01-17", department: "Orthopedics", status: "No Show" },
+        { date: "2024-01-18", department: "Neurology", status: "Rescheduled" },
+        { date: "2024-01-19", department: "Pediatrics", status: "Cancelled" },
+        { date: "2024-01-20", department: "General", status: "Completed" }
+      ];
+
+      var feedback = [
+        { date: "2024-01-01", department: "Cardiology", score: 8, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-02", department: "Orthopedics", score: 6, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-03", department: "Neurology", score: 9, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-04", department: "Pediatrics", score: 7, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-05", department: "General", score: 5, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-06", department: "Cardiology", score: 8, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-07", department: "Orthopedics", score: 7, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-08", department: "Neurology", score: 9, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-09", department: "Pediatrics", score: 6, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-10", department: "General", score: 5, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-11", department: "Cardiology", score: 9, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-12", department: "Orthopedics", score: 8, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-13", department: "Neurology", score: 7, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-14", department: "Pediatrics", score: 5, satisfaction: "High", waitMinutes: null },
+        { date: "2024-01-15", department: "General", score: 6, satisfaction: "High", waitMinutes: null }
+      ];
+
+      var resources = [
+        { id: "R1", type: "Doctor", date: "2024-01-01", availability: "Available", usageHours: 8 },
+        { id: "R2", type: "Nurse", date: "2024-01-02", availability: "Unavailable", usageHours: 0 },
+        { id: "R3", type: "Equipment", date: "2024-01-03", availability: "In Use", usageHours: 6 },
+        { id: "R4", type: "Room", date: "2024-01-04", availability: "Under Maintenance", usageHours: 2 },
+        { id: "R5", type: "Technician", date: "2024-01-05", availability: "Available", usageHours: 10 },
+        { id: "R6", type: "Doctor", date: "2024-01-06", availability: "Available", usageHours: 8 },
+        { id: "R7", type: "Nurse", date: "2024-01-07", availability: "Unavailable", usageHours: 0 },
+        { id: "R8", type: "Equipment", date: "2024-01-08", availability: "In Use", usageHours: 6 },
+        { id: "R9", type: "Room", date: "2024-01-09", availability: "Under Maintenance", usageHours: 2 },
+        { id: "R10", type: "Technician", date: "2024-01-10", availability: "Available", usageHours: 10 }
+      ];
+
+      var departmentFilter = root.querySelector("#hfc-department-filter");
+      var startDateFilter = root.querySelector("#hfc-start-date");
+      var endDateFilter = root.querySelector("#hfc-end-date");
+      var resourceFilter = root.querySelector("#hfc-resource-filter");
+      var SVG_NS = "http://www.w3.org/2000/svg";
+
+      function byId(id) {
+        return root.querySelector("#" + id);
+      }
+
+      function setText(id, value) {
+        var node = byId(id);
+        if (node) node.textContent = value;
+      }
+
+      function formatNumber(value, digits) {
+        return new Intl.NumberFormat("en-US", {
+          minimumFractionDigits: digits,
+          maximumFractionDigits: digits
+        }).format(value);
+      }
+
+      function formatPercent(value) {
+        return formatNumber(value * 100, 1) + "%";
+      }
+
+      function formatDate(iso) {
+        return new Intl.DateTimeFormat("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+          timeZone: "UTC"
+        }).format(new Date(iso + "T00:00:00Z"));
+      }
+
+      function inDateRange(row, start, end) {
+        return row.date >= start && row.date <= end;
+      }
+
+      function resourceMatches(row, selected) {
+        if (selected === "All") return true;
+        if (selected.indexOf("type:") === 0) return row.type === selected.slice(5);
+        if (selected.indexOf("id:") === 0) return row.id === selected.slice(3);
+        return true;
+      }
+
+      function mean(values) {
+        if (!values.length) return null;
+        return values.reduce(function (sum, value) { return sum + value; }, 0) / values.length;
+      }
+
+      function createSvgElement(tag, attrs, text) {
+        var node = document.createElementNS(SVG_NS, tag);
+        Object.keys(attrs || {}).forEach(function (key) {
+          node.setAttribute(key, String(attrs[key]));
+        });
+        if (text !== undefined && text !== null) node.textContent = String(text);
+        return node;
+      }
+
+      function createChartSvg(host, title, description, viewBox) {
+        host.replaceChildren();
+        var svg = createSvgElement("svg", {
+          viewBox: viewBox,
+          role: "img",
+          "aria-label": title + ". " + description
+        });
+        svg.appendChild(createSvgElement("title", {}, title));
+        svg.appendChild(createSvgElement("desc", {}, description));
+        host.appendChild(svg);
+        return svg;
+      }
+
+      function renderEmpty(host, heading, detail) {
+        host.replaceChildren();
+        var box = document.createElement("div");
+        box.className = "hfc-empty";
+        var inner = document.createElement("div");
+        var strong = document.createElement("strong");
+        strong.textContent = heading;
+        var span = document.createElement("span");
+        span.textContent = detail;
+        inner.appendChild(strong);
+        inner.appendChild(span);
+        box.appendChild(inner);
+        host.appendChild(box);
+      }
+
+      function aggregateResourceHours(rows) {
+        var order = ["Doctor", "Equipment", "Nurse", "Room", "Technician"];
+        return order.map(function (type) {
+          var selected = rows.filter(function (row) { return row.type === type; });
+          return {
+            type: type,
+            count: selected.length,
+            total: selected.reduce(function (sum, row) { return sum + row.usageHours; }, 0),
+            average: selected.length ? mean(selected.map(function (row) { return row.usageHours; })) : null
+          };
+        }).filter(function (row) { return row.count > 0; });
+      }
+
+      function renderResourceBar(rows) {
+        var host = byId("hfc-resource-bar-chart");
+        var data = aggregateResourceHours(rows);
+        if (!data.length) {
+          renderEmpty(host, "No resource records", "Adjust the date or resource filter.");
+          setText("hfc-resource-bar-summary", "No resource rows are available in the current filter.");
+          return;
+        }
+
+        var width = 560;
+        var height = 340;
+        var margin = { top: 35, right: 20, bottom: 85, left: 65 };
+        var plotWidth = width - margin.left - margin.right;
+        var plotHeight = height - margin.top - margin.bottom;
+        var maxValue = Math.max.apply(null, data.map(function (row) { return row.average; }).concat([1]));
+        var roundedMax = Math.max(2, Math.ceil(maxValue / 2) * 2);
+        var slot = plotWidth / data.length;
+        var barWidth = Math.min(72, slot * 0.58);
+        var svg = createChartSvg(
+          host,
+          "Average recorded hours by resource type",
+          data.map(function (row) { return row.type + " " + formatNumber(row.average, 1) + " hours"; }).join("; ") + ". These are not utilization rates.",
+          "0 0 " + width + " " + height
+        );
+
+        for (var tick = 0; tick <= 5; tick += 1) {
+          var value = roundedMax * tick / 5;
+          var y = margin.top + plotHeight - plotHeight * tick / 5;
+          svg.appendChild(createSvgElement("line", { x1: margin.left, y1: y, x2: margin.left + plotWidth, y2: y, class: "hfc-gridline" }));
+          svg.appendChild(createSvgElement("text", { x: margin.left - 10, y: y + 5, class: "hfc-svg-label", "text-anchor": "end" }, formatNumber(value, 1)));
+        }
+
+        data.forEach(function (row, index) {
+          var x = margin.left + slot * index + (slot - barWidth) / 2;
+          var barHeight = row.average / roundedMax * plotHeight;
+          var y = margin.top + plotHeight - barHeight;
+          var rect = createSvgElement("rect", {
+            x: x,
+            y: y,
+            width: barWidth,
+            height: Math.max(0, barHeight),
+            rx: 3,
+            class: "hfc-bar"
+          });
+          rect.appendChild(createSvgElement("title", {}, row.type + ": average " + formatNumber(row.average, 1) + " recorded hours; total " + formatNumber(row.total, 1) + "; " + row.count + " records; not utilization."));
+          svg.appendChild(rect);
+          svg.appendChild(createSvgElement("text", { x: x + barWidth / 2, y: Math.max(margin.top + 15, y - 8), class: "hfc-svg-value", "text-anchor": "middle" }, formatNumber(row.average, 1)));
+          svg.appendChild(createSvgElement("text", { x: x + barWidth / 2, y: margin.top + plotHeight + 28, class: "hfc-svg-label", "text-anchor": "middle" }, row.type));
+        });
+
+        svg.appendChild(createSvgElement("line", { x1: margin.left, y1: margin.top + plotHeight, x2: margin.left + plotWidth, y2: margin.top + plotHeight, class: "hfc-axis" }));
+        svg.appendChild(createSvgElement("line", { x1: margin.left, y1: margin.top, x2: margin.left, y2: margin.top + plotHeight, class: "hfc-axis" }));
+        svg.appendChild(createSvgElement("text", { x: 18, y: margin.top + plotHeight / 2, class: "hfc-svg-label", "text-anchor": "middle", transform: "rotate(-90 18 " + (margin.top + plotHeight / 2) + ")" }, "Average recorded hours"));
+
+        var totalHours = rows.reduce(function (sum, row) { return sum + row.usageHours; }, 0);
+        setText("hfc-resource-bar-summary", rows.length + " filtered resource records contain " + formatNumber(totalHours, 1) + " recorded hours. A capacity denominator is not available.");
+      }
+
+      function renderHeatmap(rows) {
+        var host = byId("hfc-resource-heatmap");
+        if (!rows.length) {
+          renderEmpty(host, "No resource records", "Adjust the date or resource filter.");
+          setText("hfc-resource-heatmap-summary", "No resource rows are available in the current filter.");
+          return;
+        }
+
+        host.replaceChildren();
+        var types = ["Doctor", "Equipment", "Nurse", "Room", "Technician"];
+        var statuses = ["Available", "In Use", "Unavailable", "Under Maintenance"];
+        var counts = {};
+        var maxCount = 0;
+
+        types.forEach(function (type) {
+          counts[type] = {};
+          statuses.forEach(function (status) {
+            var count = rows.filter(function (row) {
+              return row.type === type && row.availability === status;
+            }).length;
+            counts[type][status] = count;
+            maxCount = Math.max(maxCount, count);
+          });
+        });
+
+        var wrap = document.createElement("div");
+        wrap.className = "hfc-table-wrap";
+        var table = document.createElement("table");
+        table.className = "hfc-heatmap";
+        table.setAttribute("aria-label", "Resource record counts by resource type and availability status");
+        var thead = document.createElement("thead");
+        var headerRow = document.createElement("tr");
+        var blank = document.createElement("th");
+        blank.scope = "col";
+        blank.textContent = "Resource type";
+        headerRow.appendChild(blank);
+        statuses.forEach(function (status) {
+          var th = document.createElement("th");
+          th.scope = "col";
+          th.textContent = status;
+          headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        var tbody = document.createElement("tbody");
+        types.forEach(function (type) {
+          var row = document.createElement("tr");
+          var rowHeader = document.createElement("th");
+          rowHeader.scope = "row";
+          rowHeader.textContent = type;
+          row.appendChild(rowHeader);
+          statuses.forEach(function (status) {
+            var count = counts[type][status];
+            var td = document.createElement("td");
+            var level = 0;
+            if (count > 0 && maxCount > 0) {
+              var ratio = count / maxCount;
+              level = ratio >= 0.75 ? 3 : ratio >= 0.4 ? 2 : 1;
+            }
+            td.className = "hfc-heat-" + level;
+            td.textContent = String(count);
+            td.setAttribute("aria-label", type + ", " + status + ": " + count + " records");
+            row.appendChild(td);
+          });
+          tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+        wrap.appendChild(table);
+        host.appendChild(wrap);
+        setText("hfc-resource-heatmap-summary", "Heatmap cells sum to " + rows.length + " filtered resource records. Counts describe source statuses, not demand or utilization.");
+      }
+
+      function aggregateSatisfactionByScore(rows) {
+        var byScore = {};
+
+        feedback.forEach(function (row) {
+          var key = String(row.score);
+          if (!byScore[key]) {
+            byScore[key] = { score: row.score, high: 0, low: 0, total: 0 };
+          }
+        });
+
+        rows.forEach(function (row) {
+          var key = String(row.score);
+          if (!byScore[key]) {
+            byScore[key] = { score: row.score, high: 0, low: 0, total: 0 };
+          }
+          if (row.satisfaction === "Low") {
+            byScore[key].low += 1;
+          } else {
+            byScore[key].high += 1;
+          }
+          byScore[key].total += 1;
+        });
+
+        return Object.keys(byScore).map(function (key) {
+          return byScore[key];
+        }).sort(function (a, b) {
+          return a.score - b.score;
+        });
+      }
+
+      function renderSatisfaction(rows) {
+        var host = byId("hfc-satisfaction-chart");
+        if (!rows.length) {
+          renderEmpty(host, "No feedback records", "Adjust the department or date filter.");
+          setText("hfc-satisfaction-summary", "No feedback rows are available in the current filter.");
+          return;
+        }
+
+        var data = aggregateSatisfactionByScore(rows);
+        var observed = data.filter(function (row) { return row.total > 0; });
+        var highTotal = rows.filter(function (row) { return row.satisfaction !== "Low"; }).length;
+        var lowTotal = rows.length - highTotal;
+        var maxTotal = Math.max.apply(null, data.map(function (row) { return row.total; }).concat([1]));
+        var tickStep = Math.max(1, Math.ceil(maxTotal / 5));
+        var roundedMax = Math.ceil(maxTotal / tickStep) * tickStep;
+        var tickCount = roundedMax / tickStep;
+        var width = 720;
+        var height = 400;
+        var margin = { top: 58, right: 25, bottom: 90, left: 70 };
+        var plotWidth = width - margin.left - margin.right;
+        var plotHeight = height - margin.top - margin.bottom;
+        var slot = plotWidth / data.length;
+        var barWidth = Math.min(82, slot * 0.56);
+        var description = data.map(function (row) {
+          return "Score " + row.score + ": " + row.total + " responses, High " + row.high + ", Low " + row.low;
+        }).join("; ") + ". High means score 4 or above. The survey scale is not supplied.";
+        var svg = createChartSvg(
+          host,
+          "Feedback responses by score and satisfaction level",
+          description,
+          "0 0 " + width + " " + height
+        );
+
+        svg.appendChild(createSvgElement("rect", { x: 405, y: 18, width: 14, height: 14, rx: 2, class: "hfc-satisfaction-high" }));
+        svg.appendChild(createSvgElement("text", { x: 427, y: 30, class: "hfc-svg-label" }, "High (≥ 4)"));
+        svg.appendChild(createSvgElement("rect", { x: 570, y: 18, width: 14, height: 14, rx: 2, class: "hfc-satisfaction-low" }));
+        svg.appendChild(createSvgElement("text", { x: 592, y: 30, class: "hfc-svg-label" }, "Low (< 4)"));
+
+        for (var tick = 0; tick <= tickCount; tick += 1) {
+          var value = tick * tickStep;
+          var y = margin.top + plotHeight - value / roundedMax * plotHeight;
+          svg.appendChild(createSvgElement("line", { x1: margin.left, y1: y, x2: margin.left + plotWidth, y2: y, class: "hfc-gridline" }));
+          svg.appendChild(createSvgElement("text", { x: margin.left - 10, y: y + 5, class: "hfc-svg-label", "text-anchor": "end" }, String(value)));
+        }
+
+        data.forEach(function (row, index) {
+          var x = margin.left + slot * index + (slot - barWidth) / 2;
+          var highHeight = row.high / roundedMax * plotHeight;
+          var lowHeight = row.low / roundedMax * plotHeight;
+          var highY = margin.top + plotHeight - highHeight;
+          var lowY = highY - lowHeight;
+
+          if (row.high > 0) {
+            var highRect = createSvgElement("rect", {
+              x: x,
+              y: highY,
+              width: barWidth,
+              height: highHeight,
+              rx: row.low > 0 ? 0 : 3,
+              class: "hfc-bar hfc-satisfaction-high"
+            });
+            highRect.appendChild(createSvgElement("title", {}, "Score " + row.score + ", High satisfaction: " + row.high + " responses"));
+            svg.appendChild(highRect);
+          }
+
+          if (row.low > 0) {
+            var lowRect = createSvgElement("rect", {
+              x: x,
+              y: lowY,
+              width: barWidth,
+              height: lowHeight,
+              rx: 3,
+              class: "hfc-bar hfc-satisfaction-low"
+            });
+            lowRect.appendChild(createSvgElement("title", {}, "Score " + row.score + ", Low satisfaction: " + row.low + " responses"));
+            svg.appendChild(lowRect);
+          }
+
+          var totalY = row.total > 0 ? lowY - 9 : margin.top + plotHeight - 9;
+          svg.appendChild(createSvgElement("text", { x: x + barWidth / 2, y: totalY, class: "hfc-svg-value", "text-anchor": "middle" }, String(row.total)));
+          svg.appendChild(createSvgElement("text", { x: x + barWidth / 2, y: margin.top + plotHeight + 28, class: "hfc-svg-label", "text-anchor": "middle" }, String(row.score)));
+        });
+
+        svg.appendChild(createSvgElement("line", { x1: margin.left, y1: margin.top + plotHeight, x2: margin.left + plotWidth, y2: margin.top + plotHeight, class: "hfc-axis" }));
+        svg.appendChild(createSvgElement("line", { x1: margin.left, y1: margin.top, x2: margin.left, y2: margin.top + plotHeight, class: "hfc-axis" }));
+        svg.appendChild(createSvgElement("text", { x: margin.left + plotWidth / 2, y: height - 24, class: "hfc-svg-label", "text-anchor": "middle" }, "Observed feedback score (scale unknown)"));
+        svg.appendChild(createSvgElement("text", { x: 18, y: margin.top + plotHeight / 2, class: "hfc-svg-label", "text-anchor": "middle", transform: "rotate(-90 18 " + (margin.top + plotHeight / 2) + ")" }, "Feedback responses"));
+
+        var scoreSummary = observed.map(function (row) {
+          return "score " + row.score + ": " + row.total;
+        }).join("; ");
+        var thresholdNote = lowTotal === 0
+          ? " All filtered responses are High under the lab threshold, so High/Low does not differentiate this view."
+          : " High means score 4 or above; Low means below 4.";
+        setText(
+          "hfc-satisfaction-summary",
+          rows.length + " filtered responses. Counts by feedback score: " + scoreSummary + ". High " + highTotal + "; Low " + lowTotal + "." + thresholdNote + " The survey scale is not supplied."
+        );
+      }
+
+      function renderInvalidState() {
+        ["hfc-kpi-appointments", "hfc-kpi-completion", "hfc-kpi-feedback", "hfc-kpi-resources"].forEach(function (id) {
+          setText(id, "—");
+        });
+        setText("hfc-kpi-appointments-context", "Invalid date range");
+        setText("hfc-kpi-completion-context", "Invalid date range");
+        setText("hfc-kpi-feedback-context", "Invalid date range");
+        setText("hfc-kpi-resources-context", "Invalid date range");
+        setText("hfc-wait-coverage", "Correct the date range to refresh data coverage.");
+        renderEmpty(byId("hfc-resource-bar-chart"), "Invalid date range", "The From date must be on or before the To date.");
+        renderEmpty(byId("hfc-resource-heatmap"), "Invalid date range", "The From date must be on or before the To date.");
+        renderEmpty(byId("hfc-satisfaction-chart"), "Invalid date range", "The From date must be on or before the To date.");
+        setText("hfc-resource-bar-summary", "");
+        setText("hfc-resource-heatmap-summary", "");
+        setText("hfc-satisfaction-summary", "");
+      }
+
+      function updateDashboard() {
+        var department = departmentFilter.value;
+        var start = startDateFilter.value;
+        var end = endDateFilter.value;
+        var resource = resourceFilter.value;
+        var error = byId("hfc-filter-error");
+
+        if (!start || !end || start > end) {
+          error.textContent = "From date must be on or before To date.";
+          setText("hfc-scope-summary", "Dashboard not refreshed because the date range is invalid.");
+          renderInvalidState();
+          return;
+        }
+
+        error.textContent = "";
+        var appointmentRows = appointments.filter(function (row) {
+          return inDateRange(row, start, end) && (department === "All" || row.department === department);
+        });
+        var feedbackRows = feedback.filter(function (row) {
+          return inDateRange(row, start, end) && (department === "All" || row.department === department);
+        });
+        var resourceRows = resources.filter(function (row) {
+          return inDateRange(row, start, end) && resourceMatches(row, resource);
+        });
+
+        var completed = appointmentRows.filter(function (row) { return row.status === "Completed"; }).length;
+        var completionRate = appointmentRows.length ? completed / appointmentRows.length : null;
+        var averageScore = mean(feedbackRows.map(function (row) { return row.score; }));
+        var resourceHours = resourceRows.reduce(function (sum, row) { return sum + row.usageHours; }, 0);
+        var waitCount = feedbackRows.filter(function (row) { return Number.isFinite(row.waitMinutes); }).length;
+
+        setText("hfc-kpi-appointments", String(appointmentRows.length));
+        setText("hfc-kpi-appointments-context", appointmentRows.length + " filtered appointment rows");
+        setText("hfc-kpi-completion", completionRate === null ? "N/A" : formatPercent(completionRate));
+        setText("hfc-kpi-completion-context", completed + " completed");
+        setText("hfc-kpi-feedback", averageScore === null ? "N/A" : formatNumber(averageScore, 2));
+        setText("hfc-kpi-feedback-context", feedbackRows.length + " responses · scale unknown");
+        setText("hfc-kpi-resources", String(resourceRows.length));
+        setText("hfc-kpi-resources-context", formatNumber(resourceHours, 1) + " recorded hours");
+        setText("hfc-wait-coverage", waitCount + " of " + feedbackRows.length + " filtered feedback rows contain a calculable wait value.");
+
+        var departmentLabel = department === "All" ? "All departments" : department;
+        var resourceLabel = resourceFilter.options[resourceFilter.selectedIndex].text;
+        setText("hfc-scope-summary", departmentLabel + " · " + formatDate(start) + "–" + formatDate(end) + " · " + resourceLabel);
+
+        renderResourceBar(resourceRows);
+        renderHeatmap(resourceRows);
+        renderSatisfaction(feedbackRows);
+      }
+
+      [departmentFilter, startDateFilter, endDateFilter, resourceFilter].forEach(function (control) {
+        control.addEventListener("change", updateDashboard);
+      });
+
+      updateDashboard();
+    }());
+  </script>
+</div>
+
+</body>
+</html>

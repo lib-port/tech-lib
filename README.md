@@ -1,9 +1,9 @@
-# Tech Library
+# Notes and Projects Library
 
 [![GitBook site](https://img.shields.io/badge/gitbook-site-orange?style=flat-square)](https://lib-port.gitbook.io/tech-lib)
 [![GitHub repo](https://img.shields.io/badge/github-repo-blue?style=flat-square)](https://github.com/lib-port/tech-lib)
 
-Notes and project files covering Linux, platform engineering, data engineering, AI engineering, system architecture, and cybersecurity. Course providers include IBM, TCM Security, Codecademy, Pluralsight, Databricks, AWS, and Johns Hopkins University.
+Notes and project files covering software engineering, systems architecture, cybersecurity, business analysis, and product management. Course providers include IBM, TCM Security, Codecademy, Pluralsight, Databricks, AWS, and Johns Hopkins University.
 
 :notebook: = notes | :package: = project(s) | :gear: = lab(s) | :construction: = in progress
 
@@ -33,7 +33,7 @@ Linux is the open-source foundation powering much of today’s cloud, server, an
 - Observability and Monitoring Tools and Techniques ([course](https://www.pluralsight.com/paths/observability-and-monitoring-tools-and-techniques))
 - Splunk Search Expert Specialization ([course](https://www.coursera.org/specializations/splunk-search-expert))
 - :construction: :package: :notebook: [IBM DevOps and Software Engineering Professional Certificate](IBM/IBM-DSE/README.md) ([course](https://www.coursera.org/professional-certificates/devops-and-software-engineering))
-- AWS Cloud Solutions Architect Professional Certificate ([course](https://www.coursera.org/professional-certificates/aws-cloud-solutions-architect))
+- AWS Certified Solutions Architect - Associate ([course](https://www.codecademy.com/learn/ext-paths/saa-c03-aws-certified-solutions-architect-associate))
 - Cisco Certified Network Associate ([course](https://www.pluralsight.com/paths/cisco-ccna-cisco-certified-network-associate-200-301))
 
 ### Book Notes
@@ -138,6 +138,44 @@ Cybersecurity protects digital systems, data, and operations by managing risk an
 - Trust in Computer Systems and the Cloud, by Mike Bursell. ([catalogue](https://www.wiley.com/en-us/trust-in-computer-systems-and-the-cloud-p-9781119695158))
 - Intelligent Continuous Security, by Marc Hornbeek. ([catalogue](https://www.oreilly.com/library/view/intelligent-continuous-security/9798341615908/))
 
+## Business Analysis
+
+<details>
+<summary>Introduction</summary>
+Business analysis is the process of identifying organisational needs, evaluating challenges, and uncovering opportunities for improvement. It helps organisations make informed decisions by translating data, stakeholder requirements, and strategic goals into practical solutions.
+</details>
+
+### Course Notes and Projects
+
+- :package: :notebook: [IBM Business Analyst Professional Certificate](IBM/IBM-BA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-business-analyst-professional-certificate))
+- Certified Business Analysis Professional (CBAP) ([course](https://www.codecademy.com/learn/ext-paths/certified-business-analysis-professional-cbap-babok-r-v3))
+
+### Book Notes
+
+- Business Analysis, 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4))
+- Business Analysis Techniques, 3rd edition, by James Cadle, Debra Paul, Jonathan Hunsley, Adrian Reed, David Beckham, and Paul Turner. ([catalogue](https://shop.bcs.org/page/detail/business-analysis-techniques/?SF1=work_exact&ST1=BUSINESSANALYSISTECHNIQUES3))
+- Agile and Business Analysis, 2nd edition, by Lynda Girvan and Debra Paul. ([catalogue](https://shop.bcs.org/page/detail/?k=9781780176178))
+- Software Requirements, 3rd edition, by Karl Wiegers and Joy Beatt. ([catalogue](https://www.microsoftpressstore.com/store/software-requirements-9780735679665))
+- Systems Analysis and Design, 7th edition, by David P. Tegarden, Binny Samuel, Roman Lukyanenko, Alan Dennis, and Barbara Haley Wixom. ([catalogue](https://www.wiley.com/en-us/systems-analysis-and-design-an-object-oriented-approach-with-uml-7th-edition-p-9781394331727))
+
+## Product Management
+
+<details>
+<summary>Introduction</summary>
+Product management guides a product from idea to market by aligning customer needs, business goals, and cross-functional execution. Business analysis and product management complement each other by combining strategic product direction with rigorous requirements, process evaluation, and data-driven insight.
+</details>
+
+### Course Notes and Projects
+
+- IBM Product Owner Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-product-owner))
+- IBM Product Manager Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-product-manager))
+
+### Book Notes
+
+- The Professional Product Owner, by Don McGreal and Ralph Jocham. ([catalogue](https://www.informit.com/store/professional-product-owner-leveraging-scrum-as-a-competitive-9780134686479))
+- Product Management in Practice, by Matt LeMay. ([catalogue](https://www.oreilly.com/library/view/product-management-in/9781491982266/))
+- Digital Product Management, by Kevin J. Brennan, Sallie Gregory, and Filip Hendrickx. ([catalogue](https://shop.bcs.org/page/detail/digital-product-management/?SF1=work_exact&ST1=DIGITALPRODUCTMANAGEMENT))
+---
 ## Custom Portfolio Projects
 
 ### Front-End Development
@@ -160,8 +198,5 @@ Cybersecurity protects digital systems, data, and operations by managing risk an
 
 - :package: [Ansible CIS-based Auditing System for Debian OSes](https://github.com/lib-port/ansible-linux-audit)
 - :package: [Ansible Detection-as-Code Engine for HTB Labs](https://github.com/lib-port/agentless-DaC)
-
+---
 ## Miscellaneous Notes
-
-> [!WARNING]
-> Solutions to labs and projects are my own and were validated as correct with tests, but are not the solutions provided by the courses and may not be optimal solutions. Solutions provided by the courses have not been provided in the notes.
