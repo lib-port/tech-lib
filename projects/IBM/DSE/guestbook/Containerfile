@@ -1,0 +1,18 @@
+# Build with Go. Redis is the only application dependency.
+FROM docker.io/library/golang:1.27.1 AS build
+WORKDIR /src
+COPY go.mod go.sum ./
+RUN go mod download
+COPY *.go ./
+COPY public ./public
+ARG APP_VERSION=v1
+RUN CGO_ENABLED=0 go build -buildvcs=false -trimpath -ldflags="-s -w -X main.version=${APP_VERSION}" -o /out/guestbook .
+
+# The Go binary includes the HTML, CSS, and JavaScript files.
+FROM scratch
+COPY --from=build /out/guestbook /guestbook
+COPY LICENSE NOTICE /
+USER 10001:10001
+ENV REDIS_ADDR=redis:6379
+EXPOSE 3000
+ENTRYPOINT ["/guestbook"]

@@ -1,21 +1,17 @@
-name: IBM SSA PC
-label: "sys-arch"
+name: IBM PO PC
+label: "prod-man"
 
-due-date: 2027-04-30
+due-date: 2026-12-31
 
 notes-and-project:
-- Introduction to Systems Architecture
-- IT Systems Design and Analysis
-- Project, Stakeholder, and Requirements Management Fundamentals
-- Business Process Modeling, Analysis, and Improvement
-- Cloud Native, Microservices, Containers, DevOps and Agile
-- Enterprise Data Architecture and Operations
-- Data Integration, Data Storage, & Data Migration
-- Software Testing, Deployment, and Maintenance Strategies
-- Cybersecurity Architecture
-- "Generative AI: Advancing Systems Analysis & Architecture"
+- "The Product Owner Profession: Unleashing the Power of Scrum"
+- "Introduction to Agile Development and Scrum"
+- "Product Owner: Communications & Stakeholder Management"
+- "Product Owner: Essential Skills and Tools for Innovation"
+- "Generative AI: Introduction and Applications"
+- "Generative AI: Revolutionizing the Product Owner Role"
 
 notes-only:
 
 project-only:
-- Systems and Solutions Architect Capstone Project
+- Product Owner Capstone
