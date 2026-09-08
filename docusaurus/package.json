@@ -1,0 +1,31 @@
+{
+  "name": "tech-lib-site",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  },
+  "browserslist": {
+    "production": [">0.5%", "not dead", "not op_mini all"],
+    "development": ["last 3 chrome versions", "last 3 firefox versions", "last 5 safari versions"]
+  },
+  "scripts": {
+    "start": "node scripts/site.mjs start",
+    "build": "node scripts/site.mjs build",
+    "serve": "node scripts/site.mjs serve",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node scripts/check-build.mjs"
+  },
+  "dependencies": {
+    "@docusaurus/core": "latest",
+    "@docusaurus/preset-classic": "latest",
+    "@docusaurus/theme-mermaid": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "remark-emoji": "latest",
+    "remark-gfm": "latest",
+    "remark-parse": "latest",
+    "unified": "latest",
+    "unist-util-visit": "latest"
+  }
+}

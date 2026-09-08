@@ -1,0 +1,5 @@
+.markdown img { max-width: 100%; height: auto; }
+.markdown table { display: block; overflow-x: auto; }
+.mermaid { overflow-x: auto; }
+.menu__link { overflow-wrap: anywhere; }
+.header-github-link svg { display: block; }
