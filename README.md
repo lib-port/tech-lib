@@ -1,8 +1,5 @@
 # Notes and Projects Library
 
-[![GitBook site](https://img.shields.io/badge/gitbook-site-orange?style=flat-square)](https://lib-port.gitbook.io/tech-lib)
-[![GitHub repo](https://img.shields.io/badge/github-repo-blue?style=flat-square)](https://github.com/lib-port/tech-lib)
-
 Notes and project files covering software engineering, systems architecture, cybersecurity, business analysis, and product management. Course providers include IBM, TCM Security, Codecademy, Pluralsight, Databricks, AWS, and Johns Hopkins University.
 
 :notebook: = notes | :package: = project(s) | :gear: = lab(s) | :construction: = in progress
