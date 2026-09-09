@@ -1,5 +1,8 @@
 # Notes and Projects Library
 
+[![Docusaurus site](https://img.shields.io/badge/docusaurus-site-green?logo=docusaurus&logoColor=white)](https://lib-port.github.io/tech-lib)
+[![GitHub repo](https://img.shields.io/badge/github-repo-blue?logo=github&logoColor=white)](https://github.com/lib-port/tech-lib)
+
 Notes and project files covering software engineering, systems architecture, cybersecurity, business analysis, and product management. Course providers include IBM, TCM Security, Codecademy, Pluralsight, Databricks, AWS, and Johns Hopkins University.
 
 :notebook: = notes | :package: = project(s) | :gear: = lab(s) | :construction: = in progress
@@ -178,6 +181,10 @@ Product management guides a product from idea to market by aligning customer nee
 ### Front-End Development
 
 - :package: [Developer Landing Page](https://github.com/lib-port/lib-port.github.io) :link: [Live demo](https://lib-port.github.io)
+
+### Product Development and Management
+
+-  :package: [Who Gets Heard: The Work Behind the Work](https://lib-port.github.io/who-gets-heard)
 
 ### Platform Engineering
 

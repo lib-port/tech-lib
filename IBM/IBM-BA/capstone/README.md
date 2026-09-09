@@ -26,6 +26,6 @@ As the Business Analyst responsible for advancing this initiative, you will:
 * [Process Models and Documentation](Capstone_Project_M03L01_Process_Model.md)
 * [Advanced Process Maps and Annotations](Capstone_Project_M03L02_Swimlane_Diagrams.md)
 * [Data Analysis Using Excel](Capstone_Project_M04L01_Data_Analysis.md) ([Spreadsheet](Capstone_Project_M04L01_Data_Analysis.xlsx))
-* [Dashboard Report](Capstone_Project_M04L02_Dashboard_Insights.md) ([Interactive Dashboard](https://htmlpreview.github.io/?https://github.com/lib-port/bus-lib/blob/main/IBM-BA/capstone/Capstone_Project_M04L02_Dashboard.html))
+* [Dashboard Report](Capstone_Project_M04L02_Dashboard_Insights.md) ([Interactive Dashboard](https://htmlpreview.github.io/?https://github.com/lib-port/tech-lib/blob/main/IBM/IBM-BA/capstone/Capstone_Project_M04L02_Dashboard.html))
 * [Risk Register](Capstone_Project_M05L01_Risk_Register_SWOT.md)
 * [Risk Matrix and Mitigation Strategies](Capstone_Project_M05L02_Risk_Matrix_Mitigation.md)

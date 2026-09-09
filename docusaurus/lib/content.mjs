@@ -106,8 +106,18 @@ export function createSidebar(documents, orders) {
   return itemsFor('.');
 }
 
-export function homeFrontMatter(filePath, repositoryRoot, frontMatter) {
-  return path.resolve(filePath) === path.join(repositoryRoot, 'README.md')
-    ? {...frontMatter, slug: '/', sidebar_label: 'Home'}
-    : frontMatter;
+export function documentFrontMatter(filePath, repositoryRoot, frontMatter) {
+  const source = path.relative(repositoryRoot, path.resolve(filePath));
+  if (source === 'README.md') {
+    return {...frontMatter, slug: '/', sidebar_label: 'Home'};
+  }
+  if (frontMatter.slug !== undefined) return frontMatter;
+
+  const {name, dir} = path.parse(source);
+  // Leave Docusaurus category indexes at their existing directory URLs.
+  if (['readme', 'index', path.basename(dir).toLowerCase()].includes(name.toLowerCase())) {
+    return frontMatter;
+  }
+  // A relative slug changes only the filename segment, preserving directory paths and IDs.
+  return {...frontMatter, slug: name.trim().toLowerCase().replace(/\s+/g, '-')};
 }

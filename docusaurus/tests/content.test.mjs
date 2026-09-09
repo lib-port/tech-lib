@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import {
-  createSidebar, discoverDocuments, homeFrontMatter, isDocument, localMarkdownLinks,
+  createSidebar, discoverDocuments, documentFrontMatter, isDocument, localMarkdownLinks,
   orderForDirectory,
 } from '../lib/content.mjs';
 
@@ -56,10 +56,54 @@ test('extracts ordered local Markdown links without treating code or downloads a
 test('only the repository README becomes the homepage', () => {
   const root = path.resolve('/tmp/library');
   const frontMatter = {description: 'Existing metadata'};
-  assert.deepEqual(homeFrontMatter(path.join(root, 'README.md'), root, frontMatter), {
+  assert.deepEqual(documentFrontMatter(path.join(root, 'README.md'), root, frontMatter), {
     description: 'Existing metadata', slug: '/', sidebar_label: 'Home',
   });
-  assert.equal(homeFrontMatter(path.join(root, 'course/README.md'), root, frontMatter), frontMatter);
+  assert.equal(documentFrontMatter(path.join(root, 'course/README.md'), root, frontMatter), frontMatter);
+});
+
+test('normalizes filename slugs while retaining punctuation and other frontmatter', () => {
+  const root = path.resolve('/tmp/library');
+  const frontMatter = {id: 'Original ID', title: 'Original Title', sidebar_label: 'Custom label'};
+  for (const [file, slug] of [
+    ['pluralsight/ansible/Getting Started with Ansible.md', 'getting-started-with-ansible'],
+    ['IBM/IBM-CySA/  Chapter  2\t& Tools  .mdx', 'chapter-2-&-tools'],
+    ['TS-PORP/Notes (Part 1), v2.0.MD', 'notes-(part-1),-v2.0'],
+    ['Course/My_Note-Example.MDX', 'my_note-example'],
+    ['already-normalized.md', 'already-normalized'],
+  ]) {
+    assert.deepEqual(documentFrontMatter(path.join(root, file), root, frontMatter), {
+      ...frontMatter, slug,
+    });
+  }
+  assert.equal(frontMatter.slug, undefined, 'Generating a slug must not mutate supplied frontmatter.');
+});
+
+test('preserves explicit slugs and the existing homepage override', () => {
+  const root = path.resolve('/tmp/library');
+  for (const slug of ['/Custom/Path', 'Custom-Relative', '/']) {
+    const frontMatter = {slug, title: 'Custom title'};
+    for (const file of ['Course/My Note.md', 'Course/README.md', 'Course/index.mdx']) {
+      assert.equal(documentFrontMatter(path.join(root, file), root, frontMatter), frontMatter);
+    }
+  }
+  assert.deepEqual(documentFrontMatter(path.join(root, 'README.md'), root, {slug: '/custom'}), {
+    slug: '/', sidebar_label: 'Home',
+  });
+});
+
+test('leaves README, index, and folder-matching category routes to Docusaurus', () => {
+  const root = path.resolve('/tmp/library');
+  const frontMatter = {description: 'Category introduction'};
+  for (const file of [
+    'Course/README.md', 'Course/rEaDmE.mdx', 'Course/INDEX.MD',
+    'Course/index.mdx', 'Course/cOuRsE.md', 'My Course/my course.mdx', 'index.md',
+  ]) {
+    assert.equal(documentFrontMatter(path.join(root, file), root, frontMatter), frontMatter);
+  }
+  assert.deepEqual(documentFrontMatter(path.join(root, 'Course/Part/Course.md'), root, frontMatter), {
+    ...frontMatter, slug: 'course',
+  });
 });
 
 test('sidebar uses README category indexes and inherited course order with numeric fallback', () => {

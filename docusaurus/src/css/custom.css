@@ -1,5 +1,12 @@
 .markdown img { max-width: 100%; height: auto; }
 .markdown table { display: block; overflow-x: auto; }
+.markdown details {
+  --docusaurus-details-decoration-color: currentColor;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+.markdown details > summary::before { border-left-color: var(--ifm-color-primary); }
 .mermaid { overflow-x: auto; }
 .menu__link { overflow-wrap: anywhere; }
 .header-github-link svg { display: block; }
