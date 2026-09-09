@@ -24,6 +24,7 @@
     "react-dom": "latest",
     "remark-emoji": "latest",
     "remark-gfm": "latest",
+    "remark-github-admonitions-to-directives": "latest",
     "remark-parse": "latest",
     "unified": "latest",
     "unist-util-visit": "latest"

@@ -55,16 +55,42 @@ This is a local networking workaround; the workflow uses Node's default networki
   Restart the development server after adding or removing files.
 - The root `README.md` becomes the homepage through configuration; its source
   needs no Docusaurus frontmatter. Nested READMEs introduce sidebar categories.
+- Document URLs derive their last segment from the filename without its `.md`
+  or `.mdx` extension: surrounding whitespace is trimmed, letters are lowercased,
+  and each run of whitespace becomes `-`. For example,
+  `pluralsight/ansible/Getting Started with Ansible.md` publishes at
+  `/tech-lib/pluralsight/ansible/getting-started-with-ansible/`.
+  Directory spelling, punctuation, document IDs, source filenames, and displayed
+  titles remain unchanged. Existing Markdown links resolve to the new URLs.
+- Nested `README`, `index`, and folder-matching filenames keep their directory
+  URLs (matching is case-insensitive). Explicit `slug` frontmatter keeps its usual
+  Docusaurus behavior, except the root `README.md` always remains the homepage.
+  Duplicate routes fail the build. Old filename URLs are removed without
+  redirects; update external links and bookmarks to the normalized URLs.
 - The sidebar follows local Markdown link order in the nearest course README.
   Documents not listed there follow natural numeric order.
 - Folder labels preserve directory names. Document titles inherited from the
   leading H1 retain inline Markdown formatting in navigation, with plain text
   used for browser titles and metadata. Explicit title and navigation labels
   keep their normal Docusaurus precedence.
-- Existing relative Markdown and download links are resolved from the source
-  file. Keep assets beside the documents that reference them.
+- Relative links are resolved from the source file. Markdown links navigate
+  within the site, and embedded images keep displaying in the document.
+- Links to existing repository files other than `.md` and `.mdx` point directly
+  to the raw file content on GitHub using `/raw/main/`. For example,
+  `[Spreadsheet](report.xlsx)` downloads the workbook. Browser-supported formats
+  such as images and PDFs may display directly, and `![Diagram](diagram.png)`
+  still embeds the image. Linked attachments are not bundled into the site.
+  Inline and reference-style links are supported, and query strings and fragments
+  are preserved. Keep source links relative and assets beside the documents that
+  reference them; the build rewrites links
+  without modifying Markdown sources. GitHub links follow the current contents
+  of `main`, rather than a snapshot of the deployed site.
 - `.md` uses CommonMark with GitHub-style Markdown features; `.mdx` uses MDX.
   Mermaid, HTML details, tables, and emoji are enabled. Search and blog are disabled.
+- GitHub-style alerts render as Docusaurus admonitions through
+  `remark-github-admonitions-to-directives`, preserving the source Markdown.
+  The default mapping is `NOTE` → `note`, `TIP` → `tip`, `IMPORTANT` → `info`,
+  `WARNING` → `warning`, and `CAUTION` → `danger`.
 - Site setup documentation, hidden directories, ignored files, dependency trees,
   and generated content are excluded. Source notes are not copied or rewritten.
 

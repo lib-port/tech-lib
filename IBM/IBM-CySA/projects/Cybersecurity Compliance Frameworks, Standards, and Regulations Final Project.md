@@ -1,7 +1,6 @@
-# *Cybersecurity Compliance Frameworks, Standards, and Regulations Final* Project
+# *Cybersecurity Compliance Frameworks, Standards, and Regulations* Final Project
 
 ---
-
 ## Task 1: Identify the critical elements of a GRC framework that Nerdnest needs to implement
 
 Nerdnest has been expanding rapidly over the last two years, increasing its customer base and introducing new services. However, with this growth has come an uptick in cybersecurity threats. Recently, Nerdnest experienced a data breach that exposed sensitive customer information. The incident resulted in financial loss and damaged the company's reputation. Consequently, the leadership team at Nerdnest recognizes the urgent need to fortify their cybersecurity measures to protect against future attacks.

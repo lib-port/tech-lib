@@ -1,10 +1,12 @@
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import remarkGithubAdmonitionsToDirectives from 'remark-github-admonitions-to-directives';
 import {
-  createSidebar, discoverDocuments, escapeGlob, homeFrontMatter, readCourseOrders,
+  createSidebar, discoverDocuments, documentFrontMatter, escapeGlob, readCourseOrders,
 } from './lib/content.mjs';
 import {inheritTitle} from './lib/inherited-titles.mjs';
 import inheritedTitlesPlugin from './plugins/inherited-titles.mjs';
+import remarkRepositoryFileLinks from './plugins/repository-file-links.mjs';
 
 const siteDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(siteDirectory, '..');
@@ -47,6 +49,7 @@ export default {
   favicon: 'img/favicon.svg',
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'throw',
+  onDuplicateRoutes: 'throw',
   i18n: {defaultLocale: 'en', locales: ['en']},
   markdown: {
     format: 'detect',
@@ -55,7 +58,7 @@ export default {
     hooks: {onBrokenMarkdownLinks: 'throw', onBrokenMarkdownImages: 'throw'},
     async parseFrontMatter(params) {
       const result = await params.defaultParseFrontMatter(params);
-      const frontMatter = homeFrontMatter(params.filePath, repositoryRoot, result.frontMatter);
+      const frontMatter = documentFrontMatter(params.filePath, repositoryRoot, result.frontMatter);
       return {...result, frontMatter: inheritTitle(result.content, frontMatter)};
     },
   },
@@ -68,6 +71,14 @@ export default {
         exclude: [],
         sidebarPath: './sidebars.js',
         numberPrefixParser: false,
+        beforeDefaultRemarkPlugins: [
+          remarkGithubAdmonitionsToDirectives,
+          [remarkRepositoryFileLinks, {
+            repositoryRoot,
+            repositoryUrl: 'https://github.com/lib-port/tech-lib',
+            ref: 'main',
+          }],
+        ],
         async sidebarItemsGenerator({docs}) {
           const documents = docs.map(doc => ({
             id: doc.id,

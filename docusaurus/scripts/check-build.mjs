@@ -37,8 +37,14 @@ assert.deepEqual([...sourceFiles].sort(), discoverDocuments(repositoryRoot).sort
   'Every source document must have exactly one published document.');
 const home = documents.find((doc, index) => sourceFiles[index] === 'README.md');
 assert.equal(home?.permalink, baseUrl, 'The root README must be the homepage.');
+assert.equal(new Set(documents.map(doc => decodeURIComponent(doc.permalink).replace(/\/$/, ''))).size,
+  documents.length, 'Published documents must have unique routes.');
 
-for (const doc of documents) {
+for (const [index, doc] of documents.entries()) {
+  const source = sourceFiles[index];
+  const expectedId = path.posix.join(path.posix.dirname(source),
+    doc.frontMatter.id ?? path.posix.basename(source).replace(/\.(md|mdx)$/i, ''));
+  assert.equal(doc.id, expectedId, `URL normalization must preserve the document ID: ${source}`);
   const htmlPath = builtFile(doc.permalink);
   assert.ok(existsSync(htmlPath), `Missing rendered document: ${doc.permalink}`);
   const html = readFileSync(htmlPath, 'utf8');
@@ -67,6 +73,37 @@ function linkTo(html, permalink) {
     .find(match => match[1].match(/\bhref="([^"]*)"/)?.[1].replace(/\/$/, '')
       === permalink.replace(/\/$/, ''))?.[0];
 }
+
+const ansibleSource = 'pluralsight/ansible/Getting Started with Ansible.md';
+const ansible = documents.find((doc, index) => sourceFiles[index] === ansibleSource);
+const ansibleUrl = `${baseUrl}pluralsight/ansible/getting-started-with-ansible/`;
+assert.equal(ansible?.permalink.replace(/\/?$/, '/'), ansibleUrl,
+  'The Ansible filename must produce a lowercase, hyphenated URL.');
+assert.ok(!existsSync(builtFile(`${baseUrl}pluralsight/ansible/Getting%20Started%20with%20Ansible/`)),
+  'The old Ansible URL must not produce a page or redirect.');
+const ansibleHtml = readFileSync(builtFile(ansibleUrl), 'utf8');
+assert.equal(ansible.title, 'Getting Started with Ansible', 'Normalization must preserve the document title.');
+assert.ok(ansibleHtml.includes(`rel="canonical" href="${origin}${ansibleUrl}"`),
+  'The Ansible canonical URL must use the normalized filename and trailing slash.');
+assert.ok(ansibleHtml.includes('id="installation-and-environment"')
+  && linkTo(ansibleHtml, '#installation-and-environment'), 'Existing heading anchors must remain usable.');
+const ansibleReadme = documents.find((doc, index) => sourceFiles[index] === 'pluralsight/ansible/README.md');
+assert.equal(ansibleReadme?.permalink, `${baseUrl}pluralsight/ansible/`,
+  'Nested README routes must remain at their existing directory URLs.');
+const ansibleReadmeHtml = readFileSync(builtFile(ansibleReadme.permalink), 'utf8');
+const ansibleReadmeArticle = ansibleReadmeHtml.match(/<article\b[^>]*>[\s\S]*?<\/article>/)?.[0] ?? '';
+assert.ok(linkTo(ansibleReadmeArticle, ansibleUrl),
+  'The existing encoded Markdown source link must resolve to the normalized Ansible URL.');
+assert.ok(linkTo(elementWithClass(ansibleHtml, 'aside', 'theme-doc-sidebar-container') ?? '', ansibleUrl),
+  'Sidebar document links must use the normalized Ansible URL.');
+assert.ok(linkTo(elementWithClass(ansibleReadmeHtml, 'nav', 'pagination-nav') ?? '', ansibleUrl),
+  'Paginator links must use the normalized Ansible URL.');
+
+const punctuationSource = 'IBM/IBM-DSE/Python for Data Science, AI & Development.md';
+const punctuationDoc = documents.find((doc, index) => sourceFiles[index] === punctuationSource);
+assert.equal(punctuationDoc?.permalink.replace(/\/?$/, '/'),
+  `${baseUrl}IBM/IBM-DSE/python-for-data-science,-ai-&-development/`,
+  'Normalization must retain uppercase folder paths and filename punctuation.');
 
 const formattedProject = documents.find((doc, index) => sourceFiles[index]
   === 'IBM/IBM-CySA/projects/Cybersecurity Architecture Final Project.md');
@@ -117,15 +154,15 @@ for (const [permalink, labels] of [
 const capstone = documents.find((doc, index) => sourceFiles[index] === 'IBM/IBM-BA/capstone/README.md');
 assert.ok(capstone, 'The business analysis capstone must be published.');
 const capstoneHtml = readFileSync(builtFile(capstone.permalink), 'utf8');
-const download = [...capstoneHtml.matchAll(/href="([^"]+\.xlsx)"/g)][0]?.[1];
-assert.ok(download, 'The capstone spreadsheet download must remain linked.');
-assert.ok(existsSync(builtFile(download)), 'The linked spreadsheet must be bundled.');
-assert.deepEqual(readFileSync(builtFile(download)), readFileSync(path.join(repositoryRoot,
-  'IBM/IBM-BA/capstone/Capstone_Project_M04L01_Data_Analysis.xlsx')),
-  'The spreadsheet download must preserve the original bytes.');
+const spreadsheetUrl = 'https://github.com/lib-port/tech-lib/raw/main/'
+  + 'IBM/IBM-BA/capstone/Capstone_Project_M04L01_Data_Analysis.xlsx';
+assert.ok(linkTo(capstoneHtml, spreadsheetUrl),
+  'The capstone spreadsheet must link directly to its raw workbook on main.');
+assert.ok(!walk(buildDir).some(file => /\.xlsx$/i.test(file)),
+  'Linked spreadsheets must not be bundled into the site.');
 
 for (const filename of ['package-lock.json', 'npm-shrinkwrap.json']) {
   assert.ok(!existsSync(path.join(siteDir, filename)), `Project lockfiles are disabled: ${filename}`);
 }
 assert.ok(!walk(buildDir).some(file => /search[-_]index/i.test(path.basename(file))), 'No search index should be generated.');
-console.log(`Verified ${documents.length} documents, inherited title formatting, plain metadata, literal folder labels, homepage, internal targets, assets, spreadsheet download, and disabled search/lockfiles.`);
+console.log(`Verified ${documents.length} documents, unique routes, normalized filename URLs, preserved IDs, inherited title formatting, plain metadata, literal folder labels, homepage, internal targets, assets, raw spreadsheet download link without bundling, and disabled search/lockfiles.`);
