@@ -14,5 +14,5 @@ export function renderInlineTitle(nodes) {
 }
 
 export function renderInheritedTitle(title, label) {
-  return title?.text === label ? renderInlineTitle(title.nodes) : label;
+  return title && title.text === label ? renderInlineTitle(title.nodes) : label;
 }

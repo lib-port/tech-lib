@@ -5,12 +5,14 @@ import {
   createSidebar, discoverDocuments, documentFrontMatter, escapeGlob, readCourseOrders,
 } from './lib/content.mjs';
 import {inheritTitle} from './lib/inherited-titles.mjs';
+import {homepageActiveRegex} from './lib/site-urls.mjs';
 import inheritedTitlesPlugin from './plugins/inherited-titles.mjs';
 import remarkRepositoryFileLinks from './plugins/repository-file-links.mjs';
 
 const siteDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(siteDirectory, '..');
 const files = discoverDocuments(repositoryRoot);
+const baseUrl = '/tech-lib/';
 
 /*
  * Octicons mark-github: https://github.com/primer/octicons/blob/main/icons/mark-github-24.svg
@@ -42,11 +44,11 @@ export default {
   title: 'Notes and Projects Library',
   tagline: 'Engineering, architecture, cybersecurity, and product notes and projects',
   url: 'https://lib-port.github.io',
-  baseUrl: '/tech-lib/',
+  baseUrl,
   trailingSlash: true,
   organizationName: 'lib-port',
   projectName: 'tech-lib',
-  favicon: 'img/favicon.svg',
+  favicon: 'img/book-16.svg',
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'throw',
   onDuplicateRoutes: 'throw',
@@ -99,8 +101,14 @@ export default {
     colorMode: {defaultMode: 'light', respectPrefersColorScheme: true},
     navbar: {
       title: 'Notes and Projects Library',
+      logo: {
+        alt: '',
+        src: 'img/book-16.svg',
+        width: 16,
+        height: 16,
+      },
       items: [
-        {to: '/', label: 'Content', position: 'left', activeBaseRegex: '^/tech-lib/$'},
+        {to: '/', label: 'Content', position: 'left', activeBaseRegex: homepageActiveRegex(baseUrl)},
         {
           href: 'https://github.com/lib-port/tech-lib',
           html: githubMarkSvg,

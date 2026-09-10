@@ -1,12 +1,18 @@
-.markdown img { max-width: 100%; height: auto; }
-.markdown table { display: block; overflow-x: auto; }
-.markdown details {
+.theme-doc-markdown img { max-width: 100%; height: auto; }
+.theme-doc-markdown table { display: block; overflow-x: auto; }
+.theme-doc-markdown details {
   --docusaurus-details-decoration-color: currentColor;
   background-color: transparent;
   border: none;
   padding: 0;
 }
-.markdown details > summary::before { border-left-color: var(--ifm-color-primary); }
-.mermaid { overflow-x: auto; }
-.menu__link { overflow-wrap: anywhere; }
+.theme-doc-markdown details > summary::before { border-left-color: var(--ifm-color-primary); }
+.docusaurus-mermaid-container { overflow-x: auto; }
+.theme-doc-sidebar-menu a,
+.theme-layout-navbar-sidebar-panel a { overflow-wrap: anywhere; }
+/* The logo wrapper has no stable theme class or configurable height. */
+.theme-layout-navbar .navbar__logo {
+  height: 16px;
+  display: flex;
+}
 .header-github-link svg { display: block; }

@@ -94,6 +94,39 @@ This is a local networking workaround; the workflow uses Node's default networki
 - Site setup documentation, hidden directories, ignored files, dependency trees,
   and generated content are excluded. Source notes are not copied or rewritten.
 
+## Theme customizations and upgrades
+
+The navigation customizations were reviewed against Docusaurus **3.10.2**.
+`DocBreadcrumbs` and `DocSidebarItem/Link` retain small copies of the classic
+theme components because their label-rendering code has no rich-text extension
+point. `PaginatorNavLink` wraps the original component and formats its React
+title prop; document metadata and `DocPaginator` navigation titles remain plain
+strings. The component comments link to the reviewed upstream source and explain
+each customization.
+
+Docusaurus classifies these theme components as unsafe to swizzle, so review
+them whenever dependency updates change Docusaurus. Follow the official
+[swizzling maintenance guidance](https://docusaurus.io/docs/swizzling#ejecting):
+
+1. Compare the installed theme implementations and prop types with the upstream
+   version recorded in the component comments. Reapply relevant upstream changes
+   and update the recorded version after reviewing the customizations.
+2. Run `npm test`, `npm run build`, and `npm run check`. Confirm the version logged
+   by the build is the version reviewed, since builds refresh dependencies.
+3. Check formatted sidebar labels, breadcrumbs, and both paginator directions
+   after a page reload and client-side navigation. Check explicit labels, home
+   links, long labels in desktop and mobile menus, and both color themes.
+
+Global styles prefer documented theme classes. The scoped `.navbar__logo` rule
+is an intentional exception: the classic theme's image wrapper has no dedicated
+theme class or configurable height. Check that the book logo remains 16px and
+centered when reviewing theme upgrades. The home breadcrumb relies on the root
+README being the homepage, which the production checker verifies.
+
+The deployment `baseUrl` is defined once in `docusaurus.config.js`. The Content
+link's exact homepage matcher and the production checker's URL expectations
+derive from this configuration.
+
 ## Deployment
 
 The only site file outside this directory is
