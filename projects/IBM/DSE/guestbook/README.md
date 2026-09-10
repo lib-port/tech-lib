@@ -1,4 +1,4 @@
-# Introduction to Containers w/ Docker, Kubernetes & OpenShift Final Project
+# *Introduction to Containers w/ Docker, Kubernetes & OpenShift* Final Project
 
 A Go + HTML/CSS/JavaScript project adapted from the IBM guestbook project. You can add messages, see them from any app replica, build a v2 image, roll back, and watch Kubernetes add or remove app pods.
 

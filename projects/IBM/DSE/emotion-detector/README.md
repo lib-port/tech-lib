@@ -1,4 +1,4 @@
-# Developing AI Applications with Python and Flask Final project
+# *Developing AI Applications with Python and Flask* Final project
 
 This is a small Flask application that detects five emotions in customer
 feedback: anger, disgust, fear, joy, and sadness. It uses the official GitHub

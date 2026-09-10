@@ -308,7 +308,7 @@ the script's global issue namespace.
 
 ## Partial clone
 
-This extraction recipe requires Git and `rsync`:
+To clone only this folder and not the rest of the repository (Git and `rsync` are required):
 
 ```shell
 git clone --depth=1 --filter=blob:none --sparse https://gitlab.com/lib-port/tech-lib.git
