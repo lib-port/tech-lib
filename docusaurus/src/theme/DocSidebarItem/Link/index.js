@@ -3,6 +3,12 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in this theme source tree (src/theme/LICENSE).
+ *
+ * Ejected from Docusaurus 3.10.2:
+ * https://github.com/facebook/docusaurus/blob/v3.10.2/packages/docusaurus-theme-classic/src/theme/DocSidebarItem/Link/index.tsx
+ * Customization: render inherited inline titles while retaining string labels
+ * in sidebar metadata and preserving native link behavior.
+ * Unsafe to swizzle: compare with upstream on every Docusaurus upgrade.
  */
 
 import React from 'react';

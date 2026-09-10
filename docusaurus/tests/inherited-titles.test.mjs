@@ -83,7 +83,7 @@ test('formats inherited doc links while retaining category, README-only, and exp
   assert.deepEqual(data.pagination, {});
 });
 
-test('pagination follows native labels and explicit target precedence', () => {
+test('both pagination directions preserve explicit labels even when they equal inherited text', () => {
   const direct = doc('direct');
   const category = doc('category-index');
   const readmeOnly = doc('literal-folder');
@@ -91,20 +91,25 @@ test('pagination follows native labels and explicit target precedence', () => {
   const paginationOverride = doc('pagination-override', {pagination_label: 'pagination-override'});
   const explicitTitle = doc('explicit-title', {title: 'explicit-title'});
   const targets = [direct, category, readmeOnly, sidebarOverride, paginationOverride, explicitTitle];
-  const sources = targets.map(target => ({...doc(`source-${target.id}`), next: nav(target)}));
-  const explicit = {...doc('explicit-target', {pagination_prev: readmeOnly.id}), previous: nav(readmeOnly)};
-  const translated = {...doc('translated'), next: {...nav(direct), title: 'Translated caption'}};
-  const data = createInheritedTitleData([{docs: [...targets, ...sources, explicit, translated], sidebars: {library: [
-    {type: 'doc', id: direct.id},
-    {type: 'category', label: 'category-name', link: {type: 'doc', id: category.id}, items: []},
-    {type: 'doc', id: readmeOnly.id, label: 'literal-folder'},
-    ...[sidebarOverride, paginationOverride, explicitTitle, ...sources, explicit, translated].map(item => ({type: 'doc', id: item.id})),
-  ]}}]);
-  assert.deepEqual(data.pagination, {
-    [sources[0].permalink]: {next: direct.frontMatter._inheritedTitle},
-    [sources[1].permalink]: {next: category.frontMatter._inheritedTitle},
-    [explicit.permalink]: {previous: readmeOnly.frontMatter._inheritedTitle},
-  });
+  for (const [direction, override] of [['previous', 'pagination_prev'], ['next', 'pagination_next']]) {
+    const sources = targets.map(target => ({...doc(`source-${target.id}`), [direction]: nav(target)}));
+    const explicit = {...doc('explicit-target', {[override]: readmeOnly.id}), [direction]: nav(readmeOnly)};
+    const translated = {...doc('translated'), [direction]: {...nav(direct), title: 'Translated caption'}};
+    const versions = [{docs: [...targets, ...sources, explicit, translated], sidebars: {library: [
+      {type: 'doc', id: direct.id},
+      {type: 'category', label: 'category-name', link: {type: 'doc', id: category.id}, items: []},
+      {type: 'doc', id: readmeOnly.id, label: 'literal-folder'},
+      ...[sidebarOverride, paginationOverride, explicitTitle, ...sources, explicit, translated].map(item => ({type: 'doc', id: item.id})),
+    ]}}];
+    const originalMetadata = structuredClone(versions);
+    const data = createInheritedTitleData(versions);
+    assert.deepEqual(data.pagination, {
+      [sources[0].permalink]: {[direction]: direct.frontMatter._inheritedTitle},
+      [sources[1].permalink]: {[direction]: category.frontMatter._inheritedTitle},
+      [explicit.permalink]: {[direction]: readmeOnly.frontMatter._inheritedTitle},
+    });
+    assert.deepEqual(versions, originalMetadata, 'Formatting data must not change native document metadata.');
+  }
 });
 
 test('plugin consumes completed docs data and replaces its payload on reload', () => {

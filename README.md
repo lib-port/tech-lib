@@ -1,6 +1,6 @@
 # Notes and Projects Library
 
-[![Docusaurus site](https://img.shields.io/badge/docusaurus-site-green?logo=docusaurus&logoColor=white)](https://lib-port.github.io/tech-lib)
+[![Docusaurus site](https://img.shields.io/badge/docusaurus-site-green?logo=docusaurus&logoColor=white&color=%2325c2a0)](https://lib-port.github.io/tech-lib)
 [![GitHub repo](https://img.shields.io/badge/github-repo-blue?logo=github&logoColor=white)](https://github.com/lib-port/tech-lib)
 
 Notes and project files covering software engineering, systems architecture, cybersecurity, business analysis, and product management. Course providers include IBM, TCM Security, Codecademy, Pluralsight, Databricks, AWS, and Johns Hopkins University.

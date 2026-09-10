@@ -2,14 +2,14 @@ import assert from 'node:assert/strict';
 import {existsSync, readFileSync, readdirSync, statSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import siteConfig from '../docusaurus.config.js';
 import {discoverDocuments} from '../lib/content.mjs';
 
 const siteDir = fileURLToPath(new URL('..', import.meta.url));
 const repositoryRoot = path.resolve(siteDir, '..');
 const buildDir = path.join(siteDir, 'build');
 const metadataDir = path.join(siteDir, '.docusaurus/docusaurus-plugin-content-docs/default');
-const baseUrl = '/tech-lib/';
-const origin = 'https://lib-port.github.io';
+const {baseUrl, url: origin} = siteConfig;
 
 function walk(directory) {
   return readdirSync(directory, {withFileTypes: true}).flatMap(entry => {
@@ -120,13 +120,21 @@ assert.ok(linkTo(sidebarHtml, formattedProject.permalink)?.includes(richProjectT
 const breadcrumbHtml = elementWithClass(projectHtml, 'nav', 'theme-doc-breadcrumbs');
 assert.ok(breadcrumbHtml?.includes(richProjectTitle), 'The active breadcrumb should render inherited emphasis.');
 
-const referringDocument = documents.find(doc => [doc.previous, doc.next]
-  .some(item => item?.permalink === formattedProject.permalink));
-assert.ok(referringDocument, 'The formatted project should be reachable from a paginator.');
-const referringHtml = readFileSync(builtFile(referringDocument.permalink), 'utf8');
-const paginatorHtml = elementWithClass(referringHtml, 'nav', 'pagination-nav');
-assert.ok(paginatorHtml && linkTo(paginatorHtml, formattedProject.permalink)?.includes(richProjectTitle),
-  'The paginator should render inherited emphasis in the destination title.');
+for (const [direction, modifier, subLabel] of [['previous', 'prev', 'Previous'], ['next', 'next', 'Next']]) {
+  const referringDocument = documents.find(doc => doc[direction]?.permalink === formattedProject.permalink);
+  assert.ok(referringDocument, `The formatted project should be reachable from a ${direction} paginator link.`);
+  assert.equal(referringDocument[direction].title, plainProjectTitle,
+    `The ${direction} paginator metadata must retain the plain destination title.`);
+  const referringHtml = readFileSync(builtFile(referringDocument.permalink), 'utf8');
+  const paginatorHtml = elementWithClass(referringHtml, 'nav', 'pagination-nav');
+  const paginatorLink = linkTo(paginatorHtml ?? '', formattedProject.permalink);
+  assert.ok(paginatorLink?.includes(richProjectTitle),
+    `The ${direction} paginator should render inherited emphasis in the destination title.`);
+  assert.ok(elementWithClass(paginatorLink, 'a', `pagination-nav__link--${modifier}`),
+    `The ${direction} paginator must retain its native direction class.`);
+  assert.ok(elementWithClass(paginatorLink, 'div', 'pagination-nav__sublabel')?.includes(`>${subLabel}<`),
+    `The ${direction} paginator must retain its native sublabel.`);
+}
 
 const browserTitle = projectHtml.match(/<title\b[^>]*>([^<]*)<\/title>/)?.[1];
 assert.ok(browserTitle?.startsWith(`${plainProjectTitle} | `), 'Browser titles should use the plain inherited title.');
