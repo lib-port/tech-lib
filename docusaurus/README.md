@@ -48,6 +48,30 @@ NODE_OPTIONS='--dns-result-order=ipv4first --no-network-family-autoselection' np
 
 This is a local networking workaround; the workflow uses Node's default networking settings.
 
+## Build performance
+
+[Docusaurus Faster](https://docusaurus.io/docs/api/docusaurus-config#future) is
+enabled for development and production through `future.v4.fasterByDefault` and
+the `@docusaurus/faster` dependency. It uses Rspack, SWC, and Lightning CSS, and
+runs static generation in worker threads. The two enabled v4 flags select Faster
+defaults and allow worker generation by removing the legacy `postBuild.head`
+interface; custom plugins must not depend on that interface.
+
+`mdxCrossCompilerCache` is explicitly disabled: warm rebuilds of this site stalled
+with shared MDX compilation enabled in Docusaurus 3.10.2. Browser and server builds
+compile MDX independently while retaining Rspack's persistent cache and the other
+Faster optimizations. Recheck this exception when upgrading Docusaurus.
+
+Repeated local builds reuse Rspack's persistent cache in `node_modules/.cache`.
+GitHub Actions caches npm downloads only, so each CI run starts with a cold
+compiler cache. Dependency resolution, installation, and verification still run
+on every build and development startup; their time is separate from compilation.
+`@docusaurus/faster` follows the same latest-release and version-alignment checks
+as the other official Docusaurus packages.
+
+The production checker uses `parse5` to normalize minified HTML in memory before
+checking URLs, assets, and navigation, including attributes with optional quotes.
+
 ## Content and navigation
 
 - Add or edit Markdown in the existing repository directories. Git-aware

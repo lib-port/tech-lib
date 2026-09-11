@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {existsSync, readFileSync, readdirSync, statSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {parse, serialize} from 'parse5';
 import siteConfig from '../docusaurus.config.js';
 import {discoverDocuments} from '../lib/content.mjs';
 
@@ -10,6 +11,11 @@ const repositoryRoot = path.resolve(siteDir, '..');
 const buildDir = path.join(siteDir, 'build');
 const metadataDir = path.join(siteDir, '.docusaurus/docusaurus-plugin-content-docs/default');
 const {baseUrl, url: origin} = siteConfig;
+
+function readBuiltHtml(filename) {
+  // Normalize optional quotes and end tags emitted by either HTML minifier.
+  return serialize(parse(readFileSync(filename, 'utf8')));
+}
 
 function walk(directory) {
   return readdirSync(directory, {withFileTypes: true}).flatMap(entry => {
@@ -47,7 +53,7 @@ for (const [index, doc] of documents.entries()) {
   assert.equal(doc.id, expectedId, `URL normalization must preserve the document ID: ${source}`);
   const htmlPath = builtFile(doc.permalink);
   assert.ok(existsSync(htmlPath), `Missing rendered document: ${doc.permalink}`);
-  const html = readFileSync(htmlPath, 'utf8');
+  const html = readBuiltHtml(htmlPath);
   assert.match(html, /<h1\b/, `Missing heading in ${doc.permalink}`);
   assert.ok(!/class="[^"]*(?:DocSearch|navbar__search-input)/.test(html), 'Search must remain disabled.');
   for (const match of html.matchAll(/(?:href|src)="([^"<>]+)"/g)) {
@@ -59,7 +65,7 @@ for (const [index, doc] of documents.entries()) {
   }
 }
 
-const homeHtml = readFileSync(path.join(buildDir, 'index.html'), 'utf8');
+const homeHtml = readBuiltHtml(path.join(buildDir, 'index.html'));
 assert.match(homeHtml, /<details\b/, 'Homepage introductions should remain expandable.');
 assert.ok(!homeHtml.includes(':notebook:'), 'GitHub emoji shortcodes should be rendered.');
 
@@ -81,7 +87,7 @@ assert.equal(ansible?.permalink.replace(/\/?$/, '/'), ansibleUrl,
   'The Ansible filename must produce a lowercase, hyphenated URL.');
 assert.ok(!existsSync(builtFile(`${baseUrl}pluralsight/ansible/Getting%20Started%20with%20Ansible/`)),
   'The old Ansible URL must not produce a page or redirect.');
-const ansibleHtml = readFileSync(builtFile(ansibleUrl), 'utf8');
+const ansibleHtml = readBuiltHtml(builtFile(ansibleUrl));
 assert.equal(ansible.title, 'Getting Started with Ansible', 'Normalization must preserve the document title.');
 assert.ok(ansibleHtml.includes(`rel="canonical" href="${origin}${ansibleUrl}"`),
   'The Ansible canonical URL must use the normalized filename and trailing slash.');
@@ -90,7 +96,7 @@ assert.ok(ansibleHtml.includes('id="installation-and-environment"')
 const ansibleReadme = documents.find((doc, index) => sourceFiles[index] === 'pluralsight/ansible/README.md');
 assert.equal(ansibleReadme?.permalink, `${baseUrl}pluralsight/ansible/`,
   'Nested README routes must remain at their existing directory URLs.');
-const ansibleReadmeHtml = readFileSync(builtFile(ansibleReadme.permalink), 'utf8');
+const ansibleReadmeHtml = readBuiltHtml(builtFile(ansibleReadme.permalink));
 const ansibleReadmeArticle = ansibleReadmeHtml.match(/<article\b[^>]*>[\s\S]*?<\/article>/)?.[0] ?? '';
 assert.ok(linkTo(ansibleReadmeArticle, ansibleUrl),
   'The existing encoded Markdown source link must resolve to the normalized Ansible URL.');
@@ -108,7 +114,7 @@ assert.equal(punctuationDoc?.permalink.replace(/\/?$/, '/'),
 const formattedProject = documents.find((doc, index) => sourceFiles[index]
   === 'IBM/IBM-CySA/projects/Cybersecurity Architecture Final Project.md');
 assert.ok(formattedProject, 'The formatted cybersecurity architecture project must be published.');
-const projectHtml = readFileSync(builtFile(formattedProject.permalink), 'utf8');
+const projectHtml = readBuiltHtml(builtFile(formattedProject.permalink));
 const plainProjectTitle = 'Cybersecurity Architecture Final Project';
 const richProjectTitle = '<em>Cybersecurity Architecture</em> Final Project';
 assert.equal(formattedProject.title, plainProjectTitle, 'Inherited metadata titles should contain plain text.');
@@ -125,7 +131,7 @@ for (const [direction, modifier, subLabel] of [['previous', 'prev', 'Previous'],
   assert.ok(referringDocument, `The formatted project should be reachable from a ${direction} paginator link.`);
   assert.equal(referringDocument[direction].title, plainProjectTitle,
     `The ${direction} paginator metadata must retain the plain destination title.`);
-  const referringHtml = readFileSync(builtFile(referringDocument.permalink), 'utf8');
+  const referringHtml = readBuiltHtml(builtFile(referringDocument.permalink));
   const paginatorHtml = elementWithClass(referringHtml, 'nav', 'pagination-nav');
   const paginatorLink = linkTo(paginatorHtml ?? '', formattedProject.permalink);
   assert.ok(paginatorLink?.includes(richProjectTitle),
@@ -151,7 +157,7 @@ for (const [permalink, labels] of [
   [`${baseUrl}TS-PORP/deep-dive/`, ['TS-PORP', 'deep-dive']],
   [`${baseUrl}red-hat/RHCSC/`, ['red-hat']],
 ]) {
-  const html = readFileSync(builtFile(permalink), 'utf8');
+  const html = readBuiltHtml(builtFile(permalink));
   const breadcrumbs = elementWithClass(html, 'nav', 'theme-doc-breadcrumbs');
   assert.ok(breadcrumbs, `Missing breadcrumbs in ${permalink}`);
   for (const label of labels) {
@@ -161,7 +167,7 @@ for (const [permalink, labels] of [
 
 const capstone = documents.find((doc, index) => sourceFiles[index] === 'IBM/IBM-BA/capstone/README.md');
 assert.ok(capstone, 'The business analysis capstone must be published.');
-const capstoneHtml = readFileSync(builtFile(capstone.permalink), 'utf8');
+const capstoneHtml = readBuiltHtml(builtFile(capstone.permalink));
 const spreadsheetUrl = 'https://github.com/lib-port/tech-lib/raw/main/'
   + 'IBM/IBM-BA/capstone/Capstone_Project_M04L01_Data_Analysis.xlsx';
 assert.ok(linkTo(capstoneHtml, spreadsheetUrl),

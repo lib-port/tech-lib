@@ -76,6 +76,33 @@ Notes and project files covering software engineering, systems architecture, cyb
 - AI Systems Performance Engineering, by Chris Fregly. ([catalogue](https://www.oreilly.com/library/view/ai-systems-performance/9798341627772/))
 - Building AI Agent Platforms, by Ben O'Mahony and Fabian Nonnenmacher. ([catalogue](https://www.oreilly.com/library/view/building-ai-agent/0642572243906/))
 
+## Cybersecurity
+
+<details>
+<summary>Introduction</summary>
+<p>Cybersecurity protects digital systems, data, and operations by managing risk and defending against disruption, theft, and misuse.</p>
+<p>In platform engineering, cybersecurity embeds secure defaults, automated controls, and continuous monitoring into shared infrastructure and developer workflows. In data and AI engineering, it safeguards sensitive data, models, pipelines, and AI services against unauthorized access, manipulation, and abuse.</p>
+</details>
+
+### Course Notes and Project
+
+- :package: :notebook: [IBM Cybersecurity Analyst Professional Certificate](IBM/IBM-CySA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst))
+- :notebook: [TCM Security Practical OSINT Research Professional](TS-PORP/README.md) ([course](https://certifications.tcm-sec.com/porp/))
+- Bash Scripting for Security Operations ([course](https://www.pluralsight.com/paths/bash-scripting-for-security-operations))
+- Python for Cyber Defense ([course](https://www.pluralsight.com/paths/python-for-cyber-defense))
+- Secure Coding for Python ([course](https://www.pluralsight.com/paths/secure-coding-for-python))
+- LPIC-3 Exam 303: Security ([course](https://www.pluralsight.com/courses/lpic-3-exam-303-security))
+- Red Hat Certified Specialist in Security: Linux ([RH Doc](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html-single/security_hardening/index))
+
+### Book Notes
+
+- Threat Modeling: Designing for Security, by Adam Shostack. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/threat-modeling-designing-for-security-p-9781118809990))
+- Security Engineering, 3rd edition, by Ross J. Anderson. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/security-engineering-a-guide-to-building-dependable-distributed-systems-3rd-edition-p-9781119642787))
+- Data Engineering for Cybersecurity, by James Bonifield. ([catalogue](https://nostarch.com/data-engineering-cybersecurity))
+- Building Secure and Reliable Systems, by Heather Adkins, Betsy Beyer, Paul Blankinship, Piotr Lewandowski, Ana Oprea, and Adam Stubblefield. ([catalogue](https://www.oreilly.com/library/view/building-secure-and/9781492083115/))
+- Liars and Outliers, 2nd edition, by Bruce Schneier. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/liars-and-outliers-enabling-the-trust-that-society-needs-to-thrive-2nd-edition-p-9781394375288))
+- Trust in Computer Systems and the Cloud, by Mike Bursell. ([catalogue](https://www.wiley.com/en-us/trust-in-computer-systems-and-the-cloud-p-9781119695158))
+
 ## Business Analysis, Systems Engineering and Architecture
 
 <details>
@@ -110,33 +137,6 @@ Notes and project files covering software engineering, systems architecture, cyb
 - Software Architecture: The Hard Parts, by Neal Ford, Mark Richards, Pramod Sadalage, and Zhamak Dehghani. ([catalogue](https://www.oreilly.com/library/view/software-architecture-the/9781492086888/))
 - Building Evolutionary Architectures, 2nd edition, by Neal Ford, Rebecca Parsons, Patrick Kua, and Pramod Sadalage. ([catalogue](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781492097532/))
 - Fundamentals of Enterprise Architecture, by Tanu McCabe. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-enterprise/9781098159368/))
-
-## Cybersecurity
-
-<details>
-<summary>Introduction</summary>
-<p>Cybersecurity protects digital systems, data, and operations by managing risk and defending against disruption, theft, and misuse.</p>
-<p>In platform engineering, cybersecurity embeds secure defaults, automated controls, and continuous monitoring into shared infrastructure and developer workflows. In data and AI engineering, it safeguards sensitive data, models, pipelines, and AI services against unauthorized access, manipulation, and abuse. Across business analysis, systems engineering, and systems architecture, cybersecurity shapes requirements, trust boundaries, controls, and resilience throughout the system life cycle.</p>
-</details>
-
-### Course Notes and Project
-
-- :package: :notebook: [IBM Cybersecurity Analyst Professional Certificate](IBM/IBM-CySA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst))
-- :notebook: [TCM Security Practical OSINT Research Professional](TS-PORP/README.md) ([course](https://certifications.tcm-sec.com/porp/))
-- Bash Scripting for Security Operations ([course](https://www.pluralsight.com/paths/bash-scripting-for-security-operations))
-- Python for Cyber Defense ([course](https://www.pluralsight.com/paths/python-for-cyber-defense))
-- Secure Coding for Python ([course](https://www.pluralsight.com/paths/secure-coding-for-python))
-- LPIC-3 Exam 303: Security ([course](https://www.pluralsight.com/courses/lpic-3-exam-303-security))
-- Red Hat Certified Specialist in Security: Linux ([RH Doc](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html-single/security_hardening/index))
-
-### Book Notes
-
-- Threat Modeling: Designing for Security, by Adam Shostack. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/threat-modeling-designing-for-security-p-9781118809990))
-- Security Engineering, 3rd edition, by Ross J. Anderson. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/security-engineering-a-guide-to-building-dependable-distributed-systems-3rd-edition-p-9781119642787))
-- Data Engineering for Cybersecurity, by James Bonifield. ([catalogue](https://nostarch.com/data-engineering-cybersecurity))
-- Building Secure and Reliable Systems, by Heather Adkins, Betsy Beyer, Paul Blankinship, Piotr Lewandowski, Ana Oprea, and Adam Stubblefield. ([catalogue](https://www.oreilly.com/library/view/building-secure-and/9781492083115/))
-- Liars and Outliers, 2nd edition, by Bruce Schneier. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/liars-and-outliers-enabling-the-trust-that-society-needs-to-thrive-2nd-edition-p-9781394375288))
-- Trust in Computer Systems and the Cloud, by Mike Bursell. ([catalogue](https://www.wiley.com/en-us/trust-in-computer-systems-and-the-cloud-p-9781119695158))
 ---
 ## Custom Portfolio Projects
 
