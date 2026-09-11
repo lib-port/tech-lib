@@ -1,6 +1,5 @@
 // Local adaptation of the Kubernetes/IBM Guestbook example.
 // Copyright 2014 The Kubernetes Authors. Licensed under Apache-2.0.
-// See LICENSE and NOTICE for sources and changes.
 package main
 
 import (
@@ -13,6 +12,7 @@ import (
 	"io"
 	"io/fs"
 	"log"
+	"mime"
 	"net/http"
 	"os"
 	"os/signal"
@@ -66,7 +66,8 @@ func newHandler(store *Store, enableLoadGenerator bool) http.Handler {
 	})
 
 	mux.HandleFunc("POST /api/entries", func(w http.ResponseWriter, r *http.Request) {
-		if strings.TrimSpace(strings.Split(r.Header.Get("Content-Type"), ";")[0]) != "application/json" {
+		mediaType, _, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
+		if err != nil || mediaType != "application/json" {
 			writeError(w, http.StatusUnsupportedMediaType, "Send the message as JSON.")
 			return
 		}

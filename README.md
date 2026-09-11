@@ -103,7 +103,7 @@ Notes and project files covering software engineering, systems architecture, cyb
 - Liars and Outliers, 2nd edition, by Bruce Schneier. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/liars-and-outliers-enabling-the-trust-that-society-needs-to-thrive-2nd-edition-p-9781394375288))
 - Trust in Computer Systems and the Cloud, by Mike Bursell. ([catalogue](https://www.wiley.com/en-us/trust-in-computer-systems-and-the-cloud-p-9781119695158))
 
-## Business Analysis, Systems Engineering and Architecture
+## Business Analysis, Systems Engineering, and Systems Architecture
 
 <details>
 <summary>Introduction</summary>
@@ -124,15 +124,27 @@ Notes and project files covering software engineering, systems architecture, cyb
 
 ### Book Notes
 
+#### Business Analysis and Product Management
+
 - Business Analysis, 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4))
 - Business Analysis Techniques, 3rd edition, by James Cadle, Debra Paul, Jonathan Hunsley, Adrian Reed, David Beckham, and Paul Turner. ([catalogue](https://shop.bcs.org/page/detail/business-analysis-techniques/?SF1=work_exact&ST1=BUSINESSANALYSISTECHNIQUES3))
-- Software Requirements, 3rd edition, by Karl Wiegers and Joy Beatt. ([catalogue](https://www.microsoftpressstore.com/store/software-requirements-9780735679665))
+- The Professional Product Owner, by Don McGreal and Ralph Jocham. ([catalogue](https://www.informit.com/store/professional-product-owner-leveraging-scrum-as-a-competitive-9780134686479))
+- The AI-Powered Product Manager, by Marily Nika andDiego Granados. ([catalogue](https://www.oreilly.com/library/view/the-ai-powered-product/0642572279646/))
+
+#### Systems Engineering
+
 - Thinking in Systems, by Donella Meadows. ([catalogue](https://www.chelseagreen.com/product/thinking-in-systems/))
-- Head First Object-Oriented Analysis & Design, by Brett D. McLaughlin, Gary Pollice, and David West. ([catalogue](https://www.oreilly.com/library/view/head-first-object-oriented/0596008678/))
+- Software Requirements, 3rd edition, by Karl Wiegers and Joy Beatt. ([catalogue](https://www.microsoftpressstore.com/store/software-requirements-9780735679665))
+- Object-Oriented Analysis & Design, by Brett D. McLaughlin, Gary Pollice, and David West. ([catalogue](https://www.oreilly.com/library/view/head-first-object-oriented/0596008678/))
+- SysML Distilled: A Brief Guide to the Systems Modeling Language, by Lenny Delligatti. (catalogue)
 - Systems Analysis and Design, 7th edition, by David P. Tegarden, Binny Samuel, Roman Lukyanenko, Alan Dennis, and Barbara Haley Wixom. ([catalogue](https://www.wiley.com/en-us/systems-analysis-and-design-an-object-oriented-approach-with-uml-7th-edition-p-9781394331727))
-- Fundamentals of Software Architecture, by Mark Richards and Neal Ford. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-software/9781492043447/))
+- Soft Systems Methodology in Action, by Peter Checkland andJim Scholes . ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-business-management/soft-systems-methodology-in-action-p-9780471986058#description-section))
+- Systems Engineering Principles and Practise, by Alexander Kossiakoff, Samuel J. Seymour, David A. Flanigan, and Steven M. Biemer. ([catalogue](https://onlinelibrary.wiley.com/doi/book/10.1002/9781119516699))
 - Designing Distributed Systems, 2nd Edition, by Brendan Burns. ([catalogue](https://www.oreilly.com/library/view/designing-distributed-systems/9781098156343/))
 - Foundations of Scalable Systems, by Ian Gorton. ([catalogue](https://www.oreilly.com/library/view/foundations-of-scalable/9781098106058/))
+#### Systems Architecture
+
+- Fundamentals of Software Architecture, by Mark Richards and Neal Ford. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-software/9781492043447/))
 - Software Architecture in Practice, 4th edition, by Len Bass, Paul Clements, and Rick Kazman. ([catalogue](https://www.informit.com/store/software-architecture-in-practice-9780136885887))
 - Software Architecture: The Hard Parts, by Neal Ford, Mark Richards, Pramod Sadalage, and Zhamak Dehghani. ([catalogue](https://www.oreilly.com/library/view/software-architecture-the/9781492086888/))
 - Building Evolutionary Architectures, 2nd edition, by Neal Ford, Rebecca Parsons, Patrick Kua, and Pramod Sadalage. ([catalogue](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781492097532/))

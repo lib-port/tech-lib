@@ -4,14 +4,16 @@ const messageInput = document.querySelector('#message');
 const submitButton = document.querySelector('#submit-button');
 const refreshButton = document.querySelector('#refresh-button');
 const entriesList = document.querySelector('#entries');
-const status = document.querySelector('#status');
+const formStatus = document.querySelector('#status');
+const loadStatus = document.querySelector('#load-status');
 const emptyState = document.querySelector('#empty-state');
 const count = document.querySelector('#count');
 let latestLoadRequest = 0;
+const unconfirmedSaveMessage = 'Could not confirm whether your message was saved. Refresh the list before trying again.';
 
-function showStatus(message, isError = false) {
-  status.textContent = message;
-  status.classList.toggle('error', isError);
+function showStatus(element, message, isError = false) {
+  element.textContent = message;
+  element.classList.toggle('error', isError);
 }
 
 async function loadEntries() {
@@ -23,10 +25,12 @@ async function loadEntries() {
     entries = await response.json();
   } catch (error) {
     if (request !== latestLoadRequest) return false;
+    emptyState.textContent = 'Messages are unavailable right now.';
     throw error;
   }
   // An older request must not replace a newer list or its status message.
   if (request !== latestLoadRequest) return false;
+  showStatus(loadStatus, '');
   entriesList.replaceChildren();
   count.textContent = entries.length;
   emptyState.hidden = entries.length > 0;
@@ -46,35 +50,46 @@ async function loadEntries() {
   return true;
 }
 
+async function saveMessage(message) {
+  let response;
+  let result;
+  try {
+    response = await fetch('/api/entries', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message }),
+    });
+    result = await response.json();
+  } catch {
+    // A lost or unreadable reply does not tell us whether the append succeeded.
+    throw new Error(unconfirmedSaveMessage);
+  }
+  if (!response.ok) throw new Error(result?.error || unconfirmedSaveMessage);
+}
+
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   const originalMessage = messageInput.value;
   const message = originalMessage.trim();
   if (!message || Array.from(message).length > 280) {
-    showStatus('Enter a message between 1 and 280 characters.', true);
+    showStatus(formStatus, 'Enter a message between 1 and 280 characters.', true);
     return;
   }
   submitButton.disabled = true;
-  showStatus('Saving your message...');
+  showStatus(formStatus, 'Saving your message...');
   try {
-    const response = await fetch('/api/entries', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message }),
-    });
-    const result = await response.json();
-    if (!response.ok) throw new Error(result.error || 'Could not save your message.');
+    await saveMessage(message);
     // Keep any edits made while the message was being saved.
     if (messageInput.value === originalMessage) messageInput.value = '';
-    showStatus('Thanks! Your message has been saved.');
+    showStatus(formStatus, 'Thanks! Your message has been saved.');
     try {
       await loadEntries();
     } catch {
-      showStatus('Your message was saved, but the list could not refresh. Try Refresh.', true);
+      showStatus(loadStatus, 'Your message was saved, but the list could not refresh. Try Refresh.', true);
     }
     messageInput.focus();
   } catch (error) {
-    showStatus(error.message || 'Could not reach the guestbook. Please try again.', true);
+    showStatus(formStatus, error.message || unconfirmedSaveMessage, true);
   } finally {
     submitButton.disabled = false;
   }
@@ -83,15 +98,14 @@ form.addEventListener('submit', async (event) => {
 refreshButton.addEventListener('click', async () => {
   refreshButton.disabled = true;
   try {
-    if (await loadEntries()) showStatus('Messages refreshed.');
+    if (await loadEntries()) showStatus(loadStatus, 'Messages refreshed.');
   } catch (error) {
-    showStatus(error.message, true);
+    showStatus(loadStatus, error.message, true);
   } finally {
     refreshButton.disabled = false;
   }
 });
 
 loadEntries().catch((error) => {
-  emptyState.textContent = 'Messages are unavailable right now.';
-  showStatus(error.message, true);
+  showStatus(loadStatus, error.message, true);
 });

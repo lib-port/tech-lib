@@ -186,6 +186,18 @@ Redis commands are not automatically retried, because repeating an append after 
 
 The app uses `go-redis`; direct and indirect package versions are locked in `go.mod` and `go.sum`.
 
+## Optional: run the regression tests
+
+With Go and Node.js installed, run these commands from this directory:
+
+```sh
+go test ./...
+go vet ./...
+node --test tests/script.test.cjs
+```
+
+The tests cover JSON Content-Type handling, uncertain save responses, and overlapping save/refresh requests. They do not need Redis or Kubernetes; the browser-script tests use Node's built-in test runner with simulated network responses.
+
 ## Troubleshooting
 
 - **kind fails with `Delegate=yes` or cgroup errors:** follow the [rootless host requirements](https://kind.sigs.k8s.io/docs/user/rootless/). On applicable Linux systems, the documented retry is `systemd-run --scope --user -p Delegate=yes kind create cluster --name lib-port --config k8s/kind.yaml --wait 180s`, with `KIND_EXPERIMENTAL_PROVIDER=podman` set. Do not mix rootful and rootless Podman commands for the same cluster.
