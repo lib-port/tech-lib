@@ -11,7 +11,6 @@ RUN CGO_ENABLED=0 go build -buildvcs=false -trimpath -ldflags="-s -w -X main.ver
 # The Go binary includes the HTML, CSS, and JavaScript files.
 FROM scratch
 COPY --from=build /out/guestbook /guestbook
-COPY LICENSE NOTICE /
 USER 10001:10001
 ENV REDIS_ADDR=redis:6379
 EXPOSE 3000

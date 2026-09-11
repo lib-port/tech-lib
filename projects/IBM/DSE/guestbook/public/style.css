@@ -24,9 +24,9 @@ button:hover { background: #194798; }
 button:disabled { opacity: 0.6; cursor: wait; }
 .secondary { background: transparent; color: #245ac0; padding: 8px 10px; }
 .secondary:hover { background: #e5edfa; }
-#status { margin: 14px 0 0; font-size: 14px; color: #226142; }
-#status:empty { display: none; }
-#status.error { color: #a12932; }
+#status, #load-status { margin: 14px 0 0; font-size: 14px; color: #226142; }
+#status:empty, #load-status:empty { display: none; }
+#status.error, #load-status.error { color: #a12932; }
 .messages { margin-top: 32px; }
 .section-heading h2 { margin: 0; }
 #count { margin-left: 6px; color: #536576; font-size: 14px; }
