@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@docusaurus/core": "latest",
+    "@docusaurus/faster": "latest",
     "@docusaurus/preset-classic": "latest",
     "@docusaurus/theme-mermaid": "latest",
     "react": "latest",
@@ -28,5 +29,8 @@
     "remark-parse": "latest",
     "unified": "latest",
     "unist-util-visit": "latest"
+  },
+  "devDependencies": {
+    "parse5": "latest"
   }
 }

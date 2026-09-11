@@ -53,6 +53,13 @@ export default {
   onBrokenAnchors: 'throw',
   onDuplicateRoutes: 'throw',
   i18n: {defaultLocale: 'en', locales: ['en']},
+  future: {
+    faster: {
+      // Shared MDX compilation stalls when restoring the persistent build cache.
+      mdxCrossCompilerCache: false,
+    },
+    v4: {fasterByDefault: true, removeLegacyPostBuildHeadAttribute: true},
+  },
   markdown: {
     format: 'detect',
     mermaid: true,
