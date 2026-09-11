@@ -11,7 +11,8 @@ Notes and project files covering software engineering, systems architecture, cyb
 
 <details>
 <summary>Introduction</summary>
-Linux is the open-source foundation powering much of today’s cloud, server, and digital infrastructure. Platform engineering creates self-service tools and systems that help developers build, deploy, and operate software efficiently. Together, Linux provides the reliable foundation while platform engineering turns it into a streamlined, scalable developer experience.
+<p>Linux is the open-source foundation powering much of today’s cloud, server, and digital infrastructure. Platform engineering creates self-service tools and systems that help developers build, deploy, and operate software efficiently.</p>
+<p>Together, Linux provides the reliable foundation while platform engineering turns it into a streamlined, scalable developer experience.</p>
 </details>
 
 ### Course Notes and Projects
@@ -27,14 +28,10 @@ Linux is the open-source foundation powering much of today’s cloud, server, an
 - :notebook: [Certified Kubernetes Administrator](pluralsight/CKA/README.md) ([course](https://www.pluralsight.com/paths/certified-kubernetes-administrator))
 - Red Hat OpenShift Administration ([course](https://app.pluralsight.com/paths/skill/red-hat-openshift-administration))
 - GitOps ([course](https://www.pluralsight.com/paths/gitops))
-- GitHub Actions ([course](https://www.pluralsight.com/paths/github-actions))
 - Terraform ([course](https://www.pluralsight.com/paths/terraform))
 - Go ([course](https://www.pluralsight.com/paths/go))
 - Observability and Monitoring Tools and Techniques ([course](https://www.pluralsight.com/paths/observability-and-monitoring-tools-and-techniques))
-- Splunk Search Expert Specialization ([course](https://www.coursera.org/specializations/splunk-search-expert))
 - :construction: :package: :notebook: [IBM DevOps and Software Engineering Professional Certificate](IBM/IBM-DSE/README.md) ([course](https://www.coursera.org/professional-certificates/devops-and-software-engineering))
-- AWS Certified Solutions Architect - Associate ([course](https://www.codecademy.com/learn/ext-paths/saa-c03-aws-certified-solutions-architect-associate))
-- Cisco Certified Network Associate ([course](https://www.pluralsight.com/paths/cisco-ccna-cisco-certified-network-associate-200-301))
 
 ### Book Notes
 
@@ -46,7 +43,7 @@ Linux is the open-source foundation powering much of today’s cloud, server, an
 - Policy as Code, by Jimmy Ray. ([catalogue](https://www.oreilly.com/library/view/policy-as-code/9781098139179/))
 - Platform Engineering, by Camille Fournier and Ian Nowland. ([catalogue](https://www.oreilly.com/library/view/platform-engineering/9781098153632/))
 - Effective Platform Engineering, by Bryan Oliver, Nic Cheneweth, Ajay Chankramath, and Sean Alvarez. ([catalogue](https://www.oreilly.com/library/view/effective-platform-engineering/9781633436497/))
-- Building AI Agent Platforms, by Ben O'Mahony and Fabian Nonnenmacher. ([catalogue](https://www.oreilly.com/library/view/building-ai-agent/0642572243906/))
+- Observability Engineering, 2nd edition, by Charity Majors, Liz Fong-Jones, and George Miranda. ([catalogue](https://www.oreilly.com/library/view/observability-engineering-2nd/9781098179915/))
 - Systems Performance: Enterprise and the Cloud, 2nd edition, by Brendan Gregg. ([catalogue](https://www.brendangregg.com/systems-performance-2nd-edition-book.html))
 - BPF Performance Tools: Linux System and Application Observability, by Brendan Gregg. ([catalogue](https://www.brendangregg.com/bpf-performance-tools-book.html))
 
@@ -54,7 +51,8 @@ Linux is the open-source foundation powering much of today’s cloud, server, an
 
 <details>
 <summary>Introduction</summary>
-Data engineering transforms raw information into reliable, accessible data that powers analysis and decision-making. AI engineering turns intelligent models into dependable, scalable systems that solve real-world problems. AI engineering builds on data engineering, relying on well-governed, high-quality data to train, evaluate, and operate AI effectively. Together, data and AI engineering depend on platform engineering for the shared infrastructure, automation, and guardrails needed to deliver at scale.
+<p>Data engineering transforms raw information into reliable, accessible data that powers analysis and decision-making. AI engineering turns intelligent models into dependable, scalable systems that solve real-world problems.</p>
+<p>AI engineering builds on data engineering, relying on well-governed, high-quality data to train, evaluate, and operate AI effectively. Together, data and AI engineering depend on platform engineering for the shared infrastructure, automation, and guardrails needed to deliver at scale.</p>
 </details>
 
 ### Course Notes and Project
@@ -63,12 +61,8 @@ Data engineering transforms raw information into reliable, accessible data that 
 - :notebook: [GitHub Foundations](pluralsight/github-foundations/README.md) ([course](https://www.pluralsight.com/paths/github-foundations))
 - :notebook: [Docker for Software Development](pluralsight/docker-for-SD/README.md) ([course](https://www.pluralsight.com/paths/docker-for-software-development))
 - :construction: :notebook: [IBM Data Engineering Professional Certificate](IBM/IBM-DE/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-data-engineer))
-- AWS Certified Data Engineer - Associate ([course](https://www.codecademy.com/learn/ext-paths/dea-c01-aws-certified-data-engineer-associate))
 - IBM AI Engineering Professional Certificate ([course](https://www.coursera.org/professional-certificates/ai-engineer))
-- AWS Certified Machine Learning Engineer - Associate ([course](https://www.pluralsight.com/paths/aws-certified-machine-learning-engineer-associate-mlac01))
-- IBM RAG and Agentic AI Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-rag-and-agentic-ai))
 - Claude Certified Developer - Foundations Prep Course ([course](https://anthropic-partners.skilljar.com/path/claude-certified-developer-foundations))
-
 ### Book Notes
 
 - Fundamentals of Software Engineering, by Nathaniel Schutta and Dan Vega. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-software/9781098143220/))
@@ -77,29 +71,38 @@ Data engineering transforms raw information into reliable, accessible data that 
 - Software Engineering for Data Scientists, by Catherine Nelson. ([catalogue](https://www.oreilly.com/library/view/software-engineering-for/9781098136192/))
 - Data Engineering Design Patterns, by Bartosz Konieczny. ([catalogue](https://www.oreilly.com/library/view/data-engineering-design/9781098165826/))
 - Financial Data Engineering, by Tamer Khraisha. ([catalogue](https://www.oreilly.com/library/view/financial-data-engineering/9781098159986/))
-- Databricks Certified Data Engineer Associate Study Guide, by Derar Alhussein. ([catalogue](https://www.oreilly.com/library/view/databricks-certified-data/9781098166823/))
 - AI Engineering, by Chip Huyen. ([catalogue](https://www.oreilly.com/library/view/ai-engineering/9781098166298/))
 - AI Agents: The Definitive Guide, by Nicole Koenigstein. ([catalogue](https://www.oreilly.com/library/view/ai-agents-the/0642572247775/))
-- Observability Engineering, 2nd edition, by Charity Majors, Liz Fong-Jones, and George Miranda. ([catalogue](https://www.oreilly.com/library/view/observability-engineering-2nd/9781098179915/))
 - AI Systems Performance Engineering, by Chris Fregly. ([catalogue](https://www.oreilly.com/library/view/ai-systems-performance/9798341627772/))
+- Building AI Agent Platforms, by Ben O'Mahony and Fabian Nonnenmacher. ([catalogue](https://www.oreilly.com/library/view/building-ai-agent/0642572243906/))
 
-## Systems Engineering and Architecture
+## Business Analysis, Systems Engineering and Architecture
 
 <details>
 <summary>Introduction</summary>
-Systems engineering brings people, processes, technology, and requirements together to deliver complex systems that perform reliably throughout their life cycle. Systems architecture defines a system’s high-level structure, including its components, interfaces, and guiding design principles. Systems architecture provides the blueprint, while systems engineering turns it into an integrated, verified, and operational whole. Together, systems engineering and architecture provide the overarching structure, interfaces, and design discipline that platform engineering operationalises, enabling data and AI engineering to build scalable, integrated, and reliable capabilities.
+<p>Business analysis identifies business needs and recommends changes that create value for stakeholders.</p>
+<p>Systems engineering coordinates the design, integration, and validation of systems so they meet stakeholder needs throughout their life cycle.</p>
+<p>Systems architecture defines how a system is organized, how its parts interact, and the principles that guide its design and evolution.</p>
+<p>Together, these disciplines connect business goals to the requirements and designs that guide platform engineering, data engineering, and AI engineering. Platform engineering provides self-service foundations for software delivery, data engineering makes data reliable and usable, and AI engineering develops and operates AI-powered solutions. Cybersecurity spans all of this work, shaping requirements, architecture, implementation, and operations to protect systems, data, and users.</p>
 </details>
 
 ### Course Notes and Project
 
+- :package: :notebook: [IBM Business Analyst Professional Certificate](IBM/IBM-BA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-business-analyst-professional-certificate))
+- Certified Business Analysis Professional (CBAP) Exam Prep  ([course](https://www.pluralsight.com/paths/certified-business-analysis-professionaltm-cbapr))
+- IBM Product Owner Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-product-owner))
 - :construction: :notebook: [Associate Systems Engineer to Principal Systems Engineer](codecademy/ASEPSE/README.md) ([course](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey))
 - Microservices Architecture ([course](https://www.pluralsight.com/paths/microservices-architecture-new))
 - IBM Systems and Solutions Architect Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-systems-and-solutions-architect))
 
 ### Book Notes
 
+- Business Analysis, 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4))
+- Business Analysis Techniques, 3rd edition, by James Cadle, Debra Paul, Jonathan Hunsley, Adrian Reed, David Beckham, and Paul Turner. ([catalogue](https://shop.bcs.org/page/detail/business-analysis-techniques/?SF1=work_exact&ST1=BUSINESSANALYSISTECHNIQUES3))
+- Software Requirements, 3rd edition, by Karl Wiegers and Joy Beatt. ([catalogue](https://www.microsoftpressstore.com/store/software-requirements-9780735679665))
 - Thinking in Systems, by Donella Meadows. ([catalogue](https://www.chelseagreen.com/product/thinking-in-systems/))
 - Head First Object-Oriented Analysis & Design, by Brett D. McLaughlin, Gary Pollice, and David West. ([catalogue](https://www.oreilly.com/library/view/head-first-object-oriented/0596008678/))
+- Systems Analysis and Design, 7th edition, by David P. Tegarden, Binny Samuel, Roman Lukyanenko, Alan Dennis, and Barbara Haley Wixom. ([catalogue](https://www.wiley.com/en-us/systems-analysis-and-design-an-object-oriented-approach-with-uml-7th-edition-p-9781394331727))
 - Fundamentals of Software Architecture, by Mark Richards and Neal Ford. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-software/9781492043447/))
 - Designing Distributed Systems, 2nd Edition, by Brendan Burns. ([catalogue](https://www.oreilly.com/library/view/designing-distributed-systems/9781098156343/))
 - Foundations of Scalable Systems, by Ian Gorton. ([catalogue](https://www.oreilly.com/library/view/foundations-of-scalable/9781098106058/))
@@ -112,69 +115,28 @@ Systems engineering brings people, processes, technology, and requirements toget
 
 <details>
 <summary>Introduction</summary>
-Cybersecurity protects digital systems, data, and operations by managing risk and defending against disruption, theft, and misuse. In platform engineering, cybersecurity embeds secure defaults, automated controls, and continuous monitoring into shared infrastructure and developer workflows. In data and AI engineering, it safeguards sensitive data, models, pipelines, and AI services against unauthorized access, manipulation, and abuse. Across systems engineering and systems architecture, cybersecurity shapes requirements, trust boundaries, controls, and resilience throughout the system life cycle.
+<p>Cybersecurity protects digital systems, data, and operations by managing risk and defending against disruption, theft, and misuse.</p>
+<p>In platform engineering, cybersecurity embeds secure defaults, automated controls, and continuous monitoring into shared infrastructure and developer workflows. In data and AI engineering, it safeguards sensitive data, models, pipelines, and AI services against unauthorized access, manipulation, and abuse. Across business analysis, systems engineering, and systems architecture, cybersecurity shapes requirements, trust boundaries, controls, and resilience throughout the system life cycle.</p>
 </details>
 
 ### Course Notes and Project
 
 - :package: :notebook: [IBM Cybersecurity Analyst Professional Certificate](IBM/IBM-CySA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst))
-- Google Cloud Cybersecurity Professional Certificate ([course](https://www.coursera.org/professional-certificates/google-cloud-cybersecurity-certificate))
 - :notebook: [TCM Security Practical OSINT Research Professional](TS-PORP/README.md) ([course](https://certifications.tcm-sec.com/porp/))
 - Bash Scripting for Security Operations ([course](https://www.pluralsight.com/paths/bash-scripting-for-security-operations))
 - Python for Cyber Defense ([course](https://www.pluralsight.com/paths/python-for-cyber-defense))
 - Secure Coding for Python ([course](https://www.pluralsight.com/paths/secure-coding-for-python))
 - LPIC-3 Exam 303: Security ([course](https://www.pluralsight.com/courses/lpic-3-exam-303-security))
 - Red Hat Certified Specialist in Security: Linux ([RH Doc](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html-single/security_hardening/index))
-- Johns Hopkins University Intrusion Detection Specialization ([course](https://www.coursera.org/specializations/intrusion-detection))
 
 ### Book Notes
 
 - Threat Modeling: Designing for Security, by Adam Shostack. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/threat-modeling-designing-for-security-p-9781118809990))
 - Security Engineering, 3rd edition, by Ross J. Anderson. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/security-engineering-a-guide-to-building-dependable-distributed-systems-3rd-edition-p-9781119642787))
-- Defensive Security Handbook, 2nd edition, by Lee Brotherston, Amanda Berlin, and William F. Reyor III. ([catalogue](https://www.oreilly.com/library/view/defensive-security-handbook/9781098127237/))
 - Data Engineering for Cybersecurity, by James Bonifield. ([catalogue](https://nostarch.com/data-engineering-cybersecurity))
 - Building Secure and Reliable Systems, by Heather Adkins, Betsy Beyer, Paul Blankinship, Piotr Lewandowski, Ana Oprea, and Adam Stubblefield. ([catalogue](https://www.oreilly.com/library/view/building-secure-and/9781492083115/))
 - Liars and Outliers, 2nd edition, by Bruce Schneier. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/liars-and-outliers-enabling-the-trust-that-society-needs-to-thrive-2nd-edition-p-9781394375288))
 - Trust in Computer Systems and the Cloud, by Mike Bursell. ([catalogue](https://www.wiley.com/en-us/trust-in-computer-systems-and-the-cloud-p-9781119695158))
-- Intelligent Continuous Security, by Marc Hornbeek. ([catalogue](https://www.oreilly.com/library/view/intelligent-continuous-security/9798341615908/))
-
-## Business Analysis
-
-<details>
-<summary>Introduction</summary>
-Business analysis is the process of identifying organisational needs, evaluating challenges, and uncovering opportunities for improvement. It helps organisations make informed decisions by translating data, stakeholder requirements, and strategic goals into practical solutions.
-</details>
-
-### Course Notes and Projects
-
-- :package: :notebook: [IBM Business Analyst Professional Certificate](IBM/IBM-BA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-business-analyst-professional-certificate))
-- Certified Business Analysis Professional (CBAP) ([course](https://www.codecademy.com/learn/ext-paths/certified-business-analysis-professional-cbap-babok-r-v3))
-
-### Book Notes
-
-- Business Analysis, 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4))
-- Business Analysis Techniques, 3rd edition, by James Cadle, Debra Paul, Jonathan Hunsley, Adrian Reed, David Beckham, and Paul Turner. ([catalogue](https://shop.bcs.org/page/detail/business-analysis-techniques/?SF1=work_exact&ST1=BUSINESSANALYSISTECHNIQUES3))
-- Agile and Business Analysis, 2nd edition, by Lynda Girvan and Debra Paul. ([catalogue](https://shop.bcs.org/page/detail/?k=9781780176178))
-- Software Requirements, 3rd edition, by Karl Wiegers and Joy Beatt. ([catalogue](https://www.microsoftpressstore.com/store/software-requirements-9780735679665))
-- Systems Analysis and Design, 7th edition, by David P. Tegarden, Binny Samuel, Roman Lukyanenko, Alan Dennis, and Barbara Haley Wixom. ([catalogue](https://www.wiley.com/en-us/systems-analysis-and-design-an-object-oriented-approach-with-uml-7th-edition-p-9781394331727))
-
-## Product Management
-
-<details>
-<summary>Introduction</summary>
-Product management guides a product from idea to market by aligning customer needs, business goals, and cross-functional execution. Business analysis and product management complement each other by combining strategic product direction with rigorous requirements, process evaluation, and data-driven insight.
-</details>
-
-### Course Notes and Projects
-
-- IBM Product Owner Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-product-owner))
-- IBM Product Manager Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-product-manager))
-
-### Book Notes
-
-- The Professional Product Owner, by Don McGreal and Ralph Jocham. ([catalogue](https://www.informit.com/store/professional-product-owner-leveraging-scrum-as-a-competitive-9780134686479))
-- Product Management in Practice, by Matt LeMay. ([catalogue](https://www.oreilly.com/library/view/product-management-in/9781491982266/))
-- Digital Product Management, by Kevin J. Brennan, Sallie Gregory, and Filip Hendrickx. ([catalogue](https://shop.bcs.org/page/detail/digital-product-management/?SF1=work_exact&ST1=DIGITALPRODUCTMANAGEMENT))
 ---
 ## Custom Portfolio Projects
 

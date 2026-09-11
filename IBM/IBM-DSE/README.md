@@ -29,7 +29,7 @@ This course includes the following hands-on projects:
 * [Developing AI Applications with Python and Flask](Developing%20AI%20Applications%20with%20Python%20and%20Flask.md)  ( :package: [Project](https://github.com/lib-port/tech-lib/tree/main/projects/IBM/DSE/emotion-detector/) )
 * [Introduction to Containers w/ Docker, Kubernetes & OpenShift](Introduction%20to%20Containers%20w%20Docker,%20Kubernetes%20&%20OpenShift.md)  ( :package: [Project](https://github.com/lib-port/tech-lib/tree/main/projects/IBM/DSE/guestbook/) )
 * [Application Development using Microservices and Serverless](Application%20Development%20using%20Microservices%20and%20Serverless.md)
-* Introduction to Test and Behavior Driven Development
+* [Introduction to Test and Behavior Driven Development](Introduction%20to%20Test%20and%20Behavior%20Driven%20Development.md)
 * Continuous Integration and Continuous Delivery (CI/CD)
 * Application Security for Developers and DevOps Professionals
 * Monitoring and Observability for Development and DevOps

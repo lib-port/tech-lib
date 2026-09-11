@@ -1,7 +1,7 @@
 {
   "repository": "lib-port/tech-lib",
-  "exportedAt": "2026-08-24T08:53:05Z",
-  "issueCount": 108,
+  "exportedAt": "2026-09-11T06:11:54Z",
+  "issueCount": 131,
   "issues": [
     {
       "assignees": [],
@@ -27,8 +27,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 1,
       "state": "OPEN",
@@ -61,8 +61,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 2,
       "state": "OPEN",
@@ -95,8 +95,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 3,
       "state": "OPEN",
@@ -129,8 +129,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 4,
       "state": "OPEN",
@@ -163,8 +163,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 5,
       "state": "OPEN",
@@ -197,8 +197,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 6,
       "state": "OPEN",
@@ -231,8 +231,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 7,
       "state": "OPEN",
@@ -265,8 +265,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 8,
       "state": "OPEN",
@@ -299,8 +299,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 9,
       "state": "OPEN",
@@ -333,8 +333,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 10,
       "state": "OPEN",
@@ -367,8 +367,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 11,
       "state": "OPEN",
@@ -401,8 +401,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 12,
       "state": "OPEN",
@@ -435,8 +435,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 13,
       "state": "OPEN",
@@ -469,8 +469,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 14,
       "state": "OPEN",
@@ -503,8 +503,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 15,
       "state": "OPEN",
@@ -537,8 +537,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 16,
       "state": "OPEN",
@@ -571,8 +571,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 17,
       "state": "OPEN",
@@ -605,8 +605,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 18,
       "state": "OPEN",
@@ -639,8 +639,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 19,
       "state": "OPEN",
@@ -673,8 +673,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 20,
       "state": "OPEN",
@@ -707,8 +707,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 21,
       "state": "OPEN",
@@ -741,8 +741,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 22,
       "state": "OPEN",
@@ -775,8 +775,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 23,
       "state": "OPEN",
@@ -809,8 +809,8 @@
       "milestone": {
         "number": 1,
         "title": "IBM AIE PC",
-        "description": "Completed notes and projects for the IBM AI Engineering Professional Certificate.",
-        "dueOn": "2027-03-31T00:00:00Z"
+        "description": "Notes and projects for the IBM AI Engineering Professional Certificate.",
+        "dueOn": "2027-07-31T00:00:00Z"
       },
       "number": 24,
       "state": "OPEN",
@@ -828,75 +828,7 @@
         "name": ""
       },
       "body": "",
-      "closedAt": null,
-      "comments": [],
-      "createdAt": "2026-08-23T22:24:09Z",
-      "issueType": null,
-      "labels": [
-        {
-          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
-          "name": "platform-eng",
-          "description": "",
-          "color": "D93F0B"
-        }
-      ],
-      "milestone": {
-        "number": 2,
-        "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
-        "dueOn": "2026-09-30T00:00:00Z"
-      },
-      "number": 25,
-      "state": "OPEN",
-      "stateReason": "",
-      "title": "Python for Data Science, AI & Development Notes",
-      "updatedAt": "2026-08-23T22:24:10Z",
-      "url": "https://github.com/lib-port/tech-lib/issues/25"
-    },
-    {
-      "assignees": [],
-      "author": {
-        "id": "U_kgDOEwukcQ",
-        "is_bot": false,
-        "login": "lib-port",
-        "name": ""
-      },
-      "body": "",
-      "closedAt": null,
-      "comments": [],
-      "createdAt": "2026-08-23T22:24:11Z",
-      "issueType": null,
-      "labels": [
-        {
-          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
-          "name": "platform-eng",
-          "description": "",
-          "color": "D93F0B"
-        }
-      ],
-      "milestone": {
-        "number": 2,
-        "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
-        "dueOn": "2026-09-30T00:00:00Z"
-      },
-      "number": 26,
-      "state": "OPEN",
-      "stateReason": "",
-      "title": "Python for Data Science, AI & Development Final Project",
-      "updatedAt": "2026-08-23T22:24:11Z",
-      "url": "https://github.com/lib-port/tech-lib/issues/26"
-    },
-    {
-      "assignees": [],
-      "author": {
-        "id": "U_kgDOEwukcQ",
-        "is_bot": false,
-        "login": "lib-port",
-        "name": ""
-      },
-      "body": "",
-      "closedAt": null,
+      "closedAt": "2026-08-27T22:08:18Z",
       "comments": [],
       "createdAt": "2026-08-23T22:24:13Z",
       "issueType": null,
@@ -911,14 +843,14 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 27,
-      "state": "OPEN",
-      "stateReason": "",
+      "state": "CLOSED",
+      "stateReason": "COMPLETED",
       "title": "Developing AI Applications with Python and Flask Notes",
-      "updatedAt": "2026-08-23T22:24:13Z",
+      "updatedAt": "2026-08-27T22:08:18Z",
       "url": "https://github.com/lib-port/tech-lib/issues/27"
     },
     {
@@ -930,7 +862,7 @@
         "name": ""
       },
       "body": "",
-      "closedAt": null,
+      "closedAt": "2026-08-29T20:30:03Z",
       "comments": [],
       "createdAt": "2026-08-23T22:24:15Z",
       "issueType": null,
@@ -945,14 +877,14 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 28,
-      "state": "OPEN",
-      "stateReason": "",
+      "state": "CLOSED",
+      "stateReason": "COMPLETED",
       "title": "Developing AI Applications with Python and Flask Final Project",
-      "updatedAt": "2026-08-23T22:24:15Z",
+      "updatedAt": "2026-08-29T20:30:03Z",
       "url": "https://github.com/lib-port/tech-lib/issues/28"
     },
     {
@@ -964,7 +896,7 @@
         "name": ""
       },
       "body": "",
-      "closedAt": null,
+      "closedAt": "2026-09-01T22:10:34Z",
       "comments": [],
       "createdAt": "2026-08-23T22:24:17Z",
       "issueType": null,
@@ -979,14 +911,14 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 29,
-      "state": "OPEN",
-      "stateReason": "",
+      "state": "CLOSED",
+      "stateReason": "COMPLETED",
       "title": "Introduction to Containers w/ Docker, Kubernetes & OpenShift Notes",
-      "updatedAt": "2026-08-23T22:24:17Z",
+      "updatedAt": "2026-09-01T22:10:34Z",
       "url": "https://github.com/lib-port/tech-lib/issues/29"
     },
     {
@@ -998,7 +930,7 @@
         "name": ""
       },
       "body": "",
-      "closedAt": null,
+      "closedAt": "2026-09-07T08:19:57Z",
       "comments": [],
       "createdAt": "2026-08-23T22:24:19Z",
       "issueType": null,
@@ -1013,14 +945,14 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 30,
-      "state": "OPEN",
-      "stateReason": "",
+      "state": "CLOSED",
+      "stateReason": "COMPLETED",
       "title": "Introduction to Containers w/ Docker, Kubernetes & OpenShift Final Project",
-      "updatedAt": "2026-08-23T22:24:19Z",
+      "updatedAt": "2026-09-07T08:19:57Z",
       "url": "https://github.com/lib-port/tech-lib/issues/30"
     },
     {
@@ -1032,7 +964,7 @@
         "name": ""
       },
       "body": "",
-      "closedAt": null,
+      "closedAt": "2026-09-11T02:37:04Z",
       "comments": [],
       "createdAt": "2026-08-23T22:24:21Z",
       "issueType": null,
@@ -1047,49 +979,15 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 31,
-      "state": "OPEN",
-      "stateReason": "",
+      "state": "CLOSED",
+      "stateReason": "COMPLETED",
       "title": "Application Development using Microservices and Serverless Notes",
-      "updatedAt": "2026-08-23T22:24:21Z",
+      "updatedAt": "2026-09-11T02:37:04Z",
       "url": "https://github.com/lib-port/tech-lib/issues/31"
-    },
-    {
-      "assignees": [],
-      "author": {
-        "id": "U_kgDOEwukcQ",
-        "is_bot": false,
-        "login": "lib-port",
-        "name": ""
-      },
-      "body": "",
-      "closedAt": null,
-      "comments": [],
-      "createdAt": "2026-08-23T22:24:22Z",
-      "issueType": null,
-      "labels": [
-        {
-          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
-          "name": "platform-eng",
-          "description": "",
-          "color": "D93F0B"
-        }
-      ],
-      "milestone": {
-        "number": 2,
-        "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
-        "dueOn": "2026-09-30T00:00:00Z"
-      },
-      "number": 32,
-      "state": "OPEN",
-      "stateReason": "",
-      "title": "Application Development using Microservices and Serverless Final Project",
-      "updatedAt": "2026-08-23T22:24:22Z",
-      "url": "https://github.com/lib-port/tech-lib/issues/32"
     },
     {
       "assignees": [],
@@ -1115,7 +1013,7 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 33,
@@ -1149,7 +1047,7 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 34,
@@ -1183,7 +1081,7 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 35,
@@ -1217,7 +1115,7 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 36,
@@ -1251,7 +1149,7 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 37,
@@ -1285,7 +1183,7 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 38,
@@ -1319,7 +1217,7 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 39,
@@ -1353,7 +1251,7 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 40,
@@ -1387,7 +1285,7 @@
       "milestone": {
         "number": 2,
         "title": "IBM DSE PC",
-        "description": "Completed notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
         "dueOn": "2026-09-30T00:00:00Z"
       },
       "number": 41,
@@ -1418,17 +1316,12 @@
           "color": "0052CC"
         }
       ],
-      "milestone": {
-        "number": 3,
-        "title": "IBM ACSA PC",
-        "description": "Completed notes and projects for the IBM Cybersecurity Analyst Professional Certificate.",
-        "dueOn": "2026-10-31T00:00:00Z"
-      },
+      "milestone": null,
       "number": 42,
       "state": "OPEN",
       "stateReason": "",
       "title": "AWS Cloud Technical Essentials Notes",
-      "updatedAt": "2026-08-23T22:26:57Z",
+      "updatedAt": "2026-09-07T09:16:31Z",
       "url": "https://github.com/lib-port/tech-lib/issues/42"
     },
     {
@@ -1452,17 +1345,12 @@
           "color": "0052CC"
         }
       ],
-      "milestone": {
-        "number": 3,
-        "title": "IBM ACSA PC",
-        "description": "Completed notes and projects for the IBM Cybersecurity Analyst Professional Certificate.",
-        "dueOn": "2026-10-31T00:00:00Z"
-      },
+      "milestone": null,
       "number": 43,
       "state": "OPEN",
       "stateReason": "",
       "title": "Architecting Solutions on AWS Notes",
-      "updatedAt": "2026-08-23T22:26:59Z",
+      "updatedAt": "2026-09-07T09:16:31Z",
       "url": "https://github.com/lib-port/tech-lib/issues/43"
     },
     {
@@ -1486,17 +1374,12 @@
           "color": "0052CC"
         }
       ],
-      "milestone": {
-        "number": 3,
-        "title": "IBM ACSA PC",
-        "description": "Completed notes and projects for the IBM Cybersecurity Analyst Professional Certificate.",
-        "dueOn": "2026-10-31T00:00:00Z"
-      },
+      "milestone": null,
       "number": 44,
       "state": "OPEN",
       "stateReason": "",
       "title": "Building Data Lakes on AWS Notes",
-      "updatedAt": "2026-08-23T22:27:01Z",
+      "updatedAt": "2026-09-07T09:16:31Z",
       "url": "https://github.com/lib-port/tech-lib/issues/44"
     },
     {
@@ -1520,17 +1403,12 @@
           "color": "0052CC"
         }
       ],
-      "milestone": {
-        "number": 3,
-        "title": "IBM ACSA PC",
-        "description": "Completed notes and projects for the IBM Cybersecurity Analyst Professional Certificate.",
-        "dueOn": "2026-10-31T00:00:00Z"
-      },
+      "milestone": null,
       "number": 45,
       "state": "OPEN",
       "stateReason": "",
       "title": "Exam Prep: AWS Certified Solutions Architect - Associate Notes",
-      "updatedAt": "2026-08-23T22:27:03Z",
+      "updatedAt": "2026-09-07T09:16:32Z",
       "url": "https://github.com/lib-port/tech-lib/issues/45"
     },
     {
@@ -1557,8 +1435,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 46,
       "state": "OPEN",
@@ -1591,8 +1469,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 47,
       "state": "OPEN",
@@ -1625,8 +1503,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 48,
       "state": "OPEN",
@@ -1659,8 +1537,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 49,
       "state": "OPEN",
@@ -1693,8 +1571,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 50,
       "state": "OPEN",
@@ -1727,8 +1605,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 51,
       "state": "OPEN",
@@ -1761,8 +1639,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 52,
       "state": "OPEN",
@@ -1795,8 +1673,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 53,
       "state": "OPEN",
@@ -1829,8 +1707,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 54,
       "state": "OPEN",
@@ -1863,8 +1741,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 55,
       "state": "OPEN",
@@ -1897,8 +1775,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 56,
       "state": "OPEN",
@@ -1931,8 +1809,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 57,
       "state": "OPEN",
@@ -1965,8 +1843,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 58,
       "state": "OPEN",
@@ -1999,8 +1877,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 59,
       "state": "OPEN",
@@ -2033,8 +1911,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 60,
       "state": "OPEN",
@@ -2067,8 +1945,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 61,
       "state": "OPEN",
@@ -2101,8 +1979,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 62,
       "state": "OPEN",
@@ -2135,8 +2013,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 63,
       "state": "OPEN",
@@ -2169,8 +2047,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 64,
       "state": "OPEN",
@@ -2203,8 +2081,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 65,
       "state": "OPEN",
@@ -2237,8 +2115,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 66,
       "state": "OPEN",
@@ -2271,8 +2149,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 67,
       "state": "OPEN",
@@ -2305,8 +2183,8 @@
       "milestone": {
         "number": 4,
         "title": "IBM DE PC",
-        "description": "Completed notes and projects for the IBM Data Engineering Professional Certificate.",
-        "dueOn": "2027-01-31T00:00:00Z"
+        "description": "Notes and projects for the IBM Data Engineering Professional Certificate.",
+        "dueOn": "2027-04-30T00:00:00Z"
       },
       "number": 68,
       "state": "OPEN",
@@ -2339,8 +2217,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 69,
       "state": "OPEN",
@@ -2373,8 +2251,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 70,
       "state": "OPEN",
@@ -2407,8 +2285,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 71,
       "state": "OPEN",
@@ -2441,8 +2319,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 72,
       "state": "OPEN",
@@ -2475,8 +2353,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 73,
       "state": "OPEN",
@@ -2509,8 +2387,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 74,
       "state": "OPEN",
@@ -2543,8 +2421,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 75,
       "state": "OPEN",
@@ -2577,8 +2455,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 76,
       "state": "OPEN",
@@ -2611,8 +2489,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 77,
       "state": "OPEN",
@@ -2645,8 +2523,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 78,
       "state": "OPEN",
@@ -2679,8 +2557,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 79,
       "state": "OPEN",
@@ -2713,8 +2591,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 80,
       "state": "OPEN",
@@ -2747,8 +2625,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 81,
       "state": "OPEN",
@@ -2781,8 +2659,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 82,
       "state": "OPEN",
@@ -2815,8 +2693,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 83,
       "state": "OPEN",
@@ -2849,8 +2727,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 84,
       "state": "OPEN",
@@ -2883,8 +2761,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 85,
       "state": "OPEN",
@@ -2917,8 +2795,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 86,
       "state": "OPEN",
@@ -2951,8 +2829,8 @@
       "milestone": {
         "number": 5,
         "title": "IBM RAI PC",
-        "description": "Completed notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
-        "dueOn": "2027-02-28T00:00:00Z"
+        "description": "Notes and projects for the IBM RAG and Agentic AI Professional Certificate.",
+        "dueOn": null
       },
       "number": 87,
       "state": "OPEN",
@@ -2985,8 +2863,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 88,
       "state": "OPEN",
@@ -3019,8 +2897,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 89,
       "state": "OPEN",
@@ -3053,8 +2931,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 90,
       "state": "OPEN",
@@ -3087,8 +2965,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 91,
       "state": "OPEN",
@@ -3121,8 +2999,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 92,
       "state": "OPEN",
@@ -3155,8 +3033,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 93,
       "state": "OPEN",
@@ -3189,8 +3067,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 94,
       "state": "OPEN",
@@ -3223,8 +3101,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 95,
       "state": "OPEN",
@@ -3257,8 +3135,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 96,
       "state": "OPEN",
@@ -3291,8 +3169,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 97,
       "state": "OPEN",
@@ -3325,8 +3203,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 98,
       "state": "OPEN",
@@ -3359,8 +3237,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 99,
       "state": "OPEN",
@@ -3393,8 +3271,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 100,
       "state": "OPEN",
@@ -3427,8 +3305,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 101,
       "state": "OPEN",
@@ -3461,8 +3339,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 102,
       "state": "OPEN",
@@ -3495,8 +3373,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 103,
       "state": "OPEN",
@@ -3529,8 +3407,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 104,
       "state": "OPEN",
@@ -3563,8 +3441,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 105,
       "state": "OPEN",
@@ -3597,8 +3475,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 106,
       "state": "OPEN",
@@ -3631,8 +3509,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 107,
       "state": "OPEN",
@@ -3665,8 +3543,8 @@
       "milestone": {
         "number": 6,
         "title": "IBM SSA PC",
-        "description": "Completed notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
-        "dueOn": "2027-04-30T00:00:00Z"
+        "description": "Notes and projects for the IBM Systems and Solutions Architect Professional Certificate.",
+        "dueOn": "2027-09-30T00:00:00Z"
       },
       "number": 108,
       "state": "OPEN",
@@ -3674,6 +3552,890 @@
       "title": "Systems and Solutions Architect Capstone Project",
       "updatedAt": "2026-08-24T08:22:41Z",
       "url": "https://github.com/lib-port/tech-lib/issues/108"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": "2026-08-24T10:49:19Z",
+      "comments": [],
+      "createdAt": "2026-08-24T10:49:14Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 109,
+      "state": "CLOSED",
+      "stateReason": "COMPLETED",
+      "title": "Hands-on Introduction to Linux Commands and Shell Scripting Project",
+      "updatedAt": "2026-08-24T10:49:19Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/109"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": "2026-08-26T21:32:34Z",
+      "comments": [],
+      "createdAt": "2026-08-25T22:02:41Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 110,
+      "state": "CLOSED",
+      "stateReason": "COMPLETED",
+      "title": "Python for Data Science, AI & Development Final Project",
+      "updatedAt": "2026-08-26T21:32:34Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/110"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": "2026-08-27T02:23:29Z",
+      "comments": [],
+      "createdAt": "2026-08-27T02:23:23Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1FR6w",
+          "name": "platform-eng",
+          "description": "",
+          "color": "D93F0B"
+        }
+      ],
+      "milestone": {
+        "number": 2,
+        "title": "IBM DSE PC",
+        "description": "Notes and projects for the IBM DevOps and Software Engineering Professional Certificate.",
+        "dueOn": "2026-09-30T00:00:00Z"
+      },
+      "number": 111,
+      "state": "CLOSED",
+      "stateReason": "COMPLETED",
+      "title": "Python for Data Science, AI & Development Notes",
+      "updatedAt": "2026-08-27T02:23:29Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/111"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:06Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 112,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "The Product Owner Profession: Unleashing the Power of Scrum Notes",
+      "updatedAt": "2026-09-07T09:04:06Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/112"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:08Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 113,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "The Product Owner Profession: Unleashing the Power of Scrum Final Project",
+      "updatedAt": "2026-09-07T09:04:09Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/113"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:12Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 114,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Agile Development and Scrum Notes",
+      "updatedAt": "2026-09-07T09:04:12Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/114"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:14Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 115,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Agile Development and Scrum Final Project",
+      "updatedAt": "2026-09-07T09:04:15Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/115"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:18Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 116,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Product Owner: Communications & Stakeholder Management Notes",
+      "updatedAt": "2026-09-07T09:04:18Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/116"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:21Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 117,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Product Owner: Communications & Stakeholder Management Final Project",
+      "updatedAt": "2026-09-07T09:04:21Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/117"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:24Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 118,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Product Owner: Essential Skills and Tools for Innovation Notes",
+      "updatedAt": "2026-09-07T09:04:24Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/118"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:33Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 119,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Product Owner: Essential Skills and Tools for Innovation Final Project",
+      "updatedAt": "2026-09-07T09:04:33Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/119"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:36Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 120,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI: Introduction and Applications Notes",
+      "updatedAt": "2026-09-07T09:04:36Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/120"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:39Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 121,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI: Introduction and Applications Final Project",
+      "updatedAt": "2026-09-07T09:04:39Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/121"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:42Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 122,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI: Revolutionizing the Product Owner Role Notes",
+      "updatedAt": "2026-09-07T09:04:42Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/122"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:45Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 123,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Generative AI: Revolutionizing the Product Owner Role Final Project",
+      "updatedAt": "2026-09-07T09:04:45Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/123"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-07T09:04:48Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAAC0L82lg",
+          "name": "prod-man",
+          "description": "",
+          "color": "5319E7"
+        }
+      ],
+      "milestone": {
+        "number": 8,
+        "title": "IBM PO PC",
+        "description": "Notes and projects for the IBM Product Owner Professional Certificate.",
+        "dueOn": "2026-11-30T00:00:00Z"
+      },
+      "number": 124,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Product Owner Capstone",
+      "updatedAt": "2026-09-07T09:04:48Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/124"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-11T06:04:53Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 9,
+        "title": "Certified Business Analysis Professional (CBAP) Course",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 125,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Introduction to Business Analyisis Notes",
+      "updatedAt": "2026-09-11T06:04:53Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/125"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-11T06:04:56Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 9,
+        "title": "Certified Business Analysis Professional (CBAP) Course",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 126,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Planning and Monitoring Notes",
+      "updatedAt": "2026-09-11T06:04:56Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/126"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-11T06:04:58Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 9,
+        "title": "Certified Business Analysis Professional (CBAP) Course",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 127,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Elicitation and Collaboration Notes",
+      "updatedAt": "2026-09-11T06:04:58Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/127"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-11T06:05:01Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 9,
+        "title": "Certified Business Analysis Professional (CBAP) Course",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 128,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Requirements and Designs Life Cycle Management Notes",
+      "updatedAt": "2026-09-11T06:05:01Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/128"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-11T06:05:04Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 9,
+        "title": "Certified Business Analysis Professional (CBAP) Course",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 129,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Strategy Analysis Notes",
+      "updatedAt": "2026-09-11T06:05:04Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/129"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-11T06:05:06Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 9,
+        "title": "Certified Business Analysis Professional (CBAP) Course",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 130,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Requirements Analysis and Design Definition (RADD) Notes",
+      "updatedAt": "2026-09-11T06:05:06Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/130"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-11T06:05:09Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 9,
+        "title": "Certified Business Analysis Professional (CBAP) Course",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 131,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Solution Evaluation Notes",
+      "updatedAt": "2026-09-11T06:05:09Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/131"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-11T06:05:11Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 9,
+        "title": "Certified Business Analysis Professional (CBAP) Course",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 132,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Techniques Notes",
+      "updatedAt": "2026-09-11T06:05:11Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/132"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-11T06:05:14Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 9,
+        "title": "Certified Business Analysis Professional (CBAP) Course",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 133,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Underlying Competencies Notes",
+      "updatedAt": "2026-09-11T06:05:14Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/133"
+    },
+    {
+      "assignees": [],
+      "author": {
+        "id": "U_kgDOEwukcQ",
+        "is_bot": false,
+        "login": "lib-port",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": null,
+      "comments": [],
+      "createdAt": "2026-09-11T06:05:16Z",
+      "issueType": null,
+      "labels": [
+        {
+          "id": "LA_kwDOT_10hs8AAAACx1GTYg",
+          "name": "sys-arch",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "milestone": {
+        "number": 9,
+        "title": "Certified Business Analysis Professional (CBAP) Course",
+        "description": "",
+        "dueOn": "2026-10-31T00:00:00Z"
+      },
+      "number": 134,
+      "state": "OPEN",
+      "stateReason": "",
+      "title": "Perspectives Notes",
+      "updatedAt": "2026-09-11T06:05:16Z",
+      "url": "https://github.com/lib-port/tech-lib/issues/134"
     }
   ]
 }

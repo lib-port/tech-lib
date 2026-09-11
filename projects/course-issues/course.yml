@@ -1,17 +1,24 @@
-name: IBM PO PC
-label: "prod-man"
+name: "Certified Business Analysis Professional (CBAP) Exam Prep Course"
+label: "sys-arch"
 
-due-date: 2026-12-31
+due-date: 2026-10-31
 
 notes-and-project:
-- "The Product Owner Profession: Unleashing the Power of Scrum"
-- "Introduction to Agile Development and Scrum"
-- "Product Owner: Communications & Stakeholder Management"
-- "Product Owner: Essential Skills and Tools for Innovation"
-- "Generative AI: Introduction and Applications"
-- "Generative AI: Revolutionizing the Product Owner Role"
 
 notes-only:
+  - "Business Analysis: Planning and Ensuring Success"
+  - "Business Analysis: Working with Stakeholders Using Elicitation and Collaboration"
+  - "Business Analysis: Managing Requirements"
+  - "Business Analysis: Defining Change Strategies"
+  - "Business Analysis: Capturing and Designing Requirements"
+  - "Business Analysis: Assessing and Improving Solutions"
+  - "Business Analysis: The Skills and Competencies of Effective Business Analysts"
+  - "Applying Business Analysis Skills in Your Organization"
+  - "Business Analysis Techniques: Planning and Monitoring Business Analysis Work"
+  - "Business Analysis Techniques: Eliciting Information and Collaborating with Stakeholders"
+  - "Business Analysis Techniques: Managing the Requirements Life Cycle"
+  - "Business Analysis Techniques: Conducting Strategy Analysis"
+  - "Business Analysis Techniques: Analyzing and Defining Requirements and Designs"
+  - "Business Analysis Techniques: Evaluating Solutions"
 
 project-only:
-- Product Owner Capstone
