@@ -3,7 +3,7 @@
 [![Docusaurus site](https://img.shields.io/badge/Docusaurus-site-green?logo=docusaurus&logoColor=white&color=%2325c2a0)](https://lib-port.github.io/tech-lib)
 [![GitHub repo](https://img.shields.io/badge/Github-repo-blue?logo=github&logoColor=white)](https://github.com/lib-port/tech-lib)
 
-Notes and project files covering software engineering, business analysis, systems engineering, and systems architecture. Course providers include IBM, TCM Security, Codecademy, Pluralsight, Databricks, AWS, and IIBA.
+Notes and project files covering software engineering, business analysis, systems engineering, and systems architecture. Course providers include IBM, Codecademy, Pluralsight, and IIBA.
 
 :notebook: = notes | :package: = project(s) | :gear: = lab(s) | :construction: = in progress
 
@@ -102,8 +102,9 @@ Notes and project files covering software engineering, business analysis, system
 
 - Business Analysis, 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4))
 - Business Analysis Techniques, 3rd edition, by James Cadle, Debra Paul, Jonathan Hunsley, Adrian Reed, David Beckham, and Paul Turner. ([catalogue](https://shop.bcs.org/page/detail/business-analysis-techniques/?SF1=work_exact&ST1=BUSINESSANALYSISTECHNIQUES3))
+- [Product Management in Practice](books/PMP/README.md), 2nd edition, by Matt LeMay. ([catalogue](https://www.oreilly.com/library/view/product-management-in/9781098119720/))
 - The Professional Product Owner, by Don McGreal and Ralph Jocham. ([catalogue](https://www.informit.com/store/professional-product-owner-leveraging-scrum-as-a-competitive-9780134686479))
-- The AI-Powered Product Manager, by Marily Nika andDiego Granados. ([catalogue](https://www.oreilly.com/library/view/the-ai-powered-product/0642572279646/))
+- The AI-Powered Product Manager, by Marily Nika and Diego Granados. ([catalogue](https://www.oreilly.com/library/view/the-ai-powered-product/0642572279646/))
 
 #### Systems Engineering
 
@@ -126,17 +127,7 @@ Notes and project files covering software engineering, business analysis, system
 ---
 ## Custom Portfolio Projects
 
-### Front-End Development
-
-- :package: [Developer Landing Page](https://github.com/lib-port/lib-port.github.io) :link: [Live demo](https://lib-port.github.io)
-
-### Product Development and Management
-
--  :package: [Who Gets Heard: The Work Behind the Work](https://lib-port.github.io/who-gets-heard)
-
 ### Platform Engineering
-
-#### GitOps
 
 - :package: [GitHub CLI Bulk Issue Creator for Courses Script](./projects/course-issues/README.md)
 
@@ -145,6 +136,11 @@ Notes and project files covering software engineering, business analysis, system
 - :package: [Open Banking (CDR) Product & Pricing Lakehouse](https://github.com/lib-port/open-banking-lakehouse)
 - :package: [Pricing Function Mapper](https://github.com/lib-port/pricing-function-mapper)
 - :package: [Event-Driven Backtesting Platform](https://github.com/lib-port/backtest)
+
+### Product Development and Management
+
+- :package: [Developer Landing Page](https://github.com/lib-port/lib-port.github.io) :link: [Live demo](https://lib-port.github.io)
+- :package: [Who Gets Heard: The Work Behind the Work](https://lib-port.github.io/who-gets-heard)
 
 ### Cybersecurity
 
