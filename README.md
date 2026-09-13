@@ -83,7 +83,7 @@ Notes and project files covering software engineering, business analysis, system
 <p>Business analysis identifies business needs and recommends changes that create value for stakeholders.</p>
 <p>Systems engineering coordinates the design, integration, and validation of systems so they meet stakeholder needs throughout their life cycle.</p>
 <p>Systems architecture defines how a system is organized, how its parts interact, and the principles that guide its design and evolution.</p>
-<p>Together, these disciplines connect business goals to the requirements and designs that guide platform engineering, data engineering, and AI engineering. Platform engineering provides self-service foundations for software delivery, data engineering makes data reliable and usable, and AI engineering develops and operates AI-powered solutions.</p>
+<p>Together, these disciplines connect business goals to the requirements and designs that guide platform engineering, data engineering, and AI engineering.</p>
 </details>
 
 ### Course Notes and Project
@@ -141,6 +141,7 @@ Notes and project files covering software engineering, business analysis, system
 
 - :package: [Developer Landing Page](https://github.com/lib-port/lib-port.github.io) :link: [Live demo](https://lib-port.github.io)
 - :package: [Who Gets Heard: The Work Behind the Work](https://lib-port.github.io/who-gets-heard)
+- :construction: :package: [The Very Technical Product Owner: Decide, Design, and Deliver with AI](https://lib-port.github.com/very-tech-PO/)
 
 ### Cybersecurity
 
