@@ -5,3 +5,4 @@ by Matt LeMay. The book is a practical guide to navigating the messy realities o
 
 ## Notes
 - [Chapter 1: The Practice of Product Management](Chapter%201%20The%20Practice%20of%20Product%20Management.md)
+- [Chapter 2: The CORE Skills of Product Management](Chapter%202%20The%20CORE%20Skills%20of%20Product%20Management.md)

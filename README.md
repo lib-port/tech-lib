@@ -41,11 +41,11 @@ Notes and project files covering software engineering, business analysis, system
 - Linux Observability with BPF, by David Calavera and Lorenzo Fontana. ([catalogue](https://www.oreilly.com/library/view/linux-observability-with/9781492050193/))
 - Infrastructure as Code, 3rd Edition, by Kief Morris. ([catalogue](https://www.oreilly.com/library/view/infrastructure-as-code/9781098150341/))
 - Policy as Code, by Jimmy Ray. ([catalogue](https://www.oreilly.com/library/view/policy-as-code/9781098139179/))
-- Platform Engineering, by Camille Fournier and Ian Nowland. ([catalogue](https://www.oreilly.com/library/view/platform-engineering/9781098153632/))
-- Effective Platform Engineering, by Bryan Oliver, Nic Cheneweth, Ajay Chankramath, and Sean Alvarez. ([catalogue](https://www.oreilly.com/library/view/effective-platform-engineering/9781633436497/))
 - Observability Engineering, 2nd edition, by Charity Majors, Liz Fong-Jones, and George Miranda. ([catalogue](https://www.oreilly.com/library/view/observability-engineering-2nd/9781098179915/))
 - Systems Performance: Enterprise and the Cloud, 2nd edition, by Brendan Gregg. ([catalogue](https://www.brendangregg.com/systems-performance-2nd-edition-book.html))
 - BPF Performance Tools: Linux System and Application Observability, by Brendan Gregg. ([catalogue](https://www.brendangregg.com/bpf-performance-tools-book.html))
+-  Platform Engineering, by Camille Fournier and Ian Nowland. ([catalogue](https://www.oreilly.com/library/view/platform-engineering/9781098153632/))
+- Effective Platform Engineering, by Bryan Oliver, Nic Cheneweth, Ajay Chankramath, and Sean Alvarez. ([catalogue](https://www.oreilly.com/library/view/effective-platform-engineering/9781633436497/))
 
 ## Data and AI Engineering
 
@@ -80,9 +80,7 @@ Notes and project files covering software engineering, business analysis, system
 
 <details>
 <summary>Introduction</summary>
-<p>Business analysis identifies business needs and recommends changes that create value for stakeholders.</p>
-<p>Systems engineering coordinates the design, integration, and validation of systems so they meet stakeholder needs throughout their life cycle.</p>
-<p>Systems architecture defines how a system is organized, how its parts interact, and the principles that guide its design and evolution.</p>
+<p>Business analysis identifies business needs and recommends changes that create value for stakeholders. Systems engineering coordinates the design, integration, and validation of systems so they meet stakeholder needs throughout their life cycle. Systems architecture defines how a system is organized, how its parts interact, and the principles that guide its design and evolution.</p>
 <p>Together, these disciplines connect business goals to the requirements and designs that guide platform engineering, data engineering, and AI engineering.</p>
 </details>
 
@@ -141,7 +139,7 @@ Notes and project files covering software engineering, business analysis, system
 
 - :package: [Developer Landing Page](https://github.com/lib-port/lib-port.github.io) :link: [Live demo](https://lib-port.github.io)
 - :package: [Who Gets Heard: The Work Behind the Work](https://lib-port.github.io/who-gets-heard)
-- :construction: :package: [The Very Technical Product Owner: Decide, Design, and Deliver with AI](https://lib-port.github.com/very-tech-PO/)
+- :construction: :package: [The Very Technical Product Owner: Decide, Design, and Deliver with AI](https://github.com/lib-port/very-tech-PO/)
 
 ### Cybersecurity
 

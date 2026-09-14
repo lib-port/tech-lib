@@ -1,0 +1,15 @@
+# Local development configuration (no separate database server required).
+PORT=8080
+DATABASE_URI=sqlite:///products.db
+DRIVER=chrome
+WAIT_SECONDS=10
+HEADLESS=true
+
+# For the PostgreSQL lab, replace DATABASE_URI with:
+# DATABASE_URI=postgresql://postgres:postgres@localhost:5432/postgres
+
+# Set these only if Chrome or ChromeDriver is not on PATH:
+# BROWSER_BINARY=/absolute/path/to/chrome
+# CHROMEDRIVER_PATH=/absolute/path/to/chromedriver
+
+# Root-only containers may require CHROME_NO_SANDBOX=true.
