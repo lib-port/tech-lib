@@ -1,2 +1,0 @@
-FLASK_APP=service:app
-FLASK_DEBUG=false

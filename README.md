@@ -127,7 +127,7 @@ Notes and project files covering software engineering, business analysis, system
 
 ### Platform Engineering
 
-- :package: [GitHub CLI Bulk Issue Creator for Courses Script](./projects/course-issues/README.md)
+- :package: [GitHub CLI Bulk Issue Creator for Courses Script](https://github.com/lib-port/projects/tree/main/course-issues)
 
 ### Data Engineering
 
