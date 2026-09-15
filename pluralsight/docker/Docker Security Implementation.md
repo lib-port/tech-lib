@@ -3,41 +3,47 @@
 > [!NOTE]
 > This guide explains how to secure Docker across the container lifecycle through trusted images, vulnerability scanning, hardened Dockerfiles, protected hosts, encrypted access, secrets management, least privilege, and robust logging.
 
-## Image supply-chain security
+Docker security combines image maintenance, host protection, restricted application privileges, careful credential handling, and useful logging. Each control addresses different risks. Trusted publishers, small images, and successful scans provide evidence, but cannot establish complete security.
 
-Trusted registries, Docker Official Images, and verified publishers improve provenance, but badges, downloads, and stars do not establish security. Teams should verify the publisher, maintenance, signatures, and provenance, then pin the reviewed image by digest. Mutable tags such as `latest` can identify different content after a later push.
+## Images and builds
 
-Docker Scout and Trivy inventory packages, create or consume a software bill of materials (SBOM), and match components against vulnerability data. Zero findings mean only that the scanner detected no known issues with its current coverage and feeds. Scanners can miss custom binaries, new flaws, insecure configuration, and exploitable application logic.
+Docker Official Images and Verified Publisher badges help identify curated repositories and verified publishers. Registry reputation, pull counts, and stars do not guarantee that an image is safe. Maintenance activity, supported versions, and application compatibility also require assessment.
 
-Teams should prioritise remediation through exploit evidence, reachability, exposure, business impact, vendor status, available fixes, and CISA's Known Exploited Vulnerabilities Catalog. Severity alone does not define organisational risk. Vendor advisories can reflect backported fixes better than upstream version comparisons.
+Docker Scout and Trivy identify known vulnerabilities in detected software components. CVE identifiers, maintained through the Common Vulnerabilities and Exposures Program, provide common references for disclosed vulnerabilities. Findings depend on the image, advisory data, scanner coverage, and scan time. Zero findings do not exclude undiscovered or undetected defects.
 
-A minimal, supported, and compatible base image usually reduces attack surface, but Alpine or a hardened image does not suit every application. Dockerfiles should use multi-stage builds, omit unnecessary packages, prefer `COPY` for local files, verify remote artefacts, and exclude secrets. Builds should pin dependencies, then refresh them for security updates. On DNF systems, `--setopt=install_weak_deps=False` suppresses weak dependencies. Applications should use a non-root `USER` and `COPY --chown` where required.
+A software bill of materials (SBOM) inventories detected components and versions. It supports dependency review, but does not establish runtime performance or complete detection. Trivy's `fixed` status indicates that a platform fix exists. The installed version must still be checked against the vendor's fixed version. Severity filters change the displayed findings, not the underlying exposure.
 
-## Host and daemon hardening
+Minimal images reduce unnecessary software, but the base must suit the application. Alpine's use of the musl C library can affect compatibility with software expecting glibc. Image tags, including version tags, can change. Digest pinning identifies exact content, while reviewed updates and rebuilds incorporate security fixes.
 
-The current CIS Docker Benchmark provides a baseline, not proof of security or compliance. Docker Bench automates many checks, but its current release targets an older benchmark. Operators must interpret results for the deployed Docker version, review manual checks, and protect the privileged host access the tool requires.
+Applications should run as non-root users where possible. Dockerfile `USER` sets the default execution identity, while `WORKDIR` sets the directory separately. Copied files need suitable ownership and permissions. Removing unnecessary packages reduces potential attack opportunities.
 
-Hosts should run supported, patched kernels and Docker Engine releases. Rootless mode runs the daemon and containers without root privileges. Where it does not fit, `"userns-remap": "default"` maps container root to an unprivileged host identity. Operators must plan storage ownership and compatibility first. `/var/lib/docker`, the Docker socket, configuration, certificates, and backups require strict access control.
+## Hosts and connections
 
-The local Unix socket remains the preferred daemon endpoint. Remote access should use an SSH Docker context or mutual TLS with protected keys, valid subject alternative names, rotation, and revocation. An unauthenticated TCP socket grants host control. Daemon TLS protects Docker API traffic, not communication between containers.
+The CIS Docker Benchmark provides configuration guidance. Docker Bench for Security automates checks against a particular benchmark version, which can differ from the current release. Its score requires interpretation because passes and warnings can offset one another. Zero does not establish an absence of serious findings. Manual checks and individual warnings still need review.
 
-Swarm uses mutual TLS for node identity and management traffic, but does not encrypt overlay application data by default. `--opt encrypted` adds IPsec for supported Linux nodes, with a performance cost that operators should test.
+User-namespace remapping maps container users to unprivileged host IDs, while the Docker daemon remains root. Enabling it requires compatible ID ranges, storage ownership, and mount permissions. On existing installations, it can make previous Docker resources inaccessible under the new mapping.
 
-## Container, secret, and logging controls
+Host configuration files and Docker data directories also need restricted access. Ownership requirements vary with installation mode, user remapping, and storage arrangements, so blanket permission changes can damage a working deployment.
 
-Runtime controls should apply least privilege in layers:
+Remote Docker API access needs authenticated protection, such as mutual TLS or SSH. TLS certificates must identify the intended endpoint, and private keys require restricted access. Authorised client credentials can provide administrative control of a rootful Docker host. Protecting this connection does not encrypt unrelated application traffic.
 
-| Control | Secure use |
+Swarm automatically uses mutual TLS for node control communications. Application traffic across overlay networks is not encrypted by default. Overlay encryption or application TLS requires separate configuration.
+
+## Secrets and runtime privileges
+
+Runtime secrets keep credentials out of Dockerfiles, image layers, and application source code. Access is granted to the services that need them, but storage and permissions differ:
+
+| Mechanism | Protection and limitation |
 | --- | --- |
-| Identity | Run as a non-root user and consider rootless Docker or user namespaces. |
-| Capabilities | Start with `--cap-drop ALL`, then add only required capabilities. |
-| Privilege | Avoid `--privileged`, host namespaces, devices, and Docker socket mounts. |
-| Filesystem | Use a read-only root filesystem and writable volumes or `tmpfs` only where needed. |
-| Kernel controls | Retain the default seccomp profile, enforce AppArmor or SELinux, and set `no-new-privileges`. |
-| Resources | Limit memory, CPU, processes, and open files to reduce denial-of-service risk. |
+| File-backed Compose secret | Bind-mounts a host file. Its source and permissions require protection. |
+| Swarm secret | Encrypts transfer and storage, then supplies authorised Linux tasks through an in-memory file. |
 
-Compose mounts an authorised secret at `/run/secrets/<name>`, but its host source still needs protection. Permissions are not inherently root-only. Swarm encrypts secrets in transit and in its Raft log, then mounts them in memory for authorised Linux tasks. Applications should use supported `_FILE` variables, rotate secrets, and never print, copy, commit, or log values.
+Files under `/run/secrets` are not automatically restricted to root. Actual permissions determine who can read them, and administrators with sufficient access remain trusted. Printing a password can expose it through logs, even when its original delivery was protected.
 
-`docker logs` and `docker service logs` retrieve container standard output and standard error. Docker events and daemon logs are separate sources. Systemd hosts expose daemon records through `journalctl -u docker.service`. Operators should centralise records, restrict access, synchronise time, define retention, alert on security events, and exclude sensitive data.
+Linux capabilities divide privileged operations into separate permissions. `--cap-drop ALL` removes the capability set, and `--cap-add` can restore specific requirements. Applications need testing under these restrictions. `NET_ADMIN` is already absent from Docker's default capability set.
 
-Docker defaults to `json-file` without rotation, which can exhaust disk space. The `local` driver rotates by default. Deployments retaining `json-file` should set `max-size` and `max-file`. Remote drivers need authenticated encryption, appropriate buffering, and delivery monitoring.
+## Logging and review
+
+Container output, daemon diagnostics, and lifecycle events provide distinct evidence. `docker logs` normally retrieves captured standard output and standard error. `docker service logs` retrieves supported Swarm task logs, while `journalctl -u docker.service` accesses daemon diagnostics on systemd hosts. `docker events` reports Docker lifecycle events.
+
+Empty output does not prove that no activity occurred. Applications may log elsewhere, and retrieval depends on the logging driver. Daemon verbosity does not control application verbosity. Driver changes normally require container recreation to affect existing workloads. Central collection, protected transport, appropriate retention, and rotation support investigation without allowing logs to consume unlimited storage.

@@ -1,8 +1,7 @@
 # *Docker* Course Notes
+*v1.1 stable release*
 
-*v1.0 stable release*
-
-These notes cover material from Pluralsight's 30-hour, self-paced [Docker](https://www.pluralsight.com/paths/managing-docker-in-production) course. The notes cover the fundamentals of using Docker to manage containerization needs. The notes cover the purpose of containers and how Docker fits into the picture. It then moves on to the different techniques and settings you might need for managing Docker containers.
+These notes cover material from Pluralsight's 30-hour, self-paced [Docker](https://www.pluralsight.com/paths/managing-docker-in-production) course. The notes cover the fundamentals of using Docker to manage containerization needs, the purpose of containers, and how Docker fits into the picture. It then moves on to the different techniques and settings you might need for managing Docker containers.
 
 ## Notes
 

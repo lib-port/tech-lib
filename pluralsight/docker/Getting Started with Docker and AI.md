@@ -3,135 +3,117 @@
 > [!NOTE]
 > This guide explains how Docker Model Runner enables private, container-integrated local AI deployment while highlighting model management, application integration, hardware, security, and operational considerations.
 
-## Local inference with Docker Model Runner
+Docker Model Runner, or DMR, connects local AI inference with Docker's application workflow. It manages model artefacts and inference engines, allowing applications to request responses from models on supported local hardware. Docker Compose can coordinate model requirements with application services, networks, and storage.
 
-Docker Model Runner (DMR) lets teams manage and serve local generative AI models through familiar Docker workflows. It integrates with Docker Desktop, Docker Engine, Docker Hub, OCI registries, the Docker CLI, and Docker Compose. Applications can call its compatible APIs without adopting a separate model-management stack.
+Local deployment can support control over sensitive information and reduce dependence on hosted inference services. It also transfers responsibility for hardware, electricity, maintenance, and capacity to the operator. Privacy and cost depend on the complete deployment, rather than simply on where the model runs.
 
-Local inference can reduce cloud expenditure, latency, and external transfer of prompts or proprietary data. It does not guarantee privacy or security. Model downloads, Docker Engine metadata requests, application integrations, updates, and telemetry settings can still create network traffic. Operators must inspect the entire system before describing it as offline or air-gapped.
+## How local inference works
 
-Local deployment also shifts responsibility. The organisation supplies accelerator capacity, memory, storage, power, patching, monitoring, backups, and support. A small stable workload may cost less locally, while a large or highly variable workload may benefit from cloud elasticity. Model quality also varies. A compact local model can serve classification, summarisation, retrieval, or narrow chat tasks well, yet perform below a larger hosted model on complex reasoning. A sound decision compares data-residency requirements, workload shape, model quality, total cost, and operational capability.
+Three components have distinct roles. Model weights contain learned numerical values. An inference engine loads those weights and performs the computation. An application manages interactions and sends requests to the engine through a model-serving API.
 
-DMR supports language, embedding, and image-generation workloads. Its APIs include OpenAI, Anthropic, and Ollama-compatible formats, as well as native model-management endpoints. Compatibility does not ensure that every client feature will work because models differ in tool use, structured output, context capacity, and other capabilities.
+DMR integrates with Docker Desktop, Docker Engine, Docker Hub, the command-line interface (CLI), and Compose. Its default engine is llama.cpp, with additional engines such as vLLM and Diffusers available for supported workloads. Capabilities and hardware requirements differ between engines. Suitable configurations can support text generation, numerical representations of content called embeddings, vision input, and image generation.
 
-## Architecture and hardware
+Execution also varies by platform. DMR uses native, sandboxed inference engines on macOS and Windows, while Linux deployments use containers. On Apple Silicon, native inference can use Metal GPU acceleration that ordinary Linux containers in Docker Desktop's virtual machine cannot directly access.
 
-DMR pulls models from Docker Hub, another OCI-compliant registry, or Hugging Face, stores them locally, and loads them when an inference request arrives. An inference engine executes each model and uses compatible CPU or accelerator hardware. The application sends prompts to DMR and receives generated output through an HTTP API.
+Containers can support GPU acceleration on suitable systems. Available technologies include NVIDIA CUDA, AMD ROCm, and other platform-specific backends. Support depends on the operating system, drivers, engine, and configuration. Some Linux GPU deployments require additional runtime components, such as the NVIDIA Container Toolkit, alongside compatible host drivers.
 
-DMR separates model distribution from inference. The Docker CLI and API manage model artefacts, while the selected engine converts prompts into tokens, performs inference, and generates tokens for the response. This separation lets Docker retain a consistent management surface while engines optimise for different formats and hardware. It also means that an engine, model, and device must form a supported combination. An OCI artefact alone does not make every model executable on every host.
+A GPU is not essential for every useful workload. CPU inference can suit smaller models and modest demand. Model size, quantisation, memory, context length, and concurrent requests influence performance. A GPU's presence alone does not establish that the selected engine can use it.
 
-The execution boundary depends on the operating system. On Linux, DMR and its inference engines run in a container. On macOS and Windows, the engines run outside containers in operating-system sandboxes. Containerised applications can still call DMR through a Docker-provided endpoint.
+## Choosing and distributing models
 
-DMR currently supports three inference engines:
+Model selection involves parameter count, supported tasks, format, context limits, licence conditions, and measured performance. Variants within a family can have different memory requirements and capabilities. Qwen3-0.6B has approximately 0.6 billion parameters, while Gemma 3 includes a 4-billion-parameter variant. A family's name alone does not identify its exact capabilities.
 
-| Engine | Primary model format | Typical use | Hardware |
-| --- | --- | --- | --- |
-| llama.cpp | GGUF | Efficient local inference with quantised models | CPU, NVIDIA, AMD, Apple Silicon, and Vulkan-compatible devices |
-| vLLM | Safetensors and Hugging Face models | High-throughput language-model serving | NVIDIA CUDA on supported Linux or Windows environments |
-| Diffusers | DDUF | Text-to-image generation | NVIDIA CUDA on supported Linux systems |
+Quantisation reduces the precision used to represent model weights, lowering storage and memory requirements. Its effect on response quality depends on the model, method, and task. `Q4_K_M`, for example, is a mixed quantisation scheme, rather than exactly four bits for every stored weight. Runtime memory also includes context and engine overhead beyond the model file.
 
-Small quantised models can run effectively on a CPU, although a supported GPU usually improves latency and throughput. Model size, quantisation, context length, concurrency, memory bandwidth, and available RAM or VRAM determine practical performance. Hardware tests should use representative prompts and workloads.
+Context settings cover both supplied text and generated output within the model's limits. Increasing context size can increase memory demand, and runtime flags must match the selected engine.
 
-## Installation and initial use
+llama.cpp commonly uses GGUF model files. DMR also supports other formats through suitable engines and packaging, including Safetensors with vLLM. The documented direct Hugging Face pull workflow supports GGUF, which does not mean that DMR is limited to that format overall.
 
-Administrators should use a current, supported Docker release and follow the installation instructions for the host platform. Docker Desktop exposes DMR under Settings > AI. Host-side TCP access remains optional and should stay disabled unless a trusted host process needs it. Docker Engine users install the current `docker-model-plugin` package from Docker's repository.
+Docker packages models as artefacts compatible with the Open Container Initiative, or OCI. Manifests and configuration describe model components, allowing compatible registries to distribute them alongside other software artefacts. Model packaging does not turn the weights into an executable application container.
 
-The CLI confirms the service status, pulls a model, lists local models, and runs an interactive smoke test:
+Cryptographic digests identify content precisely. Tags such as `latest` can move to different content, so they do not permanently identify a particular model variant. Content addressing can also support deduplication. Neither a matching digest nor a curated catalogue establishes a model's safety or accuracy.
 
-```shell
-docker model status
-docker model pull ai/smollm2:360M-Q4_K_M
-docker model list
-docker model run ai/smollm2:360M-Q4_K_M
-```
+Model cards, publisher identity, and licence information provide context for selection. Open weights do not imply unrestricted use. The organisation packaging a model may differ from its original developer. Repository names and tags therefore need to be read alongside the model card. A precise variant or digest helps identify what was evaluated and deployed.
 
-`docker model run` provides a useful loading and response check. An application normally calls an API instead. DMR loads a pulled model on demand, so the first request can take longer than later requests. Memory pressure, engine configuration, and idle-unloading behaviour can alter subsequent latency.
+Benchmarks describe particular evaluation conditions, while representative application testing establishes whether a model meets the intended quality and performance requirements.
 
-## Model selection and distribution
+## Installation and API access
 
-A model tag often records parameter count, quantisation, or an engine variant. GGUF quantisation reduces numerical precision and usually lowers memory use. Aggressive quantisation can also reduce output quality, so teams should compare accuracy, speed, memory use, licence conditions, and task-specific performance.
+Docker Desktop provides DMR on supported macOS and Windows systems, with current controls under its AI settings. Supported Linux installations can use Docker Engine and the Docker model plugin. Requirements should be checked for the relevant platform and features, since historical version numbers and beta menus can become outdated. Docker Desktop subscription conditions also apply to organisational use.
 
-Parameter count offers only a rough guide to resource demand. The runtime must also hold the context, intermediate state, and generated tokens. Long conversations can therefore exhaust memory even when model weights fit. Applications should cap prompt size, reserve space for output, summarise or retrieve older context when appropriate, and reject oversized requests cleanly. Context capacity does not prove that a model will use every distant token reliably.
+DMR exposes OpenAI-compatible endpoints. Compatible applications can often be adapted by changing their server address and model identifier, but supported parameters and behaviour still require validation. API compatibility does not reproduce every capability of a hosted provider.
 
-OCI packaging allows existing registries, access controls, and distribution workflows to carry model artefacts. Registry tags can move even though manifests and blobs use content-addressed digests. Production deployments should pin a reviewed digest where the platform permits it and should record the model's publisher, licence, provenance, model card, intended use, and evaluation results. A verified publisher establishes publishing identity, not model safety or accuracy.
+Docker Desktop supplies `model-runner.docker.internal` for container access. Optional host-side TCP access commonly uses port 12434. Docker Engine connections may need an explicit host-gateway mapping and port, so the Desktop hostname is not a universal networking assumption.
 
-Model output can contain factual errors, insecure code, harmful content, or fabricated sources. Teams must validate consequential output and must not grant a model unsupervised authority over sensitive tools or data.
+The chat route is `/engines/v1/chat/completions` beneath the appropriate server address. Requests specify a model and conversational messages, with supported options for sampling and streaming.
 
-## API access
+DMR's API does not require authentication. Reachability depends on the listener, routing, and firewall configuration. Enabling TCP access is therefore separate from securing the endpoint, and a client that can reach it can use its exposed operations.
 
-Host applications can reach an enabled TCP endpoint at `http://localhost:12434`. OpenAI-compatible clients use the base URL `http://localhost:12434/engines/v1`. Containers on Docker Desktop use `http://model-runner.docker.internal`, while Docker Engine deployments may need a `host-gateway` mapping. Platform documentation should govern the final address.
+## Downloading, loading, and conversation context
 
-An OpenAI-compatible chat request uses the full model identifier:
+Downloading a model makes its artefact available on disk. Loading it places the required data into memory for inference. These are separate stages, allowing several downloaded models to exist without all remaining loaded.
 
-```shell
-curl http://localhost:12434/engines/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "ai/smollm2:360M-Q4_K_M",
-    "messages": [
-      {"role": "user", "content": "Explain container images briefly."}
-    ]
-  }'
-```
+| Command | Purpose |
+| --- | --- |
+| `docker model pull` | Download a supported model artefact |
+| `docker model list` | List locally available models |
+| `docker model inspect` | Examine model metadata |
+| `docker model run` | Submit a prompt or start interactive chat |
 
-DMR does not require an API key, although some clients require a placeholder value. The absence of authentication creates a significant boundary. Any client that can reach the API can submit prompts and can pull, load, or run models. Administrators should bind TCP access only to trusted interfaces, restrict networks and firewalls, limit CORS origins, and place authenticated TLS termination in front of remote access.
+Model storage paths vary by platform and configuration. A direct inference request should not be assumed to download a missing model automatically. CLI and Compose workflows can arrange provisioning, while the inference service loads available models as needed.
 
-Chat-completion requests remain stateless unless the client resends prior messages or maintains conversation state elsewhere. A user interface may appear conversational because it stores and includes that history. The model itself does not retain earlier exchanges through a standard stateless request.
+The first response can take longer because of model loading. DMR can unload a model after five minutes of inactivity, with behaviour depending on the engine, configuration, and version. Unloading from memory does not delete the downloaded artefact.
 
-A three-tier chat application normally places a browser interface in front of an application backend, which then calls DMR. The backend should authenticate users, validate request size and content, enforce quotas, construct the system instruction, select approved models, and record only necessary telemetry. Keeping DMR behind the backend prevents browsers from receiving unrestricted access to its unauthenticated management and inference surface. The backend can also trim conversation history to fit the context budget and can return a controlled error when inference fails.
+Conversation context is managed by the client or application. Earlier messages can accompany a new prompt, enabling follow-up questions within the model's context limit. Persisted chat history can restore an exchange after an application restart. This is application-level storage, rather than permanent learning within the model weights.
 
-## Compose integration
+System instructions can request concise answers or another style, but they do not guarantee compliance or factual correctness. A successful response establishes that one inference request worked, rather than proving general reliability.
 
-Docker Compose 2.38 or later can declare models as first-class application dependencies on a platform that implements the Compose models specification. A service references a top-level model and receives the endpoint and model identifier as environment variables:
+Testing through the CLI, Docker Desktop, and the API can help isolate connection or application problems. Response timing also varies with output length, hardware load, and simultaneous requests.
 
-```yaml
-services:
-  backend:
-    image: example/chat-backend:1.0
-    models:
-      local_llm:
-        endpoint_var: MODEL_ENDPOINT
-        model_var: MODEL_NAME
+## Coordinating services with Compose
 
-models:
-  local_llm:
-    model: ai/smollm2:360M-Q4_K_M
-    context_size: 4096
-```
+A custom chatbot can separate browser interaction, application logic, and inference. An illustrative arrangement uses a Remix frontend on port 3000, a FastAPI backend on port 8000, and DMR. The backend prepares model requests and passes responses to the frontend, potentially streaming output as it arrives.
 
-Compose asks the supporting platform to provision the model and make it available to the service. `context_size` sets the maximum token context, including input and generated output, and larger values consume more memory. Engine-specific `runtime_flags` allow further tuning but reduce portability and require validation against the selected engine.
+Frontend and backend containers can share a Compose network. The frontend's port can be published on the host while the backend's port remains unpublished. Remote reachability depends on the published address and network controls.
 
-Plain `depends_on` controls service start order, not readiness. A backend or user interface that requires another service to accept requests should use a healthcheck with `condition: service_healthy`, or should implement bounded retries and backoff. Services should also expose only necessary ports. A binding such as `127.0.0.1:3000:8080` keeps a development interface on the local host.
+Compose can build frontend and backend images from separate source directories. Their configuration must agree with the code about model identifiers, variable names, and connection addresses. A repository checkout still requires compatible dependencies.
 
-Compose interpolation can read ordinary configuration from an `.env` file, but that file should not hold production credentials in source control. A secrets manager or platform-specific secret mechanism should supply sensitive values. Application images should run as a non-root user where practical, mount filesystems read-only where possible, drop unnecessary capabilities, and use separate networks to limit service-to-service reachability.
+Docker Compose introduced model declarations in version 2.38.0. A top-level `models` element identifies required models and supported runtime settings. A service's `models` attribute associates that service with a model definition and supplies endpoint and model configuration. Other platforms can implement this abstraction, but general Compose support does not guarantee support for models.
 
-## Deployment and validation workflow
+The association is not an access-control rule. A client without it can still contact a reachable, unauthenticated DMR endpoint. Explicit `endpoint_var` and `model_var` settings can provide the environment-variable names expected by an application without relying on version-sensitive defaults.
 
-1. The team defines the task, quality threshold, latency target, concurrency, privacy boundary, retention policy, and hardware budget.
-2. Engineers shortlist models whose licences, capabilities, context limits, formats, and engine requirements fit those constraints.
-3. Operators pull a specific model variant, inspect its identity and metadata, and record the resolved content digest.
-4. Engineers run CLI and direct API smoke tests before adding application code, which separates runtime faults from integration faults.
-5. The application backend sends representative requests, includes required conversation history, handles timeouts, and limits retries.
-6. Compose declares services and models, injects endpoint details, protects internal networks, and adds readiness checks where services need them.
-7. Evaluators test factual quality, refusal behaviour, prompt injection, sensitive-data handling, malformed input, long context, and concurrent load.
-8. Operators establish logs, metrics, alerts, backups, patching, rollback, model replacement, and incident-response procedures before release.
+A `.env` file supplies values for Compose interpolation. Containers receive those values when the configuration passes them through mechanisms such as `environment` or `env_file`. The file's presence alone does not inject every value into every container.
 
-## Open WebUI and local chat applications
+Service startup order and readiness are also distinct. The short `depends_on` form waits for a dependency to start, while a healthcheck with `service_healthy` can express readiness. Model provisioning does not guarantee that weights are already loaded for inference.
 
-Open WebUI can provide accounts, conversation history, model selection, and a browser-based chat interface over DMR. A Compose deployment can connect it through DMR's OpenAI or Ollama-compatible API and store application data in a named volume.
+`docker compose up` starts the configured application, with detached mode available for background operation. `docker compose down` removes its containers and associated non-external networks. Image removal, volume deletion, and model-artefact management are separate lifecycle decisions.
 
-An operational deployment should pin a reviewed Open WebUI version or image digest instead of a mutable `main` tag. It should enable authentication outside a tightly isolated single-user environment, protect and back up the data volume, restrict model and web ports, and use TLS for remote access. The volume can contain credentials, settings, and conversations. Removing it with `docker compose down --volumes` deletes that persistent state.
+## A chatbot with Open WebUI
 
-Open WebUI and similar clients can add web search, document retrieval, tools, or external integrations. Those features may transmit prompts, documents, or generated data outside the host. Operators should disable unnecessary functions, review outbound connections, apply least privilege, and define retention rules for prompts and responses.
+Open WebUI provides a self-hosted interface for compatible local and remote model services. It offers account management, chat history, and response controls, reducing the application code needed for a chatbot. A familiar interface does not establish equivalence with a commercial model service. Open WebUI also has its own licence conditions, including branding requirements.
 
-During diagnosis, operators should first confirm DMR status, list local models, and call the models endpoint directly. A successful list request followed by a failed completion often indicates an incompatible model, insufficient memory, an engine problem, or invalid request data. A failed connection usually indicates a disabled TCP listener, an incorrect container hostname, a missing host-gateway mapping, or a network rule. Browser-only failures may indicate a CORS restriction. Cold loading can explain a slow first response, but sustained latency requires measurement of token rate, queueing, context size, and device utilisation.
+A Compose deployment can combine an Open WebUI service, a model declaration, and persistent storage. The application's container listens on port 8080. A mapping such as `3001:8080` publishes it on host port 3001, avoiding a clash with another application using port 3000.
 
-## Production controls
+The `main` image tag is a moving reference, rather than a special OpenAI-only edition. Supported release images also provide the compatible connection. A tested release tag or digest gives greater control over deployment versions.
 
-- Benchmark each model on representative tasks, hardware, context sizes, and concurrency levels.
-- Pin application images and model artefacts, verify publishers and licences, and control registry access.
-- Treat models and model files as untrusted supply-chain inputs until validation succeeds.
-- Protect prompts, responses, embeddings, logs, conversation stores, and backups as potentially sensitive data.
-- Constrain network reachability, authenticate remote access, encrypt traffic, and audit administrative actions.
-- Defend tool-enabled applications against prompt injection, excessive permissions, unsafe actions, and data exfiltration.
-- Apply CPU, memory, GPU, request-size, context, concurrency, and rate limits to reduce resource exhaustion.
-- Monitor quality, latency, failures, resource use, and model changes, and retain a tested rollback path.
+Connection settings must identify DMR's compatible API address and the intended model. Relevant Open WebUI settings include `OPENAI_API_BASE_URL` and `DEFAULT_MODELS`. Saved application settings can influence the effective configuration, so an environment value alone may not describe the running application's selection.
+
+The default model setting chooses an initial selection. It does not restrict access to that model, and the available list depends on backend configuration and application permissions.
+
+A volume mounted at `/app/backend/data` preserves application data, including settings, account information, and conversation history. Recreating the container with the same volume can retain that state. Ordinary `docker compose down` retains named volumes, while adding `--volumes` can delete Compose-managed data. External volumes are not removed by that command.
+
+Initial startup can involve downloading supporting assets, depending on the image and enabled features. Container creation or completed download progress does not prove readiness. Logs, health status, and a successful connection distinguish normal initialisation from failures.
+
+Open WebUI account authentication is separate from DMR's unauthenticated API. Disabling it removes an application access control and is not a general default for shared deployments.
+
+## Privacy and operational readiness
+
+Local inference can keep prompts and responses within local infrastructure when the application uses local endpoints. Fully offline operation additionally requires the necessary images, models, and supporting assets to be available, with online dependencies removed or disabled. The complete application needs testing without connectivity.
+
+Local generation can avoid a hosted model's per-request fees, but downloads and optional connected services retain their own conditions and limits. Memory and processing capacity also constrain how many users a local service can support.
+
+Optional integrations, update checks, downloads, and product usage requests can still involve external services. DMR can make model-name and usage-related requests under certain conditions. Docker's usage-collection policy excludes prompt content and model responses, but that does not imply the absence of outbound traffic.
+
+Persistent conversations and logs can also contain sensitive information. Access controls, storage protection, and retention choices affect privacy even when inference stays local.
+
+A functioning chatbot is a starting point for assessing deployment suitability. Model accuracy, response latency, capacity, application readiness, network exposure, and persistent-data handling determine whether it meets operational needs. Local execution avoids some hosted-service dependencies while retaining the costs and limitations of the infrastructure that serves it.

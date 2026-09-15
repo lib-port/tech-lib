@@ -3,118 +3,87 @@
 > [!NOTE]
 > This guide explains how to build, run, share, update, configure, troubleshoot, and monitor a containerized Python application using Docker.
 
-## Validate the application
+Docker packages application code, dependencies, and startup configuration into images. Containers run from these images, with settings such as network mappings and environment variables supplied at creation. Deployment combines preparing a working application, building and distributing an image, and managing the resulting containers.
 
-Containerisation starts with a working application. A clean checkout should restore its dependencies, load templates and static assets, and start through a documented entry point. A pip-based Flask project can verify those steps in an isolated local environment:
+### Preparing the Python application
 
-```bash
-python -m venv .venv
-. .venv/bin/activate
-python -m pip install -r requirements.txt
-python app/main.py
-```
+An application's requirements include its runtime, dependencies, source files, configuration, and startup command. A Flask application may also need templates and static assets. Running it locally establishes a baseline for checking its containerised behaviour.
 
-Fish and Windows shells use different activation commands. The repository should include dependency definitions and exclude `.venv`, caches, credentials, version-control data, and other unnecessary files through `.dockerignore`.
+A Python virtual environment separates the project's packages from other Python installations. `python -m venv .venv` creates an environment, and `python -m pip install -r requirements.txt` installs dependencies into the selected environment. Activation depends on the operating system and shell. Alternatively, the environment's Python executable can be invoked directly.
 
-The local check should confirm the listening port, required environment, static-file paths, and response behaviour. Automated tests should exercise the application before containerisation so build failures remain distinct from application defects.
+Flask's built-in server supports local development. Production deployment requires a dedicated Web Server Gateway Interface (WSGI) server, such as Gunicorn or Waitress, or a suitable hosting platform. Running the development server inside Docker does not make it suitable for production.
 
-Flask's built-in server and debugger support local development only. A deployed image should run a production WSGI server such as Gunicorn. The server must listen on `0.0.0.0` inside the container so Docker can forward traffic to it.
+### Building the image
 
-## Build the image
+A `Dockerfile` translates the application's setup into image-building instructions. A Python base image supplies Python and pip. Tags identify versions and variants, such as `python:3.12-slim-bookworm`. Slim variants contain fewer operating-system packages, so some dependencies require additional tools or libraries when built from source.
 
-A Dockerfile converts the verified procedure into repeatable build instructions. A production-oriented Dockerfile can assume that `requirements.txt` includes Gunicorn and that `app.main` exposes a Flask object named `app`:
-
-```dockerfile
-FROM python:3.12-slim
-
-WORKDIR /app
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
-
-COPY requirements.txt .
-RUN python -m pip install --no-cache-dir -r requirements.txt
-
-COPY app ./app
-RUN useradd --create-home appuser
-USER appuser
-
-EXPOSE 3000
-CMD ["gunicorn", "--bind=0.0.0.0:3000", "--access-logfile=-", "app.main:app"]
-```
-
-The versioned base tag selects the Python runtime and operating-system variant. A digest can pin the exact base image for stronger reproducibility, although maintainers must update that digest to receive security fixes. `WORKDIR` fixes the in-image path. Copying the dependency file before the source preserves the dependency layer when only application code changes. The final process runs as an unprivileged user.
-
-The build context should contain only required inputs. Excluding local environments, test artefacts, editor files, and repository history reduces transfer time, prevents accidental inclusion, and makes cache invalidation easier to understand.
-
-A container already isolates its filesystem and process environment, so a pip-based image does not normally need a second virtual environment. `EXPOSE` records intended port metadata but does not publish a port.
-
-```bash
-docker build -t flask-web:1.0.0 .
-docker run --rm --name web -p 127.0.0.1:3001:3000 flask-web:1.0.0
-```
-
-The final dot supplies the current directory as the build context. The port mapping sends host requests on `127.0.0.1:3001` to port `3000` in the container. Omitting the host address normally publishes the port on every host interface, which can expose the service beyond the local machine. `--rm` removes the container after it stops. A web service does not require interactive `-i` or `-t` flags.
-
-## Use uv as an alternative
-
-An uv-managed project records metadata in `pyproject.toml` and resolved versions in `uv.lock`. An image can copy the uv binaries from Astral's official image into a versioned Python base, copy the dependency files before the application source, and run `uv sync --locked` to reject an outdated lockfile. `uv run --locked` then starts the application in the synchronised project environment. Pinning the uv image version or digest avoids an uncontrolled toolchain change.
-
-## Publish and retrieve images
-
-A registry stores image content, while a repository groups related images. A tag provides a human-readable reference to an image, and a digest identifies immutable content. Ordinary tags, including `latest`, can move to new content, so deployments should use explicit version tags or digests.
-
-The `latest` tag has no automatic relationship to creation time or semantic versioning. Docker applies it only when an image reference omits a tag. Release automation should assign deliberate tags and record the pushed digest.
-
-Docker Hub expects an account or organisation namespace:
-
-```bash
-docker tag flask-web:1.0.0 ACCOUNT/flask-web:1.0.0
-docker login
-docker push ACCOUNT/flask-web:1.0.0
-docker pull ACCOUNT/flask-web:1.0.0
-```
-
-Tagging adds another reference to the same local image. Pushing uploads the image configuration and any layers that the registry does not already hold. Pulling downloads missing layers for the selected manifest. GitHub Container Registry uses a fully qualified reference such as `ghcr.io/OWNER/flask-web:1.0.0` and requires authentication to `ghcr.io` for private content or publishing.
-
-Image layers primarily capture filesystem changes. A separate configuration object records settings such as environment variables, the startup command, and exposed ports. `docker image inspect IMAGE` displays this configuration. Build steps, image metadata, and registry history can reveal embedded values, so build arguments and `ENV` must not carry passwords, tokens, or private keys.
-
-## Manage the container lifecycle
-
-A detached container returns control to the shell and keeps running in the background:
-
-```bash
-docker run -d --name web1 -p 127.0.0.1:3001:3000 flask-web:1.0.0
-```
-
-| Command | Result |
+| Instruction | Function |
 | --- | --- |
-| `docker ps` | Lists running containers |
-| `docker ps -a` | Includes stopped containers |
-| `docker logs -f web1` | Follows standard output and standard error |
-| `docker stats web1` | Streams CPU, memory, network, storage, and process metrics |
-| `docker stop web1` | Requests a graceful stop before forced termination |
-| `docker start web1` | Restarts the existing container with its original image and settings |
-| `docker rm web1` | Removes a stopped container |
+| `FROM` | Selects the base image. |
+| `WORKDIR` | Sets the working directory. |
+| `COPY` | Adds files to the image. |
+| `RUN` | Executes commands during the build. |
+| `CMD` | Defines the default container command. |
+| `EXPOSE` | Records intended container ports as metadata. |
 
-An existing container cannot switch to a newly built image. An update builds and tests a new version, stops the old container, removes it, and creates a replacement from the new tag. `docker rm -f` kills a running container and should remain an exceptional recovery action. Compose or an orchestrator can automate replacement, health checks, rollback, and low-interruption releases.
+Copying `requirements.txt` and installing dependencies before copying application code allows unchanged dependency steps to reuse the build cache. A changed source file invalidates its relevant copy step and can require subsequent steps to run again. `.dockerignore` excludes unnecessary files, including the host's `.venv`.
 
-A stable container name simplifies logs and lifecycle commands, but the name does not preserve application data. Deployments should place durable state in managed services or volumes before replacing a container.
+A container is not a Python virtual environment. A dedicated image can install packages into its Python environment without a separate venv, but virtual environments remain useful in some container workflows.
 
-## Diagnose and configure the application
+`docker build -t flask-web .` builds an image using the current directory as its build context. The context supplies files available to the builder. The JSON-array form of `CMD` specifies an executable and arguments without an additional shell. The application starts when a container runs, rather than remaining active after the build.
 
-Applications should write operational output to standard output and standard error so `docker logs` can retrieve it. A Flask route must return a supported response type. When a traceback reports that a view returned a float, the application should return text, JSON, or a proper response object, then run an automated test and build a new image.
+### Using uv
 
-Runtime options can override image defaults. The following local-only command replaces the production `CMD` with Flask's development server and enables debug mode through the Flask CLI:
+The uv package manager offers another dependency workflow. Astral provides images through GitHub Container Registry, including Python-based variants. Alternatively, the uv binary can be copied into a Python image.
 
-```bash
-docker run --rm -e FLASK_DEBUG=1 -p 127.0.0.1:3001:3000 flask-web:1.0.0 \
-  flask --app app.main run --host=0.0.0.0 --port=3000
-```
+`pyproject.toml` describes the project, while `uv.lock` records resolved dependency versions. `uv sync` synchronises the project environment, normally creating or updating a virtual environment. `uv sync --locked` checks that the lockfile agrees with the project definition. Without a locking option, uv can update a stale lockfile.
 
-Debug mode belongs only in local development because Flask's interactive debugger permits browser-based code execution. A production image should keep debug mode off rather than setting `ENV FLASK_DEBUG=1`. Environment variables remain visible through inspection and process interfaces, so sensitive values require a secrets mechanism.
+Dependency definitions can be copied before application code to improve caching. `uv run` executes the application in its project environment. Both pip-based and uv-based images can run concurrently with different published host ports.
 
-Fast development can run Python in a local virtual environment or synchronise source into a development container with Compose Watch. The release workflow should still build, test, scan, and publish an immutable image from committed inputs.
+### Running and accessing containers
 
-`docker stats` provides a live resource snapshot, not a capacity verdict. A load test should also record request rate, latency, error rate, warm-up behaviour, and resource limits under production-like conditions. CPU usage can exceed 100 percent on a multi-core host. A short ApacheBench run can expose obvious constraints, but it cannot establish production capacity by itself.
+`docker run` creates and starts a container. It retrieves a missing image from the registry under the default pull policy. `-d` runs the container in the background, while `--name` assigns a name. Foreground execution displays attached output. The separate `-i` and `-t` options control standard input and terminal allocation.
 
-Explicit CPU and memory limits make tests easier to compare and protect neighbouring workloads. Health checks should test service readiness separately from raw process and resource metrics.
+For an application listening on `0.0.0.0:3000` inside the container, `-p 3001:3000` maps host port 3001 to container port 3000. A browser on the host uses `localhost:3001`. `EXPOSE 3000` does not establish this mapping or configure the application's listener.
+
+Published ports normally bind to all host interfaces. `-p 127.0.0.1:3001:3000` restricts the published host binding to local access under normal networking settings. Remote access requires suitable routing and network permissions. A successful browser request checks application behaviour beyond whether the container has started.
+
+### Sharing and identifying releases
+
+Registries host repositories containing images. An image reference can include a registry, namespace, repository, and tag. A qualified reference could be `docker.io/namespace/flask-web:v2`. Docker Hub, at `docker.io`, is the default registry. GitHub Container Registry uses `ghcr.io`.
+
+`docker tag` adds a reference to an existing image without rebuilding or uploading it. `docker login` authenticates to a registry, and `docker push` uploads an image where the account has permission. Unchanged layers already present can be reused. `docker pull` retrieves a published image, avoiding an unnecessary rebuild after local image removal.
+
+Docker Hub normally uses a browser-based device-code flow for `docker login`. Other registries require their own supported credentials.
+
+An image contains filesystem layers and separate configuration. Instructions such as `ENV` and `CMD` can change configuration without creating filesystem layers. Build-history entries therefore do not always correspond to layers.
+
+Tags such as `v2` and `v3.0.1` distinguish releases, but tags can be reassigned. An omitted tag selects `latest`, which does not guarantee the newest build. A digest identifies specific image content.
+
+### Stopping, replacing, and inspecting containers
+
+`docker ps` lists running containers, while `docker ps -a` includes stopped ones. `docker stop` allows a graceful shutdown before forced termination if its timeout expires. `docker start` restarts the existing container with its existing image and configuration.
+
+Deploying a newer image requires a replacement container. Rebuilding or retagging an image does not update an existing container. Names must remain unique on the daemon, including names held by stopped containers. Reusing a name and host port requires resolving those conflicts.
+
+`--rm` automatically removes a container when it exits, including its writable layer and associated anonymous volumes. Images and named volumes remain. Data needed after replacement requires persistent storage. `docker rm -f` forcibly terminates a running container with `SIGKILL`, bypassing normal application cleanup.
+
+### Debugging and runtime configuration
+
+`docker logs` shows captured standard output and standard error, subject to logging configuration. Application log files may need separate inspection. A Flask endpoint returning a bare float produces a response-type error. Returning a string or supported JSON response resolves that specific issue.
+
+Local Python execution can speed up development. Bind mounts or Compose Watch can instead make source edits available inside a development container. Host edits do not automatically change files already built into an image. Dependency changes can trigger an image rebuild through Compose Watch.
+
+A release still requires testing from its built image, since local success does not establish correct packaging or startup behaviour.
+
+Dockerfile `ENV` sets image defaults, while `docker run -e` supplies or overrides variables at container creation. `docker image inspect` shows image defaults, and `docker container inspect` shows a container's configuration.
+
+Flask recognises the uppercase variable `FLASK_DEBUG`. Its development debugger and reloader can assist local diagnosis, but production deployments must keep them disabled. Disabling debug mode does not fix an underlying application error.
+
+For Flask development, `-e FLASK_DEBUG=1` enables debugging, while `-e FLASK_DEBUG=0` overrides an enabled image default.
+
+### Monitoring performance
+
+`docker stats` reports CPU and memory use. On Linux, roughly 100% CPU represents one logical CPU, so workloads using several CPUs can exceed 100%.
+
+ApacheBench, invoked as `ab`, generates HTTP requests. `-n` sets the total request count, while `-c` sets concurrent requests. Tests target the published host port. Low CPU use alone does not establish spare capacity. Response times, successful throughput, errors, resource limits, and bottlenecks also require assessment. Short tests and load-generator limits can distort results, and development-server measurements do not establish production capacity.

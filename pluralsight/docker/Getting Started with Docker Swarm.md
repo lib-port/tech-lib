@@ -3,786 +3,433 @@
 > [!NOTE]
 > This guide explains how Docker Swarm orchestrates scalable, resilient multi-host applications through clustered nodes, desired-state services, declarative stacks, overlay networking, secure configuration, and automated workload management.
 
-## Swarm mode in context
+Docker Swarm mode coordinates container workloads across a group of Docker Engines. It adds cluster membership, service scheduling, networking, and reconciliation of desired state to Docker's packaging and command-line tools. Managers distribute suitable work and create replacements when the application specification requires them.
 
-Docker Swarm mode turns a group of Docker Engine hosts into one orchestrated cluster. Managers maintain the cluster's desired state, assign work, and expose the Swarm management API. Workers run the assigned containers. The scheduler can distribute replicated services, run one task on each eligible node, execute finite jobs, replace failed tasks, publish ports across the cluster, and update an application in controlled stages.
+Each container runs on a particular node and uses that node's resources. Compatible hardware, software, and application design determine whether additional replicas improve capacity, availability, or both.
 
-Swarm mode suits teams that need orchestration within Docker Engine and prefer a comparatively compact operational model. It does not remove the need for sound infrastructure design. Production operators still need resilient managers, reliable storage, secure networking, image governance, monitoring, backups, capacity planning, and tested recovery procedures. Platform selection should account for workload requirements, available integrations, team experience, and the expected life of the system.
+Infrastructure management supplies nodes and connectivity. Application management defines images, commands, replicas, networks, mounts, and runtime settings. A service describes work the cluster should maintain, a stack groups related application resources, and a job describes work expected to finish.
 
-A swarm manages services rather than isolated containers. A service describes the desired image, command, replica mode, networks, published ports, resources, placement rules, update policy, secrets, and configuration. The scheduler converts that declaration into tasks and assigns each task to a node. Each task controls one container. When a task fails or a node disappears, the orchestrator creates a replacement task if the service still requires one.
+## Containers and the move beyond one host
 
-This desired-state approach changes the operating model. An administrator declares an outcome, such as five web replicas, and the swarm continually works towards that outcome. Directly starting, renaming, or repairing individual service containers bypasses the orchestrator and produces short-lived changes. Service and stack commands should define lasting changes.
+Containers give processes separate views of resources such as filesystems and networks. Applications can use different library versions at the same apparent path inside their containers. Separate network namespaces also allow two web servers to listen internally on port 80. Publishing both through the same fixed host address, protocol, and port still creates a conflict that deployment configuration must resolve.
 
-## Cluster architecture
+An ordinary Linux container shares its host's kernel. Its isolation depends on runtime settings, host security, and exposed interfaces. Shared mounts, privileged operation, or Docker API access can give a container substantial access to its host. A virtual machine provides a different boundary by running its own operating-system kernel.
 
-### Nodes and roles
+Images package application filesystems and runtime dependencies for distribution. Docker Hub hosts applications, databases, web servers, and development tools. Docker Official Images form a curated subset of its repositories. Other images come from publishers or community maintainers. Registry availability alone does not establish maintenance, compatibility, or suitability for a particular environment.
 
-A node is a Docker Engine instance participating in the swarm. Every node holds one of two roles:
+Prebuilt images simplify experiments with databases, application versions, and development tools. Image layers can share storage, although images and application data still consume disk space. A larger host can postpone resource limits. Multiple hosts can add capacity and reduce dependence on one machine when the application and its data support that arrangement.
 
-- A manager accepts cluster-management requests, maintains orchestration state, schedules tasks, and participates in the Raft consensus group.
-- A worker receives task assignments from managers and reports task status.
+A distributed loan application illustrates the coordination problem. A web frontend may depend on a database and a risk-assessment API, while the risk API depends on a model. Each component needs an address through which it can reach the next. Service discovery supplies those addresses. Database replication, readable standby behaviour, and model distribution still require application-specific implementation.
 
-Managers also act as workers by default, so the scheduler may place service tasks on them. A small non-critical swarm can use this mixed role. A production cluster often drains managers so application load cannot compete with control-plane work. Draining changes the placement of Swarm service tasks. It does not stop or migrate standalone containers that operators created outside Swarm mode.
+## Nodes and practical lab environments
 
-The manager set stores the authoritative cluster state in a replicated Raft log. Raft requires a majority of managers to agree before the swarm commits management changes. This quorum protects consistency, but it also determines failure tolerance. An odd number of managers usually uses resources more efficiently than the next even number:
+A swarm node is a participating Docker Engine on a physical machine, virtual machine, or cloud instance. Several virtual nodes on one computer can demonstrate orchestration, but share the physical host's capacity and failure risks. Separate Raspberry Pi machines provide independent hardware with additional architecture considerations.
 
-| Managers | Quorum | Manager failures tolerated |
-| ---: | ---: | ---: |
+A single-node swarm supports services and stacks with little setup, although it cannot tolerate failure of its only host. Docker Desktop can support local learning. Its virtual machine and network integration need consideration when it joins other hosts.
+
+Vagrant describes repeatable virtual-machine labs through a Ruby-based Vagrantfile. Machine names such as `m1` and `w1` can identify intended roles, but actual manager or worker status comes from Swarm membership.
+
+A Vagrant configuration selects a base box, network interfaces, hostnames, CPU allocation, memory, and provisioning steps. The box supplies the starting virtual-machine image. Current installations need a supported operating system and compatible packages. CPU and memory allocations must fit the physical host.
+
+A provider supplies the virtualisation backend and can be selected through a command-line option or `VAGRANT_DEFAULT_PROVIDER`. Existing machines retain their original provider. The provider, box, and host architecture must be compatible.
+
+Vagrant's Docker provisioner installs Docker when required. Docker's convenience installation script suits development and testing, while production installations need the supported package and upgrade procedure for their platform.
+
+`vagrant up m1 w1` starts and provisions selected machines, while `vagrant status` reports their state. Starting a subset of a larger configuration can keep early exercises within available resources.
+
+Automated cluster creation must initialise the first manager before other nodes join. Provisioning can pass manager and worker tokens to later machines, with restricted access to temporary copies. Those copies need removal when no longer required.
+
+Play with Docker previously offered temporary browser-based labs. Its site announced unavailability from 1 March 2026, so those sessions are historical examples. Local virtual machines and independently provisioned hosts provide alternative lab environments.
+
+## Initialisation and node membership
+
+The server section of `docker info` reports whether Swarm mode is active. `docker swarm init` creates a single-node swarm and makes the targeted Engine its first manager. Subsequent inspection reports the active swarm and manager information.
+
+A machine with several network interfaces needs a suitable address for node communication. A virtual machine may have both a NAT interface for host access and another private interface shared with other guests. The required address must be reachable by the other swarm nodes.
+
+The `--advertise-addr` option selects the advertised address or interface. Managers need stable, reachable addresses. Interface names, IP addresses, and MAC addresses help relate guest networking to the hypervisor's settings. An address that works for host-to-guest SSH may be unsuitable for communication among guests.
+
+Swarm requires connectivity for its management and data paths:
+
+| Protocol and default port | Purpose |
+| --- | --- |
+| TCP 2377 | Manager communication |
+| TCP and UDP 7946 | Node discovery |
+| UDP 4789 | Overlay data traffic |
+
+The overlay data port is configurable. Encrypted overlays also require IPsec ESP traffic. These internal connections belong on trusted networks, with published application ports controlled separately.
+
+Initialisation also exposes task-history retention, certificate expiry, address pools, and data-path settings. Some can later change through `docker swarm update`. Default address pools, however, must be chosen when the swarm is initialised.
+
+Initialisation generates separate worker and manager join tokens. On a manager, `docker swarm join-token worker` and `docker swarm join-token manager` retrieve the corresponding join commands. Running `docker swarm join` with the appropriate token enrols the targeted Engine in that role.
+
+Both tokens are sensitive credentials. A worker token admits a machine that can receive workloads and their authorised secrets. A manager token grants a wider role in cluster control and state. Tokens can be rotated to prevent further use of old values for enrolment. Rotation does not remove nodes that have already joined and received certificates.
+
+Swarm uses a built-in public key infrastructure. By default, the first manager creates a root certificate authority. A join token contains that certificate's digest and an enrolment secret. Each accepted node receives a certificate identifying its node ID and role. Certificates secure subsequent management communication.
+
+Management traffic is encrypted by default through mutual TLS. Application traffic on an overlay network is a separate concern and is not encrypted by default. An encrypted overlay can protect traffic between nodes, while client-facing TLS remains part of the application's network design. Automatic certificate provisioning does not eliminate host security, network configuration, or access control responsibilities.
+
+After joining, `docker info` confirms membership. Cluster-wide queries such as `docker node ls` must target a manager, because workers do not expose the manager interface for listing or changing the whole swarm.
+
+## Docker contexts and remote access
+
+A Docker context stores connection information for an Engine, allowing one client to address several hosts. An SSH context can use a hostname alias, user, port, and identity file from the client's SSH configuration. Vagrant's `ssh-config` command can supply suitable connection settings for a guest.
+
+SSH provides an encrypted connection when authentication and host verification are properly configured. The remote user also needs permission to access the Docker daemon socket. Possession of an SSH connection alone does not grant that permission. Conversely, broad Docker daemon access is a powerful administrative capability and needs appropriate restrictions.
+
+`docker context ls` lists contexts, with an asterisk identifying the selected context. `docker context show` reports its name, and `docker context inspect` exposes its stored details. Selecting `m1` with `docker context use m1` changes the default target for later commands. The set of saved context names remains, but the active marker changes.
+
+The global `--context` option, also available as `-c`, overrides the target for one invocation. A command directed to `w1` through that flag does not change a previously selected `m1` context for the next command. This is useful when one operation needs information from a manager while the surrounding work concerns a worker.
+
+`DOCKER_HOST` and `DOCKER_CONTEXT` can also affect the target. Checking the server identity in `docker info` establishes which Engine received a command. Saved context names alone do not establish cluster membership.
+
+A context changes the Docker client's connection. A local stack file can be submitted to a remote manager, but a resulting service's bind mounts still refer to paths on the nodes running its tasks. Remote command connections also add overhead, which can affect suitable polling intervals for diagnostic displays.
+
+## Manager roles, quorum, and availability
+
+Managers maintain the swarm's desired state and coordinate scheduling. They elect one leader for orchestration and replicate agreed state using Raft. Other managers are active participants in that replication and can take over leadership when the remaining group retains quorum. Workers receive assigned tasks and report their status through their agents.
+
+By default, managers can also run application tasks. A small lab can use this capability to make full use of its nodes. Larger or critical deployments may reserve managers for management work because resource starvation can disrupt heartbeats, consensus, and elections. Scheduling availability controls whether a manager also receives ordinary Swarm tasks.
+
+Raft requires a majority of managers, called quorum, to agree on cluster changes.
+
+| Managers | Required for quorum | Manager failures tolerated |
+| --- | --- | --- |
 | 1 | 1 | 0 |
 | 2 | 2 | 0 |
 | 3 | 2 | 1 |
-| 4 | 3 | 1 |
 | 5 | 3 | 2 |
-| 7 | 4 | 3 |
 
-Three or five managers serve most production swarms. Docker recommends no more than seven because additional managers increase consensus traffic without increasing workload capacity. Two managers create a fragile design because the loss of either manager removes quorum. Seven managers tolerate three failures but impose more coordination overhead than five.
+An odd manager count avoids adding a manager without gaining the next level of failure tolerance. Two managers still require both to remain available.
 
-When the manager set loses quorum, existing tasks can continue to run, but the cluster cannot reliably accept management operations or reconcile all desired-state changes. Restoring quorum takes priority. Operators should not promote extra managers during an outage without understanding the surviving Raft membership, because unplanned membership changes can complicate recovery.
+Manager placement also affects resilience. Several virtual managers on one physical host can all fail together. A suitable distribution considers independent machines, network paths, and failure zones. Additional managers improve tolerance only within the limits of quorum, and introduce additional coordination overhead. Replicated state still needs backups and a recovery procedure.
 
-### Services, tasks, and containers
+If manager quorum is lost, existing worker tasks may continue running, but the swarm cannot perform normal management or reconcile new scheduling changes. A promotion cannot repair lost quorum through the ordinary management API. The unavailable managers need recovery, or a deliberate disaster-recovery procedure is required.
 
-A service is a durable declaration. A task is an immutable scheduling unit that moves through states such as `NEW`, `ASSIGNED`, `PREPARING`, `STARTING`, `RUNNING`, `FAILED`, `SHUTDOWN`, and `COMPLETE`. A task belongs to one service and runs on one node. The scheduler never moves the same task to another node. It creates a new task with a new identity when replacement becomes necessary.
+`docker node promote` changes an eligible worker into a manager, and `docker node demote` changes a manager into a worker. Both operations change cluster membership and require a functioning manager group. `docker node inspect` shows the role and availability. A hostname such as `worker2` remains a name even after promotion.
 
-This distinction explains common command output. `docker service ls` reports each service and its overall replica state. `docker service ps SERVICE` lists current and historical tasks. `docker ps` shows only containers on the Docker Engine addressed by the current client. A failed container can therefore remain in task history while a new container runs elsewhere.
+A node's scheduling availability is separate from its manager or worker role.
 
-Swarm supports four main service modes:
+| Availability | New Swarm assignments | Existing Swarm tasks |
+| --- | --- | --- |
+| `active` | Allowed | Continue running |
+| `pause` | Prevented | Continue running |
+| `drain` | Prevented | Stopped, with required replacements scheduled elsewhere |
 
-- `replicated` maintains a specified number of continuously running tasks.
-- `global` maintains one continuously running task on every active node that satisfies placement rules.
-- `replicated-job` runs a specified number of tasks to successful completion.
-- `global-job` runs one task to successful completion on each eligible node, including an eligible node that joins later.
+Standalone containers created directly on an Engine are unaffected by these availability settings.
 
-A replicated service with one replica per current node does not equal a global service. The replica count stays fixed when another node joins, while a global service automatically creates a task for the new eligible node.
+`docker node update --availability drain m2` can reserve a manager for management or prepare it for maintenance, while retaining its manager role. Replacements need quorum and suitable capacity. A normal `vagrant halt` requests an orderly guest shutdown, while a forced halt can simulate abrupt interruption.
 
-### Reconciliation
+Returning a node to `active` allows scheduling again. A global service can acquire its required task on that newly eligible node. Existing replicated services do not automatically move healthy tasks simply to fill an idle node. Swarm generally avoids disrupting running applications solely to rebalance them. A recovered node may regain membership when its identity and configuration remain intact. Its Ready status reports participation, while application responses establish whether its workloads function correctly.
 
-Managers continuously compare observed state with desired state. If a five-replica service has only four running tasks, the scheduler creates another. If a worker fails, the managers mark its tasks unavailable and schedule replacements where constraints and resources permit. If a failed node returns after replacements have started, Swarm does not merge the old and new containers. It brings the service back to its declared replica count.
+## Services, tasks, and containers
 
-Reconciliation depends on accurate declarations. A container that starts successfully but cannot serve traffic may still appear healthy unless the image defines an effective health check. The scheduler can place a service without reservations on a node that lacks practical capacity. A service tied to host-local data may restart on another node without the data it needs. Orchestration can replace computation, but it cannot infer application correctness or relocate storage by itself.
+A Swarm service describes work that the cluster should perform. Its specification can include an image, command, environment, network attachments, ports, mounts, placement requirements, and replica count. Managers use that description to create tasks. Each task carries the specification and lifecycle state of one scheduled unit of work, implemented as a container by Docker Engine.
 
-## Trust, identity, and network prerequisites
+The service stores durable desired state. Each task is one attempt to fulfil part of that state on one assigned node. Replacement ends the old attempt and creates a new task, which may run on the same node or another eligible node.
 
-### Mutual TLS and node identity
+A replicated service requests a number of instances, represented by numbered slots. Replacement of slot 1 creates a new task ID while retaining that slot's purpose. The service identity and endpoint can remain stable across replacements.
 
-Swarm mode creates a public key infrastructure for node identity. The first manager establishes a root certificate authority. Joining nodes receive certificates and use mutual TLS for authenticated control-plane communication. Docker rotates node certificates automatically according to the configured expiry period.
+A task progresses through states such as pending, assigned, preparing, starting, and running. A pending task may lack a suitable node. Preparing can include image retrieval and container setup. Completion, failure, and shutdown describe other lifecycle outcomes. The desired state and current state may differ while the system is converging or unable to satisfy the specification.
 
-Join tokens authorise a new engine to request either a worker or manager certificate. They are sensitive bootstrap credentials, not ordinary command examples for public documentation or shared logs. An operator should retrieve them only through an authorised manager, transmit them through a protected channel, and rotate them after suspected disclosure:
+`docker service create` submits the specification and initiates scheduling. Its image, environment, and port options resemble those of `docker container run`. A directly started container belongs to one Engine, while a service delegates task management to Swarm.
 
-```shell
-docker swarm join-token worker
-docker swarm join-token manager
-docker swarm join-token --rotate worker
-docker swarm join-token --rotate manager
-```
+The create command can wait for convergence or detach and return after submission. A service ID confirms acceptance of the request. It does not prove that every task has started, that health checks pass, or that the application works. Convergence output describes the state being observed, rather than streaming the application's normal logs.
 
-The worker token allows a host to join as a worker. The manager token grants a path into the manager set and requires stronger protection. Existing nodes continue to use their issued certificates after token rotation. The new token controls later joins.
+`docker service ls` reports service summaries. `docker service ps` lists tasks and retained task history. `docker service inspect` exposes the stored specification and other detailed state. A previous specification may appear after an update, but it is not a complete version-control history. The initial service may have no previous specification.
 
-Docker encrypts the Raft log at rest by default. Manager autolock adds another barrier by requiring an unlock key after a manager restarts. This control protects the keys used to decrypt Raft data when the manager is offline. It also introduces a recovery dependency. The organisation must store the unlock key securely, restrict access, and test restart procedures before enabling autolock broadly.
+Service scheduling depends on eligible capacity. A request for two replicas does not immediately guarantee two running containers. The cluster may have insufficient CPU or memory for reservations, no compatible platform, inaccessible images, missing mount paths, or no nodes satisfying placement constraints. Pending or rejected tasks help distinguish these causes from slow startup.
 
-```shell
-docker swarm update --autolock=true
-docker swarm unlock-key
-docker swarm unlock
-```
+Resource reservations influence scheduling, while limits constrain runtime use. A cluster's total memory cannot satisfy a single task that requires more memory than any eligible node can provide. Adding replicas also does not automatically provide database replication or safe concurrent access to shared state. Those remain properties of the application and storage design.
 
-Mutual TLS does not make every workload flow confidential. It secures Swarm control traffic. Application traffic on an overlay network requires separate encryption when a workload needs confidentiality across hosts.
+SwarmKit supplies the underlying orchestration mechanisms. A worker's agent performs assigned work and reports progress to a manager's dispatcher. Managers use that feedback to compare actual tasks with the stored service specification. Keeping desired state separate from execution lets the cluster create replacements after failure while preserving the service's identity.
 
-### Required connectivity
+## A visualiser as a placement example
 
-Every participating host needs stable addressing, time synchronisation, compatible Docker Engine versions, working name resolution where hosts use names, and bidirectional connectivity for Swarm traffic. Firewalls between nodes must allow:
+A cluster visualiser can show nodes and the Swarm tasks assigned to them. A standalone visualiser container on a manager can query the local Docker API through a socket mount and publish a web interface, for example on host port 8080. It may not appear as a Swarm task in its own display because it was started directly with the standalone container interface.
 
-- TCP port 2377 for manager communication and node joins
-- TCP and UDP port 7946 for node discovery and gossip
-- UDP port 4789 for VXLAN overlay traffic
-- IP protocol 50 when encrypted overlay networking uses IPsec ESP
+Converting the visualiser to a service retains its image and connections. The long `--mount` form specifies the socket bind mount. Another published port, such as 8081, avoids the existing standalone interface's port.
 
-Port 4789 should remain confined to a trusted network because VXLAN traffic does not authenticate peers on its own. Internet-facing exposure creates avoidable risk. Network devices must also pass the selected maximum transmission unit without harmful fragmentation. Encapsulation adds overhead, so cloud networks, virtual private networks, and tunnels may require a reduced overlay MTU.
+The required API access creates a placement constraint. A visualiser querying its local daemon for cluster state needs to run on a manager. If it runs on a worker, its process can start while its cluster queries fail. Adding `node.role==manager` to the service's constraints restricts tasks to nodes that expose the required manager APIs.
 
-The address advertised by a manager or worker must remain reachable from the other nodes. A multi-homed host should advertise the interface intended for cluster communication rather than whichever address Docker happens to select. When management and application data need separate paths, `--advertise-addr` identifies manager traffic and `--data-path-addr` identifies overlay data traffic.
+Constraints are requirements, while placement preferences express best-effort distribution choices. Multiple constraints must all be satisfied. A manager-only service can remain pending if every manager is drained or otherwise unsuitable. The constraint supplies the scheduler with a requirement, but does not create the required capacity or permissions.
 
-### Docker daemon authority
+A forced update replaces service tasks and can exercise placement, although a replacement may use the same node. Stopping an underlying task container can also prompt replacement under the service's restart policy. Either operation can interrupt work and lose in-memory state. Required placement belongs in the service specification.
 
-Access to a Docker daemon carries host-level consequences. A user who can control the daemon can normally mount host paths, start privileged containers, and acquire extensive control of that host. Remote administration through a Docker context over SSH is convenient because SSH supplies authentication and transport protection, but the remote account still receives Docker authority.
+Socket access is a separate security concern from placement. An unrestricted Docker API connection can confer control over containers and the host. Making the socket's filesystem mount read-only does not restrict the API to read-only operations. Diagnostic interfaces that expose node or container details need access controls and a trusted environment.
 
-```shell
-docker context create swarm-manager \
-  --docker host=ssh://swarmadmin@manager1.example.net
-docker context use swarm-manager
-docker info
-```
+## Deploying and observing a web service
 
-The account, SSH key, host key, agent, and local workstation all form part of the trust boundary. Administrators should use dedicated accounts, least privilege where the environment supports it, protected private keys, verified host keys, and audited access. Administrators must never expose an unauthenticated Docker TCP socket.
+An NGINX service provides a straightforward application example. The standard image listens for HTTP on container port 80. Publishing that target through port 8200 creates an external entry point without requiring the application to change its internal listening port. A service name such as `weby` identifies the desired workload for subsequent inspection and updates.
 
-Mounting `/var/run/docker.sock` into a container grants that container powerful access to the host daemon. Demonstration tools that inspect a swarm through the socket can help in a disposable lab, but they should not become public production dashboards. A compromised socket-enabled container can control other containers and often the host.
+`docker service logs weby` retrieves available output for the service through a manager. It can include output from tasks on other nodes, provided the service uses a supported logging driver. The command supports `json-file` and `journald`. It reads container standard output and standard error, not every application file that happens to contain logs.
 
-### Certificate authority lifecycle
+Following logs keeps the stream open for new output. Tail and time filters narrow the output, while timestamps and task identifiers help connect records to individual instances. A service-wide stream may interleave records from several tasks. An individual task ID can be supplied when one uninterrupted task stream is needed.
 
-The swarm certificate authority establishes the identity of every node, so its lifecycle needs stronger controls than routine service configuration. `docker swarm ca` displays the current root certificate, while `docker swarm update --cert-expiry` changes the validity period for node certificates. Shorter periods reduce the useful life of a stolen node certificate but increase dependence on reliable renewal. Managers renew certificates automatically, and operators should monitor failures rather than assume rotation always succeeds.
+Task history and logs have different lifecycles. Swarm's default task-history limit is five, while visible task rows also depend on current tasks, slots, and recent activity. This setting controls retained task history. Application log storage and retention need their own configuration, particularly when records must survive cleanup or node failure.
 
-The root certificate authority can use Swarm's internal key or an external signing service. An external authority can align issuance with organisational controls, but it adds availability, access, and recovery dependencies. The selected design should document who can rotate the root, where signing keys reside, how an offline recovery works, and which alerts identify approaching expiry.
+Missing logs can reflect output written elsewhere, filtering, or failure before recording. A failed API query may appear in an HTTP response or browser diagnostics without a corresponding application log entry.
 
-Root rotation changes the trust foundation for the whole cluster. Docker supports phased rotation so nodes transition through cross-signed certificates, but an interrupted or poorly planned operation can isolate nodes. A production change should begin with healthy quorum, current backups, stable node communication, and a tested rollback or recovery procedure. Administrators should not rotate the root during an unrelated outage.
+Custom output formatting can make inspection more useful. Many Docker commands accept Go templates through `--format`. A table template can retain relevant fields and add headers. JSON formatting can expose available fields, with `jq` making the result easier to read or filter. Template fields and supported options vary by command.
 
-A node certificate proves membership and role, not application identity. Services still need their own authentication and TLS where clients, APIs, databases, or brokers require end-to-end trust. Combining the cluster certificate authority with application certificates can blur ownership and expand the impact of a cluster administration error.
+The `--no-trunc` option reveals complete values and error messages in commands that support it. A shortened error can hide the distinction between an image problem and an unsatisfied constraint. Matching a task ID with the generated container name can locate the container on its assigned Engine for further inspection.
 
-Node decommissioning should remove both access and cluster membership. The operator drains the node, confirms replacement tasks, makes the engine leave, removes its node record, revokes its infrastructure credentials, and erases retained swarm data according to policy. Rotating join tokens does not revoke an already issued node certificate. A suspected active-node compromise requires containment and removal, followed by assessment of manager, secret, and workload exposure.
+A combined display can poll node state and service tasks. The refresh interval should allow each query to finish without adding unnecessary management load. Node readiness, task state, and correct application responses provide different evidence.
 
-## Creating and joining a swarm
+## Events and the limits of historical diagnosis
 
-### Prepare the hosts
+`docker events` reports events from the connected daemon. Swarm-scoped events are visible on managers, while local events describe activity on the queried node. A manager connection therefore does not provide an automatic combined stream of every container event on every worker.
 
-Cluster creation should start with infrastructure decisions rather than commands. Each host needs a unique hostname, a stable address, current security updates, and sufficient CPU, memory, disk, and network capacity. Managers need dependable storage for Raft state. All nodes need registry access for the images that services will use. Production managers should occupy separate failure domains where possible so one rack, zone, power source, or network device cannot remove quorum.
+Events can be filtered by object type, scope, and time. A service filter focuses on service creation, update, and removal. A swarm scope filter excludes local-only activity. The `--since` option requests recent history, but the daemon returns only its recent buffer of up to 256 events. It is not an unlimited audit log.
 
-A practical pre-flight check covers the following conditions:
+An exec sequence can include creation, start, and completion events. Health checks may produce such sequences, but so can other commands executed inside a container. `exec_create` and `exec_start` do not represent the beginning and end of a check. `exec_die` records process completion, while `health_status` identifies a change in reported health.
 
-- Docker Engine runs correctly on every host.
-- Required ports and protocols pass between the intended interfaces.
-- Clocks remain synchronised.
-- Hostnames and addresses resolve consistently.
-- Kernel modules and security controls support overlay networking.
-- Image registries, log destinations, monitoring systems, and storage services are reachable.
-- Named owners control each backup and recovery process.
+JSON output can expose event attributes, timestamps, and object identifiers without relying on a wide terminal row. Filters and inspection can then build a more detailed picture of a change. Long-term operational evidence requires collection and retention outside the short event history offered by the daemon.
 
-Disposable virtual machines offer a useful learning environment, but a lab should use a maintained operating-system release. Old examples built around end-of-life distributions, experimental registry tools, or temporary browser laboratories should not define production practice.
+## Stacks as application definitions
 
-### Initialise the first manager
+A stack groups related Swarm resources into an application deployment. A YAML file can describe services, networks, volumes, configs, and secrets. The format resembles Docker Compose because stack deployment uses the legacy Compose version 3 format. A simple file can work with both commands, but current Compose features are not universally accepted by stack deployment.
 
-The first manager creates the swarm and becomes its initial leader:
+Local `docker compose up` creates containers on the selected Engine. It does not distribute those containers across a swarm. `docker stack deploy` submits Swarm service definitions to a manager. The shared configuration vocabulary therefore supports different execution models, and compatibility needs to be checked for the actual commands and versions in use.
 
-```shell
-docker swarm init \
-  --advertise-addr 10.20.0.11 \
-  --data-path-addr 10.30.0.11
-```
+A minimal web stack specifies the NGINX image and a published-port mapping. `docker stack deploy -c weby.yml weby` submits it under the stack name `weby`. Its `web` service normally appears as `weby_web`, and an automatically created default overlay appears as `weby_default`. A local Compose project normally uses a bridge network instead.
 
-If one interface carries both paths, the operator can omit `--data-path-addr`. The command returns a worker join command containing the worker token and manager address. Operators should handle that displayed token as a secret.
+The stack name identifies an application instance. Reusing it updates that instance, while another name creates a separate deployment. Names and ownership labels group resources, but fixed published ports and external resources can still conflict.
 
-Several commands confirm the new state:
+`docker stack ls` lists stacks inferred from deployed resources. `docker stack services` lists the services associated with one stack. `docker stack ps` lists its tasks across services. The equivalent lower-level service commands remain available when diagnosis needs to focus on one component or compare its current and previous specifications.
 
-```shell
-docker info
-docker node ls
-docker swarm ca
-```
+A deployment is not a single atomic transaction covering every resource. A missing external secret, for example, can prevent service creation after a network has already been created. Such partial results require inspection and cleanup or a corrected redeployment. A stack summary alone cannot prove that every intended component exists and works.
 
-`docker info` reports whether Swarm mode is active and summarises managers and nodes. `docker node ls` runs on a manager and lists node readiness, availability, role, and manager status. The first manager normally shows both `Leader` and `Ready`.
+## Updating desired state
 
-### Join workers and managers
+Changing a stack's file and redeploying it under the same name updates its desired configuration. Swarm then continues reconciling tasks after the command exits, subject to quorum, capacity, and scheduling requirements.
 
-A worker joins by running the generated worker command on that host:
+The Docker client reads the file and submits API requests. Managers store the resulting specification. Swarm does not continuously watch the local file, so edits take effect only after deployment.
 
-```shell
-docker swarm join \
-  --token WORKER_JOIN_TOKEN \
-  --advertise-addr 10.20.0.21 \
-  --data-path-addr 10.30.0.21 \
-  10.20.0.11:2377
-```
+Imperative service changes and declarative stack files can diverge. A command-line scale change may increase the desired replicas immediately, while the file still specifies the earlier number. A later deployment can restore the file's value. Recording intended changes in the application definition preserves a clearer operational history.
 
-Additional managers use the manager token:
+The `--prune` deployment option removes services no longer referenced by the stack definition. Without it, deleting or renaming a service in the file can leave the previous service deployed. The option needs care when older services are deliberately retained.
 
-```shell
-docker swarm join \
-  --token MANAGER_JOIN_TOKEN \
-  --advertise-addr 10.20.0.12 \
-  --data-path-addr 10.30.0.12 \
-  10.20.0.11:2377
-```
+An image tag can change independently of its name. By default, stack deployment attempts to resolve image references against the registry. If a tag now identifies a different digest, redeployment can trigger task replacement even when the file's tag text is unchanged. That behaviour depends on image-resolution options and successful registry access.
 
-The join address can name any reachable manager, not only the current leader. Once joined, managers replicate cluster state and participate in consensus. Workers receive assignments but do not hold voting membership.
+Explicit deployment or service update initiates an image change. Swarm does not continually poll tags for new versions. A digest identifies the intended image content precisely, and every scheduled node needs access to that content.
 
-A joining node should appear as `Ready` and `Active` in `docker node ls`. Those labels have distinct meanings. `Ready` reports node health from the manager's perspective. `Active` means the scheduler may place tasks there. `Pause` prevents new task assignments without moving existing tasks. `Drain` prevents new assignments and causes the scheduler to replace existing service tasks elsewhere.
+Stack deployment distributes definitions. It does not build an image from a Compose `build` instruction and transfer it to every node. Images must be built and made available through a registry or another suitable distribution process.
 
-```shell
-docker node update --availability drain worker2
-docker node update --availability active worker2
-```
+Service updates can use rolling replacement settings, including order, parallelism, delay, and failure handling. A forced update can reuse the same image and configuration while replacing tasks. Such replacement does not guarantee uninterrupted service. Application startup, health reporting, connection handling, spare capacity, and state management determine its practical effect.
 
-Draining is appropriate before maintenance, but it can overload remaining nodes if capacity is tight. The operator should confirm replica placement and service health before shutting down the drained host.
+Rollback can restore a previous service specification where supported. Database migrations, lost in-memory data, and external side effects need their own recovery procedures. Separate configuration history records changes beyond the current and previous specifications.
 
-### Change roles carefully
+Some properties require service replacement. Changing from replicated to global mode needs controlled migration or recreation. Removing an entire stack is one possible method, but also affects its other managed resources.
 
-Managers can promote workers and demote managers:
+## Platform compatibility and image diagnosis
 
-```shell
-docker node promote worker3
-docker node demote manager3
-```
+The node's operating-system platform determines native image compatibility. An ARMv7 Linux installation can require `linux/arm/v7`, while a 64-bit Raspberry Pi installation can use `linux/arm64`. An `amd64` image needs a suitable native variant or compatible emulation to run on ARM hardware.
 
-Role changes alter the quorum design and should follow an explicit plan. Operators must not demote a manager if doing so would leave the cluster without quorum. A new manager needs time to catch up with the Raft log before the existing set changes again. Routine manager rotation should change one node at a time and verify cluster health between changes.
+An image reference can identify a manifest containing one platform or an index containing several platform variants. Each variant still needs compatible binaries and dependencies. The registry's platform metadata and the Engine's server architecture should be compared when scheduling reports an unsupported platform.
 
-A node can leave voluntarily:
+In a five-node ARM lab with three managers, a visualiser requiring manager placement can encounter two separate restrictions: an image incompatible with the managers, and workers excluded by the role constraint. Each restriction needs its own solution. Platform compatibility does not grant access to manager APIs.
 
-```shell
-docker swarm leave
-```
+`docker service ps --no-trunc` or `docker stack ps --no-trunc` can reveal the complete scheduling error. `docker info` identifies the targeted Engine's operating system and architecture. `docker buildx imagetools inspect` shows registry manifests and their platforms. These tools provide more precise evidence than assuming that every image under a familiar tag supports the same machines.
 
-A manager normally refuses to leave if that action could damage the swarm. `--force` bypasses safeguards and belongs only in understood recovery or decommissioning procedures. After a node leaves permanently, a manager can remove its stale record with `docker node rm`, adding `--force` only when operators cannot make that node leave the swarm.
+An updated image with the required platform can be selected in the stack file and redeployed. Tasks may spend time preparing while their nodes retrieve its layers. Once current state reaches the requested running state, the application's interface still needs to be checked. A working browser response supplies evidence beyond the scheduler's ability to start the process.
 
-### Labels and availability
+Docker Desktop includes emulation support for supported non-native Linux architectures. That can make an image run locally even when a plain Linux node cannot execute it natively. Emulation does not supply an arbitrary guest operating-system kernel or guarantee compatibility with every workload. It can also perform substantially differently from native execution.
 
-Node labels express infrastructure properties that the scheduler cannot discover safely on its own. An administrator might label storage nodes, accelerator hosts, zones, or compliance domains:
+Native builds for each target platform, cross-compilation, and emulated builds provide different ways to produce multi-platform images. The chosen method must produce the runtime dependencies the application needs. A successful emulated local run is useful evidence, but does not establish native cluster compatibility or production performance.
 
-```shell
-docker node update --label-add disktype=ssd worker1
-docker node update --label-add zone=west worker1
-docker node update --label-add zone=east worker2
-```
+## Replicas, global services, and identity
 
-Labels should describe stable capabilities rather than temporary preferences. Placement constraints can make a service impossible to schedule if nodes lack labels or reservations exhaust capacity. A label taxonomy therefore needs ownership, validation, and change control.
+Replicated mode maintains a specified number of task instances. Two replicas can provide two request handlers, but the scheduler may place them on the same node if the specification allows it. That arrangement uses separate containers while retaining a shared host failure risk. Placement controls are needed when separate nodes are a requirement.
 
-## Manager resilience and recovery
+The `--replicas-max-per-node` setting can limit a replicated service to one task per node. With five requested replicas, at least five eligible nodes are then needed. Otherwise, some requested tasks remain pending. The setting limits placement without creating additional capacity or changing the service into global mode.
 
-Manager resilience combines quorum design, failure-domain separation, backups, and tested restoration. Replication protects the live cluster from some node failures, but it does not replace backups. A faulty command, corrupted state, lost credentials, or widespread infrastructure event can affect every replica.
+Global mode maintains one task per eligible active node, subject to constraints, platform compatibility, and resource availability. A drained manager remains in the manager group but receives no global application task. Returning it to active allows that task to be scheduled.
 
-Only managers contain the Raft data required to restore a swarm. Docker stores that state under the engine data directory, commonly `/var/lib/docker/swarm`. A consistent backup requires stopping Docker on the selected manager before copying the swarm data. Hot copies can capture an inconsistent database. The backup process must also retain any autolock material needed for restoration and protect the archive as sensitive data because it contains cluster configuration and secrets.
+Global services suit node-local agents and diagnostics. Replicated services maintain an application scale independent of node count. Neither mode supplies load-based autoscaling by itself. Operators or additional systems change the desired scale or cluster membership.
 
-A recovery plan should record the following details:
+Templates can inject task-specific values into supported service settings, including hostnames, environment variables, and mount options. A hostname built from a node hostname and task slot can identify the source of a response in a diagnostic service. The values are expanded for the assigned task rather than being fixed when the stack file is written.
 
-- Which manager produces the backup
-- How the process obtains a consistent snapshot
-- Where the organisation retains encrypted copies
-- Who can retrieve the autolock key
-- How often operators test restoration
-- Which applications require separate data backups
-- How DNS, load balancers, registries, and external secret systems reconnect after recovery
+A diagnostic echo service can return connection addresses, interfaces, and its hostname. An additional endpoint can query the local Docker API for the host's containers. The resulting list can include both running and stopped containers, including the diagnostic container itself. Its scope is the particular host, not automatically the whole cluster.
 
-Regular exercises should confirm that operators can identify the leader, restore quorum, retrieve protected keys, redeploy declarations, recover application data, and verify service health without depending on one person, host, or undocumented credential during an outage.
+If two diagnostic replicas run on the same node, their host-container listings can be duplicates. A global diagnostic service can obtain one response per eligible host instead. It still needs restricted API access and a controlled interface. Convenient visibility into infrastructure is also access to potentially sensitive operational information.
 
-If failures permanently remove a majority of managers, normal operation cannot resume through worker promotion alone. An authorised operator can restore a surviving manager from backup or force a new cluster from surviving Raft state. That operation creates a new consensus group and requires careful validation. Operators should rehearse recovery procedures in isolation rather than invent them during an actual incident.
+`docker service scale SERVICE=COUNT` changes a replicated service's desired size. A count of zero stops its running tasks while preserving the service definition. Scaling up creates new attempts whose placement may differ. Task-history retention is configured separately. Standalone containers on the nodes remain outside this service lifecycle.
 
-Applications also need their own recovery design. Swarm recreates tasks, not database records or host-local volumes. A task rescheduled from one host to another does not carry a local named volume with it. Stateful services need storage accessible from replacement nodes, an external managed data service, a distributed storage system, or application-native replication. Backups, restore tests, consistency controls, and data-loss objectives remain application responsibilities.
+## Routing mesh and published ports
 
-## Deploying and operating services
+The routing mesh provides an entry point for published Swarm service ports. In ingress mode, each participating node can accept the published port and forward a connection to an active task, whether that task is local or remote. This keeps the external node address and published port independent of an individual task's current placement.
 
-### Create a replicated service
+The published port and target port serve different roles. An echo service can listen internally on port 80 while receiving external connections through port 9090. An internal client on the same application network normally uses port 80. Publishing 9090 does not change the server process's listening port inside the container.
 
-An administrator creates a service from a manager:
+Host publishing mode bypasses the routing mesh. Traffic reaches tasks on nodes where those tasks actually run, and fixed host-port bindings constrain how many matching tasks can share a node. An external load balancer can provide another entry layer, with appropriate knowledge of reachable nodes or actual task locations.
 
-```shell
-docker service create \
-  --name web \
-  --replicas 3 \
-  --publish published=8080,target=80 \
-  nginx:1.27.5
-```
+External DNS, hostname routing, TLS certificates, and client failover require separate configuration. The routing mesh supplies a shared entry port. A client using one failed node address still needs a way to reach another healthy entry point.
 
-The manager records the declaration and schedules three tasks. Each eligible node pulls the image if necessary. A mutable tag such as `latest` weakens repeatability because nodes can resolve it to different content over time. Production deployments should use a controlled version tag and an image digest when releases require stronger immutability.
+On Linux, ingress uses IPVS and associated kernel networking rules to select backends and route traffic. Load balancing operates at the connection level. Logical forwarding rules connect published endpoints to available tasks, allowing those endpoints to remain usable as task placement changes.
 
-Operators can examine service status at several levels:
+Address translation can change the peer address visible to an application. A diagnostic server may see an ingress sandbox address instead of the original external client's address. Identifying the original caller requires understanding the forwarding path and any trusted application-level information it supplies.
 
-```shell
-docker service ls
-docker service inspect --pretty web
-docker service ps --no-trunc web
-docker node ps worker1
-```
+## Connections and observed load distribution
 
-`docker service inspect` shows the service specification, including image reference, mode, update policy, endpoint settings, and task template. `docker service ps` shows placement and task history. Truncated error messages can hide the useful cause, so `--no-trunc` helps with failed pulls, rejected tasks, and runtime errors.
+Browsers often reuse established HTTP connections. Repeated refreshes can therefore reach the same task while the service has several available replicas. That is consistent with connection-level load balancing. It does not necessarily mean that the routing mesh ignored the other replicas.
 
-The service name supplies a stable operational identity while individual task and container names change. Monitoring, routing, and automation should follow the service and task metadata rather than assume a specific container will survive.
+Separate curl invocations make new connections because one process cannot reuse a previous process's connection pool. Repeating requests through separate invocations can reveal different backend addresses and hostnames. Within one invocation, curl can reuse connections for multiple transfers.
 
-### Scale and reconcile
+Alternating responses can make distribution visible, but perfect alternation is not guaranteed. Connection reuse, other traffic, backend changes, and the balancing implementation affect the sequence. A small sequence of requests does not establish equal capacity, equal workload, or reliable application performance across the cluster.
 
-A replicated service can change its desired count without recreation:
+The echo service can report a server-local address, a remote peer address, and a connection identifier. Together, these help distinguish a new connection from a new backend. A changed source port can indicate a new connection even if the same server responds. A changed local task address provides evidence that another task handled the request.
 
-```shell
-docker service scale web=6
-docker service update --replicas 4 web
-```
+## Application overlays and gateway connectivity
 
-Scale-out creates additional tasks. Scale-in selects excess tasks for shutdown. Swarm does not know whether a task holds an in-memory session or unfinished request, so the application and proxy should support graceful termination. A suitable stop signal, shutdown timeout, connection draining strategy, and stateless request path reduce disruption.
+Ingress is a special overlay for published-port routing. Application services normally communicate through their own default or explicitly defined overlays. A stack named `echor` can create `echor_default`, supporting communication by service name across its participating hosts.
 
-The scheduler can maintain the count only when eligible nodes have enough reserved resources. If constraints allow one node and that node fails, tasks stay pending. If every node lacks the requested memory reservation, tasks also stay pending. Increasing replicas cannot create capacity.
+A task can have interfaces for ingress, an application overlay, loopback, and gateway connectivity. Several addresses in diagnostic output can therefore belong to different networks on the same container.
 
-For a global service, scale flags do not apply. The scheduler derives the count from active eligible nodes. Global services suit node agents such as telemetry collectors, security sensors, and local proxies, provided the image can safely run once per node.
+The local `docker_gwbridge` connects overlay networking to the host's physical network, commonly with address translation for external connectivity. Application overlays span nodes, while this bridge provides the local connection to the host network.
 
-### Placement and capacity
+`docker network ls` shows networks known to the queried Engine, including their drivers and scope. Overlay networking is distributed, but a node need not instantiate every application network when it has no relevant tasks. A manager's network metadata and a worker's local network state can therefore present different views.
 
-Placement constraints impose hard requirements. Placement preferences influence distribution but do not make a placement mandatory. Resource reservations tell the scheduler what capacity a task requires. Limits constrain what a running container may consume.
+`docker network inspect` exposes details such as the subnet, attached endpoints, labels, and network options. Verbose inspection can add service and backend details. Those fields help relate a logical service address to actual task endpoints, but the visible sandbox addresses and internal layout are implementation-specific.
 
-```shell
-docker service create \
-  --name api \
-  --replicas 4 \
-  --constraint 'node.labels.zone!=edge' \
-  --placement-pref 'spread=node.labels.zone' \
-  --reserve-memory 256M \
-  --limit-memory 512M \
-  --reserve-cpu 0.25 \
-  --limit-cpu 1 \
-  registry.example.net/shop/api:4.8.2
-```
+Network membership controls ordinary connectivity. Services on different networks do not gain direct communication simply because they belong to the same swarm. A shared overlay can connect selected services from different stacks, while a component attached to more than one network can participate in several application relationships.
 
-The constraint excludes nodes labelled `zone=edge`. The preference spreads tasks across the remaining zone labels as far as other rules permit. Reservations guide scheduling. Limits protect neighbouring workloads, although a memory limit can terminate a container if the process exceeds it.
+Separating frontend and backend networks can reduce unnecessary reachability, but it is not a substitute for authentication, authorisation, or encryption. By default, application traffic between swarm nodes is not encrypted. An overlay created with encryption enabled uses IPsec for that traffic, with performance and platform considerations that need validation.
 
-`--replicas-max-per-node` can prevent too many replicas of one service from landing on a single host. This option helps preserve fault tolerance when the cluster has enough nodes. If the requested replica count exceeds eligible slots, the remaining tasks stay pending rather than violate the maximum.
+## Service discovery through VIPs and task addresses
 
-Placement design should account for correlated failure. Four replicas on one physical host do not provide host resilience. Four replicas across separate hosts but one shared power source still share a larger failure domain. Labels and spread preferences can represent zones, racks, or other operational boundaries.
+Docker's embedded DNS supplies service discovery on user-defined networks. In default virtual IP, or VIP, mode, a service name resolves to a stable logical front end on that network. Connections to the VIP can be distributed among task endpoints as their addresses change.
 
-### Restart policies and health checks
+A diagnostic lookup of `echor_echo` from a container on its overlay can return the service VIP. A request to that name and container port 80 can reach either echo task, including the requesting task itself. That path differs from a browser entering through a node's published port 9090 and the ingress network.
 
-A restart policy controls when Swarm replaces a failed task, how long it waits, how many attempts it makes within a window, and which exit conditions qualify. A tight retry loop can amplify an outage by consuming CPU, flooding dependencies, and generating logs. Backoff and application-level retry discipline reduce that risk.
+The name `tasks.echor_echo` exposes task addresses on the shared network. Clients can contact individual replicas, collect diagnostic information, or implement their own backend selection policy.
 
-An image health check tests whether a running container can perform useful work. The test should be fast, local, and representative of the process without placing heavy load on dependencies. It should not declare failure because an optional remote system briefly slows down. When a service task becomes unhealthy, Swarm can replace it according to the service's restart policy.
+Setting endpoint mode to `dnsrr` makes the ordinary service name resolve to task addresses instead of a VIP. Backend selection then belongs to the client or an external load balancer. This mode cannot be combined with ingress-mode port publishing.
 
-Health checks need realistic start periods for applications that initialise caches, apply migrations, or compile assets. A test that starts too early can trigger a replacement loop. A test that only checks whether a process exists can miss a deadlocked or unusable service. Operators should validate both failure detection and recovery behaviour.
+DNS responses can vary in address order, but that does not guarantee equal traffic distribution. Clients may cache results, favour one address, maintain long-lived connections, or retry in different ways. A successful DNS lookup also proves discovery only. It does not prove that the application is listening, healthy, or returning the expected content.
 
-### Diagnose pending and rejected tasks
+A cluster-wide diagnostic endpoint can first resolve `tasks.echor_echo`, then query each returned address through an endpoint reporting the host's containers. It combines those results into one response. With a replicated service, several replies may come from the same host. With a global service, the intended scope is one diagnostic task per eligible host.
 
-A task in `PENDING` usually indicates that the scheduler cannot find an eligible node. Common causes include unsatisfied constraints, missing node labels, insufficient reserved CPU or memory, an unavailable network, and a per-node replica maximum. `docker service ps --no-trunc` exposes the scheduler's message, while `docker node inspect` confirms labels, resources, availability, and platform details.
+The list of task addresses changes as replicas are added, removed, or replaced. Results describe membership at the time of discovery and may become stale before every request completes. Failures need to be handled rather than assuming that every DNS result remains reachable throughout the collection operation.
 
-A task in `REJECTED` reached a node, but the node could not prepare or start it. Image pull failures, unavailable secrets or configs, invalid mounts, occupied host ports, unsupported platform variants, and runtime security rules can all cause rejection. The first error deserves attention because repeated replacements often produce many later task records with the same cause.
+## Shared networks for jobs and services
 
-Diagnosis should preserve the declared state while gathering evidence. Manually running a similar container can test an image, but it does not prove that the service has the same networks, secrets, mounts, identity, resources, or security settings. A useful comparison inspects the full task specification and recreates only the minimum safe conditions in a controlled environment.
+A job can communicate with a long-running service through the same user-defined overlay. A web stack can define a network named `testers`, which becomes `sr_testers` under the stack name `sr`. Both the web service and a subsequently created test job can attach to it.
 
-If a registry pull fails on one node, the operator should check that node's DNS, routing, trust store, proxy configuration, credentials, disk space, and architecture. A successful pull on the manager proves little about workers because each eligible node retrieves its own layers. Private registries also need consistent certificate-authority installation across the cluster.
+The `attachable` option permits standalone containers to join an overlay network. Swarm service tasks and jobs can use an overlay without that option. Marking a lab network attachable is useful for direct diagnostic containers, but it is not a prerequisite for a Swarm job to contact a service.
 
-If a task starts and exits repeatedly, the container's exit code and logs provide the immediate evidence. The investigation should then distinguish an application defect from a missing dependency, incompatible configuration, memory termination, failed health check, or signal-driven shutdown. Increasing the restart limit or disabling the health check can hide the signal without correcting the cause.
+An internal test client can use `sr_web` and port 3000 when the server listens there. Publishing the same port externally is optional for that communication. An external browser request and an internal job request can reach the same application through different network paths, with different addresses visible to the server.
 
-Operators should record the service specification before urgent changes. `docker service inspect` produces a durable snapshot of image identity, environment, mounts, networks, placement, resources, and update settings. That record supports comparison after recovery and reduces undocumented incident changes.
+## Jobs and completion-based work
 
-### Update a service
+Swarm jobs run tasks that are expected to finish. A long-running service continually maintains its requested running tasks. A job instead treats successful completion as the intended outcome. Batch processing, diagnostic checks, simulations, and bounded load tests can fit that model when their programs exit with a meaningful status.
 
-`docker service update` modifies the service declaration. Changing an image normally creates replacement tasks according to the update policy:
+The two job modes are `replicated-job` and `global-job`. A replicated job requests a specified number of successful task completions. A global job runs one task per eligible active node and can run on additional nodes that become eligible later.
 
-```shell
-docker service update \
-  --image registry.example.net/shop/api:4.9.0 \
-  --update-parallelism 2 \
-  --update-delay 10s \
-  --update-monitor 30s \
-  --update-failure-action rollback \
-  --rollback-parallelism 1 \
-  api
-```
+The Apache HTTP Server image can provide ApacheBench, the HTTP benchmarking program named `ab`. A global job running `ab -V` prints the program's version and exits on each eligible node. This checks image retrieval and execution, subject to image contents and platform compatibility.
 
-Parallelism controls how many tasks change together. Delay spaces the groups. The monitor period allows a new task to demonstrate stability before the update advances. A failure action can pause, continue, or roll back the update. Rollback returns to the specification before the most recent service update, not to an arbitrary historical release.
+A successful job task exits with status zero and reaches the Complete state. It is not restarted to keep it running. Failed tasks can be retried according to the job's applicable restart policy, including its delay and attempt limits. A policy intended for long-running services should not be interpreted as making a successful job repeat indefinitely.
 
-Update order introduces a capacity and availability trade-off. `stop-first` stops the old task before starting its replacement and avoids overlap. `start-first` starts the replacement first and can reduce interruption, but the node briefly needs resources for both tasks. The application must also tolerate overlapping versions and duplicate workers.
+A global job whose current tasks have all completed can remain available for future eligible nodes. Completion of the current set is therefore different from permanently closing the job to later work. Conversely, an existing successfully completed task does not run again continuously on the same node without an update or another change that requires execution.
 
-A force update replaces tasks without changing the image or other main settings:
+Replicated jobs distinguish total completions from concurrency. The settings `--replicas 10 --max-concurrent 2` request ten successful completions while allowing at most two active tasks at once. Later tasks begin as earlier ones finish, until the completion target is reached.
 
-```shell
-docker service update --force web
-```
+The default concurrency limit at creation follows the requested replica count. A job initially created with one replica can retain a maximum concurrency of one when its replica target is later increased. Three requested completions can then execute sequentially. That outcome reflects the job's retained settings, not a rule that all replicated jobs run serially.
 
-This operation can refresh containers after an external dependency or node-level change, but it should not substitute for a versioned deployment. Mutable images combined with force updates can produce different binaries under one service specification.
+Updating a job can establish a new iteration. `docker service update --force JOB` reruns an unchanged job and can stop active tasks from its preceding iteration. A changed replica target belongs to the updated job specification, so the current iteration and concurrency settings need inspection.
 
-### Remove a service
+Jobs do not support the same rolling update and rollback controls as long-running services. Their execution model needs to be considered before reusing deployment settings intended to replace a web service gradually. A repeated job may also repeat external side effects, so successful completion should not automatically imply that another run is harmless.
 
-Removing a service deletes its desired state and stops its tasks:
+Stack deployment support for job modes depends on the installed Docker CLI and Engine versions. Current Compose deployment definitions include these modes, and Docker's stack conversion handles them. Available concurrency controls still vary by interface, with the CLI exposing options that are not all represented in Compose configuration.
 
-```shell
-docker service rm web
-```
+## Job output and diagnostic use
 
-The operation does not necessarily remove named volumes, external networks, registry images, or application data. Decommissioning needs a separate retention decision for each resource. Removing the last task before preserving required data can cause irreversible loss.
+`docker service logs` can collect job output with a supported logging driver. Global job output may interleave lines from several nodes. Reading one task's logs at a time groups its execution, while timestamps help establish event order. Grouping by task does not create a combined chronological record.
 
-## Defining applications as stacks
+Completion state, exit status, and output need to be assessed together. A program can print an error before exiting successfully if its script does not propagate the failure. It can also fail before producing useful output. The job scheduler can report process outcomes, but it cannot infer the intended meaning of every application message.
 
-### Stack files and compatibility
+Completed job tasks and their service can remain visible until they are removed or their history is cleaned up. This visibility is useful for inspection, but task history and local container logs are not permanent archives. Results that need to survive routine cleanup, node replacement, or a longer retention period require deliberate collection and storage.
 
-A stack groups related services, networks, volumes, configs, and secrets under one name. `docker stack deploy` reads a Compose-like YAML file and applies the declaration from a manager. It does not use the full current Compose Specification. Docker documents stack deployment as using the legacy Compose file version 3 format, so the stack command may reject or ignore features that `docker compose` accepts.
+A small global version job can warm image caches on the eligible nodes before a larger test. This can reduce differences caused by one node downloading the image while another already has it. It does not synchronise the start of every later task or ensure that every future node has the same cached content.
 
-The deployment pipeline should validate the file with the actual target command and Engine version. A successful local `docker compose up` does not prove Swarm compatibility. Swarm also does not build images from `build` instructions. The pipeline must build, test, scan, push, and identify images before the stack deploys them.
+Diagnostic jobs can test network membership and application reachability. A job attached to `sr_testers` can first resolve `sr_web`, then request the application on port 3000. DNS output confirms name resolution. An HTTP response with the expected status and content provides additional evidence that the intended application is reachable.
 
-A compact stack can define a web service and an internal API:
+A later iteration can run another diagnostic command, such as reporting network interfaces before an HTTP request. Comparing those addresses with inspected overlay endpoints helps identify the communication path and distinguish application connectivity from ingress routing.
 
-```yaml
-version: "3.9"
+Jobs also support bounded processing unrelated to networking. A task might analyse a data partition or run a simulation, while a concurrency limit prevents every task from starting together. The application still needs a plan for input assignment, result collection, failures, and retries. A completion count alone does not identify which independent records have been processed correctly.
 
-services:
-  web:
-    image: registry.example.net/shop/web:3.4.1
-    ports:
-      - target: 8080
-        published: 443
-        protocol: tcp
-        mode: ingress
-    networks:
-      - front
-    deploy:
-      replicas: 3
-      update_config:
-        parallelism: 1
-        delay: 10s
-        failure_action: rollback
-        monitor: 30s
-      rollback_config:
-        parallelism: 1
-        delay: 5s
-      restart_policy:
-        condition: on-failure
-      resources:
-        reservations:
-          memory: 128M
-        limits:
-          memory: 256M
+## HTTP load testing
 
-  api:
-    image: registry.example.net/shop/api:4.9.0
-    networks:
-      - front
-      - data
-    deploy:
-      replicas: 4
-      placement:
-        preferences:
-          - spread: node.labels.zone
+ApacheBench generates a specified number of HTTP requests at a chosen concurrency. For example, `-n 100 -c 10` asks it to make 100 requests, with up to ten in progress at once. Client count, total request count, and request concurrency are separate test settings.
 
-networks:
-  front:
-    driver: overlay
-  data:
-    driver: overlay
-```
+A replicated test job with one task can direct that workload at `sr_web` over a shared overlay. Requests use the application's container port, such as 3000, because internal service discovery does not require the externally published port. This design separates the number of test clients from the number of server replicas.
 
-The example publishes only the web tier. The API remains reachable through service discovery on shared overlay networks. Separating `front` and `data` reduces unnecessary connectivity. Network separation is a useful boundary, but it does not replace application authentication and authorisation.
+Results include completed requests, failed requests, responses outside the HTTP 2xx success range, elapsed time, throughput, and timing statistics. These describe different aspects of a run. A completed request does not establish that its response had the required status or content.
 
-### Deploy, inspect, and update a stack
+Latency percentiles describe the distribution of request times. The median represents the midpoint, while high percentiles expose slower responses near the tail. Both are useful when additional replicas improve typical response time but some requests remain slow.
 
-The manager deploys the file under a stack name:
+Connection behaviour also affects a test. ApacheBench's keep-alive option changes whether connections may be reused. A test's settings therefore need to be recorded alongside its request count and concurrency. Results from clients with different connection behaviour are not directly interchangeable simply because both send HTTP requests.
 
-```shell
-docker stack deploy \
-  --compose-file stack.yml \
-  --with-registry-auth \
-  shop
-```
+An endpoint with a configured blocking delay can provide an artificial workload. Its behaviour needs verification before it represents a particular bottleneck. Work that blocks an application's execution thread can behave differently from a non-blocking database operation.
 
-`--with-registry-auth` sends the client's registry authentication details to Swarm agents when private-image pulls require them. Those credentials need limited scope and secure handling. A registry identity dedicated to deployment reduces the exposure created by forwarding a developer's broad credentials.
+A lab workload of 1,000 requests at a concurrency of 100 can be repeated against one, two, and five server replicas. Keeping the request count and concurrency unchanged makes the server replica count a clearer comparison variable. Image versions, hardware, other workloads, and test placement also need to remain sufficiently consistent.
 
-Stack objects receive a name prefix, such as `shop_web`. The following commands show the resulting state:
+A per-node replica limit can place each server replica on a separate eligible machine, making the physical distribution explicit. The web application remains a replicated service while a separate job generates test traffic. Five requested server replicas require five eligible nodes if each node is limited to one.
 
-```shell
-docker stack ls
-docker stack services shop
-docker stack ps --no-trunc shop
-```
+Adding replicas can increase available processing capacity, but doubling the replica count does not guarantee that latency will halve. Shared databases, network links, connection pools, storage, or the load generator can become limiting factors. Uneven work distribution and long-lived connections can also prevent the replicas from receiving equal demand.
 
-Redeploying the same stack reconciles changed declarations. Operators should review the plan, verify image availability, monitor the rollout, and confirm application behaviour. If a service disappears from the file, ordinary deployment may leave it in the stack. `--prune` removes services that the current file no longer defines, so a deployment using that option needs careful review.
+Physical placement affects the interpretation. Virtual machines on one computer share that computer's underlying resources. Separate Raspberry Pi hosts supply separate processors and memory, although their network and other dependencies may still be shared. Several replicas on one machine can also improve utilisation when spare resources are available, so physical separation is not the only route to improvement.
 
-```shell
-docker stack deploy \
-  --compose-file stack.yml \
-  --prune \
-  shop
-```
+The test client consumes resources too. A job running on a node that also hosts a server replica can compete with that replica for CPU time and network capacity. Increasing the number of client tasks changes the applied load and can expose a client-side bottleneck, but it creates a different experiment from changing only the number of server replicas.
 
-Stack removal stops the stack's services and removes stack-managed networks, but external resources remain. Operators must verify named-volume and data-retention behaviour for the actual declaration before removal.
+A useful comparison records the topology, software versions, resource allocation, warm-up procedure, request settings, and response validation. Repeated measurements provide a stronger basis for interpretation than a single run. A test through an internal overlay also measures a different path from external traffic passing through ingress, an external load balancer, or a TLS termination service.
 
-### Image discipline
+Load testing supports capacity assessment under defined conditions. Response correctness, recovery behaviour, and longer-term resource use need separate evaluation. Test traffic also requires authority over the target systems.
 
-Each node pulls service images independently. Every eligible node must reliably reach the private image registry. The same tag should resolve to the same manifest for the duration of a rollout. Content digests provide the strongest identity, while controlled immutable tags offer readable release labels.
+## Configuration and secrets
 
-The image process should cover provenance, supported base images, vulnerability scanning, signatures or attestations where required, software bills of materials, and retention. An image labelled official or popular does not remove the need for evaluation. Production teams should verify the publisher, source, maintenance status, architecture support, and security history.
+Applications often require settings that change independently of an image. Examples include a configuration file, a database address, or an authentication credential. Swarm configs and secrets provide ways to distribute selected file content to service tasks without rebuilding the image for each environment.
 
-Multi-platform images help heterogeneous clusters only when each platform variant behaves consistently. Placement constraints can restrict an image to compatible operating systems or processor architectures when required.
+A config holds non-confidential configuration data. A secret holds sensitive data, such as a password or private key. Both are managed objects with immutable content and a maximum size of 500 kB. Their purpose differs from that of an ordinary writable volume used for changing application data.
 
-### Volumes and external resources
+Configs and secrets can be created before a service and granted to it through its specification. Stack definitions can also declare them. Creating the object does not automatically expose it to every task in the swarm. The service needs an explicit reference to the particular object before its tasks receive the corresponding file.
 
-A stack declaration can create a named volume, but the volume driver determines where its data lives. With the default local driver, a volume belongs to one node. If Swarm replaces a task on another node, Docker can create a new volume with the same logical name on that node, but the new volume does not contain the old node's data.
+A stack file distinguishes the top-level definition of a secret from the service-level grant of access. An external declaration refers to an object that already exists and must match its actual name. The service's grant must then reference that declared secret, with the intended target path.
 
-Placement constraints can pin a stateful task to the node that holds its local data. That approach preserves access during normal rescheduling decisions but turns the node into a service dependency. When the node fails, Swarm cannot deliver the data elsewhere. This design may suit reconstructable caches or low-value laboratory data, not a service that claims transparent host failover.
+Secret content can be supplied from a file or standard input. Standard input is useful when another process supplies the value without a persistent intermediate file. A suitably protected input file is also a valid approach. Neither method automatically protects the original source, command history, terminal output, backups, or any application that subsequently reads the value.
 
-Shared or remote volume drivers can expose storage from multiple nodes, but they introduce their own consistency, performance, fencing, credential, and availability requirements. The application may also require exclusive writers or database-native replication. Teams should test the storage design under node loss, network interruption, concurrent starts, and recovery instead of inferring resilience from a successful mount.
+Entering a literal password in a shell command can expose it through history or logs. Secure input handling needs to consider the whole path from the credential's source to its use. A file containing a credential should have appropriate access restrictions and a deliberate lifecycle, rather than being left among broadly readable project files.
 
-External resources allow a stack to refer to a network, volume, config, or secret whose lifecycle sits outside that stack. This separation helps when several stacks share an ingress network or a platform team controls a credential. The resource must already exist with the expected name before deployment, and stack removal will not delete it.
+Swarm transfers secrets through its mutually authenticated management channels and stores them in the encrypted Raft log. On Linux, a secret granted to a task is presented through a read-only in-memory mount, normally under `/run/secrets/`. The file becomes available to the authorised task while it runs, and its mount is removed when the task stops.
 
-External ownership needs an explicit contract. The producing process defines creation, updates, access, backup, and retirement. The consuming stack defines the expected interface and failure response. Without that contract, a stack can deploy successfully while relying on an untracked object that another team later changes or removes.
+Authorised applications can still read, copy, or disclose secrets. Management permissions also need protection, since an administrator can change which workload receives a value. Linux's in-memory mount behaviour should not be assumed for Windows containers, which handle runtime secret storage differently.
 
-Bind mounts tie a task to a path on each host and reduce portability. Every eligible node must provide equivalent content, permissions, labels, and mount propagation. Host configuration management can enforce those conditions, but an image, config, secret, or managed volume often expresses the dependency more safely.
+A config is mounted as an ordinary file and does not receive the same worker-side protection as a secret. Its default target can be at the container's root path under the config name, while a secret normally uses `/run/secrets/`. Explicit targets allow either object to appear at the path expected by the application.
 
-## Swarm networking
+Standard secret inspection returns metadata, such as identity and creation details, rather than plaintext content. A trusted administrator can nevertheless grant a service access to the value. Confidentiality therefore also depends on control of the management interface and authorised workloads.
 
-### Network types
+## Database credentials and application conventions
 
-Swarm uses several network layers:
+The official MySQL image supports file-based input for selected initialisation variables. `MYSQL_ROOT_PASSWORD_FILE` can point to a mounted secret such as `/run/secrets/db_pass`. The image's entry-point logic reads the file and uses its value when it initialises the database.
 
-- The `ingress` overlay network carries routing-mesh traffic for published ports.
-- User-defined overlay networks connect service tasks across nodes.
-- The `docker_gwbridge` bridge connects overlay networks to a node's physical network.
-- Host networking and third-party drivers cover specialised cases but change isolation and portability.
+The `_FILE` suffix is an application image convention, not a Docker feature that automatically makes every environment variable read a file. Each image needs documentation or implementation support for the particular variable. Supplying an unsupported name can leave the application without the intended setting.
 
-An overlay network spans Docker hosts participating in the swarm. Swarm creates the network control state on managers and instantiates local components on nodes that run attached tasks. Services on the same overlay use built-in DNS discovery. Services on different overlays cannot communicate through those networks unless another path connects them.
+The MySQL service needs both a secret grant and an environment setting pointing to the mounted file. Its configuration exposes the path without including the password value. The path must match the secret's actual target.
 
-```shell
-docker network create \
-  --driver overlay \
-  --subnet 10.40.0.0/24 \
-  app-net
-```
+For an existing MySQL data directory, changing an initialisation variable or its secret does not automatically change the password stored in the database. Secret distribution and database credential management require coordination.
 
-Docker recommends `/24` blocks for overlay networks using the default virtual IP endpoint mode. A design requiring more endpoints should use multiple overlay networks or consider DNS round-robin with an external load balancer rather than simply enlarging the subnet.
+Changing only the Swarm secret can therefore leave a service expecting one password while the database still recognises another. A credential rotation procedure needs to change the database account, update the applications that use it, and manage the order of those actions. The acceptable sequence depends on the database and its support for overlapping credentials or transitional access.
 
-The `--attachable` option allows manually started containers to join an overlay network. That flexibility expands the set of principals that can reach the services, so teams should enable it only when a concrete operational need exists.
+Database data also needs storage separate from the container's writable layer. An ordinary local Docker volume is tied to the node where its data resides. A volume with the same name on another node does not automatically contain the same database files. Rescheduling a task can therefore expose an empty or different volume unless the storage design accounts for it.
 
-```shell
-docker network create \
-  --driver overlay \
-  --attachable \
-  diagnostics-net
-```
+A placement constraint can keep a database service on a suitable storage node, but that choice affects availability when the node fails. Shared storage, replicated storage, or database replication can support other designs. Each approach has its own consistency, recovery, and operational requirements. Swarm scheduling alone does not supply a complete database availability strategy.
 
-### Service discovery
+## Changing and removing runtime objects
 
-Swarm registers each service name in its embedded DNS. By default, a lookup returns a virtual IP. The virtual IP remains stable for the service while Swarm load balances connections among healthy tasks. Clients therefore address `api` rather than discover individual container addresses.
+Secret and config contents are immutable. A changed value requires a new object, often named with a version or date. A service update replaces its reference while retaining a stable container path, such as `/run/secrets/db_pass`. Affected tasks receive the new specification through replacement.
 
-DNS round-robin mode returns task addresses instead of a virtual IP:
+Swarm refuses to remove a secret while a service still references it. The reference must first be removed or replaced through a service update, or the service itself must be removed. Deleting the entire application is therefore not a general prerequisite for rotating a secret.
 
-```shell
-docker service create \
-  --name search \
-  --network app-net \
-  --endpoint-mode dnsrr \
-  --replicas 3 \
-  registry.example.net/search:2.1.0
-```
+Old objects can be deleted once services no longer reference them and recovery needs have been considered. Versioned names help identify active and obsolete values. Configs follow the same replacement pattern for non-confidential content.
 
-`dnsrr` suits an external or application-aware load balancer that needs backend addresses. The client must respect DNS changes and failed-task removal. Cached addresses, long DNS time-to-live behaviour, and connection pools can delay failover. DNS round-robin also has compatibility limits with the ingress routing mesh, so the publishing design needs validation.
-
-Service load balancing works at the connection level. One long-lived TCP connection remains associated with one backend. A browser or proxy using keep-alive may therefore send many requests to one task even when fresh connections distribute across tasks. Uneven request counts do not by themselves prove that the scheduler placed replicas incorrectly.
-
-### Published ports and the routing mesh
-
-Ingress publishing exposes a service port on every swarm node. A request can arrive at a node that runs no task for the service. The routing mesh forwards that connection to an available task through the ingress network.
-
-```shell
-docker service create \
-  --name web \
-  --publish published=8080,target=80,mode=ingress \
-  --replicas 3 \
-  nginx:1.27.5
-```
-
-An external load balancer can target all suitable node addresses on port 8080. Because every node accepts the published port in ingress mode, the load balancer does not need task-level discovery. Health checks should still remove failed nodes and account for maintenance states.
-
-Host publishing bypasses the routing mesh:
-
-```shell
-docker service create \
-  --name edge \
-  --mode global \
-  --publish published=8443,target=8443,mode=host \
-  registry.example.net/edge:5.2.0
-```
-
-In host mode, only a node with a task listens through that published mapping. An external load balancer must know which nodes run tasks. A fixed published port can conflict if multiple tasks of the same service land on one node, so global mode or a one-replica-per-node rule often accompanies host publishing.
-
-Ingress mode adds a network hop in some request paths and hides direct task placement from clients. Host mode can improve path control and preserve source characteristics in some designs, but it transfers more service-discovery work to the external load balancer. The choice should follow measured requirements for latency, observability, topology, and failure handling.
-
-### Overlay encryption
-
-Swarm encrypts control-plane communication, but overlay application data remains unencrypted by default. A user-defined overlay can enable IPsec encryption:
-
-```shell
-docker network create \
-  --driver overlay \
-  --opt encrypted \
-  secure-app-net
-```
-
-Encrypted overlays impose a performance cost. Operators should benchmark representative throughput, latency, CPU use, and packet size before adoption. All hosts must permit IP protocol 50 and use kernels that support the required encryption path. Encryption protects packets between nodes. It does not replace TLS between applications when end-to-end identity, termination control, or traffic inspection requires it.
-
-### Troubleshooting connectivity
-
-Network diagnosis should move from declarations to paths. The operator can confirm the service's network attachments, task placement, node readiness, published-port mode, and DNS response before capturing packets or changing firewall rules.
-
-Useful commands include:
-
-```shell
-docker network inspect app-net
-docker service inspect --pretty web
-docker service ps --no-trunc web
-docker node ls
-```
-
-A short-lived diagnostic service or authorised container on the same network can test DNS, ports, routes, and application responses. Operators should control diagnostic images and remove them after use. Attaching an arbitrary troubleshooting container to a sensitive overlay can bypass intended segmentation.
-
-Common causes include blocked 7946 or 4789 traffic, an incorrect advertised address, an MTU mismatch, stale external load-balancer targets, missing network attachment, port-mode assumptions, and an application bound only to loopback inside its container. A connection test should distinguish DNS resolution, TCP establishment, TLS negotiation, and application response rather than describe every failure as a network fault.
-
-## Updates, rollbacks, and observability
-
-### Design updates before deployment
-
-A service update should define acceptable concurrency, delay, failure thresholds, monitoring time, order, and rollback behaviour before an incident. The stack format expresses these controls under `deploy.update_config` and `deploy.rollback_config`. Command-line flags provide equivalent controls for directly managed services.
-
-Small update groups limit the blast radius but prolong a rollout. Large groups finish quickly but can remove too much capacity at once. `start-first` may preserve capacity but needs temporary headroom. `stop-first` uses less peak capacity but can reduce availability. A database migration can make rollback unsafe even when Swarm can restore the former container image, so schema changes need a compatible application strategy.
-
-A successful scheduler rollout does not prove a successful release. Health checks can confirm local process behaviour, but only service-level telemetry can confirm request success, latency, queue depth, data correctness, and user outcomes. Deployment automation should observe both Swarm state and application indicators.
-
-If an update pauses, the operator should inspect failed tasks before resuming or rolling back:
-
-```shell
-docker service ps --no-trunc api
-docker service inspect --pretty api
-docker service logs --since 15m api
-docker service rollback api
-```
-
-Rollback restores only the previous service specification. It cannot reverse external side effects, data migrations, messages, or configuration changes outside that specification.
-
-### Logs
-
-`docker service logs` aggregates output from the tasks of a service or shows output for one task. Docker supports this command only for services using the `json-file` or `journald` logging driver.
-
-```shell
-docker service logs \
-  --since 30m \
-  --timestamps \
-  --follow \
-  api
-```
-
-Local container logs are not a durable cluster-wide observability system. Node loss can remove them, unlimited files can exhaust disk, and task replacement separates related output across containers. Docker's default `json-file` driver does not rotate logs unless configured. The `local` driver rotates by default and uses a more space-efficient format, but `docker service logs` does not support it. Production systems often forward structured logs to a central destination and set local retention limits.
-
-Applications should write operational output to standard output and standard error, add timestamps or rely on the collector's timestamps consistently, include correlation identifiers, and avoid secrets. Logging volume needs limits because an outage can multiply output across replicas.
-
-### Events and metrics
-
-`docker events` streams daemon and Swarm events and can filter by object type, event, label, or time. Local events appear only on the node where they occur, while Swarm-scoped events appear on managers. The daemon returns only the last 256 stored events, so the command cannot serve as a long-term audit log.
-
-```shell
-docker events \
-  --filter type=service \
-  --filter type=task \
-  --since 30m
-```
-
-An external monitoring system should collect host metrics, daemon health, node availability, task state, restart rates, resource saturation, network errors, storage capacity, certificate status, and application indicators. Alerts should identify an actionable condition rather than echo every task transition. A replaced task may show normal reconciliation, while a rising replacement rate may reveal a systemic fault.
-
-Dashboards should expose desired versus running replicas, pending tasks, manager quorum, update progress, and capacity by failure domain. An educational visualiser can display placement, but production observability needs authentication, retention, alerting, and no direct exposure of the Docker socket.
-
-## One-off and distributed jobs
-
-Jobs run tasks that complete and exit successfully instead of remaining active. A replicated job executes a total number of iterations. A global job executes once on each eligible node and also runs on a qualifying node that joins later.
-
-```shell
-docker service create \
-  --name thumbnail-backfill \
-  --mode replicated-job \
-  --replicas 100 \
-  --max-concurrent 5 \
-  registry.example.net/tools/thumbs:1.6.0
-```
-
-The example creates 100 successful iterations and allows at most five to run concurrently. The service CLI exposes `--max-concurrent`, but the Compose deploy specification does not. A stack file can still define `replicated-job` and `global-job` modes. Current support supersedes guidance that excludes jobs from stack declarations.
-
-A task that exits with code zero reaches `COMPLETE` and does not restart. A failure can restart according to the job's restart policy. Completed tasks remain recorded until the job is explicitly removed, which preserves status but can increase task history.
-
-Updating a job stops tasks still in progress, creates a new set of tasks, and resets completion status. Jobs do not use rolling update or rollback policies. A force update runs the job again with the same main parameters.
-
-Job containers should remain idempotent because retries, operator actions, or partial failures can repeat work. Each unit should claim work safely, record completion outside the container, tolerate duplicate execution, and expose clear exit codes. Results must live in an external data store or durable volume because the completed container is not a reliable result archive.
-
-A global job can perform node-local maintenance, inspection, or cache preparation. Its placement constraints should exclude managers or specialised hosts when the command does not belong there. A destructive maintenance job needs especially strict review because one declaration can execute across the cluster.
-
-Distributed benchmarks require careful interpretation. More replicas do not guarantee proportional throughput. Shared databases, locks, network links, registry limits, client generators, warm-up periods, connection reuse, and CPU contention can dominate results. A useful benchmark fixes the workload, records uncertainty, monitors every shared component, and repeats trials under representative conditions.
-
-## Configs and secrets
-
-### Swarm configs
-
-A config stores non-sensitive operational content in Swarm and mounts it into authorised service tasks as a file. Configs suit proxy files, feature settings, templates, and other data that should travel with the service declaration.
-
-```shell
-docker config create web-nginx.conf ./nginx.conf
-docker service create \
-  --name web \
-  --config source=web-nginx.conf,target=/etc/nginx/nginx.conf \
-  nginx:1.27.5
-```
-
-Swarm stores configs in the encrypted Raft log, but a config is not a secret. Administrators and processes with suitable access can inspect it. Passwords, private keys, tokens, and similar credentials belong in secrets or an external secret system.
-
-Configs are immutable. Updating a local file does not change the existing Swarm object. Rotation creates a new config, updates the service to use it, verifies the rollout, and removes the old config after no service references it. Versioned names such as `web-nginx-2026-08-01` make that sequence explicit.
-
-### Swarm secrets
-
-A Swarm secret stores sensitive data and grants it only to selected services. Swarm encrypts secrets in transit and stores them in the encrypted Raft log. On a Linux task, Docker mounts an authorised secret into an in-memory filesystem under `/run/secrets` by default. The secret is not inserted into the image or a normal environment variable.
-
-```shell
-printf 'value supplied through a protected process' | docker secret create db-password -
-docker service create \
-  --name database \
-  --secret db-password \
-  registry.example.net/database:8.4
-```
-
-Real secret creation should avoid shell history, terminal recording, process arguments, build logs, and casual standard output. A secure automation path can send data from an authorised secret source directly to Docker without writing an unprotected temporary file.
-
-On Windows, Docker cannot mount secrets through a RAM disk. A running Windows container receives secrets in clear text on its root disk, and Docker removes them when the container stops. Docker recommends BitLocker on the volume containing the Docker root directory to protect those files at rest.
-
-Secret access follows service authorisation. A task receives only the secrets attached to its service. Removing a secret grant and updating the service replaces tasks so the old mount disappears. A service process still needs least privilege because any process that can read the mounted path can disclose its contents.
-
-Secrets are immutable. Rotation creates a new version, grants it to the service, updates the application to use it, confirms success, removes the old grant, and later deletes the unused secret.
-
-```shell
-docker secret create db-password-v2 ./protected-input
-docker service update \
-  --secret-add source=db-password-v2,target=db-password \
-  --secret-rm db-password-v1 \
-  database
-docker secret rm db-password-v1
-```
-
-The target name can keep the path stable while the source object changes. Rotation must respect the dependency's acceptance window. A database may need to accept both credentials briefly, while a certificate rollout may need a trust bundle that recognises both issuers.
-
-Some images support environment variables ending in `_FILE`, such as `MYSQL_ROOT_PASSWORD_FILE`, and read the value from the referenced secret file. This convention belongs to each image, not to Docker as a universal feature. The image documentation must confirm support and exact variable names.
-
-An external secret manager may provide stronger central auditing, dynamic credentials, policy integration, or automated rotation. Swarm secrets still offer useful distribution within the cluster. The choice should follow threat modelling, compliance needs, recovery design, and operational capability.
-
-## Failure handling and maintenance
-
-### Node and zone loss
-
-The response to node loss starts with the failure domain. One failed worker should trigger replacement tasks on eligible nodes. Several simultaneous failures may expose a shared switch, zone, storage array, or capacity assumption. Managers should remain reachable across the surviving infrastructure, and replacement nodes should have access to the same registries, networks, secrets, and durable data.
-
-Swarm cannot distinguish a permanently failed node from a temporary network partition immediately. Scheduling replacements preserves desired capacity, but a partitioned application task may continue to affect an external system until the host or network isolates it. Stateful services need fencing, leases, leader election, or database controls that prevent two writers from acting independently.
-
-After a worker returns, the scheduler can use it for new tasks, but services do not automatically return to their earlier distribution. A force update can rebalance a service, although it replaces healthy tasks and should follow capacity and disruption checks. Placement preferences guide later scheduling but do not continuously rebalance every existing task.
-
-### Planned maintenance
-
-Host maintenance should proceed one node at a time unless the cluster has verified capacity for a wider change. The operator drains the node, watches replacement tasks reach a healthy state, performs the host work, validates Docker and networking, and returns the node to active availability. Manager maintenance also checks quorum before and after every restart.
-
-Draining a node does not guarantee graceful application behaviour. The service's stop grace period, update order, readiness, and load-balancer response determine whether clients see interruption. A maintenance runbook should include application checks, not only a `Ready` node state.
-
-Engine upgrades should use versions supported by the organisation and tested with stack files, network drivers, logging drivers, volume plugins, and security tooling. Managers should upgrade in a sequence that retains quorum. Workers can normally change in broader groups only when service capacity and failure-domain distribution remain adequate.
-
-### Incident containment
-
-A compromised worker may expose the tasks, mounted secrets, local volumes, network access, and daemon credentials present on that host. Containment can remove the node from load balancers, isolate its network, drain it when management remains trustworthy, and remove it from the swarm. The response then rotates affected application credentials and verifies images, configs, and external systems.
-
-A compromised manager has wider impact because managers hold cluster state and can change services, distribute secrets, add nodes, and control workloads. Response planning should assume cluster-wide administrative exposure. Depending on evidence and policy, recovery may require new manager infrastructure, rotated join tokens and credentials, a new certificate authority, rebuilt workloads, and restoration of validated declarations and data.
-
-Incident actions should preserve evidence where legal and operational requirements permit. Rebuilding too early can erase daemon logs, task records, filesystem artefacts, and network state. Evidence preservation must remain compatible with containment, especially when an active host can continue harming external systems.
-
-### Capacity exhaustion
-
-Swarm reports desired state even when it cannot achieve it. Pending tasks, node disk pressure, image-pull failures, memory termination, and saturated overlay links need alerts before redundancy disappears. Capacity planning should reserve headroom for a node or zone failure, rolling `start-first` updates, and short demand spikes.
-
-Disk planning includes image layers, container writable layers, logs, volumes, Raft data, and temporary pull space. Automatic image cleanup needs safeguards so it cannot remove required data or compete with deployments. Log rotation and central forwarding reduce one common source of exhaustion.
-
-Load testing should include degraded modes. A cluster that handles normal traffic across six workers may fail its service objective when one worker drains and two replacement tasks start while images pull. Testing that sequence reveals cold-start time, registry demand, scheduler constraints, and downstream limits before a real outage.
-
-## Production operating model
-
-A production swarm needs deliberate ownership across infrastructure, application delivery, and incident response. The following baseline condenses the most important controls:
-
-- Run three or five managers across independent failure domains, and keep enough healthy managers for quorum.
-- Drain dedicated managers, unless a consciously designed small cluster needs them to run application tasks.
-- Restrict Swarm ports to trusted networks, protect Docker daemon access, rotate exposed join tokens, and manage autolock keys securely.
-- Patch Docker Engine and host operating systems through a staged process that preserves quorum and service capacity.
-- Build and test images before deployment, identify them with controlled tags or digests, scan them, and protect registry credentials.
-- Declare resource reservations, limits, placement rules, health checks, restart policies, update controls, and rollback behaviour.
-- Use separate overlay networks for required communication paths, encrypt overlay data when risk requires it, and test the performance cost.
-- Centralise logs and metrics, bound local log growth, alert on quorum and reconciliation failures, and retain audit evidence outside the daemon event buffer.
-- Place durable data on storage that survives task rescheduling, and test application backups independently of Swarm backups.
-- Rotate configs and secrets through versioned objects, avoid credential exposure in logs or images, and remove obsolete grants.
-- Back up manager state consistently, protect the archive and unlock material, and rehearse loss-of-quorum recovery.
-- Test node loss, manager loss, registry failure, network partitions, failed updates, capacity exhaustion, and restoration before relying on the design.
-
-Swarm's main strength is its compact desired-state model. Services define ongoing workloads, jobs define finite work, stacks group application resources, overlay networks connect tasks, and managers reconcile declarations through Raft consensus. That model produces resilience only when declarations reflect real capacity, storage, health, security, and recovery requirements.
-
-An effective deployment treats containers as replaceable while preserving state in durable systems. It treats manager quorum as a hard dependency, not a background detail. It also treats operational feedback as part of deployment, so an update completes only after both Swarm and the application demonstrate health.
+Cleanup depends on resource ownership. A stack can create resources while referring to externally managed ones whose lifecycle continues separately. Removing the stack needs to be followed by inspection of what should remain or be removed. Persistent data requires explicit storage and retention decisions, including whether it remains accessible after a node fails.
