@@ -86,7 +86,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 
 #### Business Analysis
 
-- Business Analysis, 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4))
+- :construction: :notebook: [Business Analysis](books/BA/README.md), 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4))
 - Business Analysis Techniques, 3rd edition, by James Cadle, Debra Paul, Jonathan Hunsley, Adrian Reed, David Beckham, and Paul Turner. ([catalogue](https://shop.bcs.org/page/detail/business-analysis-techniques/?SF1=work_exact&ST1=BUSINESSANALYSISTECHNIQUES3))
 - Agile and Business Analysis, by Lynda Girvan and Debra Paul. ([catalogue](https://shop.bcs.org/page/detail/?k=9781780176178))
 - Developing Information Systems, by James Cadle, Tahir Ahmed, Julian Cox, Lynda Girvan, Alan Paul, Debra Paul, and Peter Thompson. ([catalogue](https://shop.bcs.org/page/detail/developing-information-systems/?SF1=work_exact&ST1=DEVELOPINGINFORMATIONSYSTEMS))
