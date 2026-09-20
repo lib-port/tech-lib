@@ -31,6 +31,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 ### Book Notes
 
 - UNIX and Linux System Administration Handbook, 5th edition, by Evi Nemeth, Garth Snyder, Trent R. Hein, Ben Whaley, and Dan Mackin. ([catalogue](https://www.admin.com/))
+- Security Engineering, 3rd edition, by Ross J. Anderson. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/security-engineering-a-guide-to-building-dependable-distributed-systems-3rd-edition-p-9781119642787))
 - Linux Observability with BPF, by David Calavera and Lorenzo Fontana. ([catalogue](https://www.oreilly.com/library/view/linux-observability-with/9781492050193/))
 - Systems Performance: Enterprise and the Cloud, 2nd edition, by Brendan Gregg. ([catalogue](https://www.brendangregg.com/systems-performance-2nd-edition-book.html))
 - BPF Performance Tools: Linux System and Application Observability, by Brendan Gregg. ([catalogue](https://www.brendangregg.com/bpf-performance-tools-book.html))
@@ -90,6 +91,8 @@ Notes and projects covering software engineering, business analysis, systems eng
 - Business Analysis Techniques, 3rd edition, by James Cadle, Debra Paul, Jonathan Hunsley, Adrian Reed, David Beckham, and Paul Turner. ([catalogue](https://shop.bcs.org/page/detail/business-analysis-techniques/?SF1=work_exact&ST1=BUSINESSANALYSISTECHNIQUES3))
 - Agile and Business Analysis, by Lynda Girvan and Debra Paul. ([catalogue](https://shop.bcs.org/page/detail/?k=9781780176178))
 - Developing Information Systems, by James Cadle, Tahir Ahmed, Julian Cox, Lynda Girvan, Alan Paul, Debra Paul, and Peter Thompson. ([catalogue](https://shop.bcs.org/page/detail/developing-information-systems/?SF1=work_exact&ST1=DEVELOPINGINFORMATIONSYSTEMS))
+- Threat Modeling: Designing for Security, by Adam Shostack. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/threat-modeling-designing-for-security-p-9781118809990))
+- Liars and Outliers, 2nd edition, by Bruce Schneier. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/liars-and-outliers-enabling-the-trust-that-society-needs-to-thrive-2nd-edition-p-9781394375288))
 #### Systems Engineering
 
 - Thinking in Systems, by Donella Meadows. ([catalogue](https://www.chelseagreen.com/product/thinking-in-systems/))
@@ -100,6 +103,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 - Soft Systems Methodology in Action, by Peter Checkland andJim Scholes . ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-business-management/soft-systems-methodology-in-action-p-9780471986058#description-section))
 - Systems Engineering Principles and Practise, by Alexander Kossiakoff, Samuel J. Seymour, David A. Flanigan, and Steven M. Biemer. ([catalogue](https://onlinelibrary.wiley.com/doi/book/10.1002/9781119516699))
 - Designing Distributed Systems, 2nd Edition, by Brendan Burns. ([catalogue](https://www.oreilly.com/library/view/designing-distributed-systems/9781098156343/))
+- Trust in Computer Systems and the Cloud, by Mike Bursell. ([catalogue](https://www.wiley.com/en-us/trust-in-computer-systems-and-the-cloud-p-9781119695158))
 - Foundations of Scalable Systems, by Ian Gorton. ([catalogue](https://www.oreilly.com/library/view/foundations-of-scalable/9781098106058/))
 #### Systems Architecture
 

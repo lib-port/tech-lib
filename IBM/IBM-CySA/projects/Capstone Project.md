@@ -57,8 +57,6 @@ Legacy and test environments must be treated as production attack surface whenev
 
 The incident combined a basic control failure with sophisticated cloud-permission abuse. Its importance extends beyond the mailboxes accessed. Compromise at a dominant technology provider can expose customers through secrets and trusted relationships. Microsoft's communication and SFI reforms were constructive, but the preventable legacy gap and delayed detection remain significant failures. Organisations should apply controls uniformly, retire legacy assets, monitor application identities, and measure recovery with positive evidence rather than lack of alerts.
 
-## References
-
 [^1]: Microsoft Corporation, [Form 8-K: Material Cybersecurity Incidents](https://www.sec.gov/Archives/edgar/data/789019/000119312524011295/d708866d8k.htm), 19 January 2024.
 
 [^2]: Microsoft Security Response Center, [Microsoft Actions Following Attack by Nation State Actor Midnight Blizzard](https://www.microsoft.com/en-us/msrc/blog/2024/01/microsoft-actions-following-attack-by-nation-state-actor-midnight-blizzard), 19 January 2024.

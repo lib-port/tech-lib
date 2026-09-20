@@ -9,6 +9,14 @@ The site reads them directly; there is no duplicated documentation tree.
 Use Git, the latest Node.js LTS, and npm. With nvm, run `nvm install` and `nvm use`
 in this directory. Node.js 24 or newer is required.
 
+For a quick live preview using already installed dependencies, run `./preview.sh`
+from the repository root. It opens <http://localhost:3000/tech-lib/> in your browser
+and reflects edits while the server runs. Press Ctrl+C to stop it. Pass Docusaurus
+start options through the script, for example `./preview.sh --port 3001` or
+`./preview.sh --poll` if file changes are not detected. The script does not
+install or update dependencies. On a fresh checkout, run `npm start` below once
+to install them, then stop that server before using `./preview.sh`.
+
 Run these commands from `docusaurus/`:
 
 ```sh
@@ -25,7 +33,7 @@ rebuilding it. The local site uses the same `/tech-lib/` base path as GitHub Pag
 
 ## Dependency updates
 
-Every build and development startup queries npm for each declared dependency's
+Every `npm start` and `npm run build` queries npm for each declared dependency's
 current `latest` release, including new major versions. The bootstrap installs
 those exact versions, checks official Docusaurus packages are aligned, verifies
 peer dependencies and Node engine requirements, and logs installed versions.
@@ -65,7 +73,7 @@ Faster optimizations. Recheck this exception when upgrading Docusaurus.
 Repeated local builds reuse Rspack's persistent cache in `node_modules/.cache`.
 GitHub Actions caches npm downloads only, so each CI run starts with a cold
 compiler cache. Dependency resolution, installation, and verification still run
-on every build and development startup; their time is separate from compilation.
+on every `npm start` and `npm run build`; their time is separate from compilation.
 `@docusaurus/faster` follows the same latest-release and version-alignment checks
 as the other official Docusaurus packages.
 
