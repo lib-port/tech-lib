@@ -1,8 +1,5 @@
 # Creating Shell Scripts
 
-> [!NOTE]
-> How to build reliable, secure, and maintainable Bash scripts on RHEL using command-line testing, validation, exit statuses, arguments, loops, functions, and safe input handling.
-
 Shell scripts turn repeated command-line work into reusable procedures. A script can create accounts, inspect system state, process files, and apply the same checks each time it runs. This consistency reduces manual effort, but automation also repeats mistakes quickly. Administrators should therefore develop scripts on a test system, validate every assumption, and check each command that can fail.
 
 Bash uses the same language for interactive commands and scripts, including commands, variables, expansions, redirections, tests, loops, and functions. Interactive Bash adds facilities such as command history, job control, and line editing that a non-interactive script may not provide. A script should not depend on those interactive facilities.

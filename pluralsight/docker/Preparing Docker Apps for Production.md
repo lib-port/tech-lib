@@ -1,8 +1,5 @@
 # Preparing Docker Applications for Production
 
-> [!NOTE]
-> This guide explains how to make containerized applications production-ready through portable images, runtime configuration, secure secrets, centralized logging, meaningful health checks, resilient routing, and explicit deployment models.
-
 A container image packages an application and its runtime dependencies. Production operation also depends on how the application receives configuration, records events, reports its condition, and accepts network traffic. These interfaces allow a container platform to manage applications consistently, even when their components use different programming languages.
 
 Starting a container establishes that its main process can run. It does not establish that the application can perform useful work. A web server can remain running while returning errors, useful logs can remain hidden in private files, and configuration embedded in an image can prevent the same release from working in another environment.

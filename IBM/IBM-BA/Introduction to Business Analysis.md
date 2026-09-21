@@ -1,8 +1,5 @@
 # Introduction to Business Analysis
 
-> [!NOTE]
-> Explains how business analysis turns organisational needs into measurable change by aligning stakeholders, defining and prioritising requirements, evaluating solutions, managing risk and traceability, and assessing outcomes.
-
 ## Business analysis fundamentals
 
 ### Purpose and responsibilities

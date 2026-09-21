@@ -1,8 +1,5 @@
 # Data Visualization and Dashboards with Excel and Cognos
 
-> [!NOTE]
-> Explains how to create clear, interactive charts and decision-focused dashboards in Excel and IBM Cognos Analytics using appropriate visualisations, filters, calculations and drill-down tools.
-
 ## Visualising Data Using Spreadsheets
 
 Charts convert a worksheet full of figures into a clear message. A dependable workflow starts by defining the comparison, narrowing the data to the relevant records, then choosing a chart type that matches the story the data can support.

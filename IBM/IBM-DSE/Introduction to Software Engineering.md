@@ -1,8 +1,5 @@
 # Introduction to Software Engineering
 
-> [!NOTE]
-> A comprehensive primer on software engineering, covering the development lifecycle, programming and web fundamentals, architecture, delivery practices, career pathways, collaboration, inclusion, and professional ethics.
-
 ## The Software Development Lifecycle
 
 ### Scope and origins

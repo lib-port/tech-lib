@@ -1,8 +1,5 @@
 # Generative AI: Boost Your Cybersecurity Career
 
-> [!NOTE]
-> Generative AI can strengthen cybersecurity operations by helping analysts interpret evidence, create queries and reports, and draft response material. It does not replace specialised detection systems, authoritative data, or accountable human judgement.
-
 ## Generative AI in Cybersecurity
 
 ### Conventional AI and generative AI

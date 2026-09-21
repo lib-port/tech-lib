@@ -1,8 +1,5 @@
 # Incident Response and Digital Forensics
 
-> [!NOTE]
-> Organisations use incident response to prepare for, detect, contain, investigate, and recover from cyber incidents. Digital forensics supports that work by preserving, examining, and interpreting digital evidence through controlled and documented methods.
-
 ## Incident response
 
 Incident response coordinates the people, processes, and technology that manage cybersecurity incidents. It addresses events such as unauthorised access, malicious code, phishing, ransomware, data breaches, service disruption, and misuse by trusted users. Effective response limits operational, financial, legal, safety, and reputational harm while restoring secure services.

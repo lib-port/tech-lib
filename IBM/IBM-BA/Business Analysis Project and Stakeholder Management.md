@@ -1,8 +1,5 @@
 # Business Analysis: Project and Stakeholder Management
 
-> [!NOTE]
-> A comprehensive guide to business analysis and project management, covering stakeholder engagement, delivery methods, planning, communication, risk management, execution, and practical tools for achieving successful project outcomes.>
-
 ## Introduction to Project Management in Business Projects
 
 Business analysis enables organisational change by defining needs and recommending solutions that deliver value to stakeholders within a specific context. Project management coordinates the work required to deliver those solutions within agreed constraints. Together, the disciplines connect business goals, stakeholder expectations and practical delivery.

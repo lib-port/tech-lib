@@ -1,8 +1,5 @@
 # Linux Administration with Ansible: Advanced Ansible Automation
 
-> [!NOTE]
-> Explains how advanced Ansible practices (including templating, roles, collections, Vault, execution controls, and network resource modules) enable safer, scalable, reusable, and data-driven automation.
-
 Red Hat Enterprise Linux 10 includes Python 3.12 and the `ansible-core` 2.16 Application Stream. Installing `rhel-system-roles` on a RHEL 10 control node also installs `ansible-core` as a dependency. The packaged engine supports Red Hat automation content, especially RHEL System Roles. Organisations that require broader vendor support, managed execution environments, centralised credentials, or controller services should use Red Hat Ansible Automation Platform.
 
 A RHEL 10 control node needs an inventory, SSH access to managed nodes, and an account that can use `sudo` for privileged work. Under the RHEL support scope, the RHEL 10 control node and its System Roles manage RHEL 9 and RHEL 10 nodes. Mixed estates should confirm controller, target Python, collection, and product support before selecting an execution environment.

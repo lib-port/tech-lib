@@ -1,8 +1,5 @@
 # Managing Users and Groups
 
-> [!NOTE]
-> A practical guide to securely managing RHEL users, groups, passwords, account lifecycles, and delegated privileges through accurate identity inspection and least-privilege administration.
-
 Red Hat Enterprise Linux 8 controls access through user identities, group identities, authentication data, file permissions, and delegated administrative privileges. Sound administration keeps local identity records consistent, applies account policy deliberately, and grants each person or service only the access it requires.
 
 ## Identity databases and lookups

@@ -1,8 +1,5 @@
 # CKA Advanced Cluster Configuration Cluster Architecture, Installation, and Configuration
 
-> [!NOTE]
-> This guide covers advanced Kubernetes administration, including least-privilege RBAC, reusable deployments, extension interfaces and operators, highly available control planes, and secure `etcd` backup and recovery.
-
 Advanced cluster configuration combines strict authorisation, reusable deployment methods, stable extension interfaces, resilient control-plane design, and tested recovery procedures. Each layer requires explicit scope, controlled credentials, and operational verification.
 
 ## Role-based access control

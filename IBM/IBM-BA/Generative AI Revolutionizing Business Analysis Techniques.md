@@ -1,8 +1,5 @@
 # Generative AI in Business Analysis
 
-> [!NOTE]
-> Explains how business analysts can use generative AI to accelerate requirements, process modelling, data analysis and stakeholder communication while maintaining human oversight, traceability, privacy and accountable governance.
-
 Generative artificial intelligence can help business analysts organise information, draft artefacts, explore alternatives and tailor communications. It does not establish facts, approve requirements or replace stakeholder judgement. Analysts remain accountable for the accuracy, relevance, security and lawful use of every output.
 
 ## Capabilities and limits

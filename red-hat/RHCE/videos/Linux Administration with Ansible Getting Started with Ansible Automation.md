@@ -1,8 +1,5 @@
 # Linux Administration with Ansible: Getting Started with Ansible Automation
 
-> [!NOTE]
-> Introduction on Ansible automation through a repeatable multi-platform lab, explaining how controllers, inventories, variables, modules, SSH, privilege escalation, and playbooks enable consistent, idempotent Linux administration.
-
 Ansible automates Linux configuration from a control node. It connects to managed nodes, usually through OpenSSH, runs modules that inspect or change state, and returns structured results. Managed nodes do not run an Ansible agent, and they do not need the Ansible package. Most POSIX modules need a usable Python interpreter and an account with an interactive shell.
 
 Red Hat Enterprise Linux 10 provides Python 3.12 as its default Python implementation and `ansible-core` 2.16 as an Application Stream. The core package supplies the command-line tools, execution engine, and `ansible.builtin` collection. Additional collections provide modules, plugins, and roles for particular platforms or products.

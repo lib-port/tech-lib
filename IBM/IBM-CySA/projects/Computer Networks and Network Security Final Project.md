@@ -3,8 +3,6 @@
 In the final project, you will apply the core networking and security concepts learned throughout the course. Working as a Network Technician for TechSafe Ltd., you will design, analyze, and secure a real-world organizational network through a series of hands-on tasks.
 
 TechSafe, Ltd. has hired you to design and secure its network. The company uses a fixed IP address from its Internet service provider (ISP) and wants a structured network with compatible IP addressing, subnetting, and security configurations.
-> [!NOTE]
-> Command-line tools replaced GUI tools in this project, as command-line tools offer more stable interfaces and often expose more detailed OS or application APIs.
 
 ---
 

@@ -1,8 +1,5 @@
 # Managing Security
 
-> [!NOTE]
-> A layered approach to securing RHEL systems through SSH key authentication, precise ACL permissions, SELinux enforcement, persistent policy configuration, and disciplined audit-led troubleshooting.
-
 RHEL 8 protects systems through several complementary controls. OpenSSH authenticates remote hosts and users. POSIX access control lists extend conventional owner, group, and other permissions. SELinux applies mandatory access control after ordinary discretionary checks. Each control addresses a different risk, so one control does not replace another.
 
 Secure administration requires more than enabling features. Administrators must verify host identities, protect private keys, calculate effective ACL permissions, keep SELinux enforcing, and test every configuration change. They should also retain a recovery path before changing authentication or policy settings.

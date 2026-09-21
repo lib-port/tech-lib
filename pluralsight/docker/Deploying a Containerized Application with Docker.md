@@ -1,8 +1,5 @@
 # Deploying a Containerized Application with Docker
 
-> [!NOTE]
-> This guide explains how to build, run, share, update, configure, troubleshoot, and monitor a containerized Python application using Docker.
-
 Docker packages application code, dependencies, and startup configuration into images. Containers run from these images, with settings such as network mappings and environment variables supplied at creation. Deployment combines preparing a working application, building and distributing an image, and managing the resulting containers.
 
 ### Preparing the Python application

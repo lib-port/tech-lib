@@ -1,8 +1,5 @@
 # Cybersecurity Job Search, Resume, and Interview Preparation
 
-> [!NOTE]
-> Strong preparation helps aspiring cybersecurity professionals choose a career direction, develop relevant capabilities, prepare effective applications, perform well in interviews, and assess job offers.
-
 ## Preparing for a Cybersecurity Career
 
 Cybersecurity professionals protect information, systems, and services by reducing risk and strengthening an organisation's ability to prevent, detect, respond to, and recover from cyber incidents. Their work supports the confidentiality, integrity, and availability of information and systems. Effective practitioners keep their knowledge current as threats, technologies, standards, and operating practices change.

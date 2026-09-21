@@ -1,8 +1,5 @@
 # YAML Essentials
 
-> [!NOTE]
->YAML is a human-readable data-serialisation language that uses mappings, sequences, scalars, and indentation to represent portable structured data for configuration, automation, and exchange.
-
 ## Purpose and design
 
 YAML is a Unicode-based data serialisation language for representing structured data. Its recursive name means "YAML Ain't Markup Language". Clark Evans, Ingy dot Net, and Oren Ben-Kiki designed it around data structures common to dynamic programming languages such as JavaScript, Perl, PHP, Python, and Ruby.

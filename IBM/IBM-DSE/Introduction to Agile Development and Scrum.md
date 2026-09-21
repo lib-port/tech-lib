@@ -1,8 +1,5 @@
 # Introduction to Agile Development and Scrum
 
-> [!NOTE]
-> This guide explains how Agile and Scrum help cross-functional teams deliver value amid uncertainty through rapid feedback, adaptive planning, disciplined engineering, transparent workflows, and continuous improvement.
-
 ## Introduction to Agile and Scrum
 
 ### Agile philosophy

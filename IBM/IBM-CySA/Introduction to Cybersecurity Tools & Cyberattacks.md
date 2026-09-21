@@ -1,8 +1,5 @@
 # Introduction to Cybersecurity Tools and Cyberattacks
 
-> [!NOTE]
-> Effective cyber security combines sound judgement, threat awareness, vulnerability management, incident response, identity controls, and physical safeguards. No single control can protect an organisation from every attack.
-
 ## Security Context and Analytical Judgement
 
 ### Lessons from major events

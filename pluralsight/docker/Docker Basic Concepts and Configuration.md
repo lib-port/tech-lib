@@ -1,8 +1,5 @@
 # Docker Basic Concepts and Configuration
 
-> [!NOTE]
-> This guide introduces Docker’s core architecture, installation, image-building, container operations, networking, storage, security, and orchestration options.
-
 Docker packages applications and their dependencies into images, which provide templates for containers. A container combines an image with runtime settings and a writable filesystem layer. It can be running or stopped.
 
 Linux containers share a Linux kernel, which can reduce overhead compared with virtual machines that each run an operating system. Namespaces isolate processes and networking, while control groups account for resource use and enforce configured limits. Isolation is not absolute. Vulnerabilities and excessive privileges can weaken it.

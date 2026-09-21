@@ -1,8 +1,5 @@
 # Getting Started with Docker Swarm
 
-> [!NOTE]
-> This guide explains how Docker Swarm orchestrates scalable, resilient multi-host applications through clustered nodes, desired-state services, declarative stacks, overlay networking, secure configuration, and automated workload management.
-
 Docker Swarm mode coordinates container workloads across a group of Docker Engines. It adds cluster membership, service scheduling, networking, and reconciliation of desired state to Docker's packaging and command-line tools. Managers distribute suitable work and create replacements when the application specification requires them.
 
 Each container runs on a particular node and uses that node's resources. Compatible hardware, software, and application design determine whether additional replicas improve capacity, availability, or both.

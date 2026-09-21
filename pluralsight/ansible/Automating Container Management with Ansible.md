@@ -1,8 +1,5 @@
 # Automating Container Management with Ansible
 
-> [!NOTE]
-> Ansible streamlines secure, repeatable container operations across fleets by automating Docker installation and the management of images, containers, Compose applications, registries, networks, and persistent storage.
-
 Ansible can install Docker Engine, configure hosts, and manage images, containers, Compose applications, registries, networks, and volumes across a fleet. Playbooks describe the required state in repeatable YAML, while ad hoc commands support focused inspection and testing. Effective automation depends on idempotent tasks, controlled privileges, protected credentials, and versions that match the current Ansible and Docker documentation.
 
 ## Architecture and prerequisites

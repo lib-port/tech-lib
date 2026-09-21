@@ -1,8 +1,5 @@
 # Tactics and Tools for Troubleshooting Docker
 
-> [!NOTE]
-> This guide presents an evidence-first approach to diagnosing Docker failures across containers, images, builds, filesystems, registries, volumes, networking, and host environments while minimizing risky or destructive changes.
-
 Docker troubleshooting begins by identifying the failing operation: starting the platform, building an image, retrieving it from a registry, or running an application. Logs and inspection results help locate the failure before configuration changes or resource removal begin.
 
 In Docker, the daemon is the background service that manages images, containers, and other resources. An image packages application files and dependencies. A container adds runtime configuration and a writable filesystem layer. Docker Compose defines related services, networks, and storage. The host, build environment, and container have distinct paths, permissions, and network settings. Docker Desktop also uses a managed virtual machine for Linux containers on macOS and Windows, so daemon-reported paths may belong to that machine.

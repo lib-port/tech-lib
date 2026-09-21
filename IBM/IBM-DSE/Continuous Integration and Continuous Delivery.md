@@ -1,4 +1,5 @@
 # Continuous Integration and Continuous Delivery
+
 ## CI/CD and infrastructure as code
 
 CI/CD combines continuous integration with continuous delivery or deployment to make software changes easier to test and release. Infrastructure as code (IaC) automates provisioning and configuration of the resources applications need. Together, these practices support DevOps collaboration between development and operations teams.

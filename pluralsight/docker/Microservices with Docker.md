@@ -1,8 +1,5 @@
 # Microservices with Docker
 
-> [!NOTE]
-> This guide shows how to build, connect, scale, and deploy a containerized microservices application across Docker Compose, Docker Swarm, and Google Kubernetes Engine while addressing networking, storage, resilience, and monitoring.
-
 Microservices organise applications into independently deployable services aligned with business capabilities. Docker images package software and its dependencies, while containers run that software. Container separation alone does not establish a microservices architecture.
 
 A library catalogue can combine an ASP.NET Core API for application logic, a PostgreSQL database, and an NGINX web interface. Docker Compose runs these components together on one Docker host. Swarm distributes workloads across Docker hosts, while Kubernetes provides another orchestration platform, available through services such as Google Kubernetes Engine (GKE).

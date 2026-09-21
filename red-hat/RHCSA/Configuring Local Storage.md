@@ -1,8 +1,5 @@
 # Configuring Local Storage
 
-> [!NOTE]
-> How to configure, manage, persist, and expand RHEL local storage using block devices, loop devices, partitions, file systems, stable identifiers, LVM, and swap.
-
 Red Hat Enterprise Linux 8 presents local storage through block devices. An administrator can inspect those devices, create file-backed lab disks, partition storage, build filesystems, configure persistent mounts, manage Logical Volume Manager 2 storage, and provide swap space. Most operations require root privileges, and partitioning, filesystem creation, and LVM initialisation can destroy existing data. The administrator should identify every target with `lsblk`, confirm that required data has a backup, and test configuration changes before rebooting.
 
 ## Block devices, drivers, and device numbers

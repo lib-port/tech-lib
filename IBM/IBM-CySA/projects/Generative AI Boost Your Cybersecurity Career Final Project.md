@@ -40,8 +40,6 @@ International Nuclear Fusion Advancements Consortium (INFAC)
 >
 > You are a cybersecurity analyst with 10 years of experience. Assessed the attached email for indicators of phishing. Check if any URLs in the email are malicious using VirusTotal. Check for embedded images or other assets and evaluate if they are malware or ad-ware. Identify and provide details on any canary tokens. Check with LinkedIn and other authoritative online sources for the validity of any asserted individual or organisational identities. Provide a response in less than 250 words.
 
-> [!NOTE]
-> The email was provided without headers, which when crossed-referenced with threat intelligence is a more heavily-weighted indicator in phishing assessments than linguistic analysis.
 
 ### AI Response
 

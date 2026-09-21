@@ -1,8 +1,5 @@
 # Deploying, Configuring and Maintaining Systems
 
-> [!NOTE]
-> A practical guide to deploying and maintaining RHEL systems through disciplined package management, time synchronisation, systemd boot configuration, and task scheduling.
-
 Red Hat Enterprise Linux 8 administrators need command-line skills and root access for package management, time synchronisation, boot configuration, and job scheduling. A registered RHEL host normally receives signed software and errata from Red Hat repositories. An installation DVD can supply packages to an isolated host, but it cannot supply later bug fixes or security updates.
 
 ## Managing software packages

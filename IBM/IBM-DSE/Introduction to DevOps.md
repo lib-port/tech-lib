@@ -1,8 +1,5 @@
 # Introduction to DevOps
 
-> [!NOTE]
-> DevOps unites culture, collaboration, automation, measurement, and shared ownership to help cross-functional teams deliver reliable software rapidly through small changes, continuous feedback, and learning.
-
 ## Overview of DevOps
 
 ### Why DevOps developed

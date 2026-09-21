@@ -34,4 +34,15 @@
 .docusaurus-mermaid-container { overflow-x: auto; }
 .theme-doc-sidebar-menu a,
 .theme-layout-navbar-sidebar-panel a { overflow-wrap: anywhere; }
-.header-github-link svg { display: block; }
+.header-github-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-color: currentColor;
+  -webkit-mask: var(--github-icon) center / contain no-repeat;
+  mask: var(--github-icon) center / contain no-repeat;
+  mask-mode: alpha;
+}
+.header-github-link .header-github-icon-dark { display: none; }
+[data-theme='dark'] .header-github-link .header-github-icon-light { display: none; }
+[data-theme='dark'] .header-github-link .header-github-icon-dark { display: block; }

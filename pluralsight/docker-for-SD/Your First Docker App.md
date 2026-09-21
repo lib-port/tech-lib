@@ -1,8 +1,5 @@
 # Your First Docker App
 
-> [!NOTE]
-> A beginner-friendly walkthrough of Docker’s essential workflow, from building and sharing images to running, networking, persisting, troubleshooting, and coordinating containers with Docker Compose.
-
 ## Purpose
 
 Containers help development teams package an application with the runtime, libraries, configuration, environment variables and operating system dependencies it needs. That packaging reduces the gap between development, test, staging and production environments.

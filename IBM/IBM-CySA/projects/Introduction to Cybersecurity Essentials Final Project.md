@@ -3,8 +3,6 @@
 During this final project, you will use a Windows Server based lab environment to resolve three service tickets.
 
 This project is divided into three different assignment scenarios. Each scenario has one or more tasks in it. You will have to complete all 6 tasks across the three scenarios and take screenshots as per instructions.
-> [!NOTE]
-> Command-line tools replaced GUI tools in this project, as command-line tools offer more stable interfaces and often expose more detailed OS or application APIs.
 
 ## Scenario - Ticket 1
 
@@ -177,8 +175,6 @@ Get-NetFirewallProfile -PolicyStore ActiveStore |
 
 - Verify that Google Chrome is allowed to communicate through Windows Defender Firewall.
 
-> [!NOTE]
-> Windows Defender Firewall GUI is only installed on Server Core with Desktop Experience
 
 #### Answer
 

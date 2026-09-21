@@ -1,8 +1,5 @@
 # Introduction to Cybersecurity Careers
 
-> [!NOTE]
-> This guide outlines cybersecurity roles, entry pathways, essential skills, practical experience, certifications, and career-planning strategies, emphasizing ethical practice, clear communication, and continuous learning.
-
 Cybersecurity practitioners protect information, applications, services, systems, and networks from unauthorised access, disruption, manipulation, and destruction. They also help organisations prepare for incidents, restore operations, meet legal and contractual obligations, and communicate risk. Ransomware, phishing, fraud, supply-chain compromise, cloud misconfiguration, and insecure software create security work across almost every industry.
 
 Finance, healthcare, retail, manufacturing, government, and education all need cybersecurity capability. Security teams commonly:

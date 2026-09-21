@@ -1,8 +1,5 @@
 # Managing Container Images
 
-> [!NOTE]
-> This guide explains how disciplined Dockerfile design, reproducible builds, secure registries, image-trust controls, and Kubernetes credential policies make container images reliable, efficient, and safe deployment artifacts.
-
 Container images package application files, dependencies, and configuration for deployment. Effective image management combines repeatable builds, controlled distribution, and security checks. It allows a tested software package to move between environments while keeping responsibility for runtime configuration, data, and access control explicit.
 
 ## Images, layers, and portability

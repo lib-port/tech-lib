@@ -1,8 +1,5 @@
 # Penetration Testing, Threat Hunting, and Cryptography
 
-> [!NOTE]
-> Authorised penetration testing validates exploitable weaknesses, threat hunting searches for adversary activity that routine controls have missed, and cryptography protects data and communications. Each capability supports a broader security program and requires clear governance, skilled practitioners, and current controls.
-
 ## Penetration testing
 
 ### Purpose and scope

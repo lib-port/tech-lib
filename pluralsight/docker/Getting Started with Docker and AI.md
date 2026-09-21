@@ -1,8 +1,5 @@
 # Getting Started with Docker and AI
 
-> [!NOTE]
-> This guide explains how Docker Model Runner enables private, container-integrated local AI deployment while highlighting model management, application integration, hardware, security, and operational considerations.
-
 Docker Model Runner, or DMR, connects local AI inference with Docker's application workflow. It manages model artefacts and inference engines, allowing applications to request responses from models on supported local hardware. Docker Compose can coordinate model requirements with application services, networks, and storage.
 
 Local deployment can support control over sensitive information and reduce dependence on hosted inference services. It also transfers responsibility for hardware, electricity, maintenance, and capacity to the operator. Privacy and cost depend on the complete deployment, rather than simply on where the model runs.

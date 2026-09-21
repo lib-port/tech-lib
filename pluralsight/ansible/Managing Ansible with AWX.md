@@ -1,8 +1,5 @@
 # Managing Ansible with AWX
 
-> [!NOTE]
-> AWX centralises Ansible automation, access control, credentials, scheduling, workflows, and auditing through a shared control plane, but demands careful adoption, security, maintenance, and production-readiness planning.
-
 AWX provides a web interface, REST API, and task engine for Ansible automation. It centralises projects, inventories, credentials, job execution, schedules, notifications, and access control. AWX is one upstream project for Red Hat Ansible Automation Platform, not an open-source edition of the whole commercial platform.
 
 The AWX project requires careful evaluation for new production deployments. Its official repository states that releases have been paused since the July 2024 release while maintainers undertake a large-scale architectural refactor. Organisations should confirm the project's current release status, security posture, upgrade path, and operational support before adoption.

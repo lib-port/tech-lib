@@ -1,8 +1,5 @@
 # Database Essentials and Vulnerabilities
 
-> [!NOTE]
-> Database systems organise, retrieve, protect, and recover operational data. Sound database design combines an appropriate data model with controlled access, secure application code, reliable auditing, and tested recovery procedures.
-
 ## Database fundamentals
 
 ### Relational databases

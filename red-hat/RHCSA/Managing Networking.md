@@ -1,8 +1,5 @@
 # Managing Networking
 
-> [!NOTE]
-> A practical framework for managing and securing RHEL networking through live diagnostics, persistent configuration, network isolation, firewall policies, intrusion prevention, and low-level packet filtering.
-
 Red Hat Enterprise Linux 8 separates runtime network state from persistent configuration. The `ip` utility changes the live kernel state, NetworkManager stores and activates connection profiles, and either `firewalld` or `nftables` enforces a host firewall. Administrators should test disruptive changes through a console or an out-of-band path because an address, route, profile, or firewall error can terminate a remote session.
 
 ## Runtime networking with `ip`

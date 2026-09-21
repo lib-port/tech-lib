@@ -31,7 +31,6 @@ Notes and projects covering software engineering, business analysis, systems eng
 ### Book Notes
 
 - UNIX and Linux System Administration Handbook, 5th edition, by Evi Nemeth, Garth Snyder, Trent R. Hein, Ben Whaley, and Dan Mackin. ([catalogue](https://www.admin.com/))
-- Security Engineering, 3rd edition, by Ross J. Anderson. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/security-engineering-a-guide-to-building-dependable-distributed-systems-3rd-edition-p-9781119642787))
 - Linux Observability with BPF, by David Calavera and Lorenzo Fontana. ([catalogue](https://www.oreilly.com/library/view/linux-observability-with/9781492050193/))
 - Systems Performance: Enterprise and the Cloud, 2nd edition, by Brendan Gregg. ([catalogue](https://www.brendangregg.com/systems-performance-2nd-edition-book.html))
 - BPF Performance Tools: Linux System and Application Observability, by Brendan Gregg. ([catalogue](https://www.brendangregg.com/bpf-performance-tools-book.html))
@@ -100,6 +99,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 - Object-Oriented Analysis & Design, by Brett D. McLaughlin, Gary Pollice, and David West. ([catalogue](https://www.oreilly.com/library/view/head-first-object-oriented/0596008678/))
 - SysML Distilled: A Brief Guide to the Systems Modeling Language, by Lenny Delligatti. ([catalogue](https://www.delligattiassociates.com/publications/))
 - Systems Analysis and Design, 7th edition, by David P. Tegarden, Binny Samuel, Roman Lukyanenko, Alan Dennis, and Barbara Haley Wixom. ([catalogue](https://www.wiley.com/en-us/systems-analysis-and-design-an-object-oriented-approach-with-uml-7th-edition-p-9781394331727))
+- Security Engineering, 3rd edition, by Ross J. Anderson. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/security-engineering-a-guide-to-building-dependable-distributed-systems-3rd-edition-p-9781119642787))
 - Soft Systems Methodology in Action, by Peter Checkland andJim Scholes . ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-business-management/soft-systems-methodology-in-action-p-9780471986058#description-section))
 - Systems Engineering Principles and Practise, by Alexander Kossiakoff, Samuel J. Seymour, David A. Flanigan, and Steven M. Biemer. ([catalogue](https://onlinelibrary.wiley.com/doi/book/10.1002/9781119516699))
 - Designing Distributed Systems, 2nd Edition, by Brendan Burns. ([catalogue](https://www.oreilly.com/library/view/designing-distributed-systems/9781098156343/))
@@ -132,7 +132,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 
 - :package: [Developer Landing Page](https://github.com/lib-port/lib-port.github.io) :link: [Live demo](https://lib-port.github.io)
 - :package: [Who Gets Heard: The Work Behind the Work](https://lib-port.github.io/who-gets-heard)
-- :construction: :package: [Full-Stack Product Manager: Decide, Design, and Deliver with AI](https://github.com/lib-port/full-stack-pm/)
+- :construction: :package: [The Very Technical Product Owner: Decide, Design, and Deliver with AI](https://github.com/lib-port/very-tech-PO/)
 
 ### Cybersecurity
 

@@ -1,4 +1,5 @@
 # Introduction to Containers w/ Docker, Kubernetes & OpenShift
+
 ## Containers and Containerization
 
 ### Containers in context

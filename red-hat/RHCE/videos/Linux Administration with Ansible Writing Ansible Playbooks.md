@@ -1,8 +1,5 @@
 # Linux Administration with Ansible: Writing Ansible Playbooks
 
-> [!NOTE]
-> Explains how to build reliable, portable Ansible playbooks using clear YAML, inventories, variables, modules, handlers, validation, idempotent execution, and reusable automation components.
-
 Ansible playbooks describe the state or sequence of operations that managed hosts must reach. They combine YAML data, Ansible keywords, modules, roles, variables, conditions, and handlers. A well-designed playbook states its intent clearly, uses a supported module or role for each operation, protects credentials, and produces the same desired state when an operator runs it again.
 
 Red Hat Enterprise Linux 10 includes `ansible-core` 2.16. A RHEL 10 control node can manage RHEL 9 and RHEL 10 hosts, while Red Hat Ansible Automation Platform can provide a controlled execution environment for larger operations. Managed RHEL hosts do not need Ansible installed. Most standard modules require Python on the managed host, while connection-specific modules and a small set of bootstrap actions do not.

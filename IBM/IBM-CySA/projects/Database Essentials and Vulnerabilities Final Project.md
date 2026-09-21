@@ -1,8 +1,6 @@
 # *Database Essentials and Vulnerabilities* Final Project
 
 You have been hired as a database security consultant for SecureShop, an online retail company. SecureShop is looking to upgrade its database to enhance security and data management practices. The company's database needs to handle sensitive information, including customer personal data, order details, and payment information, while ensuring compliance with data protection regulations.
-> [!NOTE]
-> Command-line tools replaced GUI tools in this project, as command-line tools offer more stable interfaces and often expose more detailed OS or application APIs.
 
 ---
 

@@ -1,8 +1,5 @@
 # Getting Started with Podman
 
-> [!NOTE]
-> A practical guide to using Podman for secure, reproducible container workflows, covering images, services, storage, networking, systemd integration, custom builds, Compose, and multi-container automation labs.
-
 ## Podman and Linux containers
 
 Podman builds, runs, and manages Open Container Initiative containers and images. It offers a command-line interface familiar to Docker users, but its local Linux workflow does not depend on a central, permanently running daemon. An optional API service supports remote clients and Compose providers. Podman can also run as an unprivileged user, which reduces the authority available to a compromised container process.

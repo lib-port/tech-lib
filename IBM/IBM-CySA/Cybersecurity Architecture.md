@@ -1,8 +1,5 @@
 # Cybersecurity architecture
 
-> [!NOTE]
-> Cybersecurity architecture combines governance, risk management, and technical controls across identity, endpoints, networks, applications, data, detection, response, and recovery.
-
 ## Architecture foundations
 
 ### Purpose and scope

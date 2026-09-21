@@ -1,8 +1,4 @@
-
 # Introduction to Cloud Computing
-
-> [!NOTE]
-> Cloud computing delivers on-demand, elastic access to shared technology resources, but achieving its promised speed, scale, and flexibility requires deliberate architecture, security, governance, cost control, and operational discipline.
 
 ## Overview of Cloud Computing
 

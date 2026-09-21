@@ -1,8 +1,5 @@
 # Creating and Configuring File Systems
 
-> [!NOTE]
-> A practical framework for creating, securing, sharing, optimising, and expanding RHEL file systems using XFS, EXT4, LVM, NFS, VDO, Stratis, and stable mount configurations.
-
 Red Hat Enterprise Linux 8 supports XFS and ext4 as its principal local file systems. XFS is the default and suits large, high-performance storage. Ext4 remains a mature alternative with broad tooling and the ability to shrink an unmounted file system. RHEL 8 also provides LVM for flexible allocation, NFS for network sharing, VDO for block-level deduplication and compression, and Stratis for pool-based storage management.
 
 Storage administration affects availability and data integrity. Administrators should confirm device identities, maintain current backups, test configuration changes, and monitor capacity at every layer. Commands that create file systems, initialise physical volumes, wipe signatures, or destroy snapshots erase data on the selected devices.

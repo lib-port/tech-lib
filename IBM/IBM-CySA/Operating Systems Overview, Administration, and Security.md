@@ -1,8 +1,5 @@
 # Operating Systems: Overview, Administration, and Security
 
-> [!NOTE]
-> Windows, Linux, macOS, iOS, and Android use distinct architectures, administration models, and security controls. Virtualisation, cloud computing, and containers extend these operating system foundations.
-
 ## Windows operating systems
 
 ### Operating system fundamentals

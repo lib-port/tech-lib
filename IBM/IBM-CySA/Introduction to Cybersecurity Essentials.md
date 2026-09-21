@@ -1,8 +1,5 @@
 # Introduction to Cybersecurity Essentials
 
-> [!NOTE]
-> Effective cybersecurity combines governance, trained people, secure processes, and layered technical controls to protect data, devices, accounts, networks, browsing activity, and applications.
-
 ## Security concerns
 
 ### Information assets, privacy, and intellectual property

@@ -1,8 +1,5 @@
 # Computer Networks and Network Security
 
-> [!NOTE]
-> Computer networks connect devices and services through agreed protocols, addressing, routing, and physical media. Network security combines architecture, monitoring, access control, and endpoint protection to reduce the likelihood and impact of compromise.
-
 ## Networking fundamentals
 
 ### Networking models

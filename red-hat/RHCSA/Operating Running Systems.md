@@ -1,8 +1,5 @@
 # Operating Running Systems
 
-> [!NOTE]
-> A practical guide to operating RHEL systems safely through controlled shutdowns, root password recovery, systemd service management, evidence-based performance tuning, and comprehensive logging.
-
 Red Hat Enterprise Linux 8 uses systemd to coordinate booting, service management, targets, shutdown, and logging. Effective administration depends on controlled maintenance, accurate service-state interpretation, evidence-based performance analysis, and durable logs. Administrative commands require root privileges, usually obtained through `sudo`. An administrator should test disruptive procedures on a lab system before applying them to production.
 
 ## Controlled shutdown and user access

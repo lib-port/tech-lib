@@ -1,8 +1,5 @@
 # Getting Started with Git and GitHub
 
-> [!NOTE]
-> A practical beginner’s guide to Git and GitHub covering core version-control concepts, commands, repositories, branching, merging, forks, remotes, pull requests, and collaborative workflows.
-
 ## Git and GitHub Fundamentals
 
 Git is a free, open-source distributed version control system created by Linus Torvalds in 2005 for Linux development. It records project history as commits, supports independent branches, and allows each clone to contain a local copy of the repository and its history. Contributors can work locally, then exchange changes with other repositories or hosted remotes.

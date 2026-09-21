@@ -1,8 +1,5 @@
 # Using Essential Tools
 
-> [!NOTE]
-> A practical introduction to essential RHEL command-line skills, covering lab setup, remote access, text processing, file management, permissions, ownership, links, archiving, and compression.
-
 ## RHEL 8 and a safe practice environment
 
 Red Hat Enterprise Linux 8 is an enterprise Linux distribution built for long support cycles, controlled updates, and stable application compatibility. Application Streams can have shorter life cycles than the operating system, so administrators must check the life cycle of each selected stream.

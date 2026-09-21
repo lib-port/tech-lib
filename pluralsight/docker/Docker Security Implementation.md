@@ -1,8 +1,5 @@
 # Docker security implementation
 
-> [!NOTE]
-> This guide explains how to secure Docker across the container lifecycle through trusted images, vulnerability scanning, hardened Dockerfiles, protected hosts, encrypted access, secrets management, least privilege, and robust logging.
-
 Docker security combines image maintenance, host protection, restricted application privileges, careful credential handling, and useful logging. Each control addresses different risks. Trusted publishers, small images, and successful scans provide evidence, but cannot establish complete security.
 
 ## Images and builds

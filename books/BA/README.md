@@ -5,3 +5,4 @@ These notes cover material from [Business Analysis](https://shop.bcs.org/page/de
 ## Notes
 - [Chapter 1: What is Business Analysis](Chapter%201%20What%20is%20Business%20Analysis.md)
 - [Chapter 2: The Competencies of a Business Analyst](Chapter%202%20The%20Competencies%20of%20a%20Business%20Analyst.md)
+- [Chapter 3: The Strategic Context For Business Analysis](Chapter%203%20The%20Strategic%20Context%20For%20Business%20Analysis.md)

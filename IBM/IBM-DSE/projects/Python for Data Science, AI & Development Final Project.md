@@ -19,8 +19,6 @@ places. Modify the header of the DataFrame to `GDP (Billion USD)`.
 
 ## Solution
 
-> [!NOTE]
-> This times out often if you have high latency with the Internet Archive. Multiple attempts might be required.
 
 ```python
 from io import StringIO

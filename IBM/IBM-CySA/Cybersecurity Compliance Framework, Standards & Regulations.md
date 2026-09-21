@@ -1,8 +1,5 @@
 # Cybersecurity Compliance Frameworks, Standards, and Regulations
 
-> [!NOTE]
-> Effective cybersecurity compliance integrates governance, risk management, service management, technical standards, legal obligations, and independent assurance into a coherent operating model.
-
 ## Governance, risk, and compliance
 
 ### Governance, risk, and compliance operating model
