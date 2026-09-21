@@ -48,7 +48,7 @@ export default {
   trailingSlash: true,
   organizationName: 'lib-port',
   projectName: 'tech-lib',
-  favicon: 'img/book-16.svg',
+  favicon: 'img/logo.svg',
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'throw',
   onDuplicateRoutes: 'throw',
@@ -109,10 +109,9 @@ export default {
     navbar: {
       title: 'Notes and Projects Library',
       logo: {
-        alt: '',
-        src: 'img/book-16.svg',
-        width: 16,
-        height: 16,
+        alt: 'Site Logo',
+        src: 'img/logo.svg',
+        srcDark: 'img/logo-dark.svg',
       },
       items: [
         {to: '/', label: 'Content', position: 'left', activeBaseRegex: homepageActiveRegex(baseUrl)},

@@ -149,11 +149,12 @@ them whenever dependency updates change Docusaurus. Follow the official
    after a page reload and client-side navigation. Check explicit labels, home
    links, long labels in desktop and mobile menus, and both color themes.
 
-Global styles prefer documented theme classes. The scoped `.navbar__logo` rule
-is an intentional exception: the classic theme's image wrapper has no dedicated
-theme class or configurable height. Check that the book logo remains 16px and
-centered when reviewing theme upgrades. The home breadcrumb relies on the root
-README being the homepage, which the production checker verifies.
+Global styles prefer documented theme classes. The navbar uses Docusaurus's
+`src` and `srcDark` logo variants to show the same mark in light and dark modes;
+the light variant also serves as the favicon. Check the logo's alignment in
+desktop and mobile navigation when reviewing theme upgrades. The home
+breadcrumb relies on the root README being the homepage, which the production
+checker verifies.
 
 The deployment `baseUrl` is defined once in `docusaurus.config.js`. The Content
 link's exact homepage matcher and the production checker's URL expectations

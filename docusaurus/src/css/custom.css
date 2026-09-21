@@ -1,3 +1,27 @@
+:root {
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
 .theme-doc-markdown img { max-width: 100%; height: auto; }
 .theme-doc-markdown table { display: block; overflow-x: auto; }
 .theme-doc-markdown details {
@@ -10,9 +34,4 @@
 .docusaurus-mermaid-container { overflow-x: auto; }
 .theme-doc-sidebar-menu a,
 .theme-layout-navbar-sidebar-panel a { overflow-wrap: anywhere; }
-/* The logo wrapper has no stable theme class or configurable height. */
-.theme-layout-navbar .navbar__logo {
-  height: 16px;
-  display: flex;
-}
 .header-github-link svg { display: block; }
