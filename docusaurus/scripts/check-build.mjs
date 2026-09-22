@@ -55,6 +55,10 @@ for (const [index, doc] of documents.entries()) {
   assert.ok(existsSync(htmlPath), `Missing rendered document: ${doc.permalink}`);
   const html = readBuiltHtml(htmlPath);
   assert.match(html, /<h1\b/, `Missing heading in ${doc.permalink}`);
+  const faviconLinks = [...html.matchAll(/<link\b[^>]*\brel="icon"[^>]*>/g)].map(([tag]) => tag);
+  assert.equal(faviconLinks.length, 1, `Expected one favicon in ${doc.permalink}`);
+  assert.ok(faviconLinks[0].includes(`href="${baseUrl}img/logo.svg"`),
+    `The initial favicon must use the light logo in ${doc.permalink}`);
   assert.ok(!/class="[^"]*(?:DocSearch|navbar__search-input)/.test(html), 'Search must remain disabled.');
   for (const match of html.matchAll(/(?:href|src)="([^"<>]+)"/g)) {
     const href = match[1].replaceAll('&amp;', '&');

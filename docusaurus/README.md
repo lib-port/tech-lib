@@ -151,10 +151,10 @@ them whenever dependency updates change Docusaurus. Follow the official
 
 Global styles prefer documented theme classes. The navbar uses Docusaurus's
 `src` and `srcDark` logo variants to show the same mark in light and dark modes;
-the light variant also serves as the favicon. Check the logo's alignment in
-desktop and mobile navigation when reviewing theme upgrades. The home
-breadcrumb relies on the root README being the homepage, which the production
-checker verifies.
+the favicon follows the active site theme using the same variants. Check the
+logo's alignment in desktop and mobile navigation when reviewing theme
+upgrades. The home breadcrumb relies on the root README being the homepage,
+which the production checker verifies.
 
 The deployment `baseUrl` is defined once in `docusaurus.config.js`. The Content
 link's exact homepage matcher and the production checker's URL expectations

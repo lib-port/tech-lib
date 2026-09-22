@@ -22,7 +22,6 @@ export default {
   trailingSlash: true,
   organizationName: 'lib-port',
   projectName: 'tech-lib',
-  favicon: 'img/logo.svg',
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'throw',
   onDuplicateRoutes: 'throw',
