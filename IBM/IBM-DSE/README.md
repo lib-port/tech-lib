@@ -30,7 +30,10 @@ This course includes the following hands-on projects:
 - [Introduction to Containers w/ Docker, Kubernetes & OpenShift](Introduction%20to%20Containers%20w%20Docker,%20Kubernetes%20&%20OpenShift.md)  ( :package: [Project](https://github.com/lib-port/projects/tree/main/IBM/DSE/guestbook) )
 - [Application Development using Microservices and Serverless](Application%20Development%20using%20Microservices%20and%20Serverless.md)
 - [Introduction to Test and Behavior Driven Development](Introduction%20to%20Test%20and%20Behavior%20Driven%20Development.md) ( :package: [Project](https://github.com/lib-port/projects/tree/main/IBM/DSE/TDD-BDD))
-- [Continuous Integration and Continuous Delivery (CI/CD)](Continuous%20Integration%20and%20Continuous%20Delivery.md) ( :package: [Project](https://github.com/lib-port/projects/tree/main/IBM/DSE/CI-CD) )
-- Application Security for Developers and DevOps Professionals
+- [Continuous Integration and Continuous Delivery (CI/CD)](Continuous%20Integration%20and%20Continuous%20Delivery.md)
+- [Application Security for Developers and DevOps Professionals](Application%20Security%20for%20Developers%20and%20DevOps%20Professionals.md)
 - Monitoring and Observability for Development and DevOps
 - DevOps Capstone Project
+
+> [!NOTE]
+> Final projects for which the final deliverable is the completion of a set of tasks and running code included in the course content, and which does not contain the creation of a meaningful amount of original code have not been included.

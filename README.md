@@ -132,7 +132,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 
 - :package: [Developer Landing Page](https://github.com/lib-port/lib-port.github.io) :link: [Live demo](https://lib-port.github.io)
 - :package: [Who Gets Heard: The Work Behind the Work](https://lib-port.github.io/who-gets-heard)
-- :construction: :package: [The Very Technical Product Owner: Decide, Design, and Deliver with AI](https://github.com/lib-port/very-tech-PO/)
+- :construction: :package: [Full-Stack Product Manager: Decide, Design, and Deliver with AI](https://github.com/lib-port/full-stack-pm/)
 
 ### Cybersecurity
 
