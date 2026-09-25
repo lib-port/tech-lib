@@ -32,8 +32,8 @@ This course includes the following hands-on projects:
 - [Introduction to Test and Behavior Driven Development](Introduction%20to%20Test%20and%20Behavior%20Driven%20Development.md) ( :package: [Project](https://github.com/lib-port/projects/tree/main/IBM/DSE/TDD-BDD))
 - [Continuous Integration and Continuous Delivery (CI/CD)](Continuous%20Integration%20and%20Continuous%20Delivery.md)
 - [Application Security for Developers and DevOps Professionals](Application%20Security%20for%20Developers%20and%20DevOps%20Professionals.md)
-- Monitoring and Observability for Development and DevOps
+- [Monitoring and Observability for Development and DevOps](Monitoring%20and%20Observability%20for%20Development%20and%20DevOps.md)
 - DevOps Capstone Project
 
 > [!NOTE]
-> Final projects for which the final deliverable is the completion of a set of tasks and running code included in the course content, and which does not contain the creation of a meaningful amount of original code have not been included.
+> Only final projects that contain a meaningful amount of software engineering design tasks have been included. Finals projects that consist only of successfully running provided code or commands have been excluded.

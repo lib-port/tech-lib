@@ -87,7 +87,7 @@ export default {
         srcDark: 'img/logo-dark.svg',
       },
       items: [
-        {to: '/', label: 'Content', position: 'left', activeBaseRegex: homepageActiveRegex(baseUrl)},
+        {to: '/', label: 'Home', position: 'left', activeBaseRegex: homepageActiveRegex(baseUrl)},
         {
           href: 'https://github.com/lib-port/tech-lib',
           html: [

@@ -30,11 +30,11 @@ Notes and projects covering software engineering, business analysis, systems eng
 
 ### Book Notes
 
-- UNIX and Linux System Administration Handbook, 5th edition, by Evi Nemeth, Garth Snyder, Trent R. Hein, Ben Whaley, and Dan Mackin. ([catalogue](https://www.admin.com/))
+- UNIX and Linux System Administration Handbook, 5th edition, by Evi Nemeth, Garth Snyder, Trent R. Hein, Ben Whaley, and Dan Mackin. ([catalogue](https://www.admin.com/)) :anchor:
 - Linux Observability with BPF, by David Calavera and Lorenzo Fontana. ([catalogue](https://www.oreilly.com/library/view/linux-observability-with/9781492050193/))
 - Systems Performance: Enterprise and the Cloud, 2nd edition, by Brendan Gregg. ([catalogue](https://www.brendangregg.com/systems-performance-2nd-edition-book.html))
 - BPF Performance Tools: Linux System and Application Observability, by Brendan Gregg. ([catalogue](https://www.brendangregg.com/bpf-performance-tools-book.html))
-- Observability Engineering, 2nd edition, by Charity Majors, Liz Fong-Jones, and George Miranda. ([catalogue](https://www.oreilly.com/library/view/observability-engineering-2nd/9781098179915/))
+- Observability Engineering, 2nd edition, by Charity Majors, Liz Fong-Jones, and George Miranda. ([catalogue](https://www.oreilly.com/library/view/observability-engineering-2nd/9781098179915/)) :anchor:
 
 ## Data and AI Engineering
 
@@ -51,16 +51,15 @@ Notes and projects covering software engineering, business analysis, systems eng
 - :notebook: [Docker for Software Development](pluralsight/docker-for-SD/README.md) ([course](https://www.pluralsight.com/paths/docker-for-software-development))
 - :construction: :package: :notebook: [IBM Data Engineering Professional Certificate](IBM/IBM-DE/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-data-engineer))
 - IBM AI Engineering Professional Certificate ([course](https://www.coursera.org/professional-certificates/ai-engineer))
-- Claude Certified Developer - Foundations Prep Course ([course](https://anthropic-partners.skilljar.com/path/claude-certified-developer-foundations))
 ### Book Notes
 
 - Fundamentals of Software Engineering, by Nathaniel Schutta and Dan Vega. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-software/9781098143220/))
 - Fundamentals of Data Engineering, by Joe Reis and Matt Housley. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-data/9781098108298/))
-- Modern Software Engineering, by David Farley. ([catalogue](https://www.informit.com/store/modern-software-engineering-doing-what-works-to-build-9780137314911))
+- Modern Software Engineering, by David Farley. ([catalogue](https://www.informit.com/store/modern-software-engineering-doing-what-works-to-build-9780137314911)) :anchor:
 - Software Engineering for Data Scientists, by Catherine Nelson. ([catalogue](https://www.oreilly.com/library/view/software-engineering-for/9781098136192/))
 - Data Engineering Design Patterns, by Bartosz Konieczny. ([catalogue](https://www.oreilly.com/library/view/data-engineering-design/9781098165826/))
 - Financial Data Engineering, by Tamer Khraisha. ([catalogue](https://www.oreilly.com/library/view/financial-data-engineering/9781098159986/))
-- AI Engineering, by Chip Huyen. ([catalogue](https://www.oreilly.com/library/view/ai-engineering/9781098166298/))
+- AI Engineering, by Chip Huyen. ([catalogue](https://www.oreilly.com/library/view/ai-engineering/9781098166298/)) :anchor:
 - AI Agents: The Definitive Guide, by Nicole Koenigstein. ([catalogue](https://www.oreilly.com/library/view/ai-agents-the/0642572247775/))
 - Skills for AI Agents, by Lucas Soares. ([catalogue](https://www.oreilly.com/library/view/skills-for-ai/0642572327590/))
 - AI Systems Performance Engineering, by Chris Fregly. ([catalogue](https://www.oreilly.com/library/view/ai-systems-performance/9798341627772/))
@@ -75,9 +74,9 @@ Notes and projects covering software engineering, business analysis, systems eng
 </details>
 
 ### Course Notes and Project
+- :package: :notebook: [IBM Business Analyst Professional Certificate](IBM/IBM-BA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-business-analyst-professional-certificate))
 - :package: :notebook: [IBM Cybersecurity Analyst Professional Certificate](IBM/IBM-CySA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst))
 - :notebook: [TCM Security Practical OSINT Research Professional](TS-PORP/README.md) ([course](https://certifications.tcm-sec.com/porp/))
-- :package: :notebook: [IBM Business Analyst Professional Certificate](IBM/IBM-BA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-business-analyst-professional-certificate))
 - :construction: :notebook: [Associate Systems Engineer to Principal Systems Engineer](codecademy/ASEPSE/README.md) ([course](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey))
 - Microservices Architecture ([course](https://www.pluralsight.com/paths/microservices-architecture-new))
 - IBM Systems and Solutions Architect Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-systems-and-solutions-architect))
@@ -86,29 +85,28 @@ Notes and projects covering software engineering, business analysis, systems eng
 
 #### Business Analysis
 
-- :construction: :notebook: [Business Analysis](books/BA/README.md), 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4))
+- :construction: :notebook: [Business Analysis](books/BA/README.md), 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4)) :anchor:
 - Business Analysis Techniques, 3rd edition, by James Cadle, Debra Paul, Jonathan Hunsley, Adrian Reed, David Beckham, and Paul Turner. ([catalogue](https://shop.bcs.org/page/detail/business-analysis-techniques/?SF1=work_exact&ST1=BUSINESSANALYSISTECHNIQUES3))
 - Agile and Business Analysis, by Lynda Girvan and Debra Paul. ([catalogue](https://shop.bcs.org/page/detail/?k=9781780176178))
 - Developing Information Systems, by James Cadle, Tahir Ahmed, Julian Cox, Lynda Girvan, Alan Paul, Debra Paul, and Peter Thompson. ([catalogue](https://shop.bcs.org/page/detail/developing-information-systems/?SF1=work_exact&ST1=DEVELOPINGINFORMATIONSYSTEMS))
 - Threat Modeling: Designing for Security, by Adam Shostack. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/threat-modeling-designing-for-security-p-9781118809990))
-- Liars and Outliers, 2nd edition, by Bruce Schneier. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/liars-and-outliers-enabling-the-trust-that-society-needs-to-thrive-2nd-edition-p-9781394375288))
 #### Systems Engineering
 
 - Thinking in Systems, by Donella Meadows. ([catalogue](https://www.chelseagreen.com/product/thinking-in-systems/))
 - Software Requirements, 3rd edition, by Karl Wiegers and Joy Beatt. ([catalogue](https://www.microsoftpressstore.com/store/software-requirements-9780735679665))
 - Object-Oriented Analysis & Design, by Brett D. McLaughlin, Gary Pollice, and David West. ([catalogue](https://www.oreilly.com/library/view/head-first-object-oriented/0596008678/))
 - SysML Distilled: A Brief Guide to the Systems Modeling Language, by Lenny Delligatti. ([catalogue](https://www.delligattiassociates.com/publications/))
-- Systems Analysis and Design, 7th edition, by David P. Tegarden, Binny Samuel, Roman Lukyanenko, Alan Dennis, and Barbara Haley Wixom. ([catalogue](https://www.wiley.com/en-us/systems-analysis-and-design-an-object-oriented-approach-with-uml-7th-edition-p-9781394331727))
+- Systems Analysis and Design, 7th edition, by David P. Tegarden, Binny Samuel, Roman Lukyanenko, Alan Dennis, and Barbara Haley Wixom. ([catalogue](https://www.wiley.com/en-us/systems-analysis-and-design-an-object-oriented-approach-with-uml-7th-edition-p-9781394331727)) :anchor:
 - Security Engineering, 3rd edition, by Ross J. Anderson. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/security-engineering-a-guide-to-building-dependable-distributed-systems-3rd-edition-p-9781119642787))
 - Soft Systems Methodology in Action, by Peter Checkland andJim Scholes . ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-business-management/soft-systems-methodology-in-action-p-9780471986058#description-section))
-- Systems Engineering Principles and Practise, by Alexander Kossiakoff, Samuel J. Seymour, David A. Flanigan, and Steven M. Biemer. ([catalogue](https://onlinelibrary.wiley.com/doi/book/10.1002/9781119516699))
-- Designing Distributed Systems, 2nd Edition, by Brendan Burns. ([catalogue](https://www.oreilly.com/library/view/designing-distributed-systems/9781098156343/))
+- Systems Engineering Principles and Practise, by Alexander Kossiakoff, Samuel J. Seymour, David A. Flanigan, and Steven M. Biemer. ([catalogue](https://onlinelibrary.wiley.com/doi/book/10.1002/9781119516699)) :anchor:
 - Trust in Computer Systems and the Cloud, by Mike Bursell. ([catalogue](https://www.wiley.com/en-us/trust-in-computer-systems-and-the-cloud-p-9781119695158))
+- Designing Distributed Systems, 2nd Edition, by Brendan Burns. ([catalogue](https://www.oreilly.com/library/view/designing-distributed-systems/9781098156343/))
 - Foundations of Scalable Systems, by Ian Gorton. ([catalogue](https://www.oreilly.com/library/view/foundations-of-scalable/9781098106058/))
 #### Systems Architecture
 
 - Fundamentals of Software Architecture, by Mark Richards and Neal Ford. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-software/9781492043447/))
-- Software Architecture in Practice, 4th edition, by Len Bass, Paul Clements, and Rick Kazman. ([catalogue](https://www.informit.com/store/software-architecture-in-practice-9780136885887))
+- Software Architecture in Practice, 4th edition, by Len Bass, Paul Clements, and Rick Kazman. ([catalogue](https://www.informit.com/store/software-architecture-in-practice-9780136885887)) :anchor:
 - Defining Digital Solutions, by Peter Thompson. ([catalogue](https://shop.bcs.org/page/detail/defining-digital-solutions/?SF1=work_exact&ST1=DEFININGDIGITALSOLUTIONS))
 - Designing Digital Solutions, by Peter Thompson and Alex Bradley-Thompson. ([catalogue](https://shop.bcs.org/page/detail/designing-digital-solutions/?SF1=work_exact&ST1=DESIGNINGDIGITALSOLUTIONS))
 - Delivering Digital Solutions, by Peter Thompson. ([catalogue](https://shop.bcs.org/page/detail/delivering-digital-solutions/?SF1=work_exact&ST1=DELIVERINGDIGITALSOLUTIONS))
@@ -132,7 +130,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 
 - :package: [Developer Landing Page](https://github.com/lib-port/lib-port.github.io) :link: [Live demo](https://lib-port.github.io)
 - :package: [Who Gets Heard: The Work Behind the Work](https://lib-port.github.io/who-gets-heard)
-- :construction: :package: [Full-Stack Product Manager: Decide, Design, and Deliver with AI](https://github.com/lib-port/full-stack-pm/)
+- :construction: :package: [Full-Stack Product Manager: Decide, Design, and Deliver with AI](https://lib-port.github.io/full-stack-pm/)
 
 ### Cybersecurity
 
