@@ -51,6 +51,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 - :notebook: [Docker for Software Development](pluralsight/docker-for-SD/README.md) ([course](https://www.pluralsight.com/paths/docker-for-software-development))
 - :construction: :package: :notebook: [IBM Data Engineering Professional Certificate](IBM/IBM-DE/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-data-engineer))
 - IBM AI Engineering Professional Certificate ([course](https://www.coursera.org/professional-certificates/ai-engineer))
+- IBM RAG and Agentic AI Engineering Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-rag-and-agentic-ai))
 ### Book Notes
 
 - Fundamentals of Software Engineering, by Nathaniel Schutta and Dan Vega. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-software/9781098143220/))
@@ -77,6 +78,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 - :package: :notebook: [IBM Business Analyst Professional Certificate](IBM/IBM-BA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-business-analyst-professional-certificate))
 - :package: :notebook: [IBM Cybersecurity Analyst Professional Certificate](IBM/IBM-CySA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst))
 - :notebook: [TCM Security Practical OSINT Research Professional](TS-PORP/README.md) ([course](https://certifications.tcm-sec.com/porp/))
+- IBM Product Manager Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-product-manager))
 - :construction: :notebook: [Associate Systems Engineer to Principal Systems Engineer](codecademy/ASEPSE/README.md) ([course](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey))
 - Microservices Architecture ([course](https://www.pluralsight.com/paths/microservices-architecture-new))
 - IBM Systems and Solutions Architect Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-systems-and-solutions-architect))
@@ -100,7 +102,6 @@ Notes and projects covering software engineering, business analysis, systems eng
 - Security Engineering, 3rd edition, by Ross J. Anderson. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/security-engineering-a-guide-to-building-dependable-distributed-systems-3rd-edition-p-9781119642787))
 - Soft Systems Methodology in Action, by Peter Checkland andJim Scholes . ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-business-management/soft-systems-methodology-in-action-p-9780471986058#description-section))
 - Systems Engineering Principles and Practise, by Alexander Kossiakoff, Samuel J. Seymour, David A. Flanigan, and Steven M. Biemer. ([catalogue](https://onlinelibrary.wiley.com/doi/book/10.1002/9781119516699)) :anchor:
-- Trust in Computer Systems and the Cloud, by Mike Bursell. ([catalogue](https://www.wiley.com/en-us/trust-in-computer-systems-and-the-cloud-p-9781119695158))
 - Designing Distributed Systems, 2nd Edition, by Brendan Burns. ([catalogue](https://www.oreilly.com/library/view/designing-distributed-systems/9781098156343/))
 - Foundations of Scalable Systems, by Ian Gorton. ([catalogue](https://www.oreilly.com/library/view/foundations-of-scalable/9781098106058/))
 #### Systems Architecture
@@ -111,6 +112,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 - Designing Digital Solutions, by Peter Thompson and Alex Bradley-Thompson. ([catalogue](https://shop.bcs.org/page/detail/designing-digital-solutions/?SF1=work_exact&ST1=DESIGNINGDIGITALSOLUTIONS))
 - Delivering Digital Solutions, by Peter Thompson. ([catalogue](https://shop.bcs.org/page/detail/delivering-digital-solutions/?SF1=work_exact&ST1=DELIVERINGDIGITALSOLUTIONS))
 - Software Architecture: The Hard Parts, by Neal Ford, Mark Richards, Pramod Sadalage, and Zhamak Dehghani. ([catalogue](https://www.oreilly.com/library/view/software-architecture-the/9781492086888/))
+- Trust in Computer Systems and the Cloud, by Mike Bursell. ([catalogue](https://www.wiley.com/en-us/trust-in-computer-systems-and-the-cloud-p-9781119695158))
 - Building Evolutionary Architectures, 2nd edition, by Neal Ford, Rebecca Parsons, Patrick Kua, and Pramod Sadalage. ([catalogue](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781492097532/))
 - Fundamentals of Enterprise Architecture, by Tanu McCabe. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-enterprise/9781098159368/))
 ---
