@@ -7,3 +7,4 @@ These notes cover material from [Business Analysis](https://shop.bcs.org/page/de
 - [Chapter 2: The Competencies of a Business Analyst](Chapter%202%20The%20Competencies%20of%20a%20Business%20Analyst.md)
 - [Chapter 3: The Strategic Context For Business Analysis](Chapter%203%20The%20Strategic%20Context%20For%20Business%20Analysis.md)
 - [Chapter 4: The Business Analysis Service Framework](Chapter%204%20The%20Business%20Analysis%20Service%20Framework.md)
+- [Chapter 5: Investigating the Business Situation](Chapter%205%20Investigating%20the%20Business%20Situation.md)

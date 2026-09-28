@@ -51,7 +51,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 - :notebook: [Docker for Software Development](pluralsight/docker-for-SD/README.md) ([course](https://www.pluralsight.com/paths/docker-for-software-development))
 - :construction: :package: :notebook: [IBM Data Engineering Professional Certificate](IBM/IBM-DE/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-data-engineer))
 - IBM AI Engineering Professional Certificate ([course](https://www.coursera.org/professional-certificates/ai-engineer))
-- IBM RAG and Agentic AI Engineering Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-rag-and-agentic-ai))
+- IBM RAG and Agentic AI Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-rag-and-agentic-ai))
 ### Book Notes
 
 - Fundamentals of Software Engineering, by Nathaniel Schutta and Dan Vega. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-software/9781098143220/))
@@ -90,8 +90,11 @@ Notes and projects covering software engineering, business analysis, systems eng
 - :construction: :notebook: [Business Analysis](books/BA/README.md), 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4)) :anchor:
 - Business Analysis Techniques, 3rd edition, by James Cadle, Debra Paul, Jonathan Hunsley, Adrian Reed, David Beckham, and Paul Turner. ([catalogue](https://shop.bcs.org/page/detail/business-analysis-techniques/?SF1=work_exact&ST1=BUSINESSANALYSISTECHNIQUES3))
 - Agile and Business Analysis, by Lynda Girvan and Debra Paul. ([catalogue](https://shop.bcs.org/page/detail/?k=9781780176178))
-- Developing Information Systems, by James Cadle, Tahir Ahmed, Julian Cox, Lynda Girvan, Alan Paul, Debra Paul, and Peter Thompson. ([catalogue](https://shop.bcs.org/page/detail/developing-information-systems/?SF1=work_exact&ST1=DEVELOPINGINFORMATIONSYSTEMS))
 - Threat Modeling: Designing for Security, by Adam Shostack. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/threat-modeling-designing-for-security-p-9781118809990))
+- Developing Information Systems, by James Cadle, Tahir Ahmed, Julian Cox, Lynda Girvan, Alan Paul, Debra Paul, and Peter Thompson. ([catalogue](https://shop.bcs.org/page/detail/developing-information-systems/?SF1=work_exact&ST1=DEVELOPINGINFORMATIONSYSTEMS))
+- The Art of Agile Product Ownership: A Guide for Product Managers, Business Analysts, and Entrepreneurs, by Allan Kelly. ([catalogue](https://www.oreilly.com/library/view/the-art-of/9781484251683/))
+- The Professional Product Owner, by Don McGreal and Ralph Jocham. ([catalogue](https://www.oreilly.com/library/view/professional-product-owner/9780134686639/)) :anchor:
+- Digital Product Management, by Kevin J. Brennan, Sallie Gregory, and Filip Hendrickx. ([catalogue](https://shop.bcs.org/page/detail/?k=9781780175324))
 #### Systems Engineering
 
 - Thinking in Systems, by Donella Meadows. ([catalogue](https://www.chelseagreen.com/product/thinking-in-systems/))
@@ -138,5 +141,3 @@ Notes and projects covering software engineering, business analysis, systems eng
 
 - :package: [Ansible CIS-based Auditing System for Debian OSes](https://github.com/lib-port/ansible-linux-audit)
 - :package: [Ansible Detection-as-Code Engine for HTB Labs](https://github.com/lib-port/agentless-DaC)
----
-## Miscellaneous Notes
