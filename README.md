@@ -26,7 +26,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 - :notebook: [Red Hat Certified Specialist in Containers](red-hat/RHCSC/README.md) ([course](https://www.pluralsight.com/paths/red-hat-certified-specialist-in-containers-ex188))
 - :notebook: [Docker](pluralsight/docker/README.md) ([course](https://www.pluralsight.com/paths/managing-docker-in-production))
 - :notebook: [Certified Kubernetes Administrator](pluralsight/CKA/README.md) ([course](https://www.pluralsight.com/paths/certified-kubernetes-administrator))
-- :construction: :package: :notebook: [IBM DevOps and Software Engineering Professional Certificate](IBM/IBM-DSE/README.md) ([course](https://www.coursera.org/professional-certificates/devops-and-software-engineering))
+- :package: :notebook: [IBM DevOps and Software Engineering Professional Certificate](IBM/IBM-DSE/README.md) ([course](https://www.ibm.com/training/badge/ibm-devops-and-software-engineering-professional-ce))
 
 ### Book Notes
 
@@ -49,9 +49,9 @@ Notes and projects covering software engineering, business analysis, systems eng
 - :package: [Back-End Engineer Professional Certification](codecademy/backend-engineer/README.md) ([course](https://www.codecademy.com/career-journey/back-end-engineer))
 - :notebook: [GitHub Foundations](pluralsight/github-foundations/README.md) ([course](https://www.pluralsight.com/paths/github-foundations))
 - :notebook: [Docker for Software Development](pluralsight/docker-for-SD/README.md) ([course](https://www.pluralsight.com/paths/docker-for-software-development))
-- :construction: :package: :notebook: [IBM Data Engineering Professional Certificate](IBM/IBM-DE/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-data-engineer))
-- IBM AI Engineering Professional Certificate ([course](https://www.coursera.org/professional-certificates/ai-engineer))
-- IBM RAG and Agentic AI Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-rag-and-agentic-ai))
+- :construction: :package: :notebook: [IBM Data Engineering Professional Certificate](IBM/IBM-DE/README.md) ([course](https://www.ibm.com/training/badge/ibm-data-engineering-professional-certificate))
+- IBM AI Engineering Professional Certificate ([course](https://www.ibm.com/training/badge/ibm-ai-engineering-professional-certificate))
+- IBM RAG and Agentic AI Professional Certificate ([course](https://www.ibm.com/training/badge/ibm-rag-and-agentic-ai-professional-certificate))
 ### Book Notes
 
 - Fundamentals of Software Engineering, by Nathaniel Schutta and Dan Vega. ([catalogue](https://www.oreilly.com/library/view/fundamentals-of-software/9781098143220/))
@@ -75,10 +75,10 @@ Notes and projects covering software engineering, business analysis, systems eng
 </details>
 
 ### Course Notes and Project
-- :package: :notebook: [IBM Business Analyst Professional Certificate](IBM/IBM-BA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-business-analyst-professional-certificate))
-- :package: :notebook: [IBM Cybersecurity Analyst Professional Certificate](IBM/IBM-CySA/README.md) ([course](https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst))
+- :package: :notebook: [IBM Business Analyst Professional Certificate](IBM/IBM-BA/README.md) ([course](https://www.ibm.com/training/badge/ibm-business-analyst-professional-certificate))
+- :package: :notebook: [IBM Cybersecurity Analyst Professional Certificate](IBM/IBM-CySA/README.md) ([course](https://www.ibm.com/training/badge/ibm-cybersecurity-analyst-professional-certificate))
 - :notebook: [TCM Security Practical OSINT Research Professional](TS-PORP/README.md) ([course](https://certifications.tcm-sec.com/porp/))
-- IBM Product Manager Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-product-manager))
+- IBM Product Manager Professional Certificate ([course](https://www.ibm.com/training/badge/ibm-product-manager-professional-certificate))
 - :construction: :notebook: [Associate Systems Engineer to Principal Systems Engineer](codecademy/ASEPSE/README.md) ([course](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey))
 - Microservices Architecture ([course](https://www.pluralsight.com/paths/microservices-architecture-new))
 - IBM Systems and Solutions Architect Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-systems-and-solutions-architect))

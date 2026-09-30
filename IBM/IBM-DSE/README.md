@@ -33,7 +33,6 @@ This course includes the following hands-on projects:
 - [Continuous Integration and Continuous Delivery (CI/CD)](Continuous%20Integration%20and%20Continuous%20Delivery.md)
 - [Application Security for Developers and DevOps Professionals](Application%20Security%20for%20Developers%20and%20DevOps%20Professionals.md)
 - [Monitoring and Observability for Development and DevOps](Monitoring%20and%20Observability%20for%20Development%20and%20DevOps.md)
-- DevOps Capstone Project
 
 > [!NOTE]
 > Only final projects that contain a meaningful amount of software engineering design tasks have been included. Finals projects that consist only of successfully running provided code or commands have been excluded.
