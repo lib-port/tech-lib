@@ -18,7 +18,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 ### Course Notes and Projects
 
 - :notebook: [Red Hat Certified System Administrator](red-hat/RHCSA/README.md) ([course](https://www.pluralsight.com/paths/rhcsa-red-hat-certified-system-administrator-ex200))
-- Shell Scripting with Bash ([course](https://www.pluralsight.com/courses/bash-shell-scripting))
+- :construction: :notebook: :lab: [Shell Scripting with Bash](pluralsight/bash/README.md) ([course](https://www.pluralsight.com/paths/using-bash-and-z-shell))
 - :notebook: [Red Hat Certified Engineer](red-hat/RHCE/README.md) ([course](https://www.pluralsight.com/paths/rhce-red-hat-certified-engineer-ex294))
 - :notebook: [Configuration Management Using Ansible](pluralsight/ansible/README.md) ([course](https://www.pluralsight.com/paths/configuration-management-using-ansible))
 - :notebook: [Red Hat Certified Specialist in Linux Diagnostics and Troubleshooting](red-hat/RHCSLDT/README.md) ([course](https://www.pluralsight.com/paths/red-hat-certified-specialist-in-linux-diagnostics-and-troubleshooting-ex342))
@@ -78,7 +78,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 - :package: :notebook: [IBM Business Analyst Professional Certificate](IBM/IBM-BA/README.md) ([course](https://www.ibm.com/training/badge/ibm-business-analyst-professional-certificate))
 - :package: :notebook: [IBM Cybersecurity Analyst Professional Certificate](IBM/IBM-CySA/README.md) ([course](https://www.ibm.com/training/badge/ibm-cybersecurity-analyst-professional-certificate))
 - :notebook: [TCM Security Practical OSINT Research Professional](TS-PORP/README.md) ([course](https://certifications.tcm-sec.com/porp/))
-- IBM Product Manager Professional Certificate ([course](https://www.ibm.com/training/badge/ibm-product-manager-professional-certificate))
+- :construction: :package: :notebook: [IBM Product Manager Professional Certificate](IBM/IBM-PM/README.md) ([course](https://www.ibm.com/training/badge/ibm-product-manager-professional-certificate))
 - :construction: :notebook: [Associate Systems Engineer to Principal Systems Engineer](codecademy/ASEPSE/README.md) ([course](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey))
 - Microservices Architecture ([course](https://www.pluralsight.com/paths/microservices-architecture-new))
 - IBM Systems and Solutions Architect Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-systems-and-solutions-architect))
@@ -90,8 +90,8 @@ Notes and projects covering software engineering, business analysis, systems eng
 - :construction: :notebook: [Business Analysis](books/BA/README.md), 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4)) :anchor:
 - Business Analysis Techniques, 3rd edition, by James Cadle, Debra Paul, Jonathan Hunsley, Adrian Reed, David Beckham, and Paul Turner. ([catalogue](https://shop.bcs.org/page/detail/business-analysis-techniques/?SF1=work_exact&ST1=BUSINESSANALYSISTECHNIQUES3))
 - Agile and Business Analysis, by Lynda Girvan and Debra Paul. ([catalogue](https://shop.bcs.org/page/detail/?k=9781780176178))
-- Threat Modeling: Designing for Security, by Adam Shostack. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/threat-modeling-designing-for-security-p-9781118809990))
 - Developing Information Systems, by James Cadle, Tahir Ahmed, Julian Cox, Lynda Girvan, Alan Paul, Debra Paul, and Peter Thompson. ([catalogue](https://shop.bcs.org/page/detail/developing-information-systems/?SF1=work_exact&ST1=DEVELOPINGINFORMATIONSYSTEMS))
+- Threat Modeling: Designing for Security, by Adam Shostack. ([catalogue](https://www.wiley.com/en-us/shop/general-introductory-computer-science/threat-modeling-designing-for-security-p-9781118809990))
 - The Art of Agile Product Ownership: A Guide for Product Managers, Business Analysts, and Entrepreneurs, by Allan Kelly. ([catalogue](https://www.oreilly.com/library/view/the-art-of/9781484251683/))
 - The Professional Product Owner, by Don McGreal and Ralph Jocham. ([catalogue](https://www.oreilly.com/library/view/professional-product-owner/9780134686639/)) :anchor:
 - Digital Product Management, by Kevin J. Brennan, Sallie Gregory, and Filip Hendrickx. ([catalogue](https://shop.bcs.org/page/detail/?k=9781780175324))

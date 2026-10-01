@@ -21,7 +21,7 @@ This course includes hands-on labs and projects designed to build practical expe
 - Creating Visualizations with Cognos Analytics
 - Creating a Simple Dashboard in Excel
 
-## Module Notes and Project Files
+## Module Notes and Projects
 
 - [Introduction to Business Analysis](Introduction%20to%20Business%20Analysis.md)
 - [Excel Basics for Data Analysis](Excel%20Basics%20for%20Data%20Analysis.md)
