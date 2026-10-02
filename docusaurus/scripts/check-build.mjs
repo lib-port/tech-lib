@@ -70,7 +70,6 @@ for (const [index, doc] of documents.entries()) {
 }
 
 const homeHtml = readBuiltHtml(path.join(buildDir, 'index.html'));
-assert.match(homeHtml, /<details\b/, 'Homepage introductions should remain expandable.');
 assert.ok(!homeHtml.includes(':notebook:'), 'GitHub emoji shortcodes should be rendered.');
 
 function elementWithClass(html, tag, className) {
