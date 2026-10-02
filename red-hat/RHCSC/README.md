@@ -2,7 +2,7 @@
 
 *v1.0 stable release*
 
-These notes cover material from Pluralsight's 2 hour, self-paced [Red Hat Certified Specialist in Containers](https://www.pluralsight.com/paths/red-hat-certified-specialist-in-containers-ex188) course. They cover how to create, configure, and manage containerized services using Red Hat OpenShift and other Red Hat technologies.
+These notes cover Pluralsight's 2 hour, self-paced [Red Hat Certified Specialist in Containers](https://www.pluralsight.com/paths/red-hat-certified-specialist-in-containers-ex188) course. They cover how to create, configure, and manage containerized services using Red Hat OpenShift and other Red Hat technologies.
 
 ## Container images and registries
 

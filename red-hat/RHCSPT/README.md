@@ -2,7 +2,7 @@
 
 *v1.0 stable release*
 
-These notes cover material from Pluralsight's 12 hour, self-paced [Red Hat Certified Specialist in Performance Tuning](https://www.pluralsight.com/courses/red-hat-certified-specialist-in-performance-tuning-ex442) course. They cover how to analyze the performance of a Red Hat Enterprise Linux system, build and validate your knowledge of these tools, and update and tune the performance of a Red Hat Enterprise Linux system and the applications hosted on it.
+These notes cover Pluralsight's 12 hour, self-paced [Red Hat Certified Specialist in Performance Tuning](https://www.pluralsight.com/courses/red-hat-certified-specialist-in-performance-tuning-ex442) course. They cover how to analyze the performance of a Red Hat Enterprise Linux system, build and validate your knowledge of these tools, and update and tune the performance of a Red Hat Enterprise Linux system and the applications hosted on it.
 
 ## Performance tuning method
 

@@ -1,6 +1,6 @@
 # *Associate Systems Engineer to Principal Systems Engineer* Course Notes
 
-These notes cover material from Codecademy's 52-hour, self-paced, [Associate Systems Engineer to Principal Systems Engineer](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey) course. The notes cover core principles, requirements engineering, system analysis and design, safety, reliability, optimization, testing, lifecycle management, and modern methods such as Model-Based Systems Engineering. It also explores governance, risk and supply chain management, organizational culture, and applications in cybersecurity, aerospace, healthcare, and smart mobility.
+These notes cover Codecademy's 52-hour, self-paced, [Associate Systems Engineer to Principal Systems Engineer](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey) course. The notes cover core principles, requirements engineering, system analysis and design, safety, reliability, optimization, testing, lifecycle management, and modern methods such as Model-Based Systems Engineering. It also explores governance, risk and supply chain management, organizational culture, and applications in cybersecurity, aerospace, healthcare, and smart mobility.
 
 ## Module Notes
 

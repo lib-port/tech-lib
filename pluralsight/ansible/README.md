@@ -2,7 +2,7 @@
 
 *v1.0 stable release*
 
-These notes cover material from Pluralsight's 24-hour, self-paced [Configuration Management Using Ansible](https://www.pluralsight.com/paths/configuration-management-using-ansible) course. It begins with the fundamentals, from understanding configuration management to creating your first Ansible playbook, before exploring more advanced features and real-world use cases. The notes covers Ansible foundations and its application to system administration, CI/CD pipelines, and other automation workflows.
+These notes cover Pluralsight's 24-hour, self-paced [Configuration Management Using Ansible](https://www.pluralsight.com/paths/configuration-management-using-ansible) course. It begins with the fundamentals, from understanding configuration management to creating your first Ansible playbook, before exploring more advanced features and real-world use cases. The notes covers Ansible foundations and its application to system administration, CI/CD pipelines, and other automation workflows.
 
 ## Course Notes
 

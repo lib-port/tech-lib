@@ -2,7 +2,7 @@
 
 *v1.0 stable release*
 
-These notes cover material from Pluralsight's 17 hour, self-paced [Red Hat Certified Specialist in Linux Diagnostics and Troubleshooting](https://www.pluralsight.com/paths/red-hat-certified-specialist-in-linux-diagnostics-and-troubleshooting-ex342) course. The notes cover how to discover, analyze, and fix common issues that can be expected as a Red Hat Specialist, systems administrator, or DevOps engineer working with Linux. In addition, these notes cover how to handle issues related to system boot, package management, system files, network connectivity, application degradation, and authentication issues, as well as how to gather forensic information and handle any server issues.
+These notes cover Pluralsight's 17 hour, self-paced [Red Hat Certified Specialist in Linux Diagnostics and Troubleshooting](https://www.pluralsight.com/paths/red-hat-certified-specialist-in-linux-diagnostics-and-troubleshooting-ex342) course. The notes cover how to discover, analyze, and fix common issues that can be expected as a Red Hat Specialist, systems administrator, or DevOps engineer working with Linux. In addition, these notes cover how to handle issues related to system boot, package management, system files, network connectivity, application degradation, and authentication issues, as well as how to gather forensic information and handle any server issues.
 
 ## A disciplined troubleshooting method
 

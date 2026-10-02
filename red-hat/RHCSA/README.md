@@ -4,7 +4,7 @@
 
 ## Course Description
 
-These notes cover material from Pluralsight's 30 hour, self-paced [Red Hat Certified System Administrator](https://www.pluralsight.com/paths/rhcsa-red-hat-certified-system-administrator-ex200) course that teaches Linux system administration with Red Hat Enterprise Linux. They cover tools and scripting, deploying systems, daily operations and tasks, networking, security, and more. Additionally, for those interested in certification, these courses cover the topics presented by the Red Hat Certified System Administrator (RHCSA) certification and can help you prepare for the exam.
+These notes cover Pluralsight's 30 hour, self-paced [Red Hat Certified System Administrator](https://www.pluralsight.com/paths/rhcsa-red-hat-certified-system-administrator-ex200) course that teaches Linux system administration with Red Hat Enterprise Linux. They cover tools and scripting, deploying systems, daily operations and tasks, networking, security, and more. Additionally, for those interested in certification, these courses cover the topics presented by the Red Hat Certified System Administrator (RHCSA) certification and can help you prepare for the exam.
 
 ## Module Notes
 

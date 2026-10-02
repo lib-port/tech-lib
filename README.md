@@ -18,7 +18,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 ### Course Notes and Projects
 
 - :notebook: [Red Hat Certified System Administrator](red-hat/RHCSA/README.md) ([course](https://www.pluralsight.com/paths/rhcsa-red-hat-certified-system-administrator-ex200))
-- :construction: :notebook: :lab: [Shell Scripting with Bash](pluralsight/bash/README.md) ([course](https://www.pluralsight.com/paths/using-bash-and-z-shell))
+- :construction: [Shell Scripting with Bash](pluralsight/bash/README.md) ([course](https://www.pluralsight.com/paths/using-bash-and-z-shell))
 - :notebook: [Red Hat Certified Engineer](red-hat/RHCE/README.md) ([course](https://www.pluralsight.com/paths/rhce-red-hat-certified-engineer-ex294))
 - :notebook: [Configuration Management Using Ansible](pluralsight/ansible/README.md) ([course](https://www.pluralsight.com/paths/configuration-management-using-ansible))
 - :notebook: [Red Hat Certified Specialist in Linux Diagnostics and Troubleshooting](red-hat/RHCSLDT/README.md) ([course](https://www.pluralsight.com/paths/red-hat-certified-specialist-in-linux-diagnostics-and-troubleshooting-ex342))
@@ -49,7 +49,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 - :package: [Back-End Engineer Professional Certification](codecademy/backend-engineer/README.md) ([course](https://www.codecademy.com/career-journey/back-end-engineer))
 - :notebook: [GitHub Foundations](pluralsight/github-foundations/README.md) ([course](https://www.pluralsight.com/paths/github-foundations))
 - :notebook: [Docker for Software Development](pluralsight/docker-for-SD/README.md) ([course](https://www.pluralsight.com/paths/docker-for-software-development))
-- :construction: :package: :notebook: [IBM Data Engineering Professional Certificate](IBM/IBM-DE/README.md) ([course](https://www.ibm.com/training/badge/ibm-data-engineering-professional-certificate))
+- :construction: [IBM Data Engineering Professional Certificate](IBM/IBM-DE/README.md) ([course](https://www.ibm.com/training/badge/ibm-data-engineering-professional-certificate))
 - IBM AI Engineering Professional Certificate ([course](https://www.ibm.com/training/badge/ibm-ai-engineering-professional-certificate))
 - IBM RAG and Agentic AI Professional Certificate ([course](https://www.ibm.com/training/badge/ibm-rag-and-agentic-ai-professional-certificate))
 ### Book Notes
@@ -78,8 +78,8 @@ Notes and projects covering software engineering, business analysis, systems eng
 - :package: :notebook: [IBM Business Analyst Professional Certificate](IBM/IBM-BA/README.md) ([course](https://www.ibm.com/training/badge/ibm-business-analyst-professional-certificate))
 - :package: :notebook: [IBM Cybersecurity Analyst Professional Certificate](IBM/IBM-CySA/README.md) ([course](https://www.ibm.com/training/badge/ibm-cybersecurity-analyst-professional-certificate))
 - :notebook: [TCM Security Practical OSINT Research Professional](TS-PORP/README.md) ([course](https://certifications.tcm-sec.com/porp/))
-- :construction: :package: :notebook: [IBM Product Manager Professional Certificate](IBM/IBM-PM/README.md) ([course](https://www.ibm.com/training/badge/ibm-product-manager-professional-certificate))
-- :construction: :notebook: [Associate Systems Engineer to Principal Systems Engineer](codecademy/ASEPSE/README.md) ([course](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey))
+- :construction: [IBM Product Manager Professional Certificate](IBM/IBM-PM/README.md) ([course](https://www.ibm.com/training/badge/ibm-product-manager-professional-certificate))
+- :construction: [Associate Systems Engineer to Principal Systems Engineer](codecademy/ASEPSE/README.md) ([course](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey))
 - Microservices Architecture ([course](https://www.pluralsight.com/paths/microservices-architecture-new))
 - IBM Systems and Solutions Architect Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-systems-and-solutions-architect))
 
@@ -87,7 +87,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 
 #### Business Analysis
 
-- :construction: :notebook: [Business Analysis](books/BA/README.md), 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4)) :anchor:
+- :construction: [Business Analysis](books/BA/README.md), 4th edition, by Debra Paul, James Cadle, Malcolm Eva, Craig Rollason, and Jonathan Hunsley. ([catalogue](https://shop.bcs.org/page/detail/business-analysis/?SF1=work_exact&ST1=BUSINESSANALYSIS4)) :anchor:
 - Business Analysis Techniques, 3rd edition, by James Cadle, Debra Paul, Jonathan Hunsley, Adrian Reed, David Beckham, and Paul Turner. ([catalogue](https://shop.bcs.org/page/detail/business-analysis-techniques/?SF1=work_exact&ST1=BUSINESSANALYSISTECHNIQUES3))
 - Agile and Business Analysis, by Lynda Girvan and Debra Paul. ([catalogue](https://shop.bcs.org/page/detail/?k=9781780176178))
 - Developing Information Systems, by James Cadle, Tahir Ahmed, Julian Cox, Lynda Girvan, Alan Paul, Debra Paul, and Peter Thompson. ([catalogue](https://shop.bcs.org/page/detail/developing-information-systems/?SF1=work_exact&ST1=DEVELOPINGINFORMATIONSYSTEMS))

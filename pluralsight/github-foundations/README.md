@@ -1,6 +1,6 @@
 # *GitHub Foundations* Course Notes
 
-The 12 hour, self-paced, [GitHub Foundations](https://www.pluralsight.com/paths/github-foundations) learning path from Pluralsight gives you a thorough understanding of GitHub’s core functions and advanced features to help you prepare for the GitHub Foundations certification exam. It covers essentials like version control, project management, and collaboration, plus hands-on practice with tools like GitHub Actions, GitHub Copilot, and GitHub Codespaces through practical, real-world scenarios.
+These notes cover Pluralsight's 12-hour, self-paced, [GitHub Foundations](https://www.pluralsight.com/paths/github-foundations)course on GitHub’s core functions and advanced features to help you prepare for the GitHub Foundations certification exam. It covers essentials like version control, project management, and collaboration, plus hands-on practice with tools like GitHub Actions, GitHub Copilot, and GitHub Codespaces through practical, real-world scenarios.
 
 ## Module Notes
 
