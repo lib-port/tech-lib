@@ -4,7 +4,7 @@ Course notes and projects for the [IBM DevOps and Software Engineering Professio
 
 ## Course Description
 
-This course is a 6-month, self-paced programme aimed at reinforcing foundational skills for software engineering and DevOps through practical, hands-on learning. Guided by IBM experts, it develops job-ready skills in Python, Linux, GitHub, Agile, cloud-native development, Docker, Kubernetes, OpenShift, microservices, serverless technologies, CI/CD, testing, security, deployment monitoring and troubleshooting.
+This course is a 6-month, self-paced programme that reinforces foundational skills for software engineering and DevOps through practical, hands-on learning. Guided by IBM experts, it develops job-ready skills in Python, Linux, GitHub, Agile, cloud-native development, Docker, Kubernetes, OpenShift, microservices, serverless technologies, CI/CD, testing, security, deployment monitoring and troubleshooting.
 
 ### Projects
 

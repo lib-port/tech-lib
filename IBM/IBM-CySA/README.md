@@ -4,7 +4,7 @@ Course notes and projects for the [IBM Cybersecurity Analyst Professional Certif
 
 ## Course Description
 
-This course is a 4-month, self-paced programme aimed at reinforcing foundational skills for cybersecurity analysis roles through practical, hands-on learning. It covers cybersecurity fundamentals, networks, operating systems, databases, vulnerabilities, security architecture, compliance, generative AI, penetration testing, incident response, digital forensics, threat intelligence and career preparation through practical, real-world projects. The certificate is also positioned as support for CompTIA Security+ exam prep.
+This course is a 4-month, self-paced programme that reinforces foundational skills for cybersecurity analysis roles through practical, hands-on learning. It covers cybersecurity fundamentals, networks, operating systems, databases, vulnerabilities, security architecture, compliance, generative AI, penetration testing, incident response, digital forensics, threat intelligence and career preparation through practical, real-world projects. The certificate is also positioned as support for CompTIA Security+ exam prep.
 
 ### Projects
 

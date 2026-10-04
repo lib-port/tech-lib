@@ -5,7 +5,7 @@ These notes cover Pluralsight's 11-hour, self-paced [Shell Scripting with Bash](
 ## Notes:
 
 - [Bash Script Flow and Basic Utilities](Bash%20Script%20Flow%20and%20Basic%20Utilities.md)
-- Bash Input/Output and Streams
+- [Bash Input/Output and Streams](Bash%20Input%20Output%20and%20Streams.md)
 - Bash Parameter and Shell Expansions
 - Bash Advanced Data Structures and Variables
 - Bash Script Robustness and Text Processing Tools

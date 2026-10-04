@@ -4,7 +4,7 @@ Course notes for the [IBM Business Analyst Professional Certificate](https://www
 
 ## Course Description
 
-This course is a 3-month, self-paced programme aimed at reinforcing foundational skills for business analysts, including process modelling, requirements gathering, stakeholder engagement, systems analysis, and data visualisation using Excel and Cognos. Aligned with the Business Analysis Body of Knowledge (BABOK), it builds practical, job-ready capabilities and supports preparation for the Entry Certificate in Business Analysis (ECBA).
+This course is a 3-month, self-paced programme that reinforces foundational skills for business analysts, including process modelling, requirements gathering, stakeholder engagement, systems analysis, and data visualisation using Excel and Cognos. Aligned with the Business Analysis Body of Knowledge (BABOK), it builds practical, job-ready capabilities and supports preparation for the Entry Certificate in Business Analysis (ECBA).
 
 ### Projects
 
