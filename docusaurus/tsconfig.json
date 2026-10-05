@@ -1,0 +1,16 @@
+{
+  "extends": "@docusaurus/tsconfig",
+  "compilerOptions": {
+    "baseUrl": null,
+    "paths": {"@site/*": ["./*"]},
+    "types": ["node", "react", "@docusaurus/module-type-aliases", "@docusaurus/preset-classic"],
+    "strict": true,
+    "allowJs": false,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
+    "noEmit": true
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", ".docusaurus", "build"]
+}

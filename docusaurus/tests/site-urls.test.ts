@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {homepageActiveRegex} from '../lib/site-urls.mjs';
+import {homepageActiveRegex} from '../lib/site-urls.ts';
 
 for (const baseUrl of ['/tech-lib/', '/', '/preview.v2+docs(1)[test]/']) {
   test('homepage active matching is exact for ' + baseUrl, () => {

@@ -12,6 +12,7 @@
  */
 
 import React from 'react';
+import type {Props} from '@theme/DocSidebarItem/Link';
 import clsx from 'clsx';
 import {ThemeClassNames} from '@docusaurus/theme-common';
 import {isActiveSidebarItem} from '@docusaurus/plugin-content-docs/client';
@@ -29,7 +30,7 @@ export default function DocSidebarItemLink({
   level,
   index,
   ...props
-}) {
+}: Props) {
   const {href, label, className, autoAddBaseUrl} = item;
   const titles = useInheritedTitles();
   const title = item.type === 'link' && item.docId ? titles.sidebar[href] : undefined;

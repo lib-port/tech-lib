@@ -2,11 +2,15 @@ import {unified} from 'unified';
 import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
 import remarkEmoji from 'remark-emoji';
+import type {Heading, PhrasingContent} from 'mdast';
+import type {
+  InlineTitleNode, InheritedTitleData, SidebarItem, TitleFrontMatter, TitleVersion,
+} from './title-types.ts';
 
 const parser = unified().use(remarkParse).use(remarkGfm).use(remarkEmoji);
-const inlineTypes = {emphasis: 'em', strong: 'strong', delete: 'del'};
+const inlineTypes = {emphasis: 'em', strong: 'strong', delete: 'del'} as const;
 
-function stripHeadingId(heading) {
+function stripHeadingId(heading: Heading) {
   const last = heading.children.at(-1);
   if (last?.type === 'html' && /^<!--\s*#\S+[\s\S]*-->$/.test(last.value)) {
     heading.children.pop();
@@ -15,41 +19,42 @@ function stripHeadingId(heading) {
   }
 }
 
-function normalizeInline(children) {
-  const nodes = [];
-  function append(node) {
+function normalizeInline(children: readonly PhrasingContent[]): InlineTitleNode[] {
+  const nodes: InlineTitleNode[] = [];
+  function append(node: InlineTitleNode) {
     if (node.type === 'text') {
       if (!node.value) return;
-      if (nodes.at(-1)?.type === 'text') {
-        nodes.at(-1).value += node.value;
+      const last = nodes.at(-1);
+      if (last?.type === 'text') {
+        last.value += node.value;
         return;
       }
     }
     nodes.push(node);
   }
   for (const child of children) {
-    if (inlineTypes[child.type]) {
+    if (child.type === 'emphasis' || child.type === 'strong' || child.type === 'delete') {
       append({type: inlineTypes[child.type], children: normalizeInline(child.children)});
     } else if (child.type === 'inlineCode') {
       append({type: 'code', children: [{type: 'text', value: child.value}]});
     } else if (child.type === 'image' || child.type === 'imageReference') {
       append({type: 'text', value: child.alt ?? ''});
-    } else if (child.children) {
+    } else if ('children' in child) {
       // Navigation already supplies the link; retain only its inline contents.
       for (const node of normalizeInline(child.children)) append(node);
     } else {
       // Raw HTML/JSX stays inert text. The renderer never receives HTML or code.
-      append({type: 'text', value: child.type === 'break' ? ' ' : (child.value ?? '').replace(/\r?\n/g, ' ')});
+      append({type: 'text', value: child.type === 'break' ? ' ' : ('value' in child ? child.value : '').replace(/\r?\n/g, ' ')});
     }
   }
   return nodes;
 }
 
-function textContent(nodes) {
+function textContent(nodes: readonly InlineTitleNode[]): string {
   return nodes.map(node => node.type === 'text' ? node.value : textContent(node.children)).join('');
 }
 
-export function inheritTitle(content, frontMatter) {
+export function inheritTitle(content: string, frontMatter: TitleFrontMatter): TitleFrontMatter {
   if (frontMatter.title != null) return frontMatter;
 
   // Match Docusaurus's handling of an MDX import prologue without evaluating it.
@@ -61,18 +66,22 @@ export function inheritTitle(content, frontMatter) {
   stripHeadingId(heading);
   parser.runSync(tree);
   const nodes = normalizeInline(heading.children);
-  if (nodes[0]?.type === 'text') nodes[0].value = nodes[0].value.trimStart();
-  if (nodes.at(-1)?.type === 'text') nodes.at(-1).value = nodes.at(-1).value.trimEnd();
+  const first = nodes[0];
+  const last = nodes.at(-1);
+  if (first?.type === 'text') first.value = first.value.trimStart();
+  if (last?.type === 'text') last.value = last.value.trimEnd();
   const text = textContent(nodes).trim();
   if (!text) return frontMatter;
   return {...frontMatter, title: text, _inheritedTitle: {text, nodes: nodes.filter(node => node.type !== 'text' || node.value)}};
 }
 
-function hasLabel(value) {
+function hasLabel(value: unknown) {
   return value !== undefined && value !== null;
 }
 
-function sidebarDocuments(items) {
+type SidebarDocument = {id: string; type?: 'doc' | 'ref'; category?: boolean; label?: string};
+
+function sidebarDocuments(items: readonly SidebarItem[]): SidebarDocument[] {
   return items.flatMap(item => item.type === 'category'
     ? [
       ...(item.link?.type === 'doc' ? [{id: item.link.id, category: true}] : []),
@@ -81,14 +90,16 @@ function sidebarDocuments(items) {
     : item.type === 'doc' || item.type === 'ref' ? [item] : []);
 }
 
-export function createInheritedTitleData(loadedVersions) {
-  const sidebar = {};
-  const pagination = {};
+export function createInheritedTitleData(loadedVersions: readonly TitleVersion[]): InheritedTitleData {
+  const sidebar: InheritedTitleData['sidebar'] = {};
+  const pagination: InheritedTitleData['pagination'] = {};
   for (const version of loadedVersions) {
     const docsById = new Map(version.docs.map(doc => [doc.id, doc]));
     const titles = new Map(version.docs
-      .filter(doc => doc.frontMatter._inheritedTitle?.nodes.some(node => node.type !== 'text'))
-      .map(doc => [doc.permalink, doc]));
+      .flatMap(doc => {
+        const title = doc.frontMatter._inheritedTitle;
+        return title?.nodes.some(node => node.type !== 'text') ? [[doc.permalink, {...doc, inheritedTitle: title}] as const] : [];
+      }));
     const sidebarItems = Object.fromEntries(Object.entries(version.sidebars)
       .map(([name, items]) => [name, sidebarDocuments(items)]));
     for (const items of Object.values(sidebarItems)) {
@@ -96,22 +107,22 @@ export function createInheritedTitleData(loadedVersions) {
         if (item.category || hasLabel(item.label)) continue;
         const doc = docsById.get(item.id);
         if (doc && titles.has(doc.permalink) && !hasLabel(doc.frontMatter.sidebar_label)) {
-          sidebar[doc.permalink] = doc.frontMatter._inheritedTitle;
+          sidebar[doc.permalink] = titles.get(doc.permalink)!.inheritedTitle;
         }
       }
     }
     for (const source of version.docs) {
-      for (const [direction, override] of [['previous', 'pagination_prev'], ['next', 'pagination_next']]) {
+      for (const [direction, override] of [['previous', 'pagination_prev'], ['next', 'pagination_next']] as const) {
         const link = source[direction];
         const target = link && titles.get(link.permalink);
-        if (!target || hasLabel(target.frontMatter.sidebar_label) || hasLabel(target.frontMatter.pagination_label)) continue;
+        if (!link || !target || hasLabel(target.frontMatter.sidebar_label) || hasLabel(target.frontMatter.pagination_label)) continue;
         if (source.frontMatter[override] === undefined) {
-          const item = sidebarItems[source.sidebar]?.find(candidate => candidate.id === target.id && candidate.type !== 'ref');
+          const item = source.sidebar === undefined ? undefined : sidebarItems[source.sidebar]?.find(candidate => candidate.id === target.id && candidate.type !== 'ref');
           if (!item || (!item.category && hasLabel(item.label))) continue;
         }
         // A different final label (for example, a translation) must stay intact.
-        if (link.title !== target.frontMatter._inheritedTitle.text) continue;
-        (pagination[source.permalink] ??= {})[direction] = target.frontMatter._inheritedTitle;
+        if (link.title !== target.inheritedTitle.text) continue;
+        (pagination[source.permalink] ??= {})[direction] = target.inheritedTitle;
       }
     }
   }

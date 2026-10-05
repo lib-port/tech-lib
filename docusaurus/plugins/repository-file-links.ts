@@ -1,12 +1,16 @@
 import {statSync} from 'node:fs';
 import path from 'node:path';
 import {visit} from 'unist-util-visit';
+import type {Definition, Root} from 'mdast';
+import type {Plugin} from 'unified';
 
-export default function remarkRepositoryFileLinks({repositoryRoot, repositoryUrl, ref = 'main'}) {
+type Options = {repositoryRoot: string; repositoryUrl: string; ref?: string};
+
+const remarkRepositoryFileLinks: Plugin<[Options], Root> = function ({repositoryRoot, repositoryUrl, ref = 'main'}) {
   const root = path.resolve(repositoryRoot);
   const baseUrl = `${repositoryUrl.replace(/\/$/, '')}/raw/${encodeURIComponent(ref)}/`;
 
-  function repositoryLink(url, sourceFile) {
+  function repositoryLink(url: string | undefined, sourceFile: string) {
     // Absolute URLs, site routes, anchors, and query-only links are not file references.
     if (!url || /^(?:[a-z][a-z\d+.-]*:|\/|#|\?)/i.test(url)) return null;
     const suffixIndex = url.search(/[?#]/);
@@ -32,18 +36,19 @@ export default function remarkRepositoryFileLinks({repositoryRoot, repositoryUrl
   }
 
   return (tree, file) => {
-    const definitions = new Map();
+    const definitions = new Map<string, Definition>();
     visit(tree, 'definition', node => {
       if (!definitions.has(node.identifier)) definitions.set(node.identifier, node);
     });
 
     visit(tree, ['link', 'linkReference'], (node, index, parent) => {
+      if (node.type !== 'link' && node.type !== 'linkReference') return;
       const definition = node.type === 'linkReference' ? definitions.get(node.identifier) : null;
-      const url = repositoryLink(definition?.url ?? node.url, file.path);
+      const url = repositoryLink(definition?.url ?? (node.type === 'link' ? node.url : undefined), file.path);
       if (!url) return;
       if (node.type === 'link') {
         node.url = url;
-      } else {
+      } else if (definition && parent && index !== undefined) {
         // A definition may also supply an embedded image: only rewrite the hyperlink.
         parent.children[index] = {
           type: 'link', url, title: definition.title, children: node.children,
@@ -52,4 +57,6 @@ export default function remarkRepositoryFileLinks({repositoryRoot, repositoryUrl
       }
     });
   };
-}
+};
+
+export default remarkRepositoryFileLinks;

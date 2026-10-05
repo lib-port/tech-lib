@@ -7,7 +7,7 @@ import test from 'node:test';
 import {
   createSidebar, discoverDocuments, documentFrontMatter, isDocument, localMarkdownLinks,
   orderForDirectory,
-} from '../lib/content.mjs';
+} from '../lib/content.ts';
 
 test('discovers new and tracked Markdown, excluding generated, ignored, and site files', t => {
   const root = mkdtempSync(path.join(os.tmpdir(), 'tech-lib-content-'));
@@ -64,7 +64,7 @@ test('only the repository README becomes the homepage', () => {
 
 test('normalizes filename slugs while retaining punctuation and other frontmatter', () => {
   const root = path.resolve('/tmp/library');
-  const frontMatter = {id: 'Original ID', title: 'Original Title', sidebar_label: 'Custom label'};
+  const frontMatter: Record<string, unknown> = {id: 'Original ID', title: 'Original Title', sidebar_label: 'Custom label'};
   for (const [file, slug] of [
     ['pluralsight/ansible/Getting Started with Ansible.md', 'getting-started-with-ansible'],
     ['IBM/IBM-CySA/  Chapter  2\t& Tools  .mdx', 'chapter-2-&-tools'],
@@ -117,9 +117,16 @@ test('sidebar uses README category indexes and inherited course order with numer
   const orders = new Map([['course', ['course/book/Z first.md', 'course/book/A second.md']]]);
   assert.deepEqual(orderForDirectory('course/book', orders), orders.get('course'));
   const sidebar = createSidebar(documents, orders);
+  assert.ok(sidebar[0].type === 'doc');
   assert.equal(sidebar[0].id, 'README');
+  assert.ok(sidebar[1].type === 'category' && sidebar[1].link?.type === 'doc');
   assert.equal(sidebar[1].link.id, 'course/README');
-  assert.deepEqual(sidebar[1].items[0].items.map(item => item.id), [
+  const book = sidebar[1].items[0];
+  assert.ok(book.type === 'category');
+  assert.deepEqual(book.items.map(item => {
+    assert.ok(item.type === 'doc');
+    return item.id;
+  }), [
     'course/book/Z first', 'course/book/A second', 'course/book/Chapter 2', 'course/book/Chapter 10',
   ]);
   assert.deepEqual(sidebar[2], {type: 'doc', id: 'empty-course/README', label: 'empty-course'});

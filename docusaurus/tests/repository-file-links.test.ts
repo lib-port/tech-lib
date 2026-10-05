@@ -3,14 +3,17 @@ import {mkdirSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import type {TestContext} from 'node:test';
+import type {Nodes, Root} from 'mdast';
+import {visit} from 'unist-util-visit';
 import remarkParse from 'remark-parse';
 import {unified} from 'unified';
-import remarkRepositoryFileLinks from '../plugins/repository-file-links.mjs';
+import remarkRepositoryFileLinks from '../plugins/repository-file-links.ts';
 
 const repositoryUrl = 'https://github.com/example/library';
 const ref = 'main';
 
-function fixture(t) {
+function fixture(t: TestContext) {
   const directory = mkdtempSync(path.join(tmpdir(), 'repository-file-links-'));
   t.after(() => rmSync(directory, {recursive: true, force: true}));
   const repositoryRoot = path.join(directory, 'repo');
@@ -42,18 +45,14 @@ function fixture(t) {
     repositoryRoot, repositoryUrl, ref,
   });
   return {
-    parse: markdown => processor.parse(markdown),
-    transform: markdown => processor.run(processor.parse(markdown), {path: sourcePath}),
+    parse: (markdown: string) => processor.parse(markdown),
+    transform: (markdown: string) => processor.run(processor.parse(markdown), {path: sourcePath}),
   };
 }
 
-function nodesOfType(tree, type) {
-  const nodes = [];
-  function visit(node) {
-    if (node.type === type) nodes.push(node);
-    node.children?.forEach(visit);
-  }
-  visit(tree);
+function nodesOfType<T extends Nodes['type']>(tree: Root, type: T): Extract<Nodes, {type: T}>[] {
+  const nodes: Extract<Nodes, {type: T}>[] = [];
+  visit(tree, (node): node is Extract<Nodes, {type: T}> => node.type === type, node => { nodes.push(node); });
   return nodes;
 }
 
@@ -110,7 +109,7 @@ test('preserves embedded images and code while rewriting links to image files', 
   ].join('\n\n');
   const original = parse(markdown);
   const tree = await transform(markdown);
-  for (const type of ['image', 'inlineCode', 'code']) {
+  for (const type of ['image', 'inlineCode', 'code'] as const) {
     assert.deepEqual(nodesOfType(tree, type), nodesOfType(original, type));
   }
   const [link] = nodesOfType(tree, 'link');

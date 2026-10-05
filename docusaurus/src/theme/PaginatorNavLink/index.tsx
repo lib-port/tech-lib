@@ -9,11 +9,12 @@
 import React from 'react';
 import {useLocation} from '@docusaurus/router';
 import PaginatorNavLink from '@theme-original/PaginatorNavLink';
+import type {Props} from '@theme/PaginatorNavLink';
 import {useInheritedTitles} from '@site/src/components/InheritedTitle';
-import {getInheritedPaginationTitle} from '@site/src/components/InheritedTitle/pagination.mjs';
-import {renderInheritedTitle} from '@site/src/components/InheritedTitle/render.mjs';
+import {getInheritedPaginationTitle} from '@site/src/components/InheritedTitle/pagination.ts';
+import {renderInheritedTitle} from '@site/src/components/InheritedTitle/render.ts';
 
-export default function PaginatorNavLinkWrapper(props) {
+export default function PaginatorNavLinkWrapper(props: Props) {
   const {pathname} = useLocation();
   const {pagination} = useInheritedTitles();
   const title = getInheritedPaginationTitle(pagination, pathname, props.isNext);

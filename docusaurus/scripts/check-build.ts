@@ -3,8 +3,9 @@ import {existsSync, readFileSync, readdirSync, statSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {parse, serialize} from 'parse5';
-import siteConfig from '../docusaurus.config.js';
-import {discoverDocuments} from '../lib/content.mjs';
+import siteConfig from '../docusaurus.config.ts';
+import {discoverDocuments} from '../lib/content.ts';
+import type {DocMetadata} from '@docusaurus/plugin-content-docs';
 
 const siteDir = fileURLToPath(new URL('..', import.meta.url));
 const repositoryRoot = path.resolve(siteDir, '..');
@@ -12,19 +13,19 @@ const buildDir = path.join(siteDir, 'build');
 const metadataDir = path.join(siteDir, '.docusaurus/docusaurus-plugin-content-docs/default');
 const {baseUrl, url: origin} = siteConfig;
 
-function readBuiltHtml(filename) {
+function readBuiltHtml(filename: string) {
   // Normalize optional quotes and end tags emitted by either HTML minifier.
   return serialize(parse(readFileSync(filename, 'utf8')));
 }
 
-function walk(directory) {
+function walk(directory: string): string[] {
   return readdirSync(directory, {withFileTypes: true}).flatMap(entry => {
     const filename = path.join(directory, entry.name);
     return entry.isDirectory() ? walk(filename) : [filename];
   });
 }
 
-function builtFile(url) {
+function builtFile(url: string) {
   const pathname = new URL(url, origin).pathname;
   assert.ok(pathname.startsWith(baseUrl), `Site URL is missing ${baseUrl}: ${url}`);
   const relative = decodeURIComponent(pathname.slice(baseUrl.length));
@@ -33,9 +34,9 @@ function builtFile(url) {
     ? path.join(target, 'index.html') : target;
 }
 
-assert.ok(existsSync(path.join(buildDir, 'index.html')), 'Run npm run build before checking the site.');
+assert.ok(existsSync(path.join(buildDir, 'index.html')), 'Run pnpm run build locally, or npm run build in CI, before checking the site.');
 const documents = walk(metadataDir).filter(file => file.endsWith('.json'))
-  .map(file => JSON.parse(readFileSync(file, 'utf8')))
+  .map(file => JSON.parse(readFileSync(file, 'utf8')) as DocMetadata)
   .filter(metadata => metadata.source && metadata.permalink && metadata.id);
 const sourceFiles = documents.map(doc => path.relative(repositoryRoot,
   path.resolve(siteDir, doc.source.replace(/^@site\//, ''))).split(path.sep).join('/'));
@@ -72,12 +73,12 @@ for (const [index, doc] of documents.entries()) {
 const homeHtml = readBuiltHtml(path.join(buildDir, 'index.html'));
 assert.ok(!homeHtml.includes(':notebook:'), 'GitHub emoji shortcodes should be rendered.');
 
-function elementWithClass(html, tag, className) {
+function elementWithClass(html: string, tag: string, className: string) {
   return [...html.matchAll(new RegExp(`<${tag}\\b([^>]*)>([\\s\\S]*?)</${tag}>`, 'g'))]
     .find(match => match[1].match(/\bclass="([^"]*)"/)?.[1].split(/\s+/).includes(className))?.[0];
 }
 
-function linkTo(html, permalink) {
+function linkTo(html: string, permalink: string) {
   return [...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)]
     .find(match => match[1].match(/\bhref="([^"]*)"/)?.[1].replace(/\/$/, '')
       === permalink.replace(/\/$/, ''))?.[0];
@@ -85,6 +86,7 @@ function linkTo(html, permalink) {
 
 const ansibleSource = 'pluralsight/ansible/Getting Started with Ansible.md';
 const ansible = documents.find((doc, index) => sourceFiles[index] === ansibleSource);
+assert.ok(ansible, 'The Ansible document must be published.');
 const ansibleUrl = `${baseUrl}pluralsight/ansible/getting-started-with-ansible/`;
 assert.equal(ansible?.permalink.replace(/\/?$/, '/'), ansibleUrl,
   'The Ansible filename must produce a lowercase, hyphenated URL.');
@@ -97,6 +99,7 @@ assert.ok(ansibleHtml.includes(`rel="canonical" href="${origin}${ansibleUrl}"`),
 assert.ok(ansibleHtml.includes('id="installation-and-environment"')
   && linkTo(ansibleHtml, '#installation-and-environment'), 'Existing heading anchors must remain usable.');
 const ansibleReadme = documents.find((doc, index) => sourceFiles[index] === 'pluralsight/ansible/README.md');
+assert.ok(ansibleReadme, 'The Ansible README must be published.');
 assert.equal(ansibleReadme?.permalink, `${baseUrl}pluralsight/ansible/`,
   'Nested README routes must remain at their existing directory URLs.');
 const ansibleReadmeHtml = readBuiltHtml(builtFile(ansibleReadme.permalink));
@@ -129,14 +132,17 @@ assert.ok(linkTo(sidebarHtml, formattedProject.permalink)?.includes(richProjectT
 const breadcrumbHtml = elementWithClass(projectHtml, 'nav', 'theme-doc-breadcrumbs');
 assert.ok(breadcrumbHtml?.includes(richProjectTitle), 'The active breadcrumb should render inherited emphasis.');
 
-for (const [direction, modifier, subLabel] of [['previous', 'prev', 'Previous'], ['next', 'next', 'Next']]) {
-  const referringDocument = documents.find(doc => doc[direction]?.permalink === formattedProject.permalink);
+for (const [direction, modifier, subLabel] of [['previous', 'prev', 'Previous'], ['next', 'next', 'Next']] as const) {
+  const referringDocument: DocMetadata | undefined = documents.find(doc => doc[direction]?.permalink === formattedProject.permalink);
   assert.ok(referringDocument, `The formatted project should be reachable from a ${direction} paginator link.`);
-  assert.equal(referringDocument[direction].title, plainProjectTitle,
+  const navigation = referringDocument[direction];
+  assert.ok(navigation);
+  assert.equal(navigation.title, plainProjectTitle,
     `The ${direction} paginator metadata must retain the plain destination title.`);
   const referringHtml = readBuiltHtml(builtFile(referringDocument.permalink));
   const paginatorHtml = elementWithClass(referringHtml, 'nav', 'pagination-nav');
   const paginatorLink = linkTo(paginatorHtml ?? '', formattedProject.permalink);
+  assert.ok(paginatorLink);
   assert.ok(paginatorLink?.includes(richProjectTitle),
     `The ${direction} paginator should render inherited emphasis in the destination title.`);
   assert.ok(elementWithClass(paginatorLink, 'a', `pagination-nav__link--${modifier}`),
@@ -152,14 +158,15 @@ const openGraphTitle = [...projectHtml.matchAll(/<meta\b[^>]*>/g)]
 assert.equal(openGraphTitle, browserTitle, 'Social metadata should use the same plain title as the browser.');
 const breadcrumbData = [...projectHtml.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)]
   .filter(match => /\btype="application\/ld\+json"/.test(match[1]))
-  .map(match => JSON.parse(match[2])).find(data => data['@type'] === 'BreadcrumbList');
-assert.equal(breadcrumbData?.itemListElement.at(-1)?.name, plainProjectTitle,
+  .map(match => JSON.parse(match[2]) as {'@type'?: string; itemListElement?: {name?: string}[]})
+  .find(data => data['@type'] === 'BreadcrumbList');
+assert.equal(breadcrumbData?.itemListElement?.at(-1)?.name, plainProjectTitle,
   'Breadcrumb structured data should contain plain text.');
 
 for (const [permalink, labels] of [
   [`${baseUrl}TS-PORP/deep-dive/`, ['TS-PORP', 'deep-dive']],
   [`${baseUrl}red-hat/RHCSC/`, ['red-hat']],
-]) {
+] as const) {
   const html = readBuiltHtml(builtFile(permalink));
   const breadcrumbs = elementWithClass(html, 'nav', 'theme-doc-breadcrumbs');
   assert.ok(breadcrumbs, `Missing breadcrumbs in ${permalink}`);
@@ -178,7 +185,7 @@ assert.ok(linkTo(capstoneHtml, spreadsheetUrl),
 assert.ok(!walk(buildDir).some(file => /\.xlsx$/i.test(file)),
   'Linked spreadsheets must not be bundled into the site.');
 
-for (const filename of ['package-lock.json', 'npm-shrinkwrap.json']) {
+for (const filename of ['package-lock.json', 'npm-shrinkwrap.json', 'pnpm-lock.yaml']) {
   assert.ok(!existsSync(path.join(siteDir, filename)), `Project lockfiles are disabled: ${filename}`);
 }
 assert.ok(!walk(buildDir).some(file => /search[-_]index/i.test(path.basename(file))), 'No search index should be generated.');

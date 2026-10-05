@@ -1,0 +1,9 @@
+lockfile: false
+engineStrict: true
+strictPeerDependencies: true
+verifyDepsBeforeRun: false
+minimumReleaseAge: 0
+strictDepBuilds: true
+allowBuilds:
+  '@swc/core': true
+  core-js: false

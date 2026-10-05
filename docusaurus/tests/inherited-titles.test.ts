@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {createInheritedTitleData, inheritTitle} from '../lib/inherited-titles.mjs';
-import inheritedTitlesPlugin from '../plugins/inherited-titles.mjs';
+import {createInheritedTitleData, inheritTitle} from '../lib/inherited-titles.ts';
+import inheritedTitlesPlugin from '../plugins/inherited-titles.ts';
+import type {InlineElement, InlineTitleNode, TitleDocument, TitleVersion} from '../lib/title-types.ts';
 
-const text = value => ({type: 'text', value});
-const inline = (type, ...children) => ({type, children});
+const text = (value: string): InlineTitleNode => ({type: 'text', value});
+const inline = (type: InlineElement, ...children: InlineTitleNode[]): InlineTitleNode => ({type, children});
 
 test('inherits nested inline formatting and plain metadata from an ATX H1', () => {
   const frontMatter = {description: 'Keep this', sidebar_custom_props: {color: 'blue'}};
@@ -27,6 +28,7 @@ test('inherits nested inline formatting and plain metadata from an ATX H1', () =
 test('supports Setext headings, reference links, image alt, escapes, entities, and emoji', () => {
   const result = inheritTitle('[**Tools**][tools] ![diagram](map.svg) \\*literal\\* &amp; :smile:\n===\n\n[tools]: /tools', {});
   assert.equal(result.title, 'Tools diagram *literal* & 😄');
+  assert.ok(result._inheritedTitle);
   assert.deepEqual(result._inheritedTitle.nodes, [inline('strong', text('Tools')), text(' diagram *literal* & 😄')]);
   assert.equal(inheritTitle('# `:smile: &amp;`', {}).title, ':smile: &amp;');
   assert.equal(inheritTitle('# ``a ` b`` ###', {}).title, 'a ` b');
@@ -37,7 +39,9 @@ test('strips supported heading IDs while leaving code and unsupported HTML/JSX i
     assert.equal(inheritTitle(`# **Title** ${suffix}`, {}).title, 'Title');
   }
   assert.equal(inheritTitle('# `literal {#id}`', {}).title, 'literal {#id}');
-  assert.deepEqual(inheritTitle('# <Widget /> {sideEffect()} **safe**', {})._inheritedTitle.nodes,
+  const inherited = inheritTitle('# <Widget /> {sideEffect()} **safe**', {})._inheritedTitle;
+  assert.ok(inherited);
+  assert.deepEqual(inherited.nodes,
     [text('<Widget /> {sideEffect()} '), inline('strong', text('safe'))]);
 });
 
@@ -53,12 +57,13 @@ test('preserves explicit titles and only infers a leading H1', () => {
   assert.equal(inheritTitle('import Thing from "./thing";\n\n# **Title**', {}).title, 'Title');
 });
 
-function doc(id, frontMatter = {}, heading = `# **${id}**`) {
+function doc(id: string, frontMatter: TitleDocument['frontMatter'] = {}, heading = `# **${id}**`): TitleDocument {
   const matter = inheritTitle(heading, frontMatter);
+  assert.ok(typeof matter.title === 'string');
   return {id, permalink: `/tech-lib/${id}/`, title: matter.title, frontMatter: matter, sidebar: 'library'};
 }
 
-function nav(target) {
+function nav(target: TitleDocument) {
   return {title: target.frontMatter.pagination_label ?? target.frontMatter.sidebar_label ?? target.title, permalink: target.permalink};
 }
 
@@ -77,7 +82,7 @@ test('formats inherited doc links while retaining category, README-only, and exp
     {type: 'ref', id: reference.id},
     {type: 'category', label: 'folder-name', link: {type: 'doc', id: category.id}, items: []},
     {type: 'doc', id: readmeOnly.id, label: 'literal-folder'},
-    ...[sidebarOverride, paginationOverride, explicitTitle, plain].map(item => ({type: 'doc', id: item.id})),
+    ...[sidebarOverride, paginationOverride, explicitTitle, plain].map(item => ({type: 'doc' as const, id: item.id})),
   ]}}]);
   assert.deepEqual(Object.keys(data.sidebar), [direct.permalink, reference.permalink, paginationOverride.permalink]);
   assert.deepEqual(data.pagination, {});
@@ -91,15 +96,15 @@ test('both pagination directions preserve explicit labels even when they equal i
   const paginationOverride = doc('pagination-override', {pagination_label: 'pagination-override'});
   const explicitTitle = doc('explicit-title', {title: 'explicit-title'});
   const targets = [direct, category, readmeOnly, sidebarOverride, paginationOverride, explicitTitle];
-  for (const [direction, override] of [['previous', 'pagination_prev'], ['next', 'pagination_next']]) {
+  for (const [direction, override] of [['previous', 'pagination_prev'], ['next', 'pagination_next']] as const) {
     const sources = targets.map(target => ({...doc(`source-${target.id}`), [direction]: nav(target)}));
     const explicit = {...doc('explicit-target', {[override]: readmeOnly.id}), [direction]: nav(readmeOnly)};
     const translated = {...doc('translated'), [direction]: {...nav(direct), title: 'Translated caption'}};
-    const versions = [{docs: [...targets, ...sources, explicit, translated], sidebars: {library: [
+    const versions: TitleVersion[] = [{docs: [...targets, ...sources, explicit, translated], sidebars: {library: [
       {type: 'doc', id: direct.id},
       {type: 'category', label: 'category-name', link: {type: 'doc', id: category.id}, items: []},
       {type: 'doc', id: readmeOnly.id, label: 'literal-folder'},
-      ...[sidebarOverride, paginationOverride, explicitTitle, ...sources, explicit, translated].map(item => ({type: 'doc', id: item.id})),
+      ...[sidebarOverride, paginationOverride, explicitTitle, ...sources, explicit, translated].map(item => ({type: 'doc' as const, id: item.id})),
     ]}}];
     const originalMetadata = structuredClone(versions);
     const data = createInheritedTitleData(versions);
@@ -115,8 +120,8 @@ test('both pagination directions preserve explicit labels even when they equal i
 test('plugin consumes completed docs data and replaces its payload on reload', () => {
   const plugin = inheritedTitlesPlugin();
   const target = doc('target');
-  const results = [];
-  const actions = {setGlobalData: data => results.push(data)};
+  const results: unknown[] = [];
+  const actions = {setGlobalData: (data: unknown) => { results.push(data); }};
   plugin.allContentLoaded({actions, allContent: {'docusaurus-plugin-content-docs': {default: {loadedVersions: [{
     docs: [target], sidebars: {library: [{type: 'doc', id: target.id}]},
   }]}}}});

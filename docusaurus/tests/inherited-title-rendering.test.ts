@@ -1,12 +1,14 @@
 import assert from 'node:assert/strict';
 import {createElement, Fragment} from 'react';
+import type {ReactNode} from 'react';
+import type {InheritedTitle} from '../lib/title-types.ts';
 import {renderToStaticMarkup} from 'react-dom/server';
 import test from 'node:test';
-import {inheritTitle} from '../lib/inherited-titles.mjs';
-import {getInheritedPaginationTitle} from '../src/components/InheritedTitle/pagination.mjs';
-import {renderInheritedTitle} from '../src/components/InheritedTitle/render.mjs';
+import {inheritTitle} from '../lib/inherited-titles.ts';
+import {getInheritedPaginationTitle} from '../src/components/InheritedTitle/pagination.ts';
+import {renderInheritedTitle} from '../src/components/InheritedTitle/render.ts';
 
-function render(title, label) {
+function render(title: InheritedTitle | undefined, label: ReactNode) {
   return renderToStaticMarkup(createElement(Fragment, null, renderInheritedTitle(title, label)));
 }
 
@@ -34,12 +36,14 @@ test('title text is escaped and unsupported elements cannot inject HTML', () => 
     {type: 'text', value: '<script> & text'},
     {type: 'script', children: [{type: 'text', value: 'alert(1)'}]},
   ]};
-  assert.equal(render(inherited, inherited.text), '&lt;script&gt; &amp; text');
+  // Deliberately malformed plugin data exercises the renderer's runtime allowlist.
+  assert.equal(render(inherited as unknown as InheritedTitle, inherited.text), '&lt;script&gt; &amp; text');
 });
 
 test('pagination selects each direction using full source paths despite case and trailing slash differences', () => {
   const previous = inheritTitle('# *Earlier* topic', {})._inheritedTitle;
   const next = inheritTitle('# **Later** topic', {})._inheritedTitle;
+  assert.ok(previous && next);
   const pagination = {
     '/tech-lib/IBM/Course': {previous, next},
     '/tech-lib/directory/': {next},
@@ -68,13 +72,14 @@ test('pagination selects each direction using full source paths despite case and
 
 test('missing pagination entries and explicit labels pass through string and React titles', () => {
   const inherited = inheritTitle('# *A course*', {})._inheritedTitle;
+  assert.ok(inherited);
   const pagination = {'/tech-lib/source/': {next: inherited}};
   const reactLabel = createElement('span', {lang: 'fr'}, 'Un cours');
   for (const [pathname, isNext] of [
     ['/tech-lib/source/', false],
     ['/tech-lib/generated-index/', true],
     ['/about/', true],
-  ]) {
+  ] as const) {
     const title = getInheritedPaginationTitle(pagination, pathname, isNext);
     assert.equal(title, undefined);
     for (const label of [inherited.text, reactLabel, undefined, null]) {

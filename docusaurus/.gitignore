@@ -5,4 +5,6 @@
 /coverage/
 /package-lock.json
 /npm-shrinkwrap.json
+/pnpm-lock.yaml
 /npm-debug.log*
+/pnpm-debug.log*

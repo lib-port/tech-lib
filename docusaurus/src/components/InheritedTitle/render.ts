@@ -1,9 +1,11 @@
 import {createElement} from 'react';
+import type {ReactNode} from 'react';
+import type {InlineTitleNode, InheritedTitle} from '../../../lib/title-types.ts';
 
 const inlineElements = new Set(['em', 'strong', 'code', 'del']);
 
 // Navigation already supplies the link; title nodes contain inline styling only.
-export function renderInlineTitle(nodes) {
+export function renderInlineTitle(nodes: readonly InlineTitleNode[]): ReactNode[] {
   return nodes.map((node, index) => {
     if (node.type === 'text') return node.value;
     if (inlineElements.has(node.type)) {
@@ -13,6 +15,6 @@ export function renderInlineTitle(nodes) {
   });
 }
 
-export function renderInheritedTitle(title, label) {
+export function renderInheritedTitle(title: InheritedTitle | undefined, label: ReactNode): ReactNode {
   return title && title.text === label ? renderInlineTitle(title.nodes) : label;
 }

@@ -12,6 +12,7 @@
  */
 
 import React from 'react';
+import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import {ThemeClassNames} from '@docusaurus/theme-common';
 import {useSidebarBreadcrumbs} from '@docusaurus/plugin-content-docs/client';
@@ -23,7 +24,7 @@ import InheritedTitle, {useInheritedTitles} from '@site/src/components/Inherited
 
 import styles from './styles.module.css';
 
-function BreadcrumbsItemLink({children, href, isLast}) {
+function BreadcrumbsItemLink({children, href, isLast}: {children: ReactNode; href?: string; isLast: boolean}) {
   const className = 'breadcrumbs__link';
   if (isLast) {
     return <span className={className}>{children}</span>;
@@ -37,7 +38,7 @@ function BreadcrumbsItemLink({children, href, isLast}) {
   );
 }
 
-function BreadcrumbsItem({children, active}) {
+function BreadcrumbsItem({children, active}: {children: ReactNode; active: boolean}) {
   return (
     <li
       className={clsx('breadcrumbs__item', {

@@ -3,6 +3,7 @@ import Head from '@docusaurus/Head';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import {useColorMode} from '@docusaurus/theme-common';
 import Layout from '@theme-original/Layout';
+import type {Props} from '@theme/Layout';
 
 function ThemeFavicon() {
   const {colorMode} = useColorMode();
@@ -17,7 +18,7 @@ function ThemeFavicon() {
   );
 }
 
-export default function LayoutWrapper({children, ...props}) {
+export default function LayoutWrapper({children, ...props}: Props) {
   return (
     <Layout {...props}>
       <ThemeFavicon />

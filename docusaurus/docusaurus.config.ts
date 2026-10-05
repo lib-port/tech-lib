@@ -1,20 +1,23 @@
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import remarkGithubAdmonitionsToDirectives from 'remark-github-admonitions-to-directives';
+import type {Config} from '@docusaurus/types';
+import type {Options, ThemeConfig} from '@docusaurus/preset-classic';
 import {
   createSidebar, discoverDocuments, documentFrontMatter, escapeGlob, readCourseOrders,
-} from './lib/content.mjs';
-import {inheritTitle} from './lib/inherited-titles.mjs';
-import {homepageActiveRegex} from './lib/site-urls.mjs';
-import inheritedTitlesPlugin from './plugins/inherited-titles.mjs';
-import remarkRepositoryFileLinks from './plugins/repository-file-links.mjs';
+} from './lib/content.ts';
+import {inheritTitle} from './lib/inherited-titles.ts';
+import {homepageActiveRegex} from './lib/site-urls.ts';
+import inheritedTitlesPlugin from './plugins/inherited-titles.ts';
+import generatedModulesPlugin from './plugins/generated-modules.ts';
+import remarkRepositoryFileLinks from './plugins/repository-file-links.ts';
 
 const siteDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(siteDirectory, '..');
 const files = discoverDocuments(repositoryRoot);
 const baseUrl = '/tech-lib/';
 
-export default {
+const config: Config = {
   title: 'Notes and Projects Library',
   tagline: 'Engineering, architecture, cybersecurity, and product notes and projects',
   url: 'https://lib-port.github.io',
@@ -51,7 +54,7 @@ export default {
         routeBasePath: '/',
         include: files.map(escapeGlob),
         exclude: [],
-        sidebarPath: './sidebars.js',
+        sidebarPath: './sidebars.ts',
         numberPrefixParser: false,
         beforeDefaultRemarkPlugins: [
           remarkGithubAdmonitionsToDirectives,
@@ -73,9 +76,9 @@ export default {
       blog: false,
       pages: false,
       theme: {customCss: './src/css/custom.css'},
-    }],
+    } satisfies Options],
   ],
-  plugins: [inheritedTitlesPlugin],
+  plugins: [inheritedTitlesPlugin, generatedModulesPlugin],
   themes: ['@docusaurus/theme-mermaid'],
   themeConfig: {
     colorMode: {defaultMode: 'light', respectPrefersColorScheme: true},
@@ -107,5 +110,7 @@ export default {
     },
     docs: {sidebar: {hideable: true}},
     prism: {additionalLanguages: ['bash', 'python', 'powershell', 'sql', 'ini', 'yaml', 'docker', 'json', 'nginx']},
-  },
+  } satisfies ThemeConfig,
 };
+
+export default config;

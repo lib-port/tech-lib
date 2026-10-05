@@ -2,6 +2,7 @@
   "name": "tech-lib-site",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "engines": {
     "node": ">=24"
   },
@@ -10,17 +11,22 @@
     "development": ["last 3 chrome versions", "last 3 firefox versions", "last 5 safari versions"]
   },
   "scripts": {
-    "start": "node scripts/site.mjs start",
-    "build": "node scripts/site.mjs build",
-    "serve": "node scripts/site.mjs serve",
-    "test": "node --test tests/*.test.mjs",
-    "check": "node scripts/check-build.mjs"
+    "start": "node scripts/site.ts start",
+    "build": "node scripts/site.ts build",
+    "serve": "node scripts/site.ts serve",
+    "test": "node --test tests/*.test.ts",
+    "check": "node scripts/check-build.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@docusaurus/core": "latest",
     "@docusaurus/faster": "latest",
+    "@docusaurus/plugin-content-docs": "latest",
     "@docusaurus/preset-classic": "latest",
+    "@docusaurus/theme-common": "latest",
     "@docusaurus/theme-mermaid": "latest",
+    "@mdx-js/react": "latest",
+    "clsx": "latest",
     "react": "latest",
     "react-dom": "latest",
     "remark-emoji": "latest",
@@ -31,6 +37,14 @@
     "unist-util-visit": "latest"
   },
   "devDependencies": {
-    "parse5": "latest"
+    "@docusaurus/module-type-aliases": "latest",
+    "@docusaurus/tsconfig": "latest",
+    "@docusaurus/types": "latest",
+    "@types/mdast": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "parse5": "latest",
+    "typescript": "latest"
   }
 }
