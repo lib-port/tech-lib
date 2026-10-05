@@ -1,6 +1,6 @@
 # IBM Business Analyst Professional Certificate Notes and Project Files
 
-Course notes for the [IBM Business Analyst Professional Certificate](https://www.coursera.org/professional-certificates/ibm-business-analyst-professional-certificate).
+Course notes for the [IBM Business Analyst Professional Certificate](https://www.ibm.com/training/badge/ibm-business-analyst-professional-certificate).
 
 ## Course Description
 

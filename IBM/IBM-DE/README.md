@@ -1,6 +1,6 @@
 # IBM Data Engineering Professional Certificate
 
-Course notes and projects for the [IBM Data Engineering Professional Certificate](https://www.coursera.org/professional-certificates/ibm-data-engineer).
+Course notes and projects for the [IBM Data Engineering Professional Certificate](https://www.ibm.com/training/badge/ibm-data-engineering-professional-certificate).
 
 ## Course Description
 

@@ -1,6 +1,6 @@
 # *IBM DevOps and Software Engineering Professional Certificate* Notes
 
-Course notes and projects for the [IBM DevOps and Software Engineering Professional Certificate](https://www.coursera.org/professional-certificates/devops-and-software-engineering).
+Course notes and projects for the [IBM DevOps and Software Engineering Professional Certificate](https://www.ibm.com/training/badge/ibm-devops-and-software-engineering-professional-ce).
 
 ## Course Description
 

@@ -2,8 +2,6 @@
 
 Notes and projects covering software engineering, business analysis, systems engineering, and systems architecture. Course providers include IBM, Codecademy, Pluralsight, and IIBA.
 
-This library describes a course of study that produces secure high-performing systems engineering and effective product management of AI systems and products.
-
 :notebook: = notes | :package: = project(s) | :gear: = lab(s) | :construction: = in progress
 
 ---
@@ -39,6 +37,7 @@ This library describes a course of study that produces secure high-performing sy
 - :construction: [IBM Data Engineering Professional Certificate](IBM/IBM-DE/README.md) ([course](https://www.ibm.com/training/badge/ibm-data-engineering-professional-certificate))
 - IBM AI Engineering Professional Certificate ([course](https://www.ibm.com/training/badge/ibm-ai-engineering-professional-certificate))
 - IBM RAG and Agentic AI Professional Certificate ([course](https://www.ibm.com/training/badge/ibm-rag-and-agentic-ai-professional-certificate))
+
 ### Book Notes
 
 - Modern Software Engineering, by David Farley. ([catalogue](https://www.informit.com/store/modern-software-engineering-doing-what-works-to-build-9780137314911)) :anchor:
@@ -121,8 +120,3 @@ This library describes a course of study that produces secure high-performing sy
 - :package: [Developer Landing Page](https://github.com/lib-port/lib-port.github.io) :link: [Live demo](https://lib-port.github.io)
 - :construction: [Who Gets Heard: The Work Behind the Work](https://lib-port.github.io/who-gets-heard)
 - :construction: [Full-Stack Product Manager: Decide, Design, and Deliver with AI](https://lib-port.github.io/full-stack-pm/)
-
-### Cybersecurity
-
-- :package: [Ansible CIS-based Auditing System for Debian OSes](https://github.com/lib-port/ansible-linux-audit)
-- :package: [Ansible Detection-as-Code Engine for HTB Labs](https://github.com/lib-port/agentless-DaC)
