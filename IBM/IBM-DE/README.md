@@ -18,7 +18,7 @@ This 6-month, self-paced program teaches the job-ready skills needed for data en
 - Train a machine learning model by creating an Apache Spark application.
 - Design, deploy, and manage an end-to-end data engineering platform.
 
-## Module Notes and Projects
+## Notes and Projects
 
 - [Introduction to Data Engineering](Introduction%20to%20Data%20Engineering.md)
 - [Python for Data Science, AI & Development](../IBM-DSE/Python%20for%20Data%20Science,%20AI%20&%20Development.md) ( :package: [Project](../IBM-DSE/projects/Python%20for%20Data%20Science,%20AI%20&%20Development%20Final%20Project.md) )

@@ -2,7 +2,7 @@
 
 These notes cover Pluralsight's 15-hour, self-paced [Docker for Software Development](https://www.pluralsight.com/paths/docker-for-software-development) course on the practical skills to containerise, build, test, and deploy applications using Docker. The notes cover foundational concepts, advanced tools like Docker Compose, and language-specific workflow to streamline modern app development
 
-## Module Notes
+## Notes
 
 - [Docker Foundations](Docker%20Foundations.md)
 - [Docker Compose](Docker%20Compose.md)

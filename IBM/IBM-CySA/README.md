@@ -17,7 +17,7 @@ Through hands-on labs, real-world case studies and applied projects, this course
 - Use generative AI tools to improve cybersecurity effectiveness and productivity.
 - Investigate a real-world security breach by identifying the attack, vulnerabilities and associated costs, and recommending preventive measures.
 
-## Module Notes and Projects
+## Notes and Projects
 
 - [Introduction to Cybersecurity Careers](Introduction%20to%20Cybersecurity%20Careers.md)
 - [Introduction to Cybersecurity Essentials](Introduction%20to%20Cybersecurity%20Essentials.md) ( :package: [Project](projects/Introduction%20to%20Cybersecurity%20Essentials%20Final%20Project.md) )

@@ -17,7 +17,7 @@ This course includes the following hands-on projects:
 - Automate software delivery and implement continuous integration and continuous deployment (CI/CD) using Chef, Puppet, GitHub Actions, Tekton and Travis CI.
 - Secure and monitor applications and cloud deployments using tools such as Sysdig and Prometheus.
 
-## Module Notes and Projects
+## Notes and Projects
 
 - [Introduction to DevOps](Introduction%20to%20DevOps.md)
 - [Introduction to Cloud Computing](Introduction%20to%20Cloud%20Computing.md)

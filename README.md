@@ -1,6 +1,6 @@
 # Notes and Projects Library
 
-Notes and projects covering software engineering, business analysis, systems engineering, and systems architecture. Course providers include IBM, Codecademy, Pluralsight, and IIBA.
+Notes and projects covering software engineering, business analysis, systems engineering, and systems architecture. Course providers include IBM, Codecademy, and Pluralsight.
 
 :notebook: = notes | :package: = project(s) | :gear: = lab(s) | :construction: = in progress
 
