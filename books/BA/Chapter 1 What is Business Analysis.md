@@ -1,14 +1,14 @@
 # Chapter 1: What is Business Analysis?
 
-Business analysis helps organisations identify, assess, and implement changes that meet business needs. It examines the whole business system, including people, processes, organisational arrangements, information, and technology. Its contribution extends from investigating problems and comparing options to supporting implementation and assessing benefits. Technology can enable improvement, but successful change also depends on how an organisation works.
+Business analysis helps organisations identify, assess, and implement changes that meet business needs. It examines the whole business system, including people, processes, organisational arrangements, information, and technology. Its contribution extends from investigating problems and comparing options to supporting implementation and assessing benefits. Technology can enable improvement, but successful change also depends on the characteristics of an organisation and the activities it engages in.
 
 ## Origins and purpose
 
 The discipline developed as organisations sought better results from investment in technology. IT expanded from supporting operations and management decisions to enabling new products, services, and business models. Yet unclear requirements, poor communication, and insufficient organisational change often prevented systems from producing their expected benefits.
 
-Technology can support competitive advantage through closer connections with customers and suppliers, wider market access, and more flexible operations. Realising these opportunities requires coordination between technology choices and the organisation's broader capabilities.
+Technology can support competitive advantage through closer connections with customers and suppliers, wider market access, and more flexible operations. Realising these opportunities requires coordination between technology systems and the organisation's broader business capabilities.
 
-Outsourcing increased the need for effective business representation. Specialist suppliers offered expertise and potential cost savings, but separation between developers and business staff could complicate requirements definition. Business analysis helped connect technical work with organisational needs.
+Outsourcing increased the need for effective business representation. Specialist suppliers offered expertise and potential cost savings, but separation between developers and business staff could complicate requirements definition. Business analysis helped connect technical specifications with organisational needs.
 
 Internal analysts also developed a consulting role. They brought knowledge of the organisation, retained expertise internally, and remained involved with the consequences of recommendations. External consultants could offer broader experience and an independent perspective, although cost, accountability, and knowledge transfer remained considerations.
 
@@ -35,7 +35,7 @@ Six principles guide this work:
 
 The business change lifecycle connects alignment, definition, design, implementation, and benefits realisation around a business case. Early analysis aligns proposals with strategy, enterprise architecture, and the external environment. Later analysis supports solution development, business acceptance testing, adoption, and review of actual benefits.
 
-Analysis therefore continues beyond requirements documentation. A solution can function technically yet fail to improve performance if adoption, working practices, or other necessary changes receive insufficient attention.
+Analysis therefore continues beyond requirements documentation. A solution can function technically yet fail to improve performance if adoption, working practices, or other necessary changes do not occur alongside implementation of the technical solution.
 
 ## Understanding the whole business system
 
@@ -80,19 +80,19 @@ Agile approaches emerged partly in response to the limitations of completing dev
 
 The 2001 Agile Manifesto gives priority to people and interaction, working software, customer collaboration, and responsiveness to change. It still recognises the value of processes, tools, documentation, contracts, and plans.
 
-Direct communication between developers and business staff does not remove the need for analytical work. Analysts can uncover unstated knowledge, challenge assumptions, examine scenarios, and clarify priorities. Early investigation establishes business needs, while continuing analysis connects emerging requirements with strategic objectives.
+Direct communication between developers and business staff does not remove the need for analytical work. Analysts can uncover tacit knowledge, challenge assumptions, examine scenarios, and clarify priorities. Early investigation establishes business needs, while continuing analysis connects emerging requirements with strategic objectives.
 
-An analyst may support a product owner, hold that role, or contribute analytical skills within a development team. The allocation of responsibilities depends on organisational circumstances. Analysis also supports linear development approaches, and evolving requirements occur in process and service changes as well as software projects.
+An analyst may support a product owner, act as a product owner, or contribute analytical skills within a development team. The allocation of responsibilities depends on organisational circumstances. Analysis also supports linear development approaches, and evolving requirements occur in process and service changes as well as software projects.
 
 Role titles reflect differences in focus, although their boundaries vary.
 
-| Role | Main focus |
-| --- | --- |
-| Enterprise or business-focused analyst | Business situations, organisational requirements, and redesign of business systems. |
-| Technical business analyst or business systems analyst | Software requirements and models of system features, data, and events. |
-| Digital business analyst | Digital opportunities, data, innovation, and customer experience. |
-| Project business analyst | User stories, business rules, and non-functional requirements for software development. |
-| Proxy product owner | Product requirements and feature priorities, with delegated authority to make product decisions. |
+| Role                                                   | Main focus                                                                                       |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| Enterprise or business-focused analyst                 | Business situations, organisational requirements, and redesign of business systems.              |
+| Technical business analyst or business systems analyst | Software requirements and models of system features, data, and events.                           |
+| Digital business analyst                               | Digital opportunities, data, innovation, and customer experience.                                |
+| Project business analyst                               | User stories, business rules, and non-functional requirements for software development.          |
+| Proxy product owner                                    | Product requirements and feature priorities, with delegated authority to make product decisions. |
 
 Digital roles particularly require analysts to combine business knowledge with technology and data skills. This can create development needs for practitioners whose experience has primarily been in business operations.
 
@@ -124,4 +124,4 @@ Five broad skill areas support effective analysis:
 - Technical literacy: understanding developments such as artificial intelligence, virtual reality, and robotics.
 - Value co-creation: applying service thinking, design thinking, lean thinking, and systems thinking to beneficial change.
 
-Analysts need opportunities to develop these capabilities. Organisations also need to define their responsibilities and give them sufficient authority to investigate problems, question assumptions, and support change. The contribution of business analysis depends on both professional capability and the organisation's willingness to use it.
+Analysts need opportunities to develop these capabilities. Organisations also need to define their responsibilities and give them sufficient authority to investigate problems, question assumptions, and support change. The contribution of business analysis depends on both professional capability and the organisation's willingness to use it. :label:
