@@ -2,7 +2,7 @@
 
 Notes and projects covering software engineering, business analysis, systems engineering, and systems architecture. Course providers include IBM, Codecademy, and Pluralsight.
 
-:notebook: = notes | :package: = project(s) | :gear: = lab(s) | :construction: = in progress
+:notebook: = notes | :package: = project(s) | :construction: = in progress
 
 ---
 ## Linux and Platform Engineering
@@ -10,7 +10,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 ### Course Notes and Projects
 
 - :notebook: [Red Hat Certified System Administrator](red-hat/RHCSA/README.md) ([course](https://www.pluralsight.com/paths/rhcsa-red-hat-certified-system-administrator-ex200))
-- :construction: [Shell Scripting with Bash](pluralsight/bash/README.md) ([course](https://www.pluralsight.com/paths/using-bash-and-z-shell))
+- :notebook: [Shell Scripting with Bash](pluralsight/bash/README.md) ([course](https://www.pluralsight.com/paths/using-bash-and-z-shell))
 - :notebook: [Red Hat Certified Engineer](red-hat/RHCE/README.md) ([course](https://www.pluralsight.com/paths/rhce-red-hat-certified-engineer-ex294))
 - :notebook: [Configuration Management Using Ansible](pluralsight/ansible/README.md) ([course](https://www.pluralsight.com/paths/configuration-management-using-ansible))
 - :notebook: [Red Hat Certified Specialist in Linux Diagnostics and Troubleshooting](red-hat/RHCSLDT/README.md) ([course](https://www.pluralsight.com/paths/red-hat-certified-specialist-in-linux-diagnostics-and-troubleshooting-ex342))

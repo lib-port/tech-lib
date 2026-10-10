@@ -8,3 +8,4 @@ These notes cover material from [Business Analysis](https://shop.bcs.org/page/de
 - [Chapter 3: The Strategic Context For Business Analysis](Chapter%203%20The%20Strategic%20Context%20For%20Business%20Analysis.md)
 - [Chapter 4: The Business Analysis Service Framework](Chapter%204%20The%20Business%20Analysis%20Service%20Framework.md)
 - [Chapter 5: Investigating the Business Situation](Chapter%205%20Investigating%20the%20Business%20Situation.md)
+- [Chapter 6: Analysing and Managing Stakeholders](Chapter%206%20Analysing%20and%20Managing%20Stakeholders.md)

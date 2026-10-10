@@ -29,7 +29,7 @@ This course includes hands-on labs and projects designed to build practical expe
 - [Business Analysis: Process Modeling & Requirements Gathering](Business%20Analysis%20Process%20Modeling%20&%20Requirements%20Gathering.md)
 - [Business Analysis: Project and Stakeholder Management](Business%20Analysis%20Project%20and%20Stakeholder%20Management.md)
 - :package: [Capstone Project: Applying Business Analysis Skills](capstone/README.md)
-- [Generative AI Revolutionizing Business Analysis Techniques](Generative%20AI%20Revolutionizing%20Business%20Analysis%20Techniques.md)
+- [Generative AI: Revolutionizing Business Analysis Techniques](Generative%20AI%20Revolutionizing%20Business%20Analysis%20Techniques.md)
 
 ## Further Reading
 

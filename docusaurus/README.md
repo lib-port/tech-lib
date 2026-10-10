@@ -13,6 +13,13 @@ builds disable TypeScript; use an official Node release, such as one installed
 through nvm. Check support with `node -p 'process.features.typescript'`: it should
 print `strip` or `transform`. GitHub Actions continues to use npm.
 
+Standalone pnpm can run without Node.js; installing pnpm alone does not put
+`node` on PATH. If you use standalone pnpm 12 instead of nvm, run `pnpm setup`,
+open a new terminal to pick up its PATH changes, then run
+`pnpm runtime set node lts -g` to install the official Node.js LTS runtime.
+Verify with `node --version` and the TypeScript support check above before
+running the preview.
+
 For a quick live preview using already installed dependencies, run `./preview.sh`
 from the repository root. It opens <http://localhost:3000/tech-lib/> in your browser
 and reflects edits while the server runs. Press Ctrl+C to stop it. Pass Docusaurus
