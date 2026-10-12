@@ -6,12 +6,13 @@ This course is a 3-month, self-paced programme that reinforces foundational skil
 
 ## Notes and Projects
 
-- [Product Management: An Introduction](Product%20Management%20An%20Introduction.md) ( :package: Project)
+- [Product Management: An Introduction](Product%20Management%20An%20Introduction.md) ( :package: [Project](projects/Product%20Management%20An%20Introduction%20Final%20Project.md) )
 - Product Management: Foundations & Stakeholder Collaboration
 - Product Owner: Communications & Stakeholder Management
 - Product Management: Initial Product Strategy and Plan
 - Product Owner: Essential Skills and Tools for Innovation
 - Product Management: Developing and Delivering a New Product
+- [Introduction to Agile Development and Scrum](../IBM-DSE/Introduction%20to%20Agile%20Development%20and%20Scrum.md) ( :package: [Project](../IBM-DSE/projects/Introduction%20to%20Agile%20Development%20and%20Scrum%20Final%20Project.md) )
 - Product Management: Building AI-Powered Products
 - Generative AI: Revolutionizing the Product Owner Role
 - Generative AI: Supercharge Your Product Management Career

@@ -20,7 +20,7 @@ The supported findings are:
 - the average feedback score is 7.00, although the survey scale and target are not supplied;
 - all 15 feedback records are High under the lab rule of score 4 or above;
 - the 10 resource records contain 52 recorded Usage Hours; and
-- average recorded hours by resource type range from 0 for Nurse to 10 for Technician, but these values are not utilization rates.
+- average recorded hours by resource type range from 0 for Nurse to 10 for Technician.
 
 ## 1. Purpose and intended audience
 
@@ -31,11 +31,11 @@ The dashboard supports a quick operational review by:
 - clinical operations representatives; and
 - IT and data teams.
 
-It helps users review filtered appointment volumes, completion rate, feedback results, resource records, recorded hours, and data-quality gaps. It does not provide an approved hospital performance baseline.
+It helps users review filtered appointment volumes, completion rate, feedback results, resource records, recorded hours, and data-quality gaps.
 
 ## 2. Source datasets and variables
 
-The lab instructions use plural logical names. The actual workbook sheets created in the previous lab use singular names. The dashboard uses the actual sheets shown below.
+The dashboard contains an embedded snapshot of selected row-level fields corresponding to the sheets below.
 
 | Lab dataset name | Actual workbook sheet | Rows | Date coverage | Variables used |
 | --- | --- | ---: | --- | --- |
@@ -43,19 +43,19 @@ The lab instructions use plural logical names. The actual workbook sheets create
 | Cleaned_Feedback | Cleaned_Feedback | 15 | 01/01/2024-01/15/2024 | Appointment Date, Feedback Department, Feedback Score, Wait Time, Satisfaction Level |
 | Cleaned_Resources | Cleaned_Resource | 10 | 01/01/2024-01/10/2024 | Resource ID, Resource Type, Date, Availability, Usage Hours |
 
-Only fields needed for the dashboard calculations are embedded in the HTML. Patient ID, Doctor ID, and free-text comments are excluded from the dashboard file because the visualizations use aggregated results.
+The dashboard embeds the row-level fields needed for its views and filters, then calculates aggregates in the browser. Patient ID, Doctor ID, and free-text comments are excluded from the embedded snapshot.
 
 ### 2.1 Data-readiness assessment
 
-| Requested measure or filter | Data readiness | Dashboard treatment |
-| --- | --- | --- |
-| Average wait time by appointment date | Not ready | Empty-state line-chart panel; no zero-minute values are plotted |
-| Departmental resource utilization percentage | Not ready | Replaced with average recorded hours by resource type, clearly marked as not utilization |
-| Resource-performance heatmap by department | Not ready | Replaced with resource record counts by Resource Type and Availability |
-| Satisfaction High versus Low | Available under lab rule | Pie/donut chart showing High and Low counts and percentages |
-| Department filter | Available for appointments and feedback | Updates appointment, feedback, wait-data coverage, and satisfaction panels |
-| Date filter | Available | Applied independently to all three datasets |
-| Resource Name filter | Not available | Resource ID and Resource Type are used because no Resource Name field exists |
+| Requested measure or filter                  | Data readiness                          | Dashboard treatment                                                                                                              |
+| -------------------------------------------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Average wait time by appointment date        | Not ready                               | N/A readiness indicator with a filtered count of feedback rows containing numeric wait values; no wait-time chart is implemented |
+| Departmental resource utilization percentage | Not ready                               | Replaced with average recorded hours by resource type, clearly marked as not utilization                                         |
+| Resource-performance heatmap by department   | Not ready                               | Replaced with resource record counts by Resource Type and Availability                                                           |
+| Satisfaction High versus Low                 | Available under lab rule                | Stacked bar chart showing feedback response counts by score, split by the stored High and Low labels, with a text summary        |
+| Department filter                            | Available for appointments and feedback | Updates appointment, feedback, wait-data coverage, and satisfaction panels                                                       |
+| Date filter                                  | Available                               | Applied independently to all three datasets                                                                                      |
+| Resource Name filter                         | Not available                           | Resource ID and Resource Type are used because no Resource Name field exists                                                     |
 
 The feedback-to-appointment relationship remains provisional because the original feedback source has no Appointment ID or approved encounter key. The dashboard does not use the provisional relationship to make causal claims.
 
@@ -63,46 +63,51 @@ The feedback-to-appointment relationship remains provisional because the origina
 
 ### 3.1 Layout
 
-The dashboard is arranged in the sequence requested by the lab:
+The dashboard is arranged as follows:
 
-1. **Top - KPI overview:** appointment count, completion rate, average feedback score, and resource-record count.
-2. **Top trend panel - Wait time:** an average-wait-time line-chart area that displays an evidence-based empty state.
-3. **Middle - Resource analysis:** an average recorded-hours bar chart and a resource status-count heatmap.
-4. **Bottom - Satisfaction:** a High-versus-Low donut chart.
-5. **Final decision note:** required data improvements before the dashboard is used for performance monitoring.
+1. **Filters and scope:** Department, From date, To date, and Resource ID / type controls, followed by the active filter scope and any date-validation error.
+2. **KPI overview:** appointment count, completion rate, average feedback score, and resource-record count. Total recorded hours appear beneath the resource count.
+3. **Data readiness:** average wait time and resource utilization are shown as N/A. The wait-time indicator also reports how many filtered feedback rows contain a numeric wait value.
+4. **Resource analysis:** an average recorded-hours bar chart and a resource status-count heatmap.
+5. **Satisfaction by feedback score:** a stacked bar chart showing High and Low response counts at each observed score.
+6. **Final decision note:** required data improvements before the dashboard is used for performance monitoring.
 
-The design uses responsive grids, readable labels, visible chart values, accessible summaries, and non-color labels. The HTML contains its data, style, and calculation logic and makes no external network calls.
+The design uses responsive grids, readable labels, visible chart values, accessible summaries, and non-color labels. The dashboard contains its data, style, and calculation logic and makes no external network calls.
 
 ### 3.2 Filters and interaction rules
 
-| Filter | Values | Applies to | Does not apply to |
-| --- | --- | --- | --- |
-| Department | All, Cardiology, General, Neurology, Orthopedics, Pediatrics | Appointment KPIs, feedback KPI, wait-time availability, satisfaction | Resource panels |
-| From and To dates | 01/01/2024-01/20/2024 | All datasets, using each dataset's available dates | - |
-| Resource ID / Type | All, five resource types, R1-R10 | Resource KPI, recorded-hours bar, status-count heatmap | Appointment and feedback panels |
+| Filter             | Values                                                       | Applies to                                                            | Does not apply to               |
+| ------------------ | ------------------------------------------------------------ | --------------------------------------------------------------------- | ------------------------------- |
+| Department         | All, Cardiology, General, Neurology, Orthopedics, Pediatrics | Appointment KPIs, feedback KPI, wait-time data coverage, satisfaction | Resource panels                 |
+| From and To dates  | 01/01/2024-01/20/2024                                        | All datasets, using each dataset's available dates                    | -                               |
+| Resource ID / Type | All, five resource types, R1-R10                             | Resource KPI, recorded-hours bar, status-count heatmap                | Appointment and feedback panels |
 
-The active scope is displayed above the dashboard. A visible note explains that Department cannot filter the resource panels because Cleaned_Resource has no Department field. If the From date is later than the To date, the dashboard displays an inline error and replaces the current values with a clear invalid-state message.
+The active scope is displayed below the filter controls. A visible note explains that Department cannot filter the resource panels because Cleaned_Resource has no Department field. If either date is blank or the From date is later than the To date, the dashboard displays an inline error, replaces the four KPI values with dashes, replaces the three charts with invalid-date messages, and clears the previous chart summaries.
 
-### 3.3 KPI definitions
+### 3.3 Metrics and data-readiness indicators
 
-| KPI | Calculation | Default result | Limitation |
-| --- | --- | ---: | --- |
-| Appointment count | Count of filtered appointment rows | 20 | Supplied sample only |
-| Completion rate | Completed appointments divided by filtered appointments | 40.0% | Outcome reasons are unavailable |
-| Average feedback score | Mean of filtered Feedback Score | 7.00 | Survey scale and target are unknown |
-| Average wait time | Consultation start minus approved check-in point | N/A | Required timestamps are missing |
-| Resource records | Count of filtered resource rows | 10 | Not a full resource inventory |
-| Recorded resource hours | Sum of filtered Usage Hours | 52.0 | Meaning and measurement interval require confirmation |
-| Resource utilization rate | Used capacity divided by available capacity | N/A | Capacity denominator is missing |
-| Satisfaction level | Score 4 or above = High; score below 4 = Low | High 15; Low 0 | Threshold does not differentiate the observed scores |
+Appointment count, completion rate, average feedback score, and resource-record count are displayed as KPI cards. Recorded hours appear beneath the resource count and in the resource-chart summary. Average wait time and resource utilization appear as N/A readiness indicators. Satisfaction counts appear in the chart and its text summary.
+
+| KPI                       | Calculation                                                                        | Default result | Limitation                                                                                                         |
+| ------------------------- | ---------------------------------------------------------------------------------- | -------------: | ------------------------------------------------------------------------------------------------------------------ |
+| Appointment count         | Count of filtered appointment rows                                                 |             20 | Supplied sample only                                                                                               |
+| Completion rate           | Completed appointments divided by filtered appointments                            |          40.0% | Outcome reasons are unavailable                                                                                    |
+| Average feedback score    | Mean of filtered Feedback Score                                                    |           7.00 | Survey scale and target are unknown                                                                                |
+| Average wait time         | Not calculated; readiness indicator only                                           |            N/A | Required timestamps are absent; the current dashboard counts numeric wait values but does not calculate an average |
+| Resource records          | Count of filtered resource rows                                                    |             10 | Not a full resource inventory                                                                                      |
+| Recorded resource hours   | Sum of filtered Usage Hours                                                        |           52.0 | Meaning and measurement interval require confirmation                                                              |
+| Resource utilization rate | Not calculated; readiness indicator only                                           |            N/A | Capacity hours and resource Department are absent; no utilization calculation is implemented                       |
+| Satisfaction level        | Counts filtered rows by their stored Satisfaction Level, grouped by Feedback Score | High 15; Low 0 | Embedded labels follow the lab rule; the dashboard does not recalculate them from scores                           |
 
 ## 4. Visualization decisions
 
-### 4.1 Wait-time line chart
+### 4.1 Wait-time readiness indicator
 
-The requested x-axis is Appointment Date and the requested y-axis is Average Patient Wait Time. No line is plotted in the HTML because 0 of 15 feedback rows contains a numeric wait time. Plotting a line at zero would incorrectly imply zero-minute waits.
+The current dashboard displays “Average wait time: N/A” beneath the KPI cards. It also reports how many filtered feedback rows contain a numeric wait value. In the default view, the coverage text is “0 of 15 filtered feedback rows contain a calculable wait value.”
 
-The panel retains the requested axes and displays:
+All embedded waitMinutes values are null. Department and date filters update the coverage count. The dashboard contains no average-wait calculation, wait-time axes, or wait-time chart renderer.
+
+Adding numeric wait values would update the coverage count only. Calculating and visualizing average wait time would require an approved measurement definition and additional calculation and rendering code.
 
 > No calculable wait-time values - check-in and consultation-start timestamps are missing.
 
@@ -120,7 +125,7 @@ Departmental utilization percentages are unavailable. The dashboard therefore di
 | Room | 2 | 2.0 | 4.0 |
 | Technician | 2 | 10.0 | 20.0 |
 
-The y-axis is recorded hours, not a percentage. The title and chart summary repeat that this is not utilization.
+The y-axis is labeled “Average recorded hours.” The subtitle states “Not a utilization rate; capacity hours are missing.” The chart summary reports the filtered resource-record count and total recorded hours and states that a capacity denominator is unavailable.
 
 ### 4.3 Resource heatmap
 
@@ -136,16 +141,24 @@ The requested department heatmap cannot be created because resources have no Dep
 
 Every cell includes its count so interpretation does not depend on color. The heatmap describes source statuses; it does not classify high demand, underutilization, or performance.
 
-### 4.4 Satisfaction pie chart
+### 4.4 Satisfaction by feedback score
 
-The pie/donut chart groups filtered feedback rows by Satisfaction Level:
+The stacked bar chart groups filtered feedback rows by observed score and Satisfaction Level. The x-axis shows observed feedback scores, with the survey scale identified as unknown. The y-axis shows feedback response counts. High and Low responses form separate segments within each score's bar.
 
-| Satisfaction level | Count | Percentage |
-| --- | ---: | ---: |
-| High | 15 | 100.0% |
-| Low | 0 | 0.0% |
+The default counts are:
 
-All observed scores are 5-9. The lab threshold of 4 therefore labels every response High and provides no separation within the supplied sample.
+| Feedback score | High | Low | Total responses |
+| --- | ---: | ---: | ---: |
+| 5 | 3 | 0 | 3 |
+| 6 | 3 | 0 | 3 |
+| 7 | 3 | 0 | 3 |
+| 8 | 3 | 0 | 3 |
+| 9 | 3 | 0 | 3 |
+| Total | 15 | 0 | 15 |
+
+Department and date filters update the counts. For a nonempty filtered result, the chart retains the observed score categories 5-9, including scores with zero matching responses. If no feedback rows match, it displays “No feedback records.”
+
+All supplied responses are High under the lab threshold of 4, so the Low segments have no visible height. The score distribution provides detail that the High/Low split does not. The text summary reports counts and retains the limitations concerning the threshold and unknown survey scale.
 
 ## 5. Key findings and business implications
 
@@ -154,7 +167,7 @@ All observed scores are 5-9. The lab threshold of 4 therefore labels every respo
 - 8 appointments are Completed and 4 each are No Show, Rescheduled, and Cancelled.
 - The default completion rate is 40.0%.
 - Every department has four appointment records.
-- The five listed appointment times each appear four times, so there is no unique peak time.
+- The accompanying data-analysis report shows that the five listed appointment times each appear four times, so the supplied sample has no unique peak time.
 - Each date contains only one appointment row, which is not sufficient for identifying queue pressure or simultaneous booking demand.
 
 **Business implication:** appointment outcomes can be summarized, but reasons, status history, volume by operating hour, and actual waiting require additional fields and a representative period.
@@ -178,24 +191,24 @@ All observed scores are 5-9. The lab threshold of 4 therefore labels every respo
 
 ## 6. Testing and validation
 
-The single-file HTML was tested by executing its embedded calculations and triggering each filter programmatically.
+The single-file dashboard was tested by executing its embedded calculations and triggering each filter programmatically.
 
-| Test | Expected result | Result |
-| --- | --- | --- |
-| Default view | 20 appointments; 40.0% completed; feedback mean 7.00; 10 resources; 52 hours | Pass |
-| Cardiology filter | 4 appointments; 100.0% completed; 3 feedback rows; mean 8.33 | Pass |
-| 01/01/2024-01/05/2024 | 5 appointments; 40.0% completed; mean score 7.00; 5 resources; 26 hours | Pass |
-| Room resource filter | 2 resource rows; 4 recorded hours; heatmap total 2 | Pass |
-| 01/16/2024-01/20/2024 | 5 appointments; no feedback; no resources; clear no-data states | Pass |
-| Invalid date range | Inline error and no stale KPI/chart values | Pass |
-| Department filter scope | Resource measures remain unchanged | Pass |
-| Reconciliation | Bar inputs total 52 hours; heatmap totals 10 rows; pie totals 15 responses | Pass |
-| JavaScript syntax and runtime | No calculation or runtime errors in tested states | Pass |
-| Offline dependency check | No external scripts, stylesheets, APIs, or data requests | Pass |
+| Test                          | Expected result                                                                                                                                                                                                                | Result |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------ |
+| Default view                  | 20 appointments; 40.0% completed; feedback mean 7.00; 10 resources; 52 hours                                                                                                                                                   | Pass   |
+| Cardiology filter             | 4 appointments; 100.0% completed; 3 feedback rows; mean 8.33                                                                                                                                                                   | Pass   |
+| 01/01/2024-01/05/2024         | 5 appointments; 40.0% completed; mean score 7.00; 5 resources; 26 hours                                                                                                                                                        | Pass   |
+| Room resource filter          | 2 resource rows; 4 recorded hours; heatmap total 2                                                                                                                                                                             | Pass   |
+| 01/16/2024-01/20/2024         | 5 appointments; no feedback; no resources; clear no-data states                                                                                                                                                                | Pass   |
+| Invalid date range            | Inline error and no stale KPI/chart values                                                                                                                                                                                     | Pass   |
+| Department filter scope       | Resource measures remain unchanged                                                                                                                                                                                             | Pass   |
+| Reconciliation                | Resource rows total 52 recorded hours; average-hour bars show 8, 6, 0, 2, and 10 hours; heatmap cells total 10 records; satisfaction bars total 15 responses, with three High and zero Low responses at each score from 5 to 9 | Pass   |
+| JavaScript syntax and runtime | No calculation or runtime errors in tested states                                                                                                                                                                              | Pass   |
+| Offline dependency check      | No external scripts, stylesheets, APIs, or data requests                                                                                                                                                                       | Pass   |
 
 ## 7. Mermaid representations
 
-The Mermaid diagrams below represent the same evidence and limitations as the HTML dashboard.
+The static Mermaid diagrams below summarize the default-view resource-hour averages, resource-status counts, and feedback-score counts used by the dashboard. Average wait time and resource utilization remain unavailable.
 
 ### 7.1 Bar chart - average recorded resource hours
 
@@ -255,7 +268,7 @@ flowchart TB
     classDef active fill:#2878b5,stroke:#15527f,color:#ffffff
 ~~~
 
-This is a Mermaid flowchart representation of the HTML heatmap because Mermaid does not provide a native heatmap chart in the selected syntax. The highlighted cells contain two records; muted cells contain zero.
+This is a Mermaid flowchart representation of the dashboard heatmap because Mermaid does not provide a native heatmap chart in the selected syntax. The highlighted cells contain two records; muted cells contain zero.
 
 ### 7.3 Bar chart - satisfaction by feedback score
 
@@ -287,7 +300,7 @@ The first bar series represents High responses and the second represents Low res
 
 - The cleaned workbook is the approved source for this lab.
 - Dates are interpreted as local operating dates without time-zone conversion.
-- The lab's High/Low satisfaction rule is implemented exactly as instructed.
+- The embedded Satisfaction Level values follow the lab rule of score 4 or above = High and below 4 = Low.
 - Usage Hours is retained as supplied and is not converted to a percentage.
 
 ### Limitations
@@ -308,22 +321,22 @@ The first bar series represents High responses and the second represents Low res
 
 ## 10. Completion checklist
 
-| Deliverable requirement | Status | Evidence |
-| --- | --- | --- |
-| Single self-contained HTML dashboard | Complete | Capstone_Project_M04L02_Dashboard.html |
-| Cleaned datasets imported | Complete | Required aggregate fields embedded from the three cleaned workbook sheets |
-| KPI overview | Complete | Appointment, completion, feedback, and resource KPIs |
-| Wait-time trend area | Complete with data limitation | Required axes and explicit empty state; no fabricated line |
-| Resource bar chart | Complete with documented substitute | Average recorded hours by Resource Type |
-| Resource heatmap | Complete with documented substitute | Resource Type by Availability count matrix |
-| Satisfaction pie chart | Complete | High and Low counts and percentages |
-| Department filter | Complete | Applies to appointment and feedback panels |
-| Date filters | Complete | Inclusive From and To dates |
-| Resource filter | Complete with source-field substitute | Resource ID and Resource Type used because Resource Name is absent |
-| Dynamic updates | Complete | Tested across department, date, and resource scenarios |
-| Data reconciliation | Complete | Dashboard totals match the cleaned workbook |
-| Mermaid representations | Complete | Line, bar, heatmap proxy, and pie included in Section 7 |
-| Data-quality implications documented | Complete | Sections 2, 4, 5, 8, and 9 |
+| Deliverable requirement              | Status                                        | Evidence                                                                                                                            |
+| ------------------------------------ | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Single self-contained HTML dashboard | Complete                                      | Capstone_Project_M04L02_Dashboard.html                                                                                              |
+| Cleaned datasets imported            | Complete as an embedded snapshot              | Selected row-level fields from the three cleaned sheets are embedded in the dashboard; aggregates are calculated from those records |
+| KPI overview                         | Complete                                      | Appointment, completion, feedback, and resource KPIs                                                                                |
+| Wait-time trend area                 | Not implemented; readiness indicator provided | Average wait time is shown as N/A with filtered numeric-value coverage; no wait-time axes or chart renderer are present             |
+| Resource bar chart                   | Complete with documented substitute           | Average recorded hours by Resource Type                                                                                             |
+| Resource heatmap                     | Complete with documented substitute           | Resource Type by Availability count matrix                                                                                          |
+| Satisfaction pie chart               | Replaced in the current implementation        | Stacked response-count bars by feedback score and High/Low classification, with a text summary                                      |
+| Department filter                    | Complete                                      | Applies to appointment and feedback panels                                                                                          |
+| Date filters                         | Complete                                      | Inclusive From and To dates                                                                                                         |
+| Resource filter                      | Complete with source-field substitute         | Resource ID and Resource Type used because Resource Name is absent                                                                  |
+| Dynamic updates                      | Implemented                                   | Department, date, and resource change handlers update the affected KPIs and charts; see Section 6 for validation status             |
+| Data reconciliation                  | Complete                                      | Dashboard totals match the cleaned workbook                                                                                         |
+| Mermaid representations              | Complete                                      | Resource-hours bar chart, resource-status heatmap proxy, and satisfaction-by-score bar chart included in Section 7                  |
+| Data-quality implications documented | Complete                                      | Sections 2, 4, 5, 8, and 9                                                                                                          |
 
 ## Source register
 
