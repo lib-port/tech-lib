@@ -140,6 +140,6 @@ Competition should begin with supervised classroom trials with teachers controll
 
 #### Manage the product after launch through regular reviews
 
-Monthly product reviews involving Emily, Michael, and Sarah are recommended. The team should agree measures for learning progress, repeated use, and commercial performance, each with a definition, baseline, and target. The team should consider results alongside feedback from teachers, parents, and children.
+Monthly product reviews involving Emily, Michael, and Sarah are recommended. The team should agree on measures for learning progress, repeated use, and commercial performance, each with a definition, baseline, and target. The team should consider results alongside feedback from teachers, parents, and children.
 
 Emily could examine learning difficulties, Sarah could assess which marketing channels attract continuing users, and Michael could track delivery and support costs. The team should investigate problems before choosing solutions. Development time for fixes and improvements should be reserved. Reviews should guide decisions to expand features, change them, or stop further investment. This would connect launch success with ongoing learning and help assess whether the games deliver lasting educational and business value.

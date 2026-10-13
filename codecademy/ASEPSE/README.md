@@ -33,8 +33,8 @@ These notes cover Codecademy's 52-hour, self-paced, [Associate Systems Engineer 
 
 ### Track 4: Systems Architect
 
-- Decision Analysis and Management: System Safety & Reliability
-- Decision Analysis and Management: System Testing & Reliability
+- [Decision Analysis and Management: System Safety & Reliability](system-architect/Decision%20Analysis%20and%20Management%20System%20Safety%20&%20Reliability.md)
+- [Decision Analysis and Management: System Testing & Reliability](system-architect/Decision%20Analysis%20and%20Management%20System%20Testing%20&%20Reliability.md)
 - Decision Analysis and Management: Systems Engineering Performance Measurement
 - Decision Analysis and Management: System Architecture & Design
 - Decision Analysis and Management: Technical Monitoring
