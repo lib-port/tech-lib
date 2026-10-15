@@ -95,7 +95,7 @@ export function createSidebar(documents: readonly SourceDocument[], orders: Cour
       const label = path.posix.basename(child);
       const item: SidebarItem = items.length ? {
         type: 'category', label, collapsed: true, items,
-        ...(index ? {link: {type: 'doc', id: index.id}} : {}),
+        link: index ? {type: 'doc', id: index.id} : {type: 'generated-index'},
       } : {type: 'doc', id: index!.id, label};
       direct.push({file: child, item});
     }

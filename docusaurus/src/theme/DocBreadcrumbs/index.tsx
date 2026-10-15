@@ -6,7 +6,7 @@
  *
  * Ejected from Docusaurus 3.10.2:
  * https://github.com/facebook/docusaurus/blob/v3.10.2/packages/docusaurus-theme-classic/src/theme/DocBreadcrumbs/index.tsx
- * Customizations: render inherited inline titles and rely on this site's
+ * Customizations: use source filenames for document labels and rely on this site's
  * guaranteed README homepage instead of the internal homepage route hook.
  * Unsafe to swizzle: compare with upstream on every Docusaurus upgrade.
  */
@@ -15,14 +15,16 @@ import React from 'react';
 import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import {ThemeClassNames} from '@docusaurus/theme-common';
-import {useSidebarBreadcrumbs} from '@docusaurus/plugin-content-docs/client';
+import {useDoc, useSidebarBreadcrumbs} from '@docusaurus/plugin-content-docs/client';
+import type {PropSidebarBreadcrumbsItem} from '@docusaurus/plugin-content-docs';
 import Link from '@docusaurus/Link';
 import {translate} from '@docusaurus/Translate';
 import HomeBreadcrumbItem from '@theme/DocBreadcrumbs/Items/Home';
 import DocBreadcrumbsStructuredData from '@theme/DocBreadcrumbs/StructuredData';
-import InheritedTitle, {useInheritedTitles} from '@site/src/components/InheritedTitle';
 
 import styles from './styles.module.css';
+
+type BreadcrumbsProps = {breadcrumbs: PropSidebarBreadcrumbsItem[]};
 
 function BreadcrumbsItemLink({children, href, isLast}: {children: ReactNode; href?: string; isLast: boolean}) {
   const className = 'breadcrumbs__link';
@@ -51,12 +53,30 @@ function BreadcrumbsItem({children, active}: {children: ReactNode; active: boole
 
 export default function DocBreadcrumbs() {
   const breadcrumbs = useSidebarBreadcrumbs();
-  const titles = useInheritedTitles();
-
   if (!breadcrumbs) {
     return null;
   }
 
+  // Generated category pages have no DocProvider; only doc links need filenames.
+  const last = breadcrumbs.at(-1);
+  return last?.type === 'link' && last.docId
+    ? <DocumentBreadcrumbs breadcrumbs={breadcrumbs} />
+    : <Breadcrumbs breadcrumbs={breadcrumbs} />;
+}
+
+function DocumentBreadcrumbs({breadcrumbs: sidebarBreadcrumbs}: BreadcrumbsProps) {
+  const {metadata} = useDoc();
+  const filename = metadata.source.slice(metadata.source.lastIndexOf('/') + 1);
+  const breadcrumbs = sidebarBreadcrumbs.map(item =>
+    item.type === 'link' && item.docId === metadata.id && !/^README\.mdx?$/i.test(filename)
+      ? {...item, label: filename.replace(/\.mdx?$/i, '')}
+      : item,
+  );
+
+  return <Breadcrumbs breadcrumbs={breadcrumbs} />;
+}
+
+function Breadcrumbs({breadcrumbs}: BreadcrumbsProps) {
   return (
     <>
       <DocBreadcrumbsStructuredData breadcrumbs={breadcrumbs} />
@@ -79,13 +99,10 @@ export default function DocBreadcrumbs() {
               item.type === 'category' && item.linkUnlisted
                 ? undefined
                 : item.href;
-            const title = item.type === 'link' && item.docId
-              ? titles.sidebar[item.href]
-              : undefined;
             return (
               <BreadcrumbsItem key={idx} active={isLast}>
                 <BreadcrumbsItemLink href={href} isLast={isLast}>
-                  <InheritedTitle title={title}>{item.label}</InheritedTitle>
+                  {item.label}
                 </BreadcrumbsItemLink>
               </BreadcrumbsItem>
             );

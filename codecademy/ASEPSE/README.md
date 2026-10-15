@@ -36,8 +36,8 @@ These notes cover Codecademy's 52-hour, self-paced, [Associate Systems Engineer 
 - [Decision Analysis and Management: System Safety & Reliability](system-architect/System%20Safety%20&%20Reliability.md)
 - [Decision Analysis and Management: System Testing & Reliability](system-architect/System%20Testing%20&%20Reliability.md)
 - [Decision Analysis and Management: Systems Engineering Performance Measurement](system-architect/Systems%20Engineering%20Performance%20Measurement.md)
-- Decision Analysis and Management: System Architecture & Design
-- Decision Analysis and Management: Technical Monitoring
+- [Decision Analysis and Management: System Architecture & Design](system-architect/System%20Architecture%20&%20Design.md)
+- [Decision Analysis and Management: Technical Monitoring](system-architect/Technical%20Monitoring.md)
 - Decision Analysis and Management: Change Management
 - Modern Systems Engineering: Model-based Systems Engineering (MBSE)
 - Modern Systems Engineering: Modeling Complex Systems with Sparx EA

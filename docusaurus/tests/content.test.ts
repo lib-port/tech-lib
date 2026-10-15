@@ -106,14 +106,15 @@ test('leaves README, index, and folder-matching category routes to Docusaurus', 
   });
 });
 
-test('sidebar uses README category indexes and inherited course order with numeric fallback', () => {
+test('sidebar uses README or generated indexes and inherited course order with numeric fallback', () => {
   const files = [
     'README.md', 'course/README.md',
     'course/book/Z first.md', 'course/book/A second.md',
     'course/book/Chapter 10.md', 'course/book/Chapter 2.md',
     'course/videos/Video.md', 'empty-course/README.md',
+    'mdx-course/rEaDmE.MDX', 'mdx-course/Topic.md',
   ];
-  const documents = files.map(file => ({file, id: file.replace(/\.md$/, '')}));
+  const documents = files.map(file => ({file, id: file.replace(/\.mdx?$/i, '')}));
   const orders = new Map([['course', ['course/book/Z first.md', 'course/book/A second.md']]]);
   assert.deepEqual(orderForDirectory('course/book', orders), orders.get('course'));
   const sidebar = createSidebar(documents, orders);
@@ -123,11 +124,17 @@ test('sidebar uses README category indexes and inherited course order with numer
   assert.equal(sidebar[1].link.id, 'course/README');
   const book = sidebar[1].items[0];
   assert.ok(book.type === 'category');
+  assert.deepEqual(book.link, {type: 'generated-index'});
   assert.deepEqual(book.items.map(item => {
     assert.ok(item.type === 'doc');
     return item.id;
   }), [
     'course/book/Z first', 'course/book/A second', 'course/book/Chapter 2', 'course/book/Chapter 10',
   ]);
+  const videos = sidebar[1].items[1];
+  assert.ok(videos.type === 'category');
+  assert.deepEqual(videos.link, {type: 'generated-index'});
   assert.deepEqual(sidebar[2], {type: 'doc', id: 'empty-course/README', label: 'empty-course'});
+  assert.ok(sidebar[3].type === 'category');
+  assert.deepEqual(sidebar[3].link, {type: 'doc', id: 'mdx-course/rEaDmE'});
 });

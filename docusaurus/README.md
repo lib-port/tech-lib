@@ -164,6 +164,13 @@ checking URLs, assets, and navigation, including attributes with optional quotes
   Restart the development server after adding or removing files.
 - The root `README.md` becomes the homepage through configuration; its source
   needs no Docusaurus frontmatter. Nested READMEs introduce sidebar categories.
+- Folders without a `README.md` or `README.mdx` get Docusaurus generated index
+  pages listing their immediate documents and subfolders as cards. Breadcrumbs
+  and sidebar category labels open these pages; sidebar arrows expand or collapse
+  categories. Clicking the currently displayed category's label toggles it.
+  Indexes use the default `/category/<slug>` URLs under the site's base path,
+  including Docusaurus's disambiguation of repeated category names, and take part
+  in Previous/Next navigation. Folders with READMEs keep their document links.
 - Document URLs derive their last segment from the filename without its `.md`
   or `.mdx` extension: surrounding whitespace is trimmed, letters are lowercased,
   and each run of whitespace becomes `-`. For example,
@@ -179,9 +186,14 @@ checking URLs, assets, and navigation, including attributes with optional quotes
 - The sidebar follows local Markdown link order in the nearest course README.
   Documents not listed there follow natural numeric order.
 - Folder labels preserve directory names. Document titles inherited from the
-  leading H1 retain inline Markdown formatting in navigation, with plain text
-  used for browser titles and metadata. Explicit title and navigation labels
-  keep their normal Docusaurus precedence.
+  leading H1 retain inline Markdown formatting in sidebar and paginator labels,
+  with plain text used for browser titles and metadata. Explicit title and
+  navigation labels keep their normal Docusaurus precedence there.
+- Document breadcrumbs use the source filename without its `.md` or `.mdx`
+  extension, preserving spaces, capitalization, underscores, and punctuation.
+  The same labels appear in breadcrumb structured data, even when explicit
+  `title` or `sidebar_label` frontmatter is present. Home and README-backed
+  folder pages retain their Home or directory labels.
 - Relative links are resolved from the source file. Markdown links navigate
   within the site, and embedded images keep displaying in the document.
 - Links to existing repository files other than `.md` and `.mdx` point directly
@@ -206,12 +218,15 @@ checking URLs, assets, and navigation, including attributes with optional quotes
 ## Theme customizations and upgrades
 
 The navigation customizations were reviewed against Docusaurus **3.10.2**.
-`DocBreadcrumbs` and `DocSidebarItem/Link` retain small copies of the classic
-theme components because their label-rendering code has no rich-text extension
-point. `PaginatorNavLink` wraps the original component and formats its React
-title prop; document metadata and `DocPaginator` navigation titles remain plain
-strings. The component comments link to the reviewed upstream source and explain
-each customization.
+`DocBreadcrumbs` retains a small copy of the classic theme component to apply
+filename labels to visible breadcrumbs and structured data, while generated
+category pages render folder labels without requiring document context.
+`DocSidebarItem/Link`
+retains a copy because its label-rendering code has no rich-text extension point.
+`PaginatorNavLink` wraps the original component and formats its React title prop;
+document metadata and `DocPaginator` navigation titles remain plain strings.
+The component comments link to the reviewed upstream source and explain each
+customization.
 
 Docusaurus classifies these theme components as unsafe to swizzle, so review
 them whenever dependency updates change Docusaurus. Follow the official
@@ -222,9 +237,10 @@ them whenever dependency updates change Docusaurus. Follow the official
    and update the recorded version after reviewing the customizations.
 2. Run `pnpm test`, `pnpm run build`, and `pnpm run check`. Confirm the version logged
    by the build is the version reviewed, since builds refresh dependencies.
-3. Check formatted sidebar labels, breadcrumbs, and both paginator directions
-   after a page reload and client-side navigation. Check explicit labels, home
-   links, long labels in desktop and mobile menus, and both color themes.
+3. Check formatted sidebar labels, filename breadcrumbs, generated category pages,
+   and both paginator directions after a page reload and client-side navigation.
+   Check explicit labels, home links, category navigation and expand/collapse
+   controls, long labels in desktop and mobile menus, and both color themes.
 
 Global styles prefer documented theme classes. The navbar uses Docusaurus's
 `src` and `srcDark` logo variants to show the same mark in light and dark modes;
