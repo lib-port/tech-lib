@@ -93,6 +93,7 @@ const config: Config = {
         {to: '/', label: 'Home', position: 'left', activeBaseRegex: homepageActiveRegex(baseUrl)},
         {
           href: 'https://github.com/lib-port/tech-lib',
+          target: '_self',
           html: [
             `<span class="header-github-icon header-github-icon-light" style="--github-icon: url('${baseUrl}img/mark-github.svg')" aria-hidden="true"></span>`,
             `<span class="header-github-icon header-github-icon-dark" style="--github-icon: url('${baseUrl}img/mark-github-dark.svg')" aria-hidden="true"></span>`,
