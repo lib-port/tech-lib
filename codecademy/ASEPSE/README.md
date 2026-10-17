@@ -38,9 +38,9 @@ These notes cover Codecademy's 52-hour, self-paced, [Associate Systems Engineer 
 - [Decision Analysis and Management: Systems Engineering Performance Measurement](system-architect/Systems%20Engineering%20Performance%20Measurement.md)
 - [Decision Analysis and Management: System Architecture & Design](system-architect/System%20Architecture%20&%20Design.md)
 - [Decision Analysis and Management: Technical Monitoring](system-architect/Technical%20Monitoring.md)
-- Decision Analysis and Management: Change Management
-- Modern Systems Engineering: Model-based Systems Engineering (MBSE)
-- Modern Systems Engineering: Modeling Complex Systems with Sparx EA
+- [Decision Analysis and Management: Change Management](system-architect/Change%20Management.md)
+- [Modern Systems Engineering: Model-based Systems Engineering (MBSE)](system-architect/Model-based%20Systems%20Engineering%20(MBSE).md)
+- Modern Systems Engineering: Modelling Complex Systems with Sparx EA
 - Modern Systems Engineering: Concurrent Engineering
 
 ### Track 5: Principal Systems Engineer
