@@ -40,13 +40,13 @@ These notes cover Codecademy's 52-hour, self-paced, [Associate Systems Engineer 
 - [Decision Analysis and Management: Technical Monitoring](system-architect/Technical%20Monitoring.md)
 - [Decision Analysis and Management: Change Management](system-architect/Change%20Management.md)
 - [Modern Systems Engineering: Model-based Systems Engineering (MBSE)](system-architect/Model-based%20Systems%20Engineering%20(MBSE).md)
-- Modern Systems Engineering: Modelling Complex Systems with Sparx EA
-- Modern Systems Engineering: Concurrent Engineering
+- [Modern Systems Engineering: Modelling Complex Systems with Sparx EA](system-architect/Modelling%20Complex%20Systems%20with%20Sparx%20EA.md)
+- [Modern Systems Engineering: Concurrent Engineering](system-architect/Modelling%20Complex%20Systems%20with%20Sparx%20EA.md)
 
 ### Track 5: Principal Systems Engineer
 
-- Process Enhancements: System Life Cycle Process & Models Management
-- Process Enhancements: System Governance & Standardization
+- [Process Enhancements: System Life Cycle Process & Models Management](principal-systems-engineer/System%20Life%20Cycle%20Process%20&%20Models%20Management.md)
+- [Process Enhancements: System Governance & Standardization](principal-systems-engineer/System%20Governance%20&%20Standardization.md)
 - Process Enhancements: Technical Planning & Risk Management
 - Process Enhancements: Supplier & Contract Management
 - Process Enhancements: Enterprise Data Platform & Systems Engineering
