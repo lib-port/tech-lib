@@ -47,9 +47,9 @@ These notes cover Codecademy's 52-hour, self-paced, [Associate Systems Engineer 
 
 - [Process Enhancements: System Life Cycle Process & Models Management](principal-systems-engineer/System%20Life%20Cycle%20Process%20&%20Models%20Management.md)
 - [Process Enhancements: System Governance & Standardization](principal-systems-engineer/System%20Governance%20&%20Standardization.md)
-- Process Enhancements: Technical Planning & Risk Management
-- Process Enhancements: Supplier & Contract Management
-- Process Enhancements: Enterprise Data Platform & Systems Engineering
+- [Process Enhancements: Technical Planning & Risk Management](principal-systems-engineer/Technical%20Planning%20&%20Risk%20Management.md)
+- [Process Enhancements: Supplier & Contract Management](principal-systems-engineer/Supplier%20&%20Contract%20Management.md)
+- [Process Enhancements: Enterprise Data Platform & Systems Engineering](principal-systems-engineer/Enterprise%20Data%20Platform%20&%20Systems%20Engineering.md)
 - Systems Engineering Culture: Leadership & Financial Management
 - Systems Engineering Culture: Continuous Improvement & Emerging Trends
 - Systems Engineering Culture: Cybersecurity
