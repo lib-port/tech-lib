@@ -50,9 +50,9 @@ These notes cover Codecademy's 52-hour, self-paced, [Associate Systems Engineer 
 - [Process Enhancements: Technical Planning & Risk Management](principal-systems-engineer/Technical%20Planning%20&%20Risk%20Management.md)
 - [Process Enhancements: Supplier & Contract Management](principal-systems-engineer/Supplier%20&%20Contract%20Management.md)
 - [Process Enhancements: Enterprise Data Platform & Systems Engineering](principal-systems-engineer/Enterprise%20Data%20Platform%20&%20Systems%20Engineering.md)
-- Systems Engineering Culture: Leadership & Financial Management
-- Systems Engineering Culture: Continuous Improvement & Emerging Trends
-- Systems Engineering Culture: Cybersecurity
+- [Systems Engineering Culture: Leadership & Financial Management](principal-systems-engineer/Leadership%20&%20Financial%20Management.md)
+- [Systems Engineering Culture: Continuous Improvement & Emerging Trends](principal-systems-engineer/Continuous%20Improvement%20&%20Emerging%20Trends.md)
+- [Systems Engineering Culture: Cybersecurity](principal-systems-engineer/Cybersecurity.md)
 - Systems Engineering Culture: Aerospace & Defense Industries
 - Systems Engineering Culture: Enhancing Patient Safety & Delivery Processes
 - Systems Engineering Culture: Automotive & Smart City Integration
