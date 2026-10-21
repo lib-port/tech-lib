@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {mkdtempSync, mkdirSync, rmSync, writeFileSync} from 'node:fs';
+import {createRequire} from 'node:module';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -68,7 +69,7 @@ test('normalizes filename slugs while retaining punctuation and other frontmatte
   for (const [file, slug] of [
     ['pluralsight/ansible/Getting Started with Ansible.md', 'getting-started-with-ansible'],
     ['IBM/IBM-CySA/  Chapter  2\t& Tools  .mdx', 'chapter-2-&-tools'],
-    ['TS-PORP/Notes (Part 1), v2.0.MD', 'notes-(part-1),-v2.0'],
+    ['TS-PORP/Notes (Part 1), v2.0.MD', 'notes-part-1,-v2.0'],
     ['Course/My_Note-Example.MDX', 'my_note-example'],
     ['already-normalized.md', 'already-normalized'],
   ]) {
@@ -77,6 +78,22 @@ test('normalizes filename slugs while retaining punctuation and other frontmatte
     });
   }
   assert.equal(frontMatter.slug, undefined, 'Generating a slug must not mutate supplied frontmatter.');
+});
+
+test('parenthesized filenames produce URLs that match in the installed Docusaurus router', () => {
+  const require = createRequire(import.meta.url);
+  const requireFromCore = createRequire(require.resolve('@docusaurus/core/package.json'));
+  const {matchPath} = requireFromCore('react-router');
+  const root = path.resolve('/tmp/library');
+  for (const name of ['Model-based Systems Engineering (MBSE)', 'Notes (Part (1))']) {
+    const {slug} = documentFrontMatter(path.join(root, 'Course', `${name}.md`), root, {});
+    assert.equal(typeof slug, 'string');
+    const route = `/tech-lib/Course/${slug}/`;
+    assert.ok(matchPath(route, {path: route, exact: true}),
+      `The generated URL must render its document instead of Page Not Found: ${route}`);
+    assert.doesNotMatch(route, /[()]/,
+      'Generated filename URLs must not contain route-pattern parentheses.');
+  }
 });
 
 test('preserves explicit slugs and the existing homepage override', () => {

@@ -176,8 +176,11 @@ checking URLs, assets, and navigation, including attributes with optional quotes
   and each run of whitespace becomes `-`. For example,
   `pluralsight/ansible/Getting Started with Ansible.md` publishes at
   `/tech-lib/pluralsight/ansible/getting-started-with-ansible/`.
-  Directory spelling, punctuation, document IDs, source filenames, and displayed
-  titles remain unchanged. Existing Markdown links resolve to the new URLs.
+  Parentheses are omitted from generated filename URLs because the router
+  interprets them as route patterns. For example, `Model-based Systems Engineering
+  (MBSE).md` uses the filename segment `model-based-systems-engineering-mbse`.
+  Directory spelling, other punctuation, document IDs, source filenames, and
+  displayed titles remain unchanged. Existing Markdown links resolve to the new URLs.
 - Nested `README`, `index`, and folder-matching filenames keep their directory
   URLs (matching is case-insensitive). Explicit `slug` frontmatter keeps its usual
   Docusaurus behavior, except the root `README.md` always remains the homepage.

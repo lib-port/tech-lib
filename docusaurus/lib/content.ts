@@ -124,5 +124,8 @@ export function documentFrontMatter(filePath: string, repositoryRoot: string, fr
     return frontMatter;
   }
   // A relative slug changes only the filename segment, preserving directory paths and IDs.
-  return {...frontMatter, slug: name.trim().toLowerCase().replace(/\s+/g, '-')};
+  // React Router interprets literal parentheses as path patterns, not filename characters.
+  const slug = name.trim().toLowerCase().replace(/\s+/g, '-')
+    .replace(/[()]/g, '');
+  return {...frontMatter, slug};
 }

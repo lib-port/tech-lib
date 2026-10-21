@@ -196,6 +196,24 @@ assert.equal(punctuationDoc?.permalink.replace(/\/?$/, '/'),
   `${baseUrl}IBM/IBM-DSE/python-for-data-science,-ai-&-development/`,
   'Normalization must retain uppercase folder paths and filename punctuation.');
 
+const mbseSource = 'codecademy/ASEPSE/system-architect/Model-based Systems Engineering (MBSE).md';
+const mbse = documents.find((doc, index) => sourceFiles[index] === mbseSource);
+assert.ok(mbse, 'The MBSE document must be published.');
+const mbseUrl = `${baseUrl}codecademy/ASEPSE/system-architect/model-based-systems-engineering-mbse/`;
+assert.equal(mbse.permalink.replace(/\/?$/, '/'), mbseUrl,
+  'Parentheses must be omitted from generated filename URLs for literal route matching.');
+const mbseHtml = readBuiltHtml(builtFile(mbseUrl));
+assert.ok(mbseHtml.includes('<h1>Modern Systems Engineering: Model-based Systems Engineering (MBSE)</h1>'),
+  'The parenthesized filename URL must render the MBSE article rather than Page Not Found.');
+const systemsEngineeringReadme = documents.find((doc, index) => sourceFiles[index] === 'codecademy/ASEPSE/README.md');
+assert.ok(systemsEngineeringReadme);
+const systemsEngineeringHtml = readBuiltHtml(builtFile(systemsEngineeringReadme.permalink));
+const systemsEngineeringArticle = systemsEngineeringHtml.match(/<article\b[^>]*>[\s\S]*?<\/article>/)?.[0] ?? '';
+assert.ok(linkTo(systemsEngineeringArticle, mbseUrl),
+  'The existing Markdown source link must resolve to the working MBSE URL.');
+assert.ok(linkTo(elementWithClass(mbseHtml, 'aside', 'theme-doc-sidebar-container') ?? '', mbseUrl),
+  'Sidebar links must use the working MBSE URL.');
+
 const formattedProject = documents.find((doc, index) => sourceFiles[index]
   === 'IBM/IBM-CySA/projects/Cybersecurity Architecture Final Project.md');
 assert.ok(formattedProject, 'The formatted cybersecurity architecture project must be published.');
