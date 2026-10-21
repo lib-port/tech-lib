@@ -53,6 +53,6 @@ These notes cover Codecademy's 52-hour, self-paced, [Associate Systems Engineer 
 - [Systems Engineering Culture: Leadership & Financial Management](principal-systems-engineer/Leadership%20&%20Financial%20Management.md)
 - [Systems Engineering Culture: Continuous Improvement & Emerging Trends](principal-systems-engineer/Continuous%20Improvement%20&%20Emerging%20Trends.md)
 - [Systems Engineering Culture: Cybersecurity](principal-systems-engineer/Cybersecurity.md)
-- Systems Engineering Culture: Aerospace & Defense Industries
-- Systems Engineering Culture: Enhancing Patient Safety & Delivery Processes
-- Systems Engineering Culture: Automotive & Smart City Integration
+- [Systems Engineering Culture: Aerospace & Defense Industries](principal-systems-engineer/Aerospace%20&%20Defense%20Industries.md)
+- [Systems Engineering Culture: Enhancing Patient Safety & Delivery Processes](principal-systems-engineer/Enhancing%20Patient%20Safety%20&%20Delivery%20Processes.md)
+- [Systems Engineering Culture: Automotive & Smart City Integration](principal-systems-engineer/Automotive%20&%20Smart%20City%20Integration.md)

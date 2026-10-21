@@ -26,6 +26,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 - Ansible: Up and Running, 3rd edition, by Bas Meijer, Lorin Hochstein, and René Moser. ([catalogue](https://www.oreilly.com/library/view/ansible-up-and/9781098109141/))
 - Podman in Action, by Daniel Walsh. ([catalogue](https://www.manning.com/books/podman-in-action))
 - Observability Engineering, 2nd edition, by Charity Majors, Liz Fong-Jones, and George Miranda. ([catalogue](https://www.oreilly.com/library/view/observability-engineering-2nd/9781098179915/)) :anchor:
+- Computer Networks, 6th edition, by Andrew Tanenbaum and David Wetherall
 ---
 ## Data and AI Engineering
 
@@ -73,7 +74,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 
 ### Course Notes and Projects
 
-- :construction: [Associate Systems Engineer to Principal Systems Engineer](codecademy/ASEPSE/README.md) ([course](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey))
+- :notebook: [Associate Systems Engineer to Principal Systems Engineer](codecademy/ASEPSE/README.md) ([course](https://www.codecademy.com/learn/ext-paths/systems-engineering-journey))
 - Microservices Architecture ([course](https://www.pluralsight.com/paths/microservices-architecture-new))
 - IBM Systems and Solutions Architect Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-systems-and-solutions-architect))
 
