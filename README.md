@@ -78,7 +78,7 @@ Notes and projects covering software engineering, business analysis, systems eng
 - Microservices Architecture ([course](https://www.pluralsight.com/paths/microservices-architecture-new))
 - IBM Systems and Solutions Architect Professional Certificate ([course](https://www.coursera.org/professional-certificates/ibm-systems-and-solutions-architect))
 
-### Books Notes
+### Book Notes
 
 #### Systems Engineering
 

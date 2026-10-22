@@ -256,7 +256,11 @@ test('serve and preview forward arguments without invoking a dependency installe
     const served = await runCommand(process.execPath, [path.join(scripts, 'site.ts'), 'serve', '--port', '4174'], options);
     assert.deepEqual(JSON.parse(served.stdout), ['serve', '--port', '4174']);
     const previewed = await runCommand('bash', [path.join(directory, 'preview.sh'), '--port', '4175'], options);
-    assert.deepEqual(JSON.parse(previewed.stdout), ['start', '--port', '4175']);
+    assert.deepEqual(JSON.parse(previewed.stdout), ['start', '--poll', '1000', '--port', '4175']);
+    for (const args of [['--poll', '250'], ['--poll=500'], ['--poll', 'false']]) {
+      const custom = await runCommand('bash', [path.join(directory, 'preview.sh'), ...args, '--no-open'], options);
+      assert.deepEqual(JSON.parse(custom.stdout), ['start', ...args, '--no-open']);
+    }
   } finally {
     await rm(directory, {recursive: true, force: true});
   }

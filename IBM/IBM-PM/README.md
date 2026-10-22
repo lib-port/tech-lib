@@ -7,7 +7,7 @@ This course is a 3-month, self-paced programme that reinforces foundational skil
 ## Notes and Projects
 
 - [Product Management: An Introduction](Product%20Management%20An%20Introduction.md) ( :package: [Project](projects/Product%20Management%20An%20Introduction%20Final%20Project.md) )
-- Product Management: Foundations & Stakeholder Collaboration
+- [Product Management: Foundations & Stakeholder Collaboration](Product%20Management%20Foundations%20&%20Stakeholder%20Collaboration.md)
 - Product Owner: Communications & Stakeholder Management
 - Product Management: Initial Product Strategy and Plan
 - Product Owner: Essential Skills and Tools for Innovation

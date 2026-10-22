@@ -85,7 +85,9 @@ export function createSidebar(documents: readonly SourceDocument[], orders: Cour
       const rest = doc.file.slice(prefix.length);
       if (rest.includes('/')) directories.add(prefix + rest.split('/')[0]);
       else if (directory === '.' || !/^README\.(md|mdx)$/i.test(rest)) {
-        direct.push({file: doc.file, item: {type: 'doc', id: doc.id}});
+        direct.push({file: doc.file, item: {
+          type: 'doc', id: doc.id, label: rest.replace(/\.mdx?$/i, ''),
+        }});
       }
     }
     for (const child of directories) {
@@ -116,9 +118,15 @@ export function documentFrontMatter(filePath: string, repositoryRoot: string, fr
   if (source === 'README.md') {
     return {...frontMatter, slug: '/', sidebar_label: 'Home'};
   }
-  if (frontMatter.slug !== undefined) return frontMatter;
 
   const {name, dir} = path.parse(source);
+  if (name.toLowerCase() !== 'readme'
+    && frontMatter.sidebar_label == null && frontMatter.pagination_label == null) {
+    // Explicit Previous/Next targets also need the filename, without a sidebar item.
+    frontMatter = {...frontMatter, pagination_label: name};
+  }
+  if (frontMatter.slug !== undefined) return frontMatter;
+
   // Leave Docusaurus category indexes at their existing directory URLs.
   if (['readme', 'index', path.basename(dir).toLowerCase()].includes(name.toLowerCase())) {
     return frontMatter;

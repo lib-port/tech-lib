@@ -1,4 +1,4 @@
-# Variables, Facts, Vault, and Registered Results on RHEL 10
+# Working with Variables and Facts
 
 Red Hat Enterprise Linux 10 provides `ansible-core` 2.16 for supported management of RHEL 9 and RHEL 10 nodes. Variables separate reusable automation from host-specific data. Facts describe managed hosts, magic variables expose Ansible's internal context, Vault protects sensitive values at rest, and registered results carry task outcomes to later tasks.
 

@@ -65,6 +65,7 @@ assert.equal(generatedIndexes.length, foldersWithoutReadme.size,
 const publishedRoutes = [...documents.map(doc => doc.permalink), ...generatedIndexes.map(index => index.path)];
 assert.equal(new Set(publishedRoutes.map(route => decodeURIComponent(route).replace(/\/$/, ''))).size,
   publishedRoutes.length, 'Documents and generated indexes must have unique routes.');
+const documentsByPermalink = new Map(documents.map(doc => [doc.permalink, doc]));
 const documentBreadcrumbs: string[] = [];
 
 for (const [index, doc] of documents.entries()) {
@@ -88,6 +89,32 @@ for (const [index, doc] of documents.entries()) {
       `The active breadcrumb must use the source filename without its extension: ${source}`);
     assert.equal(breadcrumbStructuredData(html)?.itemListElement?.at(-1)?.name, expectedLabel,
       `Breadcrumb structured data must use the same filename label: ${source}`);
+    const sidebar = elementWithClass(html, 'aside', 'theme-doc-sidebar-container');
+    const sidebarLink = linkTo(sidebar ?? '', doc.permalink);
+    assert.ok(sidebarLink, `Missing sidebar link for ${source}`);
+    assert.equal(textContent(parse(sidebarLink)), doc.frontMatter.sidebar_label ?? expectedLabel,
+      `Sidebar links must use the filename unless sidebar_label overrides it: ${source}`);
+    assert.doesNotMatch(sidebarLink, /<(?:em|strong|code|del)\b/,
+      `Sidebar file labels must render as plain text: ${source}`);
+  }
+  for (const direction of ['previous', 'next'] as const) {
+    const navigation = doc[direction];
+    const destination = navigation && documentsByPermalink.get(navigation.permalink);
+    if (!navigation || !destination) continue;
+    const destinationFilename = path.posix.basename(destination.source);
+    if (/^README\.mdx?$/i.test(destinationFilename)) continue;
+    const expectedLabel = destination.frontMatter.pagination_label
+      ?? destination.frontMatter.sidebar_label ?? destinationFilename.replace(/\.mdx?$/i, '');
+    assert.equal(navigation.title, expectedLabel,
+      `The ${direction} metadata must use the destination filename or custom label: ${source}`);
+    const paginator = elementWithClass(html, 'nav', 'pagination-nav');
+    const paginatorLink = linkTo(paginator ?? '', navigation.permalink);
+    const label = elementWithClass(paginatorLink ?? '', 'div', 'pagination-nav__label');
+    assert.ok(label, `Missing ${direction} label in ${source}`);
+    assert.equal(textContent(parse(label)), expectedLabel,
+      `The ${direction} link must use the destination filename or custom label: ${source}`);
+    assert.doesNotMatch(label, /<(?:em|strong|code|del)\b/,
+      `The ${direction} file label must render as plain text: ${source}`);
   }
   const faviconLinks = [...html.matchAll(/<link\b[^>]*\brel="icon"[^>]*>/g)].map(([tag]) => tag);
   assert.equal(faviconLinks.length, 1, `Expected one favicon in ${doc.permalink}`);
@@ -159,7 +186,7 @@ function elementWithClass(html: string, tag: string, className: string) {
 
 function linkTo(html: string, permalink: string) {
   return [...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)]
-    .find(match => match[1].match(/\bhref="([^"]*)"/)?.[1].replace(/\/$/, '')
+    .find(match => match[1].match(/\bhref="([^"]*)"/)?.[1].replaceAll('&amp;', '&').replace(/\/$/, '')
       === permalink.replace(/\/$/, ''))?.[0];
 }
 
@@ -224,8 +251,8 @@ assert.equal(formattedProject.title, plainProjectTitle, 'Inherited metadata titl
 assert.ok(projectHtml.includes(`<h1>${richProjectTitle}</h1>`), 'The article H1 must preserve its original formatting.');
 const sidebarHtml = elementWithClass(projectHtml, 'aside', 'theme-doc-sidebar-container');
 assert.ok(sidebarHtml, 'The project should have a document sidebar.');
-assert.ok(linkTo(sidebarHtml, formattedProject.permalink)?.includes(richProjectTitle),
-  'The project sidebar label should render inherited emphasis.');
+assert.equal(textContent(parse(linkTo(sidebarHtml, formattedProject.permalink) ?? '')), plainProjectTitle,
+  'The project sidebar label must use the plain filename.');
 const breadcrumbHtml = elementWithClass(projectHtml, 'nav', 'theme-doc-breadcrumbs');
 assert.ok(breadcrumbHtml?.includes(`>${plainProjectTitle}</span>`),
   'The active breadcrumb must render the filename as plain text.');
@@ -241,8 +268,12 @@ for (const [direction, modifier, subLabel] of [['previous', 'prev', 'Previous'],
   const paginatorHtml = elementWithClass(referringHtml, 'nav', 'pagination-nav');
   const paginatorLink = linkTo(paginatorHtml ?? '', formattedProject.permalink);
   assert.ok(paginatorLink);
-  assert.ok(paginatorLink?.includes(richProjectTitle),
-    `The ${direction} paginator should render inherited emphasis in the destination title.`);
+  const paginatorLabel = elementWithClass(paginatorLink, 'div', 'pagination-nav__label');
+  assert.ok(paginatorLabel);
+  assert.equal(textContent(parse(paginatorLabel)), plainProjectTitle,
+    `The ${direction} paginator must use the filename as plain text.`);
+  assert.doesNotMatch(paginatorLabel, /<(?:em|strong|code|del)\b/,
+    `The ${direction} paginator must not inherit H1 formatting.`);
   assert.ok(elementWithClass(paginatorLink, 'a', `pagination-nav__link--${modifier}`),
     `The ${direction} paginator must retain its native direction class.`);
   assert.ok(elementWithClass(paginatorLink, 'div', 'pagination-nav__sublabel')?.includes(`>${subLabel}<`),
@@ -283,4 +314,4 @@ for (const filename of ['package-lock.json', 'npm-shrinkwrap.json', 'pnpm-lock.y
   assert.ok(!existsSync(path.join(siteDir, filename)), `Project lockfiles are disabled: ${filename}`);
 }
 assert.ok(!walk(buildDir).some(file => /search[-_]index/i.test(path.basename(file))), 'No search index should be generated.');
-console.log(`Verified ${documents.length} documents and ${generatedIndexes.length} generated folder indexes, unique routes, default category navigation and cards, normalized filename URLs, preserved IDs, filename breadcrumb labels, inherited sidebar and paginator title formatting, plain metadata, literal folder labels, homepage, internal targets, assets, raw spreadsheet download link without bundling, and disabled search/lockfiles.`);
+console.log(`Verified ${documents.length} documents and ${generatedIndexes.length} generated folder indexes, unique routes, default category navigation and cards, normalized filename URLs, preserved IDs, filename sidebar, breadcrumb, and paginator labels, plain metadata, literal folder labels, homepage, internal targets, assets, raw spreadsheet download link without bundling, and disabled search/lockfiles.`);

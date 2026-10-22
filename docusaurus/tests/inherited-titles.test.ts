@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {createInheritedTitleData, inheritTitle} from '../lib/inherited-titles.ts';
+import {createSidebar, documentFrontMatter} from '../lib/content.ts';
 import inheritedTitlesPlugin from '../plugins/inherited-titles.ts';
 import type {InlineElement, InlineTitleNode, TitleDocument, TitleVersion} from '../lib/title-types.ts';
 
@@ -114,6 +115,26 @@ test('both pagination directions preserve explicit labels even when they equal i
       [explicit.permalink]: {[direction]: readmeOnly.frontMatter._inheritedTitle},
     });
     assert.deepEqual(versions, originalMetadata, 'Formatting data must not change native document metadata.');
+  }
+});
+
+test('generated filenames stay plain in both pagination directions, including explicit targets', () => {
+  const root = '/tmp/library';
+  const target = doc('course/Filename', {}, '# *Actual* heading');
+  target.frontMatter = documentFrontMatter(`${root}/course/Filename.md`, root, target.frontMatter);
+  const sidebarOverride = doc('course/sidebar', {sidebar_label: 'sidebar'});
+  const paginationOverride = doc('course/pagination', {pagination_label: 'pagination'});
+  const targets = [target, sidebarOverride, paginationOverride];
+  for (const direction of ['previous', 'next'] as const) {
+    const sources = targets.map(destination => ({...doc(`source-${destination.id}`), [direction]: nav(destination)}));
+    sources.push({...doc('explicit-target', {[`pagination_${direction === 'previous' ? 'prev' : 'next'}`]: target.id}), [direction]: nav(target)});
+    const docs = [...targets, ...sources];
+    const sidebars = {library: createSidebar(docs.map(item => ({id: item.id, file: `${item.id}.md`})), new Map())};
+    const data = createInheritedTitleData([{docs, sidebars}]);
+    assert.deepEqual(data.sidebar, {}, 'Explicit filename labels must render as plain strings.');
+    assert.deepEqual(data.pagination, {}, 'Filename and custom pagination labels must not inherit H1 formatting.');
+    assert.equal(sources[0][direction]?.title, 'Filename');
+    assert.equal(sources.at(-1)?.[direction]?.title, 'Filename');
   }
 });
 

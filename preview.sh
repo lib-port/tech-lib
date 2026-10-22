@@ -19,5 +19,17 @@ if [[ ! -x "$site_dir/node_modules/.bin/docusaurus" ]]; then
   exit 1
 fi
 
+# The docs plugin watches from the repository root, including category metadata.
+# Polling avoids exhausting native file watchers in large dependency trees.
+has_poll_option=false
+for arg in "$@"; do
+  case "$arg" in
+    --poll|--poll=*) has_poll_option=true; break ;;
+  esac
+done
+if [[ "$has_poll_option" == false ]]; then
+  set -- --poll 1000 "$@"
+fi
+
 cd "$site_dir"
 exec "$site_dir/node_modules/.bin/docusaurus" start "$@"

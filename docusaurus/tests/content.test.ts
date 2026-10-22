@@ -5,10 +5,12 @@ import {createRequire} from 'node:module';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import {toSidebarDocItemLinkProp} from '@docusaurus/plugin-content-docs/lib/props.js';
 import {
   createSidebar, discoverDocuments, documentFrontMatter, isDocument, localMarkdownLinks,
   orderForDirectory,
 } from '../lib/content.ts';
+import {inheritTitle} from '../lib/inherited-titles.ts';
 
 test('discovers new and tracked Markdown, excluding generated, ignored, and site files', t => {
   const root = mkdtempSync(path.join(os.tmpdir(), 'tech-lib-content-'));
@@ -99,7 +101,7 @@ test('parenthesized filenames produce URLs that match in the installed Docusauru
 test('preserves explicit slugs and the existing homepage override', () => {
   const root = path.resolve('/tmp/library');
   for (const slug of ['/Custom/Path', 'Custom-Relative', '/']) {
-    const frontMatter = {slug, title: 'Custom title'};
+    const frontMatter = {slug, title: 'Custom title', pagination_label: 'Navigation title'};
     for (const file of ['Course/My Note.md', 'Course/README.md', 'Course/index.mdx']) {
       assert.equal(documentFrontMatter(path.join(root, file), root, frontMatter), frontMatter);
     }
@@ -111,7 +113,7 @@ test('preserves explicit slugs and the existing homepage override', () => {
 
 test('leaves README, index, and folder-matching category routes to Docusaurus', () => {
   const root = path.resolve('/tmp/library');
-  const frontMatter = {description: 'Category introduction'};
+  const frontMatter = {description: 'Category introduction', pagination_label: 'Navigation title'};
   for (const file of [
     'Course/README.md', 'Course/rEaDmE.mdx', 'Course/INDEX.MD',
     'Course/index.mdx', 'Course/cOuRsE.md', 'My Course/my course.mdx', 'index.md',
@@ -121,6 +123,57 @@ test('leaves README, index, and folder-matching category routes to Docusaurus', 
   assert.deepEqual(documentFrontMatter(path.join(root, 'Course/Part/Course.md'), root, frontMatter), {
     ...frontMatter, slug: 'course',
   });
+});
+
+test('pagination uses filenames despite headings, explicit titles, custom routes, and IDs', () => {
+  const root = path.resolve('/tmp/library');
+  for (const [frontMatter, content] of [
+    [{}, '# **Actual** heading'],
+    [{title: 'Explicit title'}, '# Different heading'],
+    [{slug: '/custom'}, '# Actual heading'],
+    [{id: 'custom-id'}, 'No heading'],
+    [{}, 'No heading'],
+    [{title: ''}, 'No heading'],
+  ] as const) {
+    const inherited = inheritTitle(content, frontMatter);
+    const result = documentFrontMatter(path.join(root, 'course/My_Note (Part 1).mdx'), root, inherited);
+    assert.equal(result.pagination_label, 'My_Note (Part 1)');
+    assert.equal(inherited.pagination_label, undefined, 'Derived navigation labels must not mutate source metadata.');
+  }
+  for (const frontMatter of [
+    {title: 'Heading', sidebar_label: 'Custom sidebar'},
+    {title: 'Heading', pagination_label: 'Custom pagination'},
+  ]) {
+    const result = documentFrontMatter(path.join(root, 'course/My Note.md'), root, frontMatter);
+    assert.equal(result.pagination_label, frontMatter.pagination_label);
+  }
+});
+
+test('sidebar and pagination labels use the exact filename without its Markdown extension', () => {
+  const files = ['My_Note (Part 1), v2.0.MD', '  Mixed CASE & tools  .mDx'];
+  const documents = files.map((file, index) => ({file: `course/${file}`, id: `custom-id-${index}`}));
+  const sidebar = createSidebar(documents, new Map([['course', documents.map(doc => doc.file)]]));
+  assert.ok(sidebar[0].type === 'category');
+  assert.deepEqual(sidebar[0].items.map(item => {
+    assert.ok(item.type === 'doc');
+    return item.label;
+  }), ['My_Note (Part 1), v2.0', '  Mixed CASE & tools  ']);
+  for (const file of files) {
+    assert.equal(documentFrontMatter(`/tmp/library/course/${file}`, '/tmp/library', {}).pagination_label,
+      file.replace(/\.mdx?$/i, ''));
+  }
+});
+
+test('Docusaurus applies custom sidebar labels ahead of generated filenames and document titles', () => {
+  const sidebar = createSidebar([{file: 'My_Note.md', id: 'custom-id'}], new Map());
+  const item = sidebar[0];
+  assert.ok(item.type === 'doc');
+  for (const [frontMatter, expected] of [[{}, 'My_Note'], [{sidebar_label: 'Custom label'}, 'Custom label']] as const) {
+    const link = toSidebarDocItemLinkProp({item, doc: {
+      id: 'custom-id', title: 'Different heading', permalink: '/tech-lib/my-note/', frontMatter, unlisted: false,
+    }});
+    assert.equal(link.label, expected);
+  }
 });
 
 test('sidebar uses README or generated indexes and inherited course order with numeric fallback', () => {

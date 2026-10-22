@@ -22,10 +22,13 @@ running the preview.
 
 For a quick live preview using already installed dependencies, run `./preview.sh`
 from the repository root. It opens <http://localhost:3000/tech-lib/> in your browser
-and reflects edits while the server runs. Press Ctrl+C to stop it. Pass Docusaurus
-start options through the script, for example `./preview.sh --port 3001` or
-`./preview.sh --poll` if file changes are not detected. The script does not
-install or update dependencies. On a fresh checkout, run `pnpm start` below once
+and reflects edits while the server runs. It polls for changes every second to
+avoid Linux `ENOSPC` file-watcher limits when watching the repository root.
+Press Ctrl+C to stop it. Pass Docusaurus start options through the script, for
+example `./preview.sh --port 3001`, `./preview.sh --poll 500` for a different
+polling interval, or `./preview.sh --poll false` to use native file watching.
+The script does not install or update dependencies. On a fresh checkout, run
+`pnpm start` below once
 to install them, then stop that server before using `./preview.sh`.
 
 Run these commands from `docusaurus/`:
@@ -188,10 +191,16 @@ checking URLs, assets, and navigation, including attributes with optional quotes
   redirects; update external links and bookmarks to the normalized URLs.
 - The sidebar follows local Markdown link order in the nearest course README.
   Documents not listed there follow natural numeric order.
-- Folder labels preserve directory names. Document titles inherited from the
-  leading H1 retain inline Markdown formatting in sidebar and paginator labels,
-  with plain text used for browser titles and metadata. Explicit title and
-  navigation labels keep their normal Docusaurus precedence there.
+- Folder labels preserve directory names. Individual sidebar links use the
+  source filename without its `.md` or `.mdx` extension as plain text, preserving
+  spaces, capitalization, underscores, and punctuation. Explicit `sidebar_label`
+  frontmatter overrides this default. Home retains its Home label.
+- Sidebar filenames are supplied through Docusaurus's built-in item `label`.
+  Previous/Next links use the same plain filenames through generated
+  `pagination_label` metadata, including explicitly configured navigation targets.
+  Explicit `pagination_label` frontmatter takes precedence, followed by a custom
+  `sidebar_label`. Browser titles and metadata use the plain document title;
+  Markdown source files need no new frontmatter.
 - Document breadcrumbs use the source filename without its `.md` or `.mdx`
   extension, preserving spaces, capitalization, underscores, and punctuation.
   The same labels appear in breadcrumb structured data, even when explicit
@@ -240,7 +249,7 @@ them whenever dependency updates change Docusaurus. Follow the official
    and update the recorded version after reviewing the customizations.
 2. Run `pnpm test`, `pnpm run build`, and `pnpm run check`. Confirm the version logged
    by the build is the version reviewed, since builds refresh dependencies.
-3. Check formatted sidebar labels, filename breadcrumbs, generated category pages,
+3. Check filename sidebar labels and breadcrumbs, generated category pages,
    and both paginator directions after a page reload and client-side navigation.
    Check explicit labels, home links, category navigation and expand/collapse
    controls, long labels in desktop and mobile menus, and both color themes.
