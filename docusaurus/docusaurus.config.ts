@@ -90,7 +90,6 @@ const config: Config = {
         srcDark: 'img/logo-dark.svg',
       },
       items: [
-        {to: '/', label: 'Home', position: 'left', activeBaseRegex: homepageActiveRegex(baseUrl)},
         {
           href: 'https://github.com/lib-port/tech-lib',
           target: '_self',
